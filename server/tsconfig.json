@@ -3,7 +3,6 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "lib": ["esnext"],
-    "rootDir": "src",
     "strict": true,
     "declaration": true,
     "removeComments": true,

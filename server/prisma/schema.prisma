@@ -8,7 +8,6 @@ datasource db {
 }
 
 enum Role {
-  owner
   admin
   member
 }
@@ -24,7 +23,6 @@ model User {
   email        String    @unique
   password     String?   @db.VarChar(255)
   name         String?   @db.VarChar(255)
-  thumbURL     String?   @db.VarChar(1024)
   verified     Boolean?  @default(false)
   role         Role      @default(member)
   lastSignedIn DateTime?
@@ -33,8 +31,8 @@ model User {
   deletedAt    DateTime?
 
   posts        Post[]
-  follower     Follower[]
-  following    Following[]
+  follower     Follower[]     @relation("follower")
+  followed     Follower[]     @relation("followed")
   profile      Profile?
   Notification Notification[]
   blockedUsers BlockedUser[]
@@ -78,11 +76,11 @@ model Token {
 }
 
 model Profile {
-  id    Int     @id @default(autoincrement())
-  about String?
-
-  userId String @unique
-  User   User   @relation(fields: [userId], references: [id])
+  id       Int     @id @default(autoincrement())
+  about    String?
+  thumbURL String? @db.VarChar(1024)
+  userId   String  @unique
+  User     User    @relation(fields: [userId], references: [id])
 }
 
 model Notification {
@@ -123,32 +121,23 @@ model Report {
 }
 
 model Follower {
-  id        String    @id @default(cuid())
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @default(now()) @updatedAt
-  deletedAt DateTime?
+  id         String   @id @default(cuid())
+  followerId String
+  followedId String
+  createAt   DateTime @default(now())
+  follower   User     @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followed   User     @relation("followed", fields: [followedId], references: [id], onDelete: Cascade)
 
-  followerId String?
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-}
-
-model Following {
-  id        String    @id @default(cuid())
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @default(now()) @updatedAt
-  deletedAt DateTime?
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  @@map("followers")
 }
 
 model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean? @default(false)
+  id         String   @id @default(cuid())
+  title      String
+  body       String?
+  thumbnail  String?
+  views      Int      @default(0)
+  is_private Boolean? @default(true)
 
   likes   Like[]
   Comment Comment[]
