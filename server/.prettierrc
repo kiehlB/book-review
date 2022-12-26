@@ -1,4 +1,13 @@
 {
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "printWidth": 90,
+  "semi": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false,
   "singleQuote": true,
-  "trailingComma": "all"
+  "proseWrap": "always",
+  "arrowParens": "avoid",
+  "parser": "typescript"
 }
