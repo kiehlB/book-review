@@ -4,16 +4,17 @@ import clsx from 'clsx';
 interface GridProps {
   children: React.ReactNode;
   className?: string;
+  as?: React.ElementType;
 }
 
 const PageGrid = React.forwardRef<HTMLElement, GridProps>(function Grid(
-  { children, className },
+  { children, className, as: Tag = 'div' },
   ref,
 ) {
   return (
-    <div className={clsx('grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto', className)}>
+    <Tag className={clsx('grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto', className)}>
       {children}
-    </div>
+    </Tag>
   );
 });
 
