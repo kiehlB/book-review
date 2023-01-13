@@ -10,7 +10,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarProps) => (
-  <nav className={clsx('border', className)}>
+  <nav className={clsx('border rounded-lg', className)}>
     <ul>
       {primaryItems.map(itemProps => (
         <li key={itemProps.text}>
@@ -21,11 +21,12 @@ const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarP
 
     <div className="border"></div>
     <ul>
-      {secondaryItems.map(itemProps => (
+      <div>hello</div>
+      {/* {secondaryItems.map(itemProps => (
         <li key={itemProps.text}>
           <NavbarItem {...itemProps} />
         </li>
-      ))}
+      ))} */}
     </ul>
   </nav>
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTrail, animated } from 'react-spring';
+import { useTrail, animated } from '@react-spring/web';
 
 interface ListTrailProps {
   length: number;

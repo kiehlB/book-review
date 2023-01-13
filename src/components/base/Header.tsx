@@ -48,7 +48,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 
 function Header() {
   return (
-    <PageGrid as="nav" className={`${roboto.className} items-center py-[1rem]`}>
+    <PageGrid as="nav" className={`${roboto.className} items-center py-[1rem] px-[1rem]`}>
       <h1
         className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none`}>
         Books
