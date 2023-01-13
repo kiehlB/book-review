@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.4",
     "@next/font": "^13.1.1",
+    "@nextui-org/react": "^1.0.0-beta.12",
     "@react-spring/web": "^9.6.1",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tiptap/react": "^2.0.0-beta.209",
     "@tiptap/starter-kit": "^2.0.0-beta.209",
     "@types/node": "18.11.18",
@@ -19,9 +22,11 @@
     "add": "^2.0.6",
     "autoprefixer": "^10.4.13",
     "clsx": "^1.2.1",
+    "deepmerge": "^4.2.2",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
     "framer-motion": "^8.4.2",
+    "graphql": "^16.6.0",
     "next": "13.1.1",
     "postcss": "^8.4.20",
     "prosemirror-commands": "^1.5.0",

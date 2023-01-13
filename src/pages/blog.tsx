@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-import Link from 'next/link';
 import React, { useState } from 'react';
 import Header from '../components/base/Header';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
@@ -9,6 +7,8 @@ import { RiBookOpenLine } from 'react-icons/ri';
 import { RiDashboard3Line } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
 import HomeTab from '../components/home/HomeTab';
+import Image from 'next/image';
+import RatioImage from '../components/common/RatioImage';
 
 export default function Home() {
   return (
@@ -39,26 +39,44 @@ export default function Home() {
         </div>
         <div className="col-span-8">
           <div className="flex justify-between">
+            <div>포스트</div>
             <HomeTab />
           </div>
+          {/* <div className="w-full h-auto">
+            <Image
+              alt="test"
+              width={500}
+              height={500}
+              style={{ aspectRatio: 1200 / 630 }}
+              src="/test.jpg"
+              className="relative"
+            />
+          </div> */}
+
           <PostGrid className="pt-[60px]">
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
-            <div className="col-span-2 border h-[20rem]">ㅇㅇ</div>
+            <div className="col-span-2 h-[20rem] mxl:col-span-4">
+              <div className="w-full">
+                <RatioImage
+                  alt="test"
+                  widthRatio={1.916}
+                  heightRatio={1.2}
+                  src="/test.jpg"
+                  className="relative"
+                />
+                <div>텍스트</div>
+              </div>
+            </div>{' '}
+            <div className="col-span-2 h-[20rem] mxl:col-span-4">
+              <div className="w-full">
+                <RatioImage
+                  alt="test"
+                  widthRatio={1.916}
+                  heightRatio={1.2}
+                  src="/test.jpg"
+                  className="relative"
+                />
+              </div>
+            </div>
           </PostGrid>
         </div>
       </PageGrid>
