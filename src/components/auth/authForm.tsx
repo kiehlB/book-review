@@ -4,6 +4,9 @@ import { ApolloError } from '@apollo/client';
 import LabelInput from '../common/LabelInput';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { Input } from '@nextui-org/react';
+import Google from '../../svg/google';
+import FaceBook from '../../svg/facebook';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -11,13 +14,13 @@ export interface inputProps {
 }
 
 export interface AuthFormProps {
-  inputs: inputProps;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  authError: ApolloError;
-  auth: string;
-  isRegister: string;
-  linkTo: string;
+  inputs?: any;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  authError?: ApolloError;
+  auth?: string;
+  isRegister?: string;
+  linkTo?: string;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -29,27 +32,30 @@ const AuthForm: React.FC<AuthFormProps> = ({
 }) => {
   return (
     <>
-      <form className="mt-8 px-1" onSubmit={handleSubmit}>
+      <form className="px-[6.46875rem] py-[1.5rem]" onSubmit={handleSubmit}>
         <div className="flex items-center">
           <LabelInput
             name="email"
             onChange={handleChange}
             label="Email"
-            value={inputs?.email}
-            className="form__input"
+            className="w-full"
             type="email"
             id="email"
+            value={inputs?.email}
+            placeholder="Email"
           />
         </div>
         <div className="flex items-center mt-8">
-          <LabelInput
+          <Input.Password
             name="password"
             onChange={handleChange}
             label="Password"
             value={inputs?.password}
-            className="form__input"
+            className="w-full"
             type="password"
             id="password"
+            labelPlaceholder="Password"
+            width="100%"
           />
         </div>
         <motion.button
@@ -59,10 +65,91 @@ const AuthForm: React.FC<AuthFormProps> = ({
           {auth}
         </motion.button>
       </form>
+
       <div className="flex mt-4 items-center justify-between px-1">
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
         <div className="text-[#707a8a] font-Roboto">Or</div>
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
+      </div>
+
+      <div className="flex justify-between w-[50%] mx-auto pt-3">
+        <Google />
+        <FaceBook />
+      </div>
+      <div className="shelf mt-auto">
+        <div className="shelf">
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+        </div>
       </div>
     </>
   );

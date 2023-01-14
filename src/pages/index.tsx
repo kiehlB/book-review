@@ -7,18 +7,12 @@ import { RiBookOpenLine } from 'react-icons/ri';
 import { RiDashboard3Line } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
 import HomeTab from '../components/home/HomeTab';
-import Image from 'next/image';
 import RatioImage from '../components/common/RatioImage';
-import Modal from '../components/common/Modal';
-import AuthForm from '../components/auth/authForm';
 
 export default function Home() {
   return (
     <>
-      <Modal />
-
       <Header />
-
       <PageGrid as="main" className="pt-[24px]">
         <div className="col-span-2">
           <Navbar

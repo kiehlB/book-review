@@ -58,7 +58,7 @@ function Header() {
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
             <IoSearchOutline />
           </div>
-          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem] outline-[#3466f6] outline-offset-2 text-sm" />
+          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm  focus:outline-[#3466f6]" />
         </div>
       </div>
       <div className="flex col-span-2 ml-auto items-center">

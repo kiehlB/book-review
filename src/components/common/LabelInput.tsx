@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MdLockOutline } from 'react-icons/md';
+import { Input } from '@nextui-org/react';
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -7,7 +7,7 @@ type InputProps = React.DetailedHTMLProps<
 >;
 
 export interface LabelInputProps extends InputProps {
-  label: string;
+  label?: string;
   placeholder?: string;
   name?: string;
   value?: string | number | readonly string[];
@@ -24,43 +24,21 @@ const LabelInput: React.FC<LabelInputProps> = ({
   value,
   placeholder,
   onChange,
-  disabled,
   className,
   type,
   id,
   ...rest
 }) => {
-  const [focus, setFocus] = useState(false);
-
-  const onFocus = useCallback(() => {
-    setFocus(true);
-  }, []);
-  const onBlur = useCallback(() => {
-    setFocus(false);
-  }, []);
-
   return (
-    <div className="form">
-      <input
-        type={type}
-        id={id}
-        className={className}
-        name={name}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        disabled={disabled}
-        placeholder=""
-        value={value}
-        onChange={onChange}
-        {...rest}
-      />
-
-      {disabled && <MdLockOutline />}
-
-      <label htmlFor={label} className="form__label text-zinc-400 font-Roboto">
-        {label}
-      </label>
-    </div>
+    <Input
+      width="100%"
+      onChange={onChange}
+      className={className}
+      name={name}
+      type={type}
+      labelPlaceholder={placeholder}
+      value={value}
+    />
   );
 };
 

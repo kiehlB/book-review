@@ -15,8 +15,6 @@ export const NavbarItem = (props: NavbarItemProps) => {
   const isSelected =
     props.to === router.pathname || router.pathname.startsWith(`${props.to}/`);
 
-  console.log(router.pathname);
-
   return (
     <Link
       className={clsx(
