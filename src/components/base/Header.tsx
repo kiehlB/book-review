@@ -18,7 +18,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
         setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
       }}
       className={clsx(
-        'border-gray-200 hover:border-gray-900 focus:border-gray-900 inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
+        'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
         {
           'w-14': variant === 'icon',
           'px-8': variant === 'labelled',
@@ -54,17 +54,23 @@ function Header() {
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
             <IoSearchOutline />
           </div>
-          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm  focus:outline-[#3466f6]" />
+          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none" />
         </div>
       </div>
       <div className="flex col-span-2 ml-auto items-center">
         <div className="pr-4">
           <DarkModeToggle />
         </div>
-        <div className="pr-4" onClick={() => SetIsClose(!IsClose)}>
-          Log in
+        <div
+          className="pr-4 text-sm text-[#181A20] font-medium"
+          onClick={() => SetIsClose(!IsClose)}>
+          Sign in
         </div>
-        <div onClick={() => SetIsClose(!IsClose)}>Sign up</div>
+        <div
+          className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
+          onClick={() => SetIsClose(!IsClose)}>
+          Sign up
+        </div>
       </div>
     </PageGrid>
   );

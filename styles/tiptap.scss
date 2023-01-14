@@ -167,23 +167,4 @@ $text-col: #111111, #eeeeee, #111111;
   }
 }
 
-@keyframes shelf-lift {
-  0% {
-    transform: translateY(0) rotate(0);
-  }
-  20% {
-    transform: translateY(-5px) rotate(2deg);
-  }
-  40% {
-    transform: translateY(-10px) rotate(0);
-  }
-  60% {
-    transform: translateY(-10px) rotate(-2deg);
-  }
-  80% {
-    transform: translateY(-5px) rotate(-1deg);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
+ 

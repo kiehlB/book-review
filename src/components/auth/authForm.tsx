@@ -47,9 +47,10 @@ const AuthForm: React.FC<AuthFormProps> = ({
         </div>
         <div className="flex items-center mt-8">
           <Input.Password
+            clearable
             name="password"
             onChange={handleChange}
-            label="Password"
+            label="password"
             value={inputs?.password}
             className="w-full"
             type="password"
@@ -58,6 +59,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
             width="100%"
           />
         </div>
+
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.8 }}

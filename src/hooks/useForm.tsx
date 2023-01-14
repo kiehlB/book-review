@@ -10,7 +10,6 @@ export default function useForms(initialForm) {
   const [state, dispatch] = useReducer(reducer, initialForm);
   const handleChange = useCallback(
     e => {
-      e.persist();
       dispatch(e.target);
     },
     [state],
