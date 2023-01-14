@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { FormEvent } from 'react';
+import { FormEvent, useContext, useState } from 'react';
+import ModalContext from '../../context/modalContext';
 import LabelInput from '../common/LabelInput';
 import Modal from '../common/Modal';
 import AuthForm from './authForm';
@@ -9,9 +10,10 @@ export type SignUpProps = {};
 
 function SignUp({}: SignUpProps) {
   const { inputs, handleChange, signUp, handleSubmit, registerError } = useRegister();
+  const { IsClose, SetIsClose } = useContext(ModalContext);
 
   return (
-    <Modal visible={true}>
+    <Modal visible={IsClose} onClose={SetIsClose}>
       <div className="flex justify-center py-3">회원가입</div>
       <AuthForm
         inputs={inputs}

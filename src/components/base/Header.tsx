@@ -7,6 +7,8 @@ import { CiLight } from 'react-icons/ci';
 
 import useDarkMode from './useDarkmode';
 import clsx from 'clsx';
+import { useContext } from 'react';
+import ModalContext from '../../context/modalContext';
 
 const myFont = localFont({ src: '../../font/Regular.otf' });
 
@@ -47,6 +49,8 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 }
 
 function Header() {
+  const { IsClose, SetIsClose } = useContext(ModalContext);
+
   return (
     <PageGrid as="nav" className={`${roboto.className} items-center py-[1rem] px-[1rem]`}>
       <h1
@@ -65,8 +69,10 @@ function Header() {
         <div className="pr-4">
           <DarkModeToggle />
         </div>
-        <div className="pr-4">Log in</div>
-        <div>Sign up</div>
+        <div className="pr-4" onClick={() => SetIsClose(!IsClose)}>
+          Log in
+        </div>
+        <div onClick={() => SetIsClose(!IsClose)}>Sign up</div>
       </div>
     </PageGrid>
   );

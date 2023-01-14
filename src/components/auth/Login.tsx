@@ -7,10 +7,6 @@ import useRegister from './hooks/useRegister';
 export type SignInProps = {};
 
 function SignIn({}: SignInProps) {
-  const { inputProps, handleSubmit, errors, setError } = useRegister({
-    mode: 'register',
-  });
-
   return (
     <Modal visible={true}>
       <AuthForm />

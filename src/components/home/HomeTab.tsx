@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { MdTrendingUp, MdAccessTime } from 'react-icons/md';
 import { useSpring, animated } from 'react-spring';
 import { useRouter } from 'next/router';
 import useToggle from '../../hooks/useToggle';
 import Link from 'next/link';
 import { AnimateSharedLayout, motion } from 'framer-motion';
+import ModalContext from '../../context/modalContext';
 
 export type HomeTabProps = {};
 

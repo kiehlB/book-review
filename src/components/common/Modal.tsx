@@ -5,12 +5,13 @@ const { useState, useEffect } = React;
 
 interface ModalProps {
   visible?: boolean;
-  onClose?: () => void;
+  onClose?: any;
   children?: any;
 }
 
 const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
   const [closed, setClosed] = useState(true);
+
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
     if (visible) {
@@ -34,7 +35,12 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
       <div className="w-[616px] h-[616px] flex shadow-md">
         <div className="flex-1 bg-[#fff] flex flex-col">
           <div className="flex justify-end  p-[1.5rem]">
-            <MdClose onClick={onClose} tabIndex={1} size={24} color="#868E96" />
+            <MdClose
+              onClick={() => onClose(!visible)}
+              tabIndex={1}
+              size={24}
+              color="#868E96"
+            />
           </div>
           <div className="flex-1 flex flex-col">{children}</div>
         </div>
