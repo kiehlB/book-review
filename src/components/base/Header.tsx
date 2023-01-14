@@ -1,5 +1,3 @@
-import { Fira_Mono } from '@next/font/google';
-import localFont from '@next/font/local';
 import { PageGrid } from '../layout/GridLayout';
 import { IoSearchOutline } from 'react-icons/io5';
 import { CiDark } from 'react-icons/ci';
@@ -9,12 +7,6 @@ import useDarkMode from './useDarkmode';
 import clsx from 'clsx';
 import { useContext } from 'react';
 import ModalContext from '../../context/modalContext';
-
-const myFont = localFont({ src: '../../font/Regular.otf' });
-
-const roboto = Fira_Mono({
-  weight: '400',
-});
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -52,9 +44,9 @@ function Header() {
   const { IsClose, SetIsClose } = useContext(ModalContext);
 
   return (
-    <PageGrid as="nav" className={`${roboto.className} items-center py-[1rem] px-[1rem]`}>
+    <PageGrid as="nav" className={`items-center py-[1rem] px-[1rem]`}>
       <h1
-        className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none`}>
         Books
       </h1>
       <div className="col-span-6">
