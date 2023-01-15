@@ -7,10 +7,10 @@ interface PageLayoutProps {
 
 function PageLayout({ children }: PageLayoutProps) {
   return (
-    <>
+    <div className="z-[2]">
       <Header />
       <main>{children}</main>
-    </>
+    </div>
   );
 }
 

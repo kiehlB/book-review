@@ -36,23 +36,26 @@ function HomeTab(props: HomeTabProps) {
   const router = useRouter();
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <nav className="flex">
-        {links.map(({ name, href }) => (
-          <Link key={name} href={href}>
-            <div className="mr-6 sm:mr-8 flex flex-col relative">
-              {name}
-              {isActiveLink(href, router.pathname) && (
-                <motion.div
-                  className="absolute bottom-[-1px] left-0 right-0 h-[1px] border-2"
-                  layoutId="underline"
-                />
-              )}
-            </div>
-          </Link>
-        ))}
-      </nav>
-    </AnimatePresence>
+    <>
+      <AnimateSharedLayout>
+        <nav className="flex">
+          {links.map(({ name, href }) => (
+            <Link key={name} href={href}>
+              <div className="mr-6 sm:mr-8 flex flex-col relative">
+                {name}
+                {isActiveLink(href, router.pathname) && (
+                  <motion.div
+                    layoutId="navigation-underline"
+                    className="navigation-underline"
+                    animate
+                  />
+                )}
+              </div>
+            </Link>
+          ))}
+        </nav>
+      </AnimateSharedLayout>
+    </>
   );
 }
 
