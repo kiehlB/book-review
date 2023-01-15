@@ -4,7 +4,7 @@ import { useSpring, animated } from 'react-spring';
 import { useRouter } from 'next/router';
 import useToggle from '../../hooks/useToggle';
 import Link from 'next/link';
-import { AnimatePresence, AnimateSharedLayout, LayoutGroup, motion } from 'framer-motion';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import ModalContext from '../../context/modalContext';
 
 export type HomeTabProps = {};
@@ -36,7 +36,7 @@ function HomeTab(props: HomeTabProps) {
   const router = useRouter();
 
   return (
-    <AnimateSharedLayout>
+    <AnimatePresence mode="wait" initial={false}>
       <nav className="flex">
         {links.map(({ name, href }) => (
           <Link key={name} href={href}>
@@ -53,7 +53,7 @@ function HomeTab(props: HomeTabProps) {
           </Link>
         ))}
       </nav>
-    </AnimateSharedLayout>
+    </AnimatePresence>
   );
 }
 

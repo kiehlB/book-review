@@ -8,16 +8,17 @@ import { useApollo } from '../lib/apolloClient';
 import { ModalContextProvider } from '../context/modalContext';
 
 export default function App({ Component, pageProps, router }: AppProps) {
-  const url = `http://localhost:3000/${router.route}`;
-
   const apolloClient = useApollo(pageProps);
 
   return (
     <ModalContextProvider>
       <ApolloProvider client={apolloClient}>
         <NextUIProvider>
-          <AnimatePresence mode="wait" initial={false}>
-            <Component {...pageProps} canonical={url} key={url} />
+          <AnimatePresence
+            mode="wait"
+            initial={false}
+            onExitComplete={() => window.scrollTo(0, 0)}>
+            <Component {...pageProps} key={router.asPath} />
           </AnimatePresence>
         </NextUIProvider>
       </ApolloProvider>
