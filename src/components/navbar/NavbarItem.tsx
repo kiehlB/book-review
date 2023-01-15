@@ -20,8 +20,8 @@ export const NavbarItem = (props: NavbarItemProps) => {
       className={clsx(
         'flex items-center underlined whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none px-[1rem] py-[0.5rem] hover:bg-[#E2E8F0] transition-all',
         {
-          'active text-red-400': isSelected,
-          'text-secondary': !isSelected,
+          'active text-[#F0B90B] border-r-[2px] border-[#F0B90B]': isSelected,
+          'text-[#2B2F36]': !isSelected,
         },
       )}
       href={props.to}>

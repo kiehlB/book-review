@@ -4,7 +4,7 @@ import { useSpring, animated } from 'react-spring';
 import { useRouter } from 'next/router';
 import useToggle from '../../hooks/useToggle';
 import Link from 'next/link';
-import { AnimateSharedLayout, motion } from 'framer-motion';
+import { AnimatePresence, AnimateSharedLayout, LayoutGroup, motion } from 'framer-motion';
 import ModalContext from '../../context/modalContext';
 
 export type HomeTabProps = {};
