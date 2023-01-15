@@ -62,6 +62,66 @@ export default function Home() {
                     <div>텍스트</div>
                   </div>
                 </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
               </PostGrid>
             </AppLayout.Second>
           </div>

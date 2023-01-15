@@ -26,36 +26,41 @@ const links: { name: string; href: string }[] = [
     name: 'Blog',
     href: '/blog',
   },
-  {
-    name: 'Portfolio',
-    href: '/portfolio',
-  },
 ];
 
 function HomeTab(props: HomeTabProps) {
   const router = useRouter();
 
+  const stopPropagation = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  };
+
   return (
-    <>
-      <AnimateSharedLayout>
-        <nav className="flex">
-          {links.map(({ name, href }) => (
-            <Link key={name} href={href}>
-              <div className="mr-6 sm:mr-8 flex flex-col relative">
-                {name}
-                {isActiveLink(href, router.pathname) && (
-                  <motion.div
-                    layoutId="navigation-underline"
-                    className="navigation-underline"
-                    animate
-                  />
-                )}
-              </div>
-            </Link>
-          ))}
-        </nav>
-      </AnimateSharedLayout>
-    </>
+    <nav className="flex">
+      {links.map(({ name, href }) => (
+        <Link
+          key={name}
+          href={href}
+          onClick={e => {
+            if (isActiveLink(href, router.pathname)) {
+              stopPropagation(e);
+            }
+          }}>
+          <div className="mr-6 sm:mr-8 flex flex-col relative">
+            {name}
+            {isActiveLink(href, router.pathname) && (
+              <motion.div
+                layoutId="navigation-underline"
+                className="navigation-underline"
+                animate
+              />
+            )}
+          </div>
+        </Link>
+      ))}
+    </nav>
   );
 }
 
