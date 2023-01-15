@@ -13,58 +13,61 @@ import SignUp from '../components/auth/Register';
 
 export default function Home() {
   return (
-    <PageLayout>
-      <SignUp />
-      <PageGrid as="div" className="pt-[36px]">
-        <AppLayout.MainNav>
-          <div className="col-span-2">
-            <Navbar
-              primaryItems={[
-                {
-                  icon: <RiBookOpenLine />,
-                  text: 'Books',
-                  to: '/',
-                },
-                {
-                  icon: <RiDashboard3Line />,
-                  text: 'Post',
-                  to: '/post',
-                },
-              ]}
-              secondaryItems={[
-                {
-                  icon: <RiFileChartFill />,
-                  text: 'Trending tags',
-                  to: '/Trending tags',
-                },
-              ]}></Navbar>
-          </div>
-        </AppLayout.MainNav>
-        <div className="col-span-8">
-          <AppLayout.First>
-            <div className="flex justify-between">
-              <div className="text-xl text-[#535661] font-bold">포스트</div>
-              <HomeTab />
-            </div>
-          </AppLayout.First>
-          <AppLayout.Second>
-            <PostGrid className="mt-[1rem]">
-              <div className="col-span-2 h-[20rem] mxl:col-span-4">
-                <div className="w-full">
-                  <RatioImage
-                    alt="test"
-                    widthRatio={1.916}
-                    heightRatio={1.2}
-                    src="/test.jpg"
-                    className="relative"
-                  />
-                  <div>텍스트</div>
-                </div>
-              </div>
-            </PostGrid>
-          </AppLayout.Second>
-        </div>
-      </PageGrid>
-    </PageLayout>
+    // <PageLayout>
+    //   <SignUp />
+    //   <PageGrid as="div" className="pt-[36px]">
+    //     <AppLayout.MainNav>
+    //       <div className="col-span-2">
+    //         <Navbar
+    //           primaryItems={[
+    //             {
+    //               icon: <RiBookOpenLine />,
+    //               text: 'Books',
+    //               to: '/',
+    //             },
+    //             {
+    //               icon: <RiDashboard3Line />,
+    //               text: 'Post',
+    //               to: '/post',
+    //             },
+    //           ]}
+    //           secondaryItems={[
+    //             {
+    //               icon: <RiFileChartFill />,
+    //               text: 'Trending tags',
+    //               to: '/Trending tags',
+    //             },
+    //           ]}></Navbar>
+    //       </div>
+    //     </AppLayout.MainNav>
+    //     <div className="col-span-8">
+    //       <AppLayout.First>
+    //         <div className="flex justify-between">
+    //           <div className="text-xl text-[#535661] font-bold">포스트</div>
+    //           <HomeTab />
+    //         </div>
+    //       </AppLayout.First>
+    //       <AppLayout.Second>
+    //         <PostGrid className="mt-[1rem]">
+    //           <div className="col-span-2 h-[20rem] mxl:col-span-4">
+    //             <div className="w-full">
+    //               <RatioImage
+    //                 alt="test"
+    //                 widthRatio={1.916}
+    //                 heightRatio={1.2}
+    //                 src="/test.jpg"
+    //                 className="relative"
+    //               />
+    //               <div>텍스트</div>
+    //             </div>
+    //           </div>
+    //         </PostGrid>
+    //       </AppLayout.Second>
+    //     </div>
+    //   </PageGrid>
+    // </PageLayout>
+    <>
+      <HomeTab />
+    </>
   );
 }

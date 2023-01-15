@@ -44,9 +44,8 @@ function HomeTab(props: HomeTabProps) {
               {name}
               {isActiveLink(href, router.pathname) && (
                 <motion.div
-                  layoutId="navigation-underline"
-                  className="navigation-underline"
-                  animate
+                  className="absolute bottom-[-1px] left-0 right-0 h-[1px] border-2"
+                  layoutId="underline"
                 />
               )}
             </div>
