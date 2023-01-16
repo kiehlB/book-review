@@ -14,7 +14,9 @@ function SignUp({}: SignUpProps) {
 
   return (
     <Modal visible={IsClose} onClose={SetIsClose}>
-      <div className="flex justify-center py-3">회원가입</div>
+      <div className="flex justify-center py-6 text-[#2b2b2b] text-[1.5rem]">
+        회원가입
+      </div>
       <AuthForm
         inputs={inputs}
         handleChange={handleChange}
@@ -24,6 +26,81 @@ function SignUp({}: SignUpProps) {
         isRegister="Sign up for an entity account?"
         linkTo="/signin"
       />
+      <div className="shelf mt-auto">
+        <div className="shelf">
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+          <div className="book"></div>
+        </div>
+      </div>
     </Modal>
   );
 }

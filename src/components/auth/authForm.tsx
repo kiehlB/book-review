@@ -63,12 +63,12 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.8 }}
-          className="flex bg-[#fcd435] rounded text-[#202630] mt-6  h-12 justify-center items-center font-Cabin tracking-widest w-full">
+          className="flex bg-[#fcd435] rounded text-[#202630] mt-12 h-12 justify-center items-center tracking-widest w-full">
           {auth}
         </motion.button>
       </form>
 
-      <div className="flex mt-4 items-center justify-between px-1">
+      <div className="flex my-4 items-center justify-between px-1">
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
         <div className="text-[#707a8a] font-Roboto">Or</div>
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
@@ -77,81 +77,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
       <div className="flex justify-between w-[50%] mx-auto pt-3">
         <Google />
         <FaceBook />
-      </div>
-      <div className="shelf mt-auto">
-        <div className="shelf">
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-        </div>
       </div>
     </>
   );
