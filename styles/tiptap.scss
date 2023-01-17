@@ -168,3 +168,105 @@ $text-col: #111111, #eeeeee, #111111;
 }
 
  
+.ProseMirror {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  pre {
+    background: #0D0D0D;
+    color: #FFF;
+    font-family: 'JetBrainsMono', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+
+    code {
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
+  }
+}
+
+
+
+
+.toc {
+  background: rgba(black, 0.1);
+  border-radius: 0.5rem;
+  opacity: 0.75;
+  padding: 0.75rem;
+
+  &__list {
+    list-style: none;
+    padding: 0;
+
+    &::before {
+      content: "Table of Contents";
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.025rem;
+      opacity: 0.5;
+      text-transform: uppercase;
+    }
+  }
+
+  &__item {
+    a:hover {
+      opacity: 0.5;
+    }
+
+    &--3 {
+      padding-left: 1rem;
+    }
+
+    &--4 {
+      padding-left: 2rem;
+    }
+
+    &--5 {
+      padding-left: 3rem;
+    }
+
+    &--6 {
+      padding-left: 4rem;
+    }
+  }
+}

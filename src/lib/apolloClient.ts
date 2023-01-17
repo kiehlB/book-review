@@ -7,10 +7,10 @@ import {
   NormalizedCacheObject,
   fromPromise,
 } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
 import { concatPagination } from '@apollo/client/utilities';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
+import { onError } from '@apollo/client/link/error';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -19,15 +19,25 @@ let apolloClient: ApolloClient<NormalizedCacheObject>;
 const TOKEN_EXPIRED = 'jwt expired';
 const NO_AUTH_TOKEN = 'No auth token';
 
+const linkOnError = onError(
+  ({ graphQLErrors, operation, forward, response, networkError }) => {
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+    }
+
+    console.log(graphQLErrors);
+  },
+);
+
 const httpLink = new HttpLink({
-  uri: process.env.NEXT_PUBLIC_URL, // Server URL (must be absolute)
+  uri: 'http://localhost:4000/graphql', // Server URL (must be absolute)
   credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 });
 
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: from([httpLink]),
+    link: from([linkOnError, httpLink]),
     cache: new InMemoryCache({
       typePolicies: {
         Query: {
