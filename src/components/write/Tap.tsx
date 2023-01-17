@@ -137,8 +137,8 @@ const Tap = () => {
       }),
     ],
     content: `
-    <toc></toc>
-    start
+  
+    
     `,
   });
 

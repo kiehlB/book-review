@@ -1,7 +1,7 @@
 import { NodeViewWrapper } from '@tiptap/react';
 import React, { useCallback, useEffect, useState } from 'react';
 
-export default ({ editor }) => {
+const TiptapWraaper = ({ editor }) => {
   const [items, setItems] = useState([]);
 
   const handleUpdate = useCallback(() => {
@@ -61,3 +61,5 @@ export default ({ editor }) => {
     </NodeViewWrapper>
   );
 };
+
+export default TiptapWraaper;

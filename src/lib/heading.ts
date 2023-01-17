@@ -5,36 +5,28 @@ import { escapeForUrl } from './utils';
  * @param html
  */
 export function setHeadingId(html: string) {
-  console.log('hello');
-
-  let div;
   if (typeof window !== 'undefined') {
-    div = document?.createElement('div');
+    const div = document?.createElement('div');
     div.innerHTML = html;
+
+    const h1 = div?.querySelectorAll('h1');
+    const h2 = div?.querySelectorAll('h2');
+    const h3 = div?.querySelectorAll('h3');
+
+    const idList: string[] = [];
+
+    const setId = (element: HTMLHeadingElement) => {
+      const id = escapeForUrl(element.innerText);
+      const exists = idList.filter(existingId => existingId.indexOf(id) !== -1);
+      const uniqueId = `${id}${exists.length === 0 ? '' : `-${exists.length}`}`;
+      element.id = uniqueId;
+      idList.push(uniqueId);
+    };
+
+    [h1, h2, h3].forEach(elements => elements?.forEach(setId));
+
+    return div.innerHTML;
   }
-
-  let h1;
-  let h2;
-  let h3;
-  if (typeof window !== 'undefined') {
-    h1 = div?.querySelectorAll('h1');
-    h2 = div?.querySelectorAll('h2');
-    h3 = div?.querySelectorAll('h3');
-  }
-
-  const idList: string[] = [];
-
-  const setId = (element: HTMLHeadingElement) => {
-    const id = escapeForUrl(element.innerText);
-    const exists = idList.filter(existingId => existingId.indexOf(id) !== -1);
-    const uniqueId = `${id}${exists.length === 0 ? '' : `-${exists.length}`}`;
-    element.id = uniqueId;
-    idList.push(uniqueId);
-  };
-
-  [h1, h2, h3].forEach(elements => elements?.forEach(setId));
-
-  return div.innerHTML;
 }
 
 export function parseHeadings(html: string) {

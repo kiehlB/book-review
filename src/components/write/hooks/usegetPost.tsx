@@ -9,7 +9,7 @@ export default function useGetPost() {
     error: singlePostError,
     data: singlePostData,
   } = useQuery(GET_Post, {
-    variables: { id: 'ddc762ba-5064-46e7-85a8-8cb61b6c9d95' },
+    variables: { id: '7a48a23f-9835-4d3a-b12d-72907f858a1b' },
   });
 
   return {
