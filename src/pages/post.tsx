@@ -1,4 +1,5 @@
 import PostTableOfContents from '../components/common/PostTableOfContent';
+import PageLayout from '../components/layout/PageLayout';
 import useGetPost from '../components/write/hooks/usegetPost';
 import { parseHeadings2, setHeadingId } from '../lib/heading';
 
@@ -16,7 +17,7 @@ function Post({}: PostProps) {
 
   if (singlePostLoding) return <div>k</div>;
   return (
-    <div className="h-full">
+    <PageLayout>
       {/* <div className="border-2 border-red-500">
         <div dangerouslySetInnerHTML={{ __html: insertID }} />
       </div> */}
@@ -24,7 +25,7 @@ function Post({}: PostProps) {
       <div className="border-2">
         <PostTableOfContents />
       </div>
-    </div>
+    </PageLayout>
   );
 }
 

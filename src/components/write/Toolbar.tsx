@@ -46,15 +46,15 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
   return (
     <>
       <Paper
-        elevation={0}
         sx={{
           display: 'flex',
           border: theme => `1px solid ${theme.palette.divider}`,
           flexWrap: 'wrap',
-          mb: 2,
+
           position: 'sticky',
-          top: 10,
+
           zIndex: 9999,
+          width: '100%',
         }}>
         <HeadingToolbarButtons editor={editor} />
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />

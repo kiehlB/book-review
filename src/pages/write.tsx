@@ -1,13 +1,22 @@
+import PageLayout from '../components/layout/PageLayout';
 import Tap from '../components/write/Tap';
-import Tiptap from '../components/write/Tiptap';
 
 export type WriteProps = {};
 
 function Write({}: WriteProps) {
   return (
-    <div className="h-full">
+    <>
       <Tap />
-    </div>
+      <style global jsx>{`
+        html,
+        body,
+        body > div:first-child,
+        div#__next,
+        div#__next > div {
+          height: 100%;
+        }
+      `}</style>
+    </>
   );
 }
 

@@ -4,7 +4,20 @@ module.exports = {
   darkMode: 'class',
   content: ['./src/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        '12': 'repeat(12, minmax(0, 1fr))',
+
+        // Complex site-specific row configuration
+        layout: '200px minmax(900px, 1fr) 100px',
+      },
+      gridRow: {
+        'span-8': 'span 8 / span 8',
+        'span-9': 'span 9 / span 9',
+        'span-10': 'span 10 / span 10',
+        'span-11': 'span 1 / span 11',
+      },
+    },
     screens: {
       si: '769px',
       md: '900px',
