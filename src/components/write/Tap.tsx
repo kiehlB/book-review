@@ -1,6 +1,6 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React from 'react';
+import React, { useState } from 'react';
 import useEditor2 from './hooks/useCreatePost';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
@@ -35,7 +35,7 @@ const MenuBar = ({ editor }) => {
   }
 
   return (
-    <div className="flex w-full flex-wrap px-[2rem] border-2 bg-slate-300">
+    <div className="flex w-full flex-wrap px-[2rem]  bg-slate-300">
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -137,6 +137,21 @@ const tag = [];
 const Tap = () => {
   const { handleSubmit } = useEditor2();
 
+  const [state, setState] = useState({
+    one: false,
+    two: false,
+    three: false,
+    four: false,
+    five: false,
+    six: false,
+  });
+
+  const clickHandler = value => {
+    console.log(state);
+    console.log(value);
+    setState({ ...state, [value]: !state[value] });
+  };
+
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -179,47 +194,51 @@ const Tap = () => {
   });
 
   const a = editor?.getHTML();
-
+  // break-words truncate whitespace-pre-line
   return (
     <div className="grid grid-cols-12 h-full relative">
       <div className="flex flex-col flex-1 min-h-[0] col-span-3 bg-slate-100 ">
-        <div className="border-2 h-full border-red-500 grid grid-rows-12">
-          <div className="pt-[3rem] text-4xl">설명</div>
+        <div className=" h-full grid grid-rows-12">
+          <div className="pt-[3rem] text-4xl row-span-2">설명</div>
+          <div className="row-span-1">ds </div>
+          <div className="row-span-9">dd</div>
+          <div className="row-span-1 h-[4.5rem]">ds </div>
         </div>
       </div>
 
-      <div className="min-h-[0] flex-1 flex flex-col col-span-9 ">
-        <div className="grid min-h-[0] flex-1 col-span-9 grid-rows-12">
-          <div className="px-[2rem] row-span-2 border-2 border-red-500">
-            <input
-              className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[3rem]"
-              name="title"
-              placeholder="제목을 입력하세요"
-            />
-            <div className="border-2 w-6/12 mt-[1.5rem] h-1 " />
-          </div>
+      <div className="grid min-h-[0] flex-1 col-span-9 grid-rows-12">
+        <div className="px-[2rem] row-span-2  ">
+          <input
+            className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[3rem]"
+            name="title"
+            placeholder="제목을 입력하세요"
+          />
+          <div className="border-2 w-6/12 mt-[1.5rem] h-1 " />
+        </div>
 
-          <div className="row-span-1 border-2">
-            <MenuBar editor={editor} />
-          </div>
+        <div className="row-span-1 ">
+          <TagsForm />
+          <MenuBar editor={editor} />
+        </div>
 
-          <div className="row-span-9 w-full border-2 border-red-500 overflow-scroll">
-            <EditorContent editor={editor} className=" " />
+        <div className="row-span-9 w-full overflow-scroll overflow-x-hidden scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2">
+          <EditorContent editor={editor} className="" />
+        </div>
+
+        <div className="row-span-1 ">
+          <div className="flex bottom-0 z-50 px-4  bg-white shadow-lg shadow-slate-700  h-[4.5rem] items-center justify-between mxl:w-full">
+            <div>
+              <ArrowLink direction="left" href={'/'} textSize="small">
+                뒤로가기
+              </ArrowLink>
+            </div>
+
+            <div>
+              <LinkButton className="text-zinc-600">완료</LinkButton>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* <div className="fixed flex bottom-0 z-50 w-[50%] px-4 bg-white shadow-lg shadow-slate-700 h-[4.2rem] items-center justify-between mxl:w-full">
-        <div>
-          <ArrowLink direction="left" href={'/'} textSize="small">
-            뒤로가기
-          </ArrowLink>
-        </div>
-
-        <div onClick={e => handleSubmit(e, a)}>
-          <LinkButton className="text-zinc-600">완료</LinkButton>
-        </div>
-      </div> */}
     </div>
   );
 };
