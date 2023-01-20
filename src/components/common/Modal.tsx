@@ -73,19 +73,17 @@ const liVariants = {
 };
 
 const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
-  console.log(visible);
-
   return (
     <motion.div
       className={clsx(
-        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75 ',
+        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
-      <div className="flex items-center justify-center border-2 h-full">
+      <div className="flex items-center justify-center h-full">
         <motion.div variants={liVariants} className="w-[616px] h-[650px] flex shadow-md">
-          <div className="flex-1 bg-[#fff] flex flex-col">
+          <div className="flex-1 bg-[#fff] flex flex-col rounded-xl">
             <div className="flex justify-end  p-[1.5rem]">
               <MdClose
                 onClick={() => onClose(!visible)}

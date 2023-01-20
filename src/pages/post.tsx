@@ -1,5 +1,5 @@
 import PostTableOfContents from '../components/common/PostTableOfContent';
-import PageLayout from '../components/layout/PageLayout';
+import { PageLayout } from '../components/layout/PageLayout';
 import useGetPost from '../components/write/hooks/usegetPost';
 import { parseHeadings2, setHeadingId } from '../lib/heading';
 
@@ -18,12 +18,26 @@ function Post({}: PostProps) {
   if (singlePostLoding) return <div>k</div>;
   return (
     <PageLayout>
-      {/* <div className="border-2 border-red-500">
-        <div dangerouslySetInnerHTML={{ __html: insertID }} />
-      </div> */}
+      <div className="grid grid-cols-10 mx-[12rem] border-2">
+        <div className="col-span-2">좋아요</div>
+        <div
+          className="col-span-6 max-w-prose border-2 border-red-500"
+          style={{ maxWidth: '65ch' }}>
+          dasdsa
+        </div>
+        <div className="col-span-2">테이블</div>
+      </div>
 
-      <div className="border-2">
-        <PostTableOfContents />
+      <div className="grid grid-cols-10 mx-[12rem] border-2">
+        <div className="col-span-2">좋아요</div>
+        <div className="text-2xl col-span-6">
+          <div className="border-2 border-red-500 mx-auto" style={{ maxWidth: '65ch' }}>
+            dd
+          </div>
+        </div>
+        <div className="col-span-2">
+          <PostTableOfContents />
+        </div>
       </div>
     </PageLayout>
   );

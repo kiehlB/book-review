@@ -1,4 +1,3 @@
-import PageLayout from '../components/layout/PageLayout';
 import Tap from '../components/write/Tap';
 
 export type WriteProps = {};

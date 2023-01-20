@@ -9,11 +9,9 @@ interface GridProps {
 
 function PageGrid({ children, className, as: Tag = 'div' }: GridProps) {
   return (
-    <>
-      <Tag className={clsx('grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto', className)}>
-        {children}
-      </Tag>
-    </>
+    <Tag className={clsx('grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto', className)}>
+      {children}
+    </Tag>
   );
 }
 
@@ -24,7 +22,7 @@ const PostGrid = React.forwardRef<HTMLElement, GridProps>(function Grid(
   return (
     <div
       className={clsx(
-        'grid grid-cols-8 gap-6 max-w-[78.5rem] mx-auto w-full',
+        'grid grid-cols-8 gap-x-6 max-w-[78.5rem] mx-auto w-full',
         className,
       )}>
       {children}

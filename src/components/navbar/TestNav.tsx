@@ -10,8 +10,13 @@ interface NavbarProps {
   isDisabled?: boolean;
 }
 
-const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarProps) => (
-  <div className={clsx('border-2 rounded-lg py-[1rem]', className)}>
+const TestNavbar = ({
+  primaryItems,
+  secondaryItems,
+  className,
+  isDisabled,
+}: NavbarProps) => (
+  <nav className={clsx('w-[240px] border-2 rounded-lg py-[1rem]', className)}>
     <ul>
       {primaryItems.map(itemProps => (
         <li key={itemProps.text}>
@@ -27,7 +32,7 @@ const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarP
       </div>
       <Trending />
     </ul>
-  </div>
+  </nav>
 );
 
-export default Navbar;
+export default TestNavbar;

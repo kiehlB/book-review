@@ -63,7 +63,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.8 }}
-          className="flex bg-[#fcd435] rounded text-[#202630] mt-12 h-12 justify-center items-center tracking-widest w-full">
+          className="flex bg-[#fcd435]   text-[#202630] mt-12 h-12 justify-center items-center tracking-widest w-full rounded-xl">
           {auth}
         </motion.button>
       </form>

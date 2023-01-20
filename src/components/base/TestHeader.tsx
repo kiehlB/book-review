@@ -39,25 +39,25 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
     </button>
   );
 }
-
-function Header() {
+// pl-[92px]
+function TestHeader() {
   const { IsClose, SetIsClose } = useContext(ModalContext);
 
   return (
-    <PageGrid as="nav" className={`items-center py-[1rem]`}>
+    <nav className="flex px-[1rem] justify-between h-[5rem] items-center border-b">
       <h1
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none px-[1rem]`}>
+        className={`whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none w-[169px]`}>
         Books
       </h1>
-      <div className="col-span-6">
-        <div className="relative">
-          <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
-            <IoSearchOutline />
-          </div>
-          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none" />
+
+      <div className="relative w-[728px]">
+        <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
+          <IoSearchOutline />
         </div>
+        <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none" />
       </div>
-      <div className="flex col-span-2 ml-auto items-center">
+
+      <div className="flex items-center w-[225px]">
         <div className="pr-4">
           <DarkModeToggle />
         </div>
@@ -72,8 +72,8 @@ function Header() {
           Sign up
         </div>
       </div>
-    </PageGrid>
+    </nav>
   );
 }
 
-export default Header;
+export default TestHeader;

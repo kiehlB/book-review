@@ -1,6 +1,6 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useEditor2 from './hooks/useCreatePost';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
@@ -13,21 +13,17 @@ import Text from '@tiptap/extension-text';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Code from '@tiptap/extension-code';
 import Link from '@tiptap/extension-link';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
-import CharacterCount from '@tiptap/extension-character-count';
 import TextAlign from '@tiptap/extension-text-align';
 import Focus from '@tiptap/extension-focus';
 import { ColorHighlighter } from './ColourHighlighter';
-import { useMemo } from 'react';
-import ProjectCreateContentToolbar from './Toolbar';
 import UniqueID from './UniqueID';
 import TableOfContents from './TableOfContents';
 import { ArrowLink } from '../common/ArrowButton';
 import { LinkButton } from '../common/Button';
-import Tags from '../tags/Tags';
 import TagsForm from '../tags/TagsForm';
 import Bold from '../../svg/bold';
 import Italic from '../../svg/italic';
+import { motion, Variants } from 'framer-motion';
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -134,23 +130,27 @@ const MenuBar = ({ editor }) => {
 
 const tag = [];
 
+const itemVariants = {
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 300, damping: 24 },
+  },
+  closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+};
+
 const Tap = () => {
   const { handleSubmit } = useEditor2();
+  const [isEditing, setEditing] = useState(false);
+  const TagFocusRef = useRef(0);
 
-  const [state, setState] = useState({
-    one: false,
-    two: false,
-    three: false,
-    four: false,
-    five: false,
-    six: false,
-  });
+  const BodyFocusRef = useRef() as any;
 
-  const clickHandler = value => {
-    console.log(state);
-    console.log(value);
-    setState({ ...state, [value]: !state[value] });
-  };
+  useEffect(() => {
+    if (BodyFocusRef.current) {
+      console.log('hello');
+    }
+  }, [BodyFocusRef]);
 
   const editor = useEditor({
     editorProps: {
@@ -193,14 +193,25 @@ const Tap = () => {
     `,
   });
 
+  const toggleEditing = () => {
+    setEditing(!isEditing);
+    console.log('ddd');
+  };
+
   const a = editor?.getHTML();
   // break-words truncate whitespace-pre-line
   return (
     <div className="grid grid-cols-12 h-full relative">
       <div className="flex flex-col flex-1 min-h-[0] col-span-3 bg-slate-100 ">
         <div className=" h-full grid grid-rows-12">
-          <div className="pt-[3rem] text-4xl row-span-2">설명</div>
-          <div className="row-span-1">ds </div>
+          <div className="pt-[3rem] text-4xl row-span-2"> 설명 </div>
+          <motion.div
+            className="row-span-1"
+            variants={itemVariants}
+            animate={isEditing ? 'open' : 'closed'}
+            transition={{ duration: 0.2 }}>
+            {isEditing ? 'ㅇㅇ' : ''}{' '}
+          </motion.div>
           <div className="row-span-9">dd</div>
           <div className="row-span-1 h-[4.5rem]">ds </div>
         </div>
@@ -217,12 +228,13 @@ const Tap = () => {
         </div>
 
         <div className="row-span-1 ">
+          <input ref={BodyFocusRef} className="border" onClick={toggleEditing} />
           <TagsForm />
           <MenuBar editor={editor} />
         </div>
 
-        <div className="row-span-9 w-full overflow-scroll overflow-x-hidden scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2">
-          <EditorContent editor={editor} className="" />
+        <div className="row-span-9 w-full overflow-scroll overflow-x-hidden scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 ">
+          <EditorContent editor={editor} />
         </div>
 
         <div className="row-span-1 ">

@@ -6,7 +6,7 @@ import { RiDashboard3Line } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
 import HomeTab from '../components/home/HomeTab';
 import RatioImage from '../components/common/RatioImage';
-import PageLayout from '../components/layout/PageLayout';
+import { PageLayout } from '../components/layout/PageLayout';
 import AppLayout from '../components/layout/AppLayout';
 import Modal from '../components/common/Modal';
 import SignUp from '../components/auth/Register';
@@ -43,13 +43,201 @@ export default function Home() {
           </AppLayout.MainNav>
           <div className="col-span-8">
             <AppLayout.First>
-              <div className="flex justify-between">
-                <div>포스트</div>
+              <div className="flex justify-between pt-[1.5rem]">
+                <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem]">
+                  포스트
+                </div>
                 <HomeTab />
               </div>
             </AppLayout.First>
             <AppLayout.Second>
               <PostGrid className="mt-[1rem]">
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full border h-full">
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
+                <div className="col-span-2 h-[20rem] mxl:col-span-4">
+                  <div className="w-full">
+                    <RatioImage
+                      alt="test"
+                      widthRatio={1.916}
+                      heightRatio={1.2}
+                      src="/test.jpg"
+                      className="relative"
+                    />
+                    <div>텍스트</div>
+                  </div>
+                </div>
                 <div className="col-span-2 h-[20rem] mxl:col-span-4">
                   <div className="w-full">
                     <RatioImage
