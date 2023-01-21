@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <PageLayout>
-        <SignUp />
+        {/* <SignUp /> */}
         <PageGrid as="div" className="pt-[36px]">
           <AppLayout.MainNav>
             <div className="col-span-2">
