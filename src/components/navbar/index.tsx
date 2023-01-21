@@ -11,7 +11,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarProps) => (
-  <div className={clsx('border-2 rounded-lg py-[1rem]', className)}>
+  <div className={clsx('rounded-lg py-[1rem]', className)}>
     <ul>
       {primaryItems.map(itemProps => (
         <li key={itemProps.text}>

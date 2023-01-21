@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Input } from '@nextui-org/react';
+import { Input, useInput } from '@nextui-org/react';
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,

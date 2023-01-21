@@ -48,7 +48,7 @@ function HomeTab(props: HomeTabProps) {
               stopPropagation(e);
             }
           }}>
-          <div className="mr-6 sm:mr-8 flex flex-col relative">
+          <div className="sm:mr-8 flex flex-col relative">
             {name}
             {isActiveLink(href, router.pathname) && (
               <motion.div

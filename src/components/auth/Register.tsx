@@ -1,108 +1,40 @@
-import Link from 'next/link';
-import { FormEvent, useContext, useState } from 'react';
-import ModalContext from '../../context/modalContext';
-import LabelInput from '../common/LabelInput';
-import Modal from '../common/Modal';
-import AuthForm from './authForm';
+import React, { useMemo, useState, useEffect } from 'react';
+import AuthForm from './AuthForm';
 import useRegister from './hooks/useRegister';
 
-export type SignUpProps = {};
+export type RegisterProps = {
+  mode: string;
+};
 
-function SignUp({}: SignUpProps) {
-  const { inputs, handleChange, signUp, handleSubmit, registerError } = useRegister();
-  const { IsClose, SetIsClose } = useContext(ModalContext);
+function Register({ mode }: RegisterProps) {
+  const {
+    email,
+    password,
+    signUp,
+    handleSubmit,
+    registerError,
+    EB,
+    PB,
+    helper,
+    Passwordhelper,
+  } = useRegister();
 
   return (
-    <Modal visible={IsClose} onClose={SetIsClose}>
-      <div className="flex justify-center py-6 text-[#2b2b2b] text-[1.5rem]">
-        회원가입
-      </div>
-      <AuthForm
-        inputs={inputs}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        authError={registerError}
-        auth="Register"
-        isRegister="Sign up for an entity account?"
-        linkTo="/signin"
-      />
-      <div className="shelf mt-auto">
-        <div className="shelf">
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-          <div className="book"></div>
-        </div>
-      </div>
-    </Modal>
+    <AuthForm
+      email={email}
+      password={password}
+      handleSubmit={handleSubmit}
+      Passwordhelper={Passwordhelper}
+      authError={registerError}
+      auth="Register"
+      isRegister="Sign up for an entity account?"
+      linkTo="/signin"
+      EB={EB}
+      PB={PB}
+      helper={helper}
+      mode={mode}
+    />
   );
 }
 
-export default SignUp;
+export default Register;

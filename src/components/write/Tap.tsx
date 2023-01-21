@@ -24,6 +24,7 @@ import TagsForm from '../tags/TagsForm';
 import Bold from '../../svg/bold';
 import Italic from '../../svg/italic';
 import { motion, Variants } from 'framer-motion';
+import { PageGrid, PostGrid } from '../layout/GridLayout';
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -155,7 +156,7 @@ const Tap = () => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: 'my-6 focus:outline-none',
+        class: 'focus:outline-none',
         'data-test': 'editor',
       },
     },
@@ -188,7 +189,9 @@ const Tap = () => {
       }),
     ],
     content: `
-  
+      <toc></toc>
+
+      sta
     
     `,
   });
@@ -201,58 +204,87 @@ const Tap = () => {
   const a = editor?.getHTML();
   // break-words truncate whitespace-pre-line
   return (
-    <div className="grid grid-cols-12 h-full relative">
-      <div className="flex flex-col flex-1 min-h-[0] col-span-3 bg-slate-100 ">
-        <div className=" h-full grid grid-rows-12">
-          <div className="pt-[3rem] text-4xl row-span-2"> 설명 </div>
-          <motion.div
-            className="row-span-1"
-            variants={itemVariants}
-            animate={isEditing ? 'open' : 'closed'}
-            transition={{ duration: 0.2 }}>
-            {isEditing ? 'ㅇㅇ' : ''}{' '}
-          </motion.div>
-          <div className="row-span-9">dd</div>
-          <div className="row-span-1 h-[4.5rem]">ds </div>
-        </div>
+    <PageGrid as="main" className="w-[100%] h-[100vh]">
+      <div className="col-span-2 border-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2">
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
+        <div>d</div>
       </div>
-
-      <div className="grid min-h-[0] flex-1 col-span-9 grid-rows-12">
-        <div className="px-[2rem] row-span-2  ">
-          <input
-            className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[3rem]"
-            name="title"
-            placeholder="제목을 입력하세요"
-          />
-          <div className="border-2 w-6/12 mt-[1.5rem] h-1 " />
-        </div>
-
-        <div className="row-span-1 ">
-          <input ref={BodyFocusRef} className="border" onClick={toggleEditing} />
-          <TagsForm />
-          <MenuBar editor={editor} />
-        </div>
-
-        <div className="row-span-9 w-full overflow-scroll overflow-x-hidden scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 ">
-          <EditorContent editor={editor} />
-        </div>
-
-        <div className="row-span-1 ">
-          <div className="flex bottom-0 z-50 px-4  bg-white shadow-lg shadow-slate-700  h-[4.5rem] items-center justify-between mxl:w-full">
-            <div>
-              <ArrowLink direction="left" href={'/'} textSize="small">
-                뒤로가기
-              </ArrowLink>
-            </div>
-
-            <div>
-              <LinkButton className="text-zinc-600">완료</LinkButton>
-            </div>
+      <div className="col-span-8 border-2 h-[3rem]">
+        <div className="flex justify-between">
+          <div>folder</div>
+          <div className="flex">
+            <div>saved</div>
+            <div>preview</div>
+            <div>publish</div>
           </div>
         </div>
+        <MenuBar editor={editor} />
+        <PostGrid as="div" className="w-[100%] h-[calc(100vh-3rem)] mt-6">
+          <div className="col-span-8 overflow-y-scroll  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 ">
+            <EditorContent editor={editor} className="" />
+          </div>
+        </PostGrid>
       </div>
-    </div>
+    </PageGrid>
   );
 };
 
 export default Tap;
+
+//     <div className="flex flex-col flex-1 min-h-[0] col-span-3 bg-slate-100 ">
+// <div className=" h-full grid grid-rows-12">
+//   <div className="pt-[3rem] text-4xl row-span-2"> 설명 </div>
+//   <motion.div
+//     className="row-span-1"
+//     variants={itemVariants}
+//     animate={isEditing ? 'open' : 'closed'}
+//     transition={{ duration: 0.2 }}>
+//     {isEditing ? 'ㅇㅇ' : ''}{' '}
+//   </motion.div>
+//   <div className="row-span-9">dd</div>
+//   <div className="row-span-1 h-[4.5rem]">ds </div>
+// </div>
+// </div>
+
+// <div className="grid min-h-[0] flex-1 col-span-9 grid-rows-12">
+// <div className="px-[2rem] row-span-2  ">
+//   <input
+//     className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[3rem]"
+//     name="title"
+//     placeholder="제목을 입력하세요"
+//   />
+//   <div className="border-2 w-6/12 mt-[1.5rem] h-1 " />
+// </div>
+
+// <div className="row-span-1 ">
+//   <input ref={BodyFocusRef} className="border" onClick={toggleEditing} />
+//   <TagsForm />
+//   <MenuBar editor={editor} />
+// </div>
+
+// <div className="row-span-9 w-full overflow-scroll overflow-x-hidden scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 ">
+//   <EditorContent editor={editor} />
+// </div>
+
+// <div className="row-span-1 ">
+//   <div className="flex bottom-0 z-50 px-4  bg-white shadow-lg shadow-slate-700  h-[4.5rem] items-center justify-between mxl:w-full">
+//     <div>
+//       <ArrowLink direction="left" href={'/'} textSize="small">
+//         뒤로가기
+//       </ArrowLink>
+//     </div>
+
+//     <div>
+//       <LinkButton className="text-zinc-600">완료</LinkButton>
+//     </div>
+//   </div>
+// </div>
+// </div>

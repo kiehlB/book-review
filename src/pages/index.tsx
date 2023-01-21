@@ -9,9 +9,9 @@ import RatioImage from '../components/common/RatioImage';
 import { PageLayout } from '../components/layout/PageLayout';
 import AppLayout from '../components/layout/AppLayout';
 import Modal from '../components/common/Modal';
-import SignUp from '../components/auth/Register';
 import { NextSeo } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
+import AuthContainer from '../components/auth/AuthContainer';
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
         {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
       />
       <PageLayout>
-        <SignUp />
+        <AuthContainer />
         <PageGrid as="div" className="pt-[36px]">
           <AppLayout.MainNav>
             <nav className="col-span-2">

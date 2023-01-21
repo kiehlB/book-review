@@ -13,6 +13,7 @@ function Write({}: WriteProps) {
         div#__next,
         div#__next > div {
           height: 100%;
+          overflow: hidden;
         }
       `}</style>
     </>

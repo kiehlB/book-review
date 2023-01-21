@@ -25,6 +25,9 @@ module.exports = {
       md: '640px',
       lg: '1024px',
       xl: '1500px',
+      mmd: { max: '639px' },
+      mlg: { max: '1023px' },
+      mxl: { max: '1499px' },
     },
   },
   corePlugins: {

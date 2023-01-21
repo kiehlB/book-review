@@ -41,15 +41,15 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 }
 
 function Header() {
-  const { IsClose, SetIsClose } = useContext(ModalContext);
+  const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
 
   return (
-    <PageGrid as="nav" className={`items-center py-[1rem]`}>
+    <PageGrid as="header" className={`items-center py-[1rem] px-[1rem]`}>
       <h1
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none px-[1rem]`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none`}>
         Books
       </h1>
-      <div className="col-span-6">
+      <div className="col-span-6 mlg:hidden">
         <div className="relative">
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
             <IoSearchOutline />
@@ -57,18 +57,25 @@ function Header() {
           <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none" />
         </div>
       </div>
-      <div className="flex col-span-2 ml-auto items-center">
+
+      <div className="flex col-span-2 ml-auto items-center mlg:col-span-10">
         <div className="pr-4">
           <DarkModeToggle />
         </div>
         <div
           className="pr-4 text-sm text-[#181A20] font-medium"
-          onClick={() => SetIsClose(!IsClose)}>
+          onClick={() => {
+            SetIsClose(!IsClose);
+            SetMode('login');
+          }}>
           Sign in
         </div>
         <div
           className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
-          onClick={() => SetIsClose(!IsClose)}>
+          onClick={() => {
+            SetIsClose(!IsClose);
+            SetMode('register');
+          }}>
           Sign up
         </div>
       </div>

@@ -4,7 +4,7 @@ import { ApolloError } from '@apollo/client';
 import LabelInput from '../common/LabelInput';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { Input } from '@nextui-org/react';
+import { Input, useInput, Grid } from '@nextui-org/react';
 import Google from '../../svg/google';
 import FaceBook from '../../svg/facebook';
 
@@ -13,48 +13,72 @@ export interface inputProps {
   email: string | number | readonly string[];
 }
 
+export declare type BindingsChangeTarget =
+  | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  | string;
+
 export interface AuthFormProps {
-  inputs?: any;
+  email?: string;
+  password?: string;
+  EB: {
+    value: string;
+    onChange: (event: BindingsChangeTarget) => void;
+  };
+  PB: {
+    value: string;
+    onChange: (event: BindingsChangeTarget) => void;
+  };
+  helper: any;
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   authError?: ApolloError;
   auth?: string;
   isRegister?: string;
   linkTo?: string;
+  Passwordhelper: any;
+  mode: string;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
-  inputs,
-  handleChange,
   handleSubmit,
   authError,
   auth,
+  EB,
+  PB,
+  helper,
+  Passwordhelper,
+  mode,
 }) => {
+  console.log(mode);
   return (
     <>
       <form className="px-[6.46875rem] py-[1.5rem]" onSubmit={handleSubmit}>
         <div className="flex items-center">
-          <LabelInput
-            name="email"
-            onChange={handleChange}
+          <Input
+            {...EB}
+            clearable
+            status={helper?.color}
+            color={helper?.color}
+            helperColor={helper?.color}
+            helperText={helper?.text}
+            width="100%"
             label="Email"
             className="w-full"
             type="email"
-            id="email"
-            value={inputs?.email}
-            placeholder="Email"
+            labelPlaceholder="Email"
           />
         </div>
-        <div className="flex items-center mt-8">
+        <div className="flex items-center mt-12">
           <Input.Password
+            {...PB}
             clearable
-            name="password"
-            onChange={handleChange}
-            label="password"
-            value={inputs?.password}
+            status={Passwordhelper?.color}
+            color={Passwordhelper?.color}
+            helperColor={Passwordhelper?.color}
+            helperText={Passwordhelper?.text}
+            label="Password"
             className="w-full"
             type="password"
-            id="password"
             labelPlaceholder="Password"
             width="100%"
           />
@@ -67,6 +91,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
           {auth}
         </motion.button>
       </form>
+      <div className="px-[6rem]">
+        {/* {mode == 'register' ? '회원가입' : '로그인'}으로 이동 */}
+      </div>
 
       <div className="flex my-4 items-center justify-between px-1">
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>

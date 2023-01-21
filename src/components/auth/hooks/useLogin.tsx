@@ -5,7 +5,7 @@ import React from 'react';
 import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
 
-export default function useRegister() {
+export default function useLogin() {
   const router = useRouter();
   const { value: email, reset: emailReset, bindings: EB } = useInput('');
   const { value: password, reset: passwordReset, bindings: PB } = useInput('');
