@@ -13,9 +13,6 @@ function Post({}: PostProps) {
 
   const insertID = setHeadingId(singlePostData?.post?.body);
 
-  console.log(insertID);
-
-  if (singlePostLoding) return <div>k</div>;
   return (
     <PageLayout>
       <div className="grid grid-cols-10 mx-[12rem] border-2">

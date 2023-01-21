@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import AuthForm from './AuthForm';
+import AuthForm from './AuthForm2';
 import useLogin from './hooks/useLogin';
 import useRegister from './hooks/useRegister';
 
@@ -8,17 +8,8 @@ export type LoginProps = {
 };
 
 function Login({ mode }: LoginProps) {
-  const {
-    email,
-    password,
-    signUp,
-    handleSubmit,
-    registerError,
-    EB,
-    PB,
-    helper,
-    Passwordhelper,
-  } = useLogin();
+  const { email, password, LoginError, handleSubmit, EB, PB, helper, Passwordhelper } =
+    useLogin();
 
   return (
     <AuthForm
@@ -26,7 +17,7 @@ function Login({ mode }: LoginProps) {
       password={password}
       handleSubmit={handleSubmit}
       Passwordhelper={Passwordhelper}
-      authError={registerError}
+      authError={LoginError}
       auth="Register"
       isRegister="Sign up for an entity account?"
       linkTo="/signin"

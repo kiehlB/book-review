@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import AuthForm from './AuthForm';
+import AuthForm from './AuthForm2';
 import useRegister from './hooks/useRegister';
 
 export type RegisterProps = {

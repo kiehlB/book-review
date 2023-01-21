@@ -5,8 +5,10 @@ import { CiLight } from 'react-icons/ci';
 
 import useDarkMode from './useDarkmode';
 import clsx from 'clsx';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import ModalContext from '../../context/modalContext';
+import useWhoAmI from '../auth/hooks/useWhoami';
+import AuthContext from '../../context/authContext';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -42,6 +44,8 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 
 function Header() {
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
+  // const { isAuth, SetIsAuth } = useContext(AuthContext);
+  const { loading, error, getUser, isAuth, user } = useWhoAmI();
 
   return (
     <PageGrid as="header" className={`items-center py-[1rem] px-[1rem]`}>
@@ -62,6 +66,7 @@ function Header() {
         <div className="pr-4">
           <DarkModeToggle />
         </div>
+
         <div
           className="pr-4 text-sm text-[#181A20] font-medium"
           onClick={() => {

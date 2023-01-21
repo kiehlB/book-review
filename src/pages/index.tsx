@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';

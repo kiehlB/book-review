@@ -3,7 +3,7 @@ import { useInput } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import useForms from '../../../hooks/useForm';
-import { registerMutation } from '../../../lib/graphql/users';
+import { loginMutation, registerMutation } from '../../../lib/graphql/users';
 
 export default function useLogin() {
   const router = useRouter();
@@ -44,15 +44,13 @@ export default function useLogin() {
     };
   }, [email]) as any;
 
-  const [signUp, { error: registerError }] = useMutation(registerMutation, {
-    onCompleted({ signUp }) {
-      router.push('/signin');
-    },
+  const [signIn, { error: LoginError }] = useMutation(loginMutation, {
+    onCompleted({ signUp }) {},
   });
 
   const handleSubmit = async e => {
     e.preventDefault();
-    signUp({
+    signIn({
       variables: {
         email,
         password,
@@ -63,9 +61,9 @@ export default function useLogin() {
   return {
     email,
     password,
-    signUp,
+    signIn,
     handleSubmit,
-    registerError,
+    LoginError,
     EB,
     PB,
     helper,

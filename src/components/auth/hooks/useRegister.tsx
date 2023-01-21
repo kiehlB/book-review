@@ -45,9 +45,7 @@ export default function useRegister() {
   }, [email]) as any;
 
   const [signUp, { error: registerError }] = useMutation(registerMutation, {
-    onCompleted({ signUp }) {
-      router.push('/signin');
-    },
+    onCompleted({ signUp }) {},
   });
 
   const handleSubmit = async e => {

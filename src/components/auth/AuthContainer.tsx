@@ -4,7 +4,7 @@ import React, { FormEvent, useContext, useState } from 'react';
 import ModalContext from '../../context/modalContext';
 import LabelInput from '../common/LabelInput';
 import Modal from '../common/Modal';
-import AuthForm from './AuthForm';
+import AuthForm from './AuthForm2';
 import useRegister from './hooks/useRegister';
 import Login from './Login';
 import Register from './Register';
