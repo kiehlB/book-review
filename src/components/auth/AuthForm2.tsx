@@ -49,7 +49,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
   Passwordhelper,
   mode,
 }) => {
-  console.log(mode);
   return (
     <>
       <form className="px-[6.46875rem] py-[1.5rem]" onSubmit={handleSubmit}>

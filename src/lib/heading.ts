@@ -57,8 +57,6 @@ export function parseHeadings2(html: string) {
     const div = document.createElement('div');
     div.innerHTML = html;
 
-    console.log(div);
-
     const elements = Array.from(div.children);
 
     const headings = elements?.filter(el => el.tagName.match(/H([1-3])/));

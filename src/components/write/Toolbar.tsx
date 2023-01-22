@@ -183,7 +183,6 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
 
           <ToggleButton
             onClick={() => {
-              console.log(editor.state);
               setOpenPickVideo(true);
             }}
             selected={editor.isActive('videoPlayer')}

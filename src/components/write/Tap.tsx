@@ -149,7 +149,6 @@ const Tap = () => {
 
   useEffect(() => {
     if (BodyFocusRef.current) {
-      console.log('hello');
     }
   }, [BodyFocusRef]);
 
@@ -198,7 +197,6 @@ const Tap = () => {
 
   const toggleEditing = () => {
     setEditing(!isEditing);
-    console.log('ddd');
   };
 
   const a = editor?.getHTML();

@@ -32,10 +32,10 @@ const linkOnError = onError(
 const prod = process.env.NODE_ENV === 'production';
 
 console.log('check', process.env.NODE_ENV);
-console.log(process.env.API_URL);
+console.log(prod ? process.env.API_URL : 'http://localhost:4000/graphql');
 
 const httpLink = new HttpLink({
-  uri: prod ? process.env.API_URL : 'http://localhost:4000/graphql', // Server URL (must be absolute)
+  uri: 'https://api.bookreview.pro/graphql', // Server URL (must be absolute)
   credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 });
 
