@@ -12,8 +12,14 @@ import Modal from '../components/common/Modal';
 import { NextSeo } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
 import AuthContainer from '../components/auth/AuthContainer';
+import { useQuery } from '@apollo/client';
+import { GetC } from '../lib/graphql/test';
 
 export default function Home() {
+  const { data: getUser, loading, error } = useQuery(GetC);
+
+  console.log(getUser);
+
   return (
     <>
       <NextSeo
