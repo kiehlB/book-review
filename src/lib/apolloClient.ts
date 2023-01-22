@@ -42,7 +42,7 @@ const httpLink = new HttpLink({
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: from([linkOnError, httpLink]),
+    link: httpLink,
     cache: new InMemoryCache({
       typePolicies: {
         Query: {
