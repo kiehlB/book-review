@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        destination: 'https://api.bookreview.pro/:path*',
+        destination: 'http://localhost:4000/:path*',
       },
     ];
   },
