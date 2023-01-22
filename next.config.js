@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         // matching all API routes
-        source: '/api/:path*',
+        source: '/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
@@ -28,8 +28,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://www.bookreview.pro/:path*',
+        source: '/:path*',
+        destination: 'https://api.bookreview.pro/:path*',
       },
     ];
   },
