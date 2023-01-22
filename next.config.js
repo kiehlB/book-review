@@ -7,8 +7,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api',
-        destination: 'https://api.bookreview.pro/api',
+        source: '/api/v2/auth/register',
+        destination: 'https://api.bookreview.pro/api/v2/auth/register',
       },
     ];
   },
