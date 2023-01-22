@@ -7,8 +7,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api',
-        destination: 'https://api.bookreview.pro',
+        source: '/:path*',
+        destination: 'https://api.bookreview.pro/:path*',
       },
     ];
   },
