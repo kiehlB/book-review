@@ -45,7 +45,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 function Header() {
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
   // const { isAuth, SetIsAuth } = useContext(AuthContext);
-  const { loading, error, getUser, isAuth, user } = useWhoAmI();
+  const { loading, error, getUser, isAuth } = useWhoAmI();
 
   return (
     <PageGrid as="header" className={`items-center py-[1rem] px-[1rem]`}>
@@ -67,22 +67,29 @@ function Header() {
           <DarkModeToggle />
         </div>
 
-        <div
-          className="pr-4 text-sm text-[#181A20] font-medium"
-          onClick={() => {
-            SetIsClose(!IsClose);
-            SetMode('login');
-          }}>
-          Sign in
-        </div>
-        <div
-          className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
-          onClick={() => {
-            SetIsClose(!IsClose);
-            SetMode('register');
-          }}>
-          Sign up
-        </div>
+        {isAuth ? (
+          'hi'
+        ) : (
+          <>
+            {' '}
+            <div
+              className="pr-4 text-sm text-[#181A20] font-medium"
+              onClick={() => {
+                SetIsClose(!IsClose);
+                SetMode('login');
+              }}>
+              Sign in
+            </div>
+            <div
+              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
+              onClick={() => {
+                SetIsClose(!IsClose);
+                SetMode('register');
+              }}>
+              Sign up
+            </div>
+          </>
+        )}
       </div>
     </PageGrid>
   );

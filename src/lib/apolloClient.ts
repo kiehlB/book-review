@@ -29,8 +29,12 @@ const linkOnError = onError(
   },
 );
 
+const prod = process.env.NODE_ENV === 'production';
+
+console.log(process.env.NODE_ENV);
+
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql', // Server URL (must be absolute)
+  uri: prod ? process.env.API_URL : 'http://localhost:4000/graphql', // Server URL (must be absolute)
   credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 });
 

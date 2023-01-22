@@ -10,20 +10,19 @@ export default function useWhoAmI() {
 
   const user = getUser?.whoami.id ? getUser?.whoami.id : undefined;
 
-  //   useEffect(() => {
-  //     if (user == undefined) return;
+  useEffect(() => {
+    if (user == undefined) return;
 
-  //     if (isAuth !== user) {
-  //       localStorage.setItem('CURRENT_USER', user);
-  //       SetIsAuth(user);
-  //     }
-  //   }, [user]);
+    if (isAuth !== user) {
+      localStorage.setItem('CURRENT_USER', user);
+      SetIsAuth(user);
+    }
+  }, [user]);
 
   return {
     loading,
     error,
     getUser,
     isAuth,
-    user,
   };
 }
