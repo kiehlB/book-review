@@ -35,7 +35,7 @@ console.log('check', process.env.NODE_ENV);
 console.log(prod ? process.env.API_URL : 'http://localhost:4000/graphql');
 // https://api.bookreview.pro/graphql
 const httpLink = new HttpLink({
-  uri: 'https://api.bookreview.pro/graphql', // Server URL (must be absolute)
+  uri: 'https://api.bookreview.pro/graphql/graphql', // Server URL (must be absolute)
   credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 });
 

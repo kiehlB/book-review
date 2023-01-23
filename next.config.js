@@ -4,14 +4,6 @@ const nextConfig = {
   env: {
     API_URL: process.env.API_URL,
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'https://api.bookreview.pro/:path*',
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;
