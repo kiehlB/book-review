@@ -21,11 +21,13 @@ const NO_AUTH_TOKEN = 'No auth token';
 
 const linkOnError = onError(
   ({ graphQLErrors, operation, forward, response, networkError }) => {
-    if (networkError) {
-      console.log(`[Network error]: ${networkError}`);
-    }
+    console.log(networkError);
+    if (!apolloClient) return;
+    console.log(graphQLErrors?.[0].message);
 
-    console.log(graphQLErrors);
+    if (graphQLErrors?.[0].message === NO_AUTH_TOKEN) {
+      response.errors = null;
+    }
   },
 );
 
@@ -35,14 +37,14 @@ console.log('check', process.env.NODE_ENV);
 console.log(prod ? process.env.API_URL : 'http://localhost:4000/graphql');
 // https://api.bookreview.pro/graphql
 const httpLink = new HttpLink({
-  uri: 'https://api.bookreview.pro/graphql/graphql', // Server URL (must be absolute)
+  uri: prod ? process.env.API_URL : 'http://localhost:4000/graphql', // Server URL (must be absolute)
   credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 });
 
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: httpLink,
+    link: from([linkOnError, httpLink]),
     cache: new InMemoryCache({
       typePolicies: {
         Query: {

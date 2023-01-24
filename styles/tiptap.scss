@@ -116,8 +116,31 @@ $text-col: #111111, #eeeeee, #111111;
 .ProseMirror {
   > * + * {
     margin-top: 0.75em;
+    padding: 0 1rem
 
   }
+  ol {
+    
+    list-style: none;
+    counter-reset: item;
+  }
+  li {
+    display: flex;
+    counter-increment: item;
+    margin-bottom: 5px;
+  }
+  li:before {
+    margin-right: 10px;
+    content: counter(item);
+    background: lightblue;
+    border-radius: 100%;
+    color: white;
+    width: 1.5em;
+    text-align: center;
+    display: inline-block;
+  }
+
+ 
 
   outline: none;
   min-height: 100%;
@@ -126,7 +149,7 @@ $text-col: #111111, #eeeeee, #111111;
   border:1px solid blue; 
   width: 100%;
   
-  overflow-y: auto;
+   
  
   ul,
   ol {

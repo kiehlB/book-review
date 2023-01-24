@@ -4,12 +4,14 @@ import { useRouter } from 'next/router';
 
 export default function useGetPost() {
   const router = useRouter();
+
   const {
     loading: singlePostLoding,
     error: singlePostError,
     data: singlePostData,
   } = useQuery(GET_Post, {
-    variables: { id: '7a48a23f-9835-4d3a-b12d-72907f858a1b' },
+    variables: { id: router?.query?.id?.toString() },
+    skip: !router?.query?.id,
   });
 
   return {

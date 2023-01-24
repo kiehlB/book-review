@@ -4,6 +4,7 @@ export const GET_Post = gql`
   query GetPost($id: String!) {
     post(id: $id) {
       id
+      title
       body
     }
   }

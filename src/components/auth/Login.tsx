@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import AuthForm from './AuthForm2';
+import AuthForm from './AuthForm';
 import useLogin from './hooks/useLogin';
 import useRegister from './hooks/useRegister';
 

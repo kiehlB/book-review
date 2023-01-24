@@ -15,7 +15,7 @@ export default function Test() {
   return (
     <>
       <TestPageLayout>
-        <SignUp />
+        {/* <SignUp /> */}
         <div className="flex">
           <AppLayout.MainNav>
             <Navbar

@@ -11,7 +11,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarProps) => (
-  <div className={clsx('rounded-lg py-[1rem]', className)}>
+  <div className={clsx('rounded-xl py-[1rem] border-2', className)}>
     <ul>
       {primaryItems.map(itemProps => (
         <li key={itemProps.text}>
@@ -20,7 +20,6 @@ const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarP
       ))}
     </ul>
 
-    <div className="border"></div>
     <ul className="flex">
       <div className="flex items-center underlined whitespace-nowrap text-lg font-medium px-[1rem] py-[0.5rem] transition-all">
         Trending tags

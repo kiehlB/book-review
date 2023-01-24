@@ -9,6 +9,7 @@ import { useContext, useEffect } from 'react';
 import ModalContext from '../../context/modalContext';
 import useWhoAmI from '../auth/hooks/useWhoami';
 import AuthContext from '../../context/authContext';
+import AuthItem from './AuthItem';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -27,16 +28,16 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
         },
       )}>
       <div className="relative h-8 w-8">
-        <span
+        <div
           className="absolute inset-0 flex justify-center items-center rotate-90 transform text-black transition duration-1000 motion-reduce:duration-[0s] dark:rotate-0 dark:text-white"
           style={iconTransformOrigin}>
           <CiDark size={24} />
-        </span>
-        <span
+        </div>
+        <div
           className="absolute flex justify-center items-center inset-0 rotate-0 transform text-black transition duration-1000 motion-reduce:duration-[0s] dark:-rotate-90 dark:text-white"
           style={iconTransformOrigin}>
           <CiLight size={24} />
-        </span>
+        </div>
       </div>
     </button>
   );
@@ -44,8 +45,8 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 
 function Header() {
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
-  // const { isAuth, SetIsAuth } = useContext(AuthContext);
-  const { loading, error, getUser, isAuth } = useWhoAmI();
+  const { isAuth, SetIsAuth } = useContext(AuthContext);
+  const { auth } = useWhoAmI();
 
   return (
     <PageGrid as="header" className={`items-center py-[1rem] px-[1rem]`}>
@@ -67,11 +68,12 @@ function Header() {
           <DarkModeToggle />
         </div>
 
-        {isAuth ? (
-          'hi'
+        {auth ? (
+          <div className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]">
+            Logout
+          </div>
         ) : (
           <>
-            {' '}
             <div
               className="pr-4 text-sm text-[#181A20] font-medium"
               onClick={() => {

@@ -25,6 +25,8 @@ import Bold from '../../svg/bold';
 import Italic from '../../svg/italic';
 import { motion, Variants } from 'framer-motion';
 import { PageGrid, PostGrid } from '../layout/GridLayout';
+import Fold from '../../svg/fold';
+import ProjectCreateContentToolbar from './Toolbar';
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -202,30 +204,44 @@ const Tap = () => {
   const a = editor?.getHTML();
   // break-words truncate whitespace-pre-line
   return (
-    <PageGrid as="main" className="w-[100%] h-[100vh]">
-      <div className="col-span-2 border-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2">
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
-        <div>d</div>
+    <PageGrid as="main" className="h-full">
+      <div className="col-span-2 h-full border-2">
+        <div className="col-span-2   overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 sticky top-0 z-10">
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+          <div>d</div>
+        </div>
       </div>
-      <div className="col-span-8 border-2 h-[3rem]">
+      <div className="col-span-8 border-2">
         <div className="flex justify-between">
-          <div>folder</div>
+          <div>Title</div>
           <div className="flex">
-            <div>saved</div>
-            <div>preview</div>
-            <div>publish</div>
+            <div className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]">
+              saved
+            </div>
+            <div
+              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
+              onClick={e => handleSubmit(e, a)}>
+              publish
+            </div>
           </div>
         </div>
-        <MenuBar editor={editor} />
-        <PostGrid as="div" className="w-[100%] h-[calc(100vh-3rem)] mt-6">
+        <div className="">
+          <input ref={BodyFocusRef} className="border" onClick={toggleEditing} />
+          <TagsForm />
+        </div>
+
+        <div className="sticky top-0 z-10">
+          <ProjectCreateContentToolbar editor={editor} />
+        </div>
+        <PostGrid as="div" className="">
           <div className="col-span-8 overflow-y-scroll  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 ">
             <EditorContent editor={editor} className="" />
           </div>

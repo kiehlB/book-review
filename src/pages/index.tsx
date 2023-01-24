@@ -12,14 +12,8 @@ import Modal from '../components/common/Modal';
 import { NextSeo } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
 import AuthContainer from '../components/auth/AuthContainer';
-import { useQuery } from '@apollo/client';
-import { GetC } from '../lib/graphql/test';
 
 export default function Home() {
-  const { data: getUser, loading, error } = useQuery(GetC);
-
-  console.log(getUser);
-
   return (
     <>
       <NextSeo
@@ -87,42 +81,6 @@ export default function Home() {
                         <div>2 개월전</div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="col-span-2 h-[20rem] mxl:col-span-4">
-                  <div className="w-full">
-                    <RatioImage
-                      alt="test"
-                      widthRatio={1.644444444444444}
-                      heightRatio={1}
-                      src="/test.jpg"
-                      className="relative"
-                    />
-                    <div>텍스트</div>
-                  </div>
-                </div>
-                <div className="col-span-2 h-[20rem] mxl:col-span-4">
-                  <div className="w-full">
-                    <RatioImage
-                      alt="test"
-                      widthRatio={1.644444444444444}
-                      heightRatio={1}
-                      src="/test.jpg"
-                      className="relative"
-                    />
-                    <div>텍스트</div>
-                  </div>
-                </div>
-                <div className="col-span-2 h-[20rem] mxl:col-span-4">
-                  <div className="w-full">
-                    <RatioImage
-                      alt="test"
-                      widthRatio={1.644444444444444}
-                      heightRatio={1}
-                      src="/test.jpg"
-                      className="relative"
-                    />
-                    <div>텍스트</div>
                   </div>
                 </div>
                 <div className="col-span-2 h-[20rem] mxl:col-span-4">

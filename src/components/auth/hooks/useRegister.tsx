@@ -1,14 +1,18 @@
 import { useMutation } from '@apollo/client';
 import { useInput } from '@nextui-org/react';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
+import ModalContext from '../../../context/modalContext';
 import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
+import useWhoAmI from './useWhoami';
 
 export default function useRegister() {
   const router = useRouter();
   const { value: email, reset: emailReset, bindings: EB } = useInput('');
   const { value: password, reset: passwordReset, bindings: PB } = useInput('');
+  const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
+  const { loading } = useWhoAmI();
 
   const validateEmail = value => {
     return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
@@ -45,7 +49,10 @@ export default function useRegister() {
   }, [email]) as any;
 
   const [signUp, { error: registerError }] = useMutation(registerMutation, {
-    onCompleted({ signUp }) {},
+    onCompleted({ signUp }) {
+      SetIsClose(false);
+      loading();
+    },
   });
 
   const handleSubmit = async e => {

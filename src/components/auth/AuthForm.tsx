@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Input, useInput, Grid } from '@nextui-org/react';
 import Google from '../../svg/google';
 import FaceBook from '../../svg/facebook';
+import useWhoAmI from './hooks/useWhoami';
 
 export interface inputProps {
   password: string | number | readonly string[];
