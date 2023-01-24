@@ -9,7 +9,6 @@ import { useContext, useEffect } from 'react';
 import ModalContext from '../../context/modalContext';
 import useWhoAmI from '../auth/hooks/useWhoami';
 import AuthContext from '../../context/authContext';
-import AuthItem from './AuthItem';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -49,9 +48,9 @@ function Header() {
   const { auth } = useWhoAmI();
 
   return (
-    <PageGrid as="header" className={`items-center py-[1rem] px-[1rem]`}>
+    <PageGrid as="header" className={`items-center py-[1rem]`}>
       <h1
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none ml-[1rem]`}>
         Books
       </h1>
       <div className="col-span-6 mlg:hidden">
@@ -64,18 +63,23 @@ function Header() {
       </div>
 
       <div className="flex col-span-2 ml-auto items-center mlg:col-span-10">
-        <div className="pr-4">
+        <div className="pr-6">
           <DarkModeToggle />
         </div>
 
         {auth ? (
-          <div className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]">
-            Logout
+          <div className="flex items-center">
+            <div className="text-sm font-medium border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529]">
+              Write
+            </div>
+            <div className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]">
+              Logout
+            </div>
           </div>
         ) : (
           <>
             <div
-              className="pr-4 text-sm text-[#181A20] font-medium"
+              className="pr-4 text-sm text-[#181A20] font-medium "
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('login');
@@ -83,7 +87,7 @@ function Header() {
               Sign in
             </div>
             <div
-              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
+              className="text-sm font-medium px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20]"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('register');

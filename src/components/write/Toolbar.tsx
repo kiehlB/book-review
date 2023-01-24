@@ -50,7 +50,7 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
           display: 'flex',
           border: theme => `1px solid ${theme.palette.divider}`,
           flexWrap: 'wrap',
-
+          margin: '0 16px',
           position: 'sticky',
 
           zIndex: 9999,

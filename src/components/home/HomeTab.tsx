@@ -6,6 +6,7 @@ import useToggle from '../../hooks/useToggle';
 import Link from 'next/link';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import ModalContext from '../../context/modalContext';
+import { IoCalendarNumberOutline } from 'react-icons/io5';
 
 export type HomeTabProps = {};
 
@@ -17,7 +18,7 @@ export const isActiveLink = (href: string, currentPathname: string): boolean => 
   return currentPathname.startsWith(href);
 };
 
-const links: { name: string; href: string }[] = [
+const links: { name: any; href: string }[] = [
   {
     name: 'Home',
     href: '/',
@@ -38,7 +39,7 @@ function HomeTab(props: HomeTabProps) {
   };
 
   return (
-    <nav className="flex">
+    <div className="flex">
       {links.map(({ name, href }) => (
         <Link
           key={name}
@@ -48,7 +49,7 @@ function HomeTab(props: HomeTabProps) {
               stopPropagation(e);
             }
           }}>
-          <div className="ml-6 sm:mr-8 flex flex-col relative">
+          <div className="ml-6 sm:mr-8 flex flex-col relative text-base font-medium text-[#181A20]">
             {name}
             {isActiveLink(href, router.pathname) && (
               <motion.div
@@ -60,7 +61,9 @@ function HomeTab(props: HomeTabProps) {
           </div>
         </Link>
       ))}
-    </nav>
+
+      <IoCalendarNumberOutline size={24} className="ml-6" />
+    </div>
   );
 }
 

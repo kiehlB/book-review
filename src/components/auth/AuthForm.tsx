@@ -29,14 +29,20 @@ export interface AuthFormProps {
     value: string;
     onChange: (event: BindingsChangeTarget) => void;
   };
-  helper: any;
+  helper: {
+    color: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
+    text: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
+  };
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   authError?: ApolloError;
   auth?: string;
   isRegister?: string;
   linkTo?: string;
-  Passwordhelper: any;
+  Passwordhelper: {
+    color: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
+    text: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
+  };
   mode: string;
 }
 
@@ -50,6 +56,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
   Passwordhelper,
   mode,
 }) => {
+  console.log(helper);
+
   return (
     <>
       <form className="px-[6.46875rem] py-[1.5rem]" onSubmit={handleSubmit}>

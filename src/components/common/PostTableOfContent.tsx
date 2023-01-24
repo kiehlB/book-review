@@ -44,8 +44,6 @@ const PostTableOfContents = () => {
   const { nestedHeadings } = useHeadingsData();
   useIntersectionObserver(setActiveId);
 
-  console.log(nestedHeadings);
-
   return (
     <nav aria-label="Table of contents">
       <Headings headings={nestedHeadings} activeId={activeId} />
