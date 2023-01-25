@@ -1,6 +1,6 @@
 import PostTableOfContents from '../../components/common/PostTableOfContent';
 import { PageLayout } from '../../components/layout/PageLayout';
-import useGetPost from '../../components/write/hooks/usegetPost';
+
 import { parseHeadings2, setHeadingId } from '../../lib/heading';
 import { EditorContent, useEditor } from '@tiptap/react';
 import Subscript from '@tiptap/extension-subscript';
@@ -21,6 +21,7 @@ import { ColorHighlighter } from '../../components/write/ColourHighlighter';
 import TableOfContents from '../../components/write/TableOfContents';
 import UniqueID from '../../components/write/UniqueID';
 import { useEffect, useState } from 'react';
+import useGetPost from '../../components/write/hooks/useGetSinglePost';
 
 export type PostProps = {};
 

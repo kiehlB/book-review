@@ -14,6 +14,8 @@ import { getNextSeo } from '../lib/nextSeo';
 import AuthContainer from '../components/auth/AuthContainer';
 import useGetPosts from '../components/post/hooks/useGetPosts';
 import PostCard from '../components/post/PostCard';
+import axios from 'axios';
+import BookTalble from '../components/booksTable.tsx';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
