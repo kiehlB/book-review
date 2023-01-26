@@ -5,6 +5,8 @@ type Dispatch<A> = (value: A) => void;
 export interface ModalContextData {
   IsClose: boolean;
   SetIsClose: Dispatch<SetStateAction<boolean>>;
+  BookIsClose: boolean;
+  SetBokkIsClose: Dispatch<SetStateAction<boolean>>;
   mode: string;
   SetMode: Dispatch<SetStateAction<string>>;
 }
@@ -12,6 +14,8 @@ export interface ModalContextData {
 const ModalContext = React.createContext<ModalContextData>({
   IsClose: false,
   SetIsClose: () => {},
+  BookIsClose: false,
+  SetBokkIsClose: () => {},
   SetMode: () => {},
   mode: '',
 });
@@ -24,10 +28,12 @@ export const ModalContextProvider = ({
   children,
 }: ModalContextProviderProps): ReactElement => {
   const [IsClose, SetIsClose] = useState(false);
+  const [BookIsClose, SetBokkIsClose] = useState(false);
   const [mode, SetMode] = useState('');
 
   return (
-    <ModalContext.Provider value={{ IsClose, SetIsClose, mode, SetMode }}>
+    <ModalContext.Provider
+      value={{ IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBokkIsClose }}>
       {children}
     </ModalContext.Provider>
   );

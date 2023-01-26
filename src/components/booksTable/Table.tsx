@@ -7,6 +7,7 @@ import { Heading, Menu, Pane, Popover } from 'evergreen-ui';
 
 import defaultRowRenderer, { DEFAULT_TABLE_ROW_HEIGHT } from './DefaultTableRow';
 import { BASE_SIZE, SPINNER_SIZE } from '../../lib/constants';
+import FindBook from '../../svg/findBook';
 
 const DEFAULT_FILTER_PLACEHOLDER = 'No entries';
 const DEFAULT_LOADING_FOOTER_PLACEHOLDER = 'Loading entries...';
@@ -31,27 +32,14 @@ export function Table({
   onRowClick,
   rowHeight = DEFAULT_TABLE_ROW_HEIGHT,
   rowRenderer,
-
   selectedIds,
   sortOptions,
 }) {
-  console.log('render');
-
   const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
   const [filter, setFilter] = useState('');
   const [sortOrder, setSortOrder] = useState(defaultSortOrder);
   const [debouncedFilter] = useDebounce(filter, 500);
-  const handleFilterChange = useCallback(setFilter, []);
-  const handleScroll = useCallback(
-    (scrollTop: number) => {
-      const visibleRowCount = 600 / rowHeight;
-      const viewedRowCount = scrollTop / rowHeight + visibleRowCount;
-      if (viewedRowCount + visibleRowCount >= rowCount) {
-        setRowCount(rowCount + ROWS_TO_LOAD_PER_BATCH);
-      }
-    },
-    [rowCount, rowHeight, setRowCount],
-  ) as any;
+
   const activities = useMemo(() => {
     let result = data;
 
@@ -61,32 +49,27 @@ export function Table({
 
     const sortOption = _.find(sortOptions, o => sortOrder === o.value);
     if (sortOption) {
-      result = sortOption.sortFn(result);
     }
 
     return result;
   }, [data, debouncedFilter, filterFn, sortOptions, sortOrder]);
   const visibleActivities = useMemo(() => {
-    return activities.slice(0, rowCount);
+    return activities?.slice(0, rowCount);
   }, [activities, rowCount]);
 
   let tableContent = null;
   const isDebounceActive = debouncedFilter !== filter;
   const tableBodyHeight = 600 - HEADER_HEIGHT - FOOTER_HEIGHT;
 
+  console.log(tableBodyHeight);
   switch (true) {
     case isDebounceActive:
-    case isLoading:
+
+    case data?.length === undefined:
       tableContent = (
-        <div className="" style={{ height: tableBodyHeight }}>
-          <Spinner size={SPINNER_SIZE} />
-        </div>
-      );
-      break;
-    case visibleActivities.length === 0:
-      tableContent = (
-        <div className="" style={{ height: tableBodyHeight }}>
-          {filter === '' ? filterPlaceholder : 'No matches found'}
+        <div className="flex border-2 border-red-500 justify-center items-center">
+          <div className="">원하는 책을 검색해 보세요</div>
+          <FindBook className="w-[400px] h-[400px]" />
         </div>
       );
       break;
@@ -98,11 +81,10 @@ export function Table({
           allowAutoHeight={false}
           className=""
           estimatedItemSize={rowHeight}
-          height={tableBodyHeight}
-          onScroll={handleScroll}
+          height={600}
           overscanCount={Math.round(600 / rowHeight) * 2}
           useAverageAutoHeightEstimation={false}>
-          {visibleActivities.map(datum =>
+          {visibleActivities?.map(datum =>
             tableRowRenderer({
               datum,
               isSelectable,
@@ -116,7 +98,7 @@ export function Table({
   }
 
   let footerText;
-  const entriesWithUnit = formatEntries(data.length);
+  const entriesWithUnit = formatEntries(data?.length);
   switch (true) {
     case isDebounceActive:
       footerText = `Sifting through ${entriesWithUnit}...`;
@@ -134,26 +116,8 @@ export function Table({
   }
 
   return (
-    <div className="h-full border shadow-md  rounded-md bg-white dark:bg-[#1E1E1E]">
+    <div className="border shadow-md  rounded-md">
       <EvergreenTable>
-        <EvergreenTable.Head height={HEADER_HEIGHT}>
-          {filterFn && (
-            <EvergreenTable.SearchHeaderCell
-              autoFocus={autoFocus}
-              flexGrow={100}
-              onChange={!disabled ? handleFilterChange : undefined}
-              value={filter}
-            />
-          )}
-          {sortOptions && sortOptions.length > 0 && (
-            <TableSortButton
-              disabled={disabled}
-              onSelect={setSortOrder}
-              sortOrder={sortOrder}
-              sortOptions={sortOptions}
-            />
-          )}
-        </EvergreenTable.Head>
         <div className="">{tableContent}</div>
         <EvergreenTable.Cell
           height={FOOTER_HEIGHT}

@@ -7,6 +7,7 @@ interface ModalProps {
   visible?: boolean;
   onClose?: (visible) => void;
   children?: React.ReactNode;
+  className: string;
 }
 
 const itemVariants = {
@@ -72,7 +73,7 @@ const liVariants = {
   },
 };
 
-const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) => {
   return (
     <motion.div
       className={clsx(
@@ -82,8 +83,8 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose }) => {
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
       <div className="flex items-center justify-center h-full">
-        <motion.div variants={liVariants} className="w-[616px] h-[680px] flex shadow-md">
-          <div className="flex-1 bg-[#fff] flex flex-col shadow-2xl">
+        <motion.div variants={liVariants} className={className}>
+          <div className="flex-1 flex flex-col shadow-2xl">
             <div className="flex justify-end  p-[1.5rem]">
               <MdClose
                 onClick={() => onClose(!visible)}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
@@ -15,10 +15,12 @@ import AuthContainer from '../components/auth/AuthContainer';
 import useGetPosts from '../components/post/hooks/useGetPosts';
 import PostCard from '../components/post/PostCard';
 import axios from 'axios';
-import BookTalble from '../components/booksTable.tsx';
+import ModalContext from '../context/modalContext';
+import BookTalble from '../components/booksTable';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
+  const { BookIsClose, SetBokkIsClose } = useContext(ModalContext);
 
   return (
     <>
@@ -28,6 +30,12 @@ export default function Home() {
 
       <PageLayout>
         <AuthContainer />
+        <Modal
+          visible={BookIsClose}
+          onClose={SetBokkIsClose}
+          className="max-w-[78.5rem] mx-auto w-full h-[100%] flex shadow-md bg-[#E9E9E9]">
+          <BookTalble />
+        </Modal>
         <PageGrid as="div" className="pt-[36px]">
           <AppLayout.MainNav>
             <nav className="col-span-2">

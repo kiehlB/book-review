@@ -43,7 +43,8 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 }
 
 function Header() {
-  const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
+  const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBokkIsClose } =
+    useContext(ModalContext);
   const { isAuth, SetIsAuth } = useContext(AuthContext);
   const { auth } = useWhoAmI();
 
@@ -69,7 +70,9 @@ function Header() {
 
         {auth ? (
           <div className="flex items-center">
-            <div className="text-sm font-medium border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529]">
+            <div
+              onClick={() => SetBokkIsClose(!BookIsClose)}
+              className="text-sm font-medium border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529]">
               Write
             </div>
             <div className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]">

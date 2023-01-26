@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from '../store/store';
+import { BooksContextProvider } from '../context/booksContext';
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const url = `http://localhost:3000/${router.route}`;
@@ -22,18 +23,20 @@ export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ModalContextProvider>
-          <ApolloProvider client={apolloClient}>
-            <NextUIProvider>
-              <AnimatePresence
-                mode="wait"
-                initial={false}
-                onExitComplete={() => window.scrollTo(0, 0)}>
-                <Component {...pageProps} canonical={url} key={url} />
-              </AnimatePresence>
-            </NextUIProvider>
-          </ApolloProvider>
-        </ModalContextProvider>
+        <BooksContextProvider>
+          <ModalContextProvider>
+            <ApolloProvider client={apolloClient}>
+              <NextUIProvider>
+                <AnimatePresence
+                  mode="wait"
+                  initial={false}
+                  onExitComplete={() => window.scrollTo(0, 0)}>
+                  <Component {...pageProps} canonical={url} key={url} />
+                </AnimatePresence>
+              </NextUIProvider>
+            </ApolloProvider>
+          </ModalContextProvider>
+        </BooksContextProvider>
       </PersistGate>
     </Provider>
   );

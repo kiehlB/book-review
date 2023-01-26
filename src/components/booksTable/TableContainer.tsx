@@ -21,7 +21,7 @@ enum HistoryTableSortOrder {
   TimeDescending = 'TIME_DESCENDING',
 }
 
-const ROW_HEIGHT = BASE_SIZE * 6;
+const ROW_HEIGHT = BASE_SIZE * 20;
 const DEFAULT_SORT_ORDER = 'TIME_DESCENDING' as HistoryTableSortOrder;
 const SORT_OPTIONS = [
   {
@@ -55,7 +55,7 @@ const SORT_OPTIONS = [
 const TITLE_PLACEHOLDER = '-';
 
 function filterActivityRecords(data, filter: string) {
-  return data.filter(
+  return data?.filter(
     record =>
       record.url.toLowerCase().includes(filter) ||
       record.title.toLowerCase().includes(filter),
@@ -63,11 +63,10 @@ function filterActivityRecords(data, filter: string) {
 }
 
 function formatRecordString(count: number) {
-  return `${count.toLocaleString('en-US')} ${count > 1 ? 'records' : 'record'}`;
+  return `${count?.toLocaleString('en-US')} ${count > 1 ? 'records' : 'record'}`;
 }
 
 export const HistoryTableRow = ({ datum, isSelectable, onRowClick, selectedIds }) => {
-  console.log(datum);
   return (
     <EvergreenTable.Row
       className=""
@@ -80,13 +79,8 @@ export const HistoryTableRow = ({ datum, isSelectable, onRowClick, selectedIds }
         alignItems="center"
         flexGrow={80}
         className="dark:bg-[#1E1E1E]">
-        <Avatar
-          className=""
-          hashValue={datum.domain}
-          name={datum.domain}
-          src={datum.favIconUrl}
-          size={ICON_SIZE_MD}
-        />
+        <img src={datum.thumbnail} width="82px" height={116} />
+
         <div className="ml-3 flex flex-col text-xs truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9] ">
           <strong className=" ">{datum.title || TITLE_PLACEHOLDER}</strong>
           <ExternalLink url={datum.url} />
