@@ -79,7 +79,7 @@ type ArrowButtonProps = {
 function getBaseProps({ textSize, className }: ArrowButtonBaseProps) {
   return {
     className: clsx(
-      'text-primary inline-flex items-center text-left font-medium focus:outline-none cursor-pointer transition',
+      'inline-flex items-center text-left font-medium focus:outline-none cursor-pointer transition',
       {
         'text-xl': textSize === 'medium',
         'text-[0.5rem]': textSize === 'small',
@@ -101,14 +101,14 @@ function ArrowButtonContent({
     <>
       {children &&
       (direction === 'right' || direction === 'up' || direction === 'top-right') ? (
-        <span className="mr-8 text-xl font-medium">{children}</span>
+        <span className="text-base font-medium mr-4">{children}</span>
       ) : null}
 
       <div className="relative inline-flex h-14 w-14 flex-none items-center justify-center p-1">
-        <div className="absolute text-gray-200 dark:text-gray-600">
+        <div className="absolute text-[#f0b90b] dark:text-gray-600 ">
           <svg width="60" height="60">
             <circle
-              stroke="currentColor"
+              stroke="grey"
               strokeWidth="2"
               fill="transparent"
               r="28"

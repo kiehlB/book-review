@@ -4,6 +4,7 @@ import axios from 'axios';
 import BooksTableContainer from './TableContainer';
 import BooksContext from '../../context/booksContext';
 import { SearchInput } from 'evergreen-ui';
+import { ArrowLink } from '../common/ArrowButton';
 
 interface BookTalbleProps {}
 
@@ -13,30 +14,6 @@ enum HistoryTableSortOrder {
   TimeAscending = 'TIME_ASCENDING',
   TimeDescending = 'TIME_DESCENDING',
 }
-
-const SORT_OPTIONS = [
-  {
-    buttonLabel: 'Sorted by 정확도순 (Descending)',
-    optionLabel: 'Sorted by 정확도순',
-    optionSublabel: 'Descending',
-    value: '정확도순_DESCENDING' as HistoryTableSortOrder,
-    sort: 'accuracy',
-  },
-  {
-    buttonLabel: 'Sorted 발간일순 (Ascending)',
-    optionLabel: 'Sorted 발간일순',
-    optionSublabel: 'Ascending',
-    value: 'TIME_ASCENDING' as HistoryTableSortOrder,
-    sort: 'latest',
-  },
-  {
-    buttonLabel: 'Sorted 기본값 (Descending)',
-    optionLabel: 'Sorted 기본값',
-    optionSublabel: 'Descending',
-    value: 'TIME_DESCENDING' as HistoryTableSortOrder,
-    sort: 'accuracy',
-  },
-];
 
 function BooksTableForm({
   BookName: externalBookName,
@@ -168,7 +145,7 @@ export const bookApi = title => {
   return axios
     .request({
       method: 'get',
-      url: `https://dapi.kakao.com/v3/search/book?target=title&query=${title}&size=50`,
+      url: `https://dapi.kakao.com/v3/search/book?target=title&query=${title}&size=50&sort=accuracy`,
       headers: {
         Authorization: `KakaoAK ${process.env.KAKAO}`,
       },
@@ -210,26 +187,14 @@ function BookInfo({ bookName }): any {
     }
   }, [cache, dispatch, BookName, run, setData]);
 
-  if (status === 'idle') {
+  if (status) {
     return (
       <BooksTableContainer
         autoFocus={true}
         disabled={false}
         isLoading={false}
         data={Book}
-      />
-    );
-  } else if (status === 'pending') {
-    return <div>pending</div>;
-  } else if (status === 'rejected') {
-    throw error;
-  } else if (status === 'resolved') {
-    return (
-      <BooksTableContainer
-        autoFocus={true}
-        disabled={false}
-        isLoading={false}
-        data={Book}
+        status={status}
       />
     );
   }
@@ -245,9 +210,25 @@ const BookTalble = ({}) => {
   }
 
   return (
-    <div className="px-[2rem]">
-      <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
-      <BookInfo bookName={bookName} />
+    <div className="max-w-[78.5rem] mx-auto grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] w-full">
+      <div className="flex row-span-1">
+        <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
+      </div>
+      <div className="row-span-10 overflow-y-scroll  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border shadow-md rounded-md border-[#EDEFF5]">
+        <BookInfo bookName={bookName} />
+      </div>
+      <div className="flex justify-end pr-4 mt-4">
+        <ArrowLink href={'/write'} direction="right" className="mr-8" textSize="small">
+          Skip
+        </ArrowLink>
+        <ArrowLink
+          href={'/write'}
+          direction="right"
+          className="font-semibold"
+          textSize="small">
+          다음
+        </ArrowLink>
+      </div>
     </div>
   );
 };

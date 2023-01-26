@@ -5,11 +5,8 @@ export type FindBookProps = {
 function FindBook({ className }: FindBookProps) {
   return (
     <svg
-      className={className}
       xmlns="http://www.w3.org/2000/svg"
       data-name="Layer 1"
-      width="669.17503"
-      height="511.62846"
       viewBox="0 0 669.17503 511.62846"
       xmlnsXlink="http://www.w3.org/1999/xlink">
       <path

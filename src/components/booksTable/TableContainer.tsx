@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import { Avatar, Table as EvergreenTable } from 'evergreen-ui';
+import styled from 'styled-components';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { BASE_SIZE, ICON_SIZE_MD } from '../../lib/constants';
 import Table from './Table';
+import moment from 'moment';
 
 interface HistoryTableProps {
   data?: any;
@@ -12,6 +13,7 @@ interface HistoryTableProps {
   isLoading?: boolean;
   selectedRecordIds?: number[];
   onRowClick?: any;
+  status: string;
 }
 
 enum HistoryTableSortOrder {
@@ -68,32 +70,36 @@ function formatRecordString(count: number) {
 
 export const HistoryTableRow = ({ datum, isSelectable, onRowClick, selectedIds }) => {
   return (
-    <EvergreenTable.Row
-      className=""
-      data-activity-id={datum.title}
-      height={ROW_HEIGHT}
-      key={datum.title}
+    <div
+      className="border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] transition-all"
+      data-activity-id={datum.isbn}
+      key={datum.isbn}
       onClick={isSelectable && onRowClick ? () => onRowClick(datum) : undefined}>
-      <EvergreenTable.Cell
-        display="flex"
-        alignItems="center"
-        flexGrow={80}
-        className="dark:bg-[#1E1E1E]">
-        <img src={datum.thumbnail} width="82px" height={116} />
+      <div className="flex dark:bg-[#1E1E1E]">
+        <img
+          src={datum.thumbnail ? datum.thumbnail : '/noimg.jpg'}
+          width="82px"
+          height="116px"
+          className="min-h-[116px]"
+        />
 
-        <div className="ml-3 flex flex-col text-xs truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9] ">
-          <strong className=" ">{datum.title || TITLE_PLACEHOLDER}</strong>
-          <ExternalLink url={datum.url} />
+        <div className="ml-5 flex flex-col text-xs truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9] w-full">
+          <div className="flex justify-between w-full">
+            <strong className="text-xl">{datum.title || TITLE_PLACEHOLDER}</strong>
+            <div className="mr-2">{moment(datum.datetime).format('YYYY-MM-DD')}</div>
+          </div>
+          <div className="py-[0.5rem]">{datum.authors.map(e => e)}</div>
+          <div className="h-full flex flex-wrap">
+            <WithoutPostBody className="break-all line-clamp-3">
+              {datum.contents}
+            </WithoutPostBody>
+          </div>
         </div>
-      </EvergreenTable.Cell>
-      <EvergreenTable.Cell
-        display="flex"
-        alignItems="center"
-        flexGrow={20}
-        className="flex justify-end text-xs dark:bg-[#1E1E1E]">
-        <div className="flex flex-col truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9] "></div>
-      </EvergreenTable.Cell>
-    </EvergreenTable.Row>
+      </div>
+      <div className="flex justify-end text-xs dark:bg-[#1E1E1E]">
+        <div className="flex flex-col truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9]"></div>
+      </div>
+    </div>
   );
 };
 
@@ -104,6 +110,7 @@ const BooksTableContainer = ({
   onRowClick,
   selectedRecordIds,
   data,
+  status,
 }: HistoryTableProps) => {
   return (
     <Table
@@ -120,6 +127,7 @@ const BooksTableContainer = ({
       onRowClick={onRowClick}
       selectedIds={selectedRecordIds}
       sortOptions={SORT_OPTIONS}
+      status={status}
     />
   );
 };
@@ -138,3 +146,16 @@ const ExternalLink = props => {
 };
 
 export default React.memo(BooksTableContainer);
+const WithoutPostBody = styled.section`
+  color: #3c4858;
+  font-weight: 500;
+  display: block;
+  display: -webkit-box;
+  line-height: 1.5rem;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: initial;
+  word-wrap: break-word;
+  overflow: hidden;
+`;

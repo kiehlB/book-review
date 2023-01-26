@@ -84,7 +84,7 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) 
       variants={ulVariants}>
       <div className="flex items-center justify-center h-full">
         <motion.div variants={liVariants} className={className}>
-          <div className="flex-1 flex flex-col shadow-2xl">
+          <div className="flex-1 flex flex-col shadow-2xl border">
             <div className="flex justify-end  p-[1.5rem]">
               <MdClose
                 onClick={() => onClose(!visible)}

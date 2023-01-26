@@ -2,12 +2,11 @@ import { Button, Spinner, Table as EvergreenTable, SearchIcon } from 'evergreen-
 import _ from 'lodash';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
-import useClientDimensions from '../../hooks/useClientDimensions';
 import { Heading, Menu, Pane, Popover } from 'evergreen-ui';
-
 import defaultRowRenderer, { DEFAULT_TABLE_ROW_HEIGHT } from './DefaultTableRow';
 import { BASE_SIZE, SPINNER_SIZE } from '../../lib/constants';
 import FindBook from '../../svg/findBook';
+import NoData from '../../svg/noData';
 
 const DEFAULT_FILTER_PLACEHOLDER = 'No entries';
 const DEFAULT_LOADING_FOOTER_PLACEHOLDER = 'Loading entries...';
@@ -34,12 +33,14 @@ export function Table({
   rowRenderer,
   selectedIds,
   sortOptions,
+  status,
 }) {
   const [rowCount, setRowCount] = useState(INITIAL_ROW_COUNT);
   const [filter, setFilter] = useState('');
   const [sortOrder, setSortOrder] = useState(defaultSortOrder);
   const [debouncedFilter] = useDebounce(filter, 500);
 
+  console.log(status);
   const activities = useMemo(() => {
     let result = data;
 
@@ -61,29 +62,75 @@ export function Table({
   const isDebounceActive = debouncedFilter !== filter;
   const tableBodyHeight = 600 - HEADER_HEIGHT - FOOTER_HEIGHT;
 
-  console.log(tableBodyHeight);
   switch (true) {
     case isDebounceActive:
 
-    case data?.length === undefined:
+    case status === 'idle':
       tableContent = (
-        <div className="flex border-2 border-red-500 justify-center items-center">
-          <div className="">원하는 책을 검색해 보세요</div>
-          <FindBook className="w-[400px] h-[400px]" />
+        <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl">
+          <div className="flex justify-between items-center w-[80%] mx-auto">
+            <div className="mb-[10%] w-[50%]">
+              <div className="text-xl text-[#333332] font-semibold">
+                책을 검색해보세요
+              </div>
+              <div className="text-[#4b4b4b] pt-[1rem] w-[80%] font-medium">
+                새로운 책을 발견하고, 새로운 세상을 접해보세요. 새로운 책들이 여러분을
+                기다리고 있습니다
+              </div>
+            </div>
+            <div className="w-[50%]">
+              <FindBook className="w-[100%] h-[100%]" />
+            </div>
+          </div>
         </div>
       );
       break;
+    case status === 'pending':
+      tableContent = (
+        <div
+          className="flex items-center justify-center"
+          style={{ height: tableBodyHeight }}>
+          <Spinner size={SPINNER_SIZE * 3} />
+        </div>
+      );
+      break;
+
+    case status === 'rejected':
+      tableContent = (
+        <div
+          className="flex items-center justify-center"
+          style={{ height: tableBodyHeight }}>
+          <div>악</div>
+        </div>
+      );
+      break;
+
+    case data.length == 0:
+      tableContent = (
+        <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl">
+          <div className="flex justify-between items-center w-[80%] mx-auto">
+            <div className="mb-[10%] w-[50%]">
+              <div className="text-xl text-[#333332] font-semibold">
+                찾으시는 책이 없습니다
+              </div>
+              <div className="text-[#4b4b4b] pt-[1rem] w-[80%] font-medium">
+                새로운 책을 발견하고, 새로운 세상을 접해보세요. 새로운 책들이 여러분을
+                기다리고 있습니다
+              </div>
+            </div>
+            <div className="w-[50%]">
+              <NoData className="w-[100%] h-[100%]" />
+            </div>
+          </div>
+        </div>
+      );
+      break;
+
     default: {
       const tableRowRenderer = rowRenderer ? rowRenderer : defaultRowRenderer;
       const isSelectable = !disabled && selectedIds !== undefined;
       tableContent = (
-        <EvergreenTable.VirtualBody
-          allowAutoHeight={false}
-          className=""
-          estimatedItemSize={rowHeight}
-          height={600}
-          overscanCount={Math.round(600 / rowHeight) * 2}
-          useAverageAutoHeightEstimation={false}>
+        <div>
           {visibleActivities?.map(datum =>
             tableRowRenderer({
               datum,
@@ -92,13 +139,14 @@ export function Table({
               selectedIds,
             }),
           )}
-        </EvergreenTable.VirtualBody>
+        </div>
       );
     }
   }
 
   let footerText;
   const entriesWithUnit = formatEntries(data?.length);
+
   switch (true) {
     case isDebounceActive:
       footerText = `Sifting through ${entriesWithUnit}...`;
@@ -112,23 +160,17 @@ export function Table({
       break;
     }
     default:
-      footerText = `Found ${entriesWithUnit}`;
+      footerText = `Found ${data?.length == undefined ? 0 : data?.length}`;
   }
 
   return (
-    <div className="border shadow-md  rounded-md">
-      <EvergreenTable>
-        <div className="">{tableContent}</div>
-        <EvergreenTable.Cell
-          height={FOOTER_HEIGHT}
-          className="flex justify-end font-semibold text-xs dark:text-neutral-400">
-          <div>{footerText}</div>
-        </EvergreenTable.Cell>
-      </EvergreenTable>
+    <div className="max-w-[76.5rem] mx-auto h-full">
+      <div className="h-full">{tableContent}</div>
+      <div className="flex justify-end pr-4 font-semibold text-base"></div>
     </div>
   );
 }
-
+// flex justify-end font-semibold text-xs dark:text-neutral-400
 export default React.memo(Table);
 
 const DEFAULT_BUTTON_TEXT = 'Sort';

@@ -18,7 +18,8 @@ module.exports = {
         'span-8': 'span 8 / span 8',
         'span-9': 'span 9 / span 9',
         'span-10': 'span 10 / span 10',
-        'span-11': 'span 1 / span 11',
+        'span-11': 'span 11 / span 11',
+        'span-12': 'span 12 / span 12',
       },
     },
     screens: {
@@ -37,5 +38,6 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     require('tailwind-scrollbar')({ nocompatible: true }),
+    require('@tailwindcss/line-clamp'),
   ],
 };
