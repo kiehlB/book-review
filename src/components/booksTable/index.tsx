@@ -170,7 +170,7 @@ export const bookApi = title => {
       method: 'get',
       url: `https://dapi.kakao.com/v3/search/book?target=title&query=${title}&size=50`,
       headers: {
-        Authorization: `KakaoAK  ${process.env.KAKAO}`,
+        Authorization: `KakaoAK ${process.env.KAKAO}`,
       },
     })
     .then(res => {
