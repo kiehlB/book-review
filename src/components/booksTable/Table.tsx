@@ -7,6 +7,8 @@ import defaultRowRenderer, { DEFAULT_TABLE_ROW_HEIGHT } from './DefaultTableRow'
 import { BASE_SIZE, SPINNER_SIZE } from '../../lib/constants';
 import FindBook from '../../svg/findBook';
 import NoData from '../../svg/noData';
+import TableContent from './TableContent';
+import ErrorSVG from '../../svg/error';
 
 const DEFAULT_FILTER_PLACEHOLDER = 'No entries';
 const DEFAULT_LOADING_FOOTER_PLACEHOLDER = 'Loading entries...';
@@ -39,8 +41,12 @@ export function Table({
   const [filter, setFilter] = useState('');
   const [sortOrder, setSortOrder] = useState(defaultSortOrder);
   const [debouncedFilter] = useDebounce(filter, 500);
+  const [clicked, setClicked] = useState(null);
 
-  console.log(status);
+  const handleClick = (e, datum) => {
+    setClicked(datum);
+  };
+
   const activities = useMemo(() => {
     let result = data;
 
@@ -67,22 +73,12 @@ export function Table({
 
     case status === 'idle':
       tableContent = (
-        <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl">
-          <div className="flex justify-between items-center w-[80%] mx-auto">
-            <div className="mb-[10%] w-[50%]">
-              <div className="text-xl text-[#333332] font-semibold">
-                책을 검색해보세요
-              </div>
-              <div className="text-[#4b4b4b] pt-[1rem] w-[80%] font-medium">
-                새로운 책을 발견하고, 새로운 세상을 접해보세요. 새로운 책들이 여러분을
-                기다리고 있습니다
-              </div>
-            </div>
-            <div className="w-[50%]">
-              <FindBook className="w-[100%] h-[100%]" />
-            </div>
-          </div>
-        </div>
+        <TableContent
+          title="  책을 검색해보세요"
+          subtitle=" 새로운 책을 발견하고, 새로운 세상을 접해보세요. 새로운 책들이 여러분을
+                기다리고 있습니다"
+          svg={<FindBook className="w-[100%] h-[100%]" />}
+        />
       );
       break;
     case status === 'pending':
@@ -97,32 +93,22 @@ export function Table({
 
     case status === 'rejected':
       tableContent = (
-        <div
-          className="flex items-center justify-center"
-          style={{ height: tableBodyHeight }}>
-          <div>악</div>
-        </div>
+        <TableContent
+          title="에러가 발생했습니다. 다음에 다시 시도해주세요"
+          subtitle="내일 다시 시도 해보세요"
+          svg={<ErrorSVG className="w-[100%] h-[100%]" />}
+        />
       );
       break;
 
     case data.length == 0:
       tableContent = (
-        <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl">
-          <div className="flex justify-between items-center w-[80%] mx-auto">
-            <div className="mb-[10%] w-[50%]">
-              <div className="text-xl text-[#333332] font-semibold">
-                찾으시는 책이 없습니다
-              </div>
-              <div className="text-[#4b4b4b] pt-[1rem] w-[80%] font-medium">
-                새로운 책을 발견하고, 새로운 세상을 접해보세요. 새로운 책들이 여러분을
-                기다리고 있습니다
-              </div>
-            </div>
-            <div className="w-[50%]">
-              <NoData className="w-[100%] h-[100%]" />
-            </div>
-          </div>
-        </div>
+        <TableContent
+          title="찾으시는 책이 없습니다"
+          subtitle="새로운 책을 발견하고, 새로운 세상을 접해보세요. 새로운 책들이 여러분을
+        기다리고 있습니다"
+          svg={<NoData className="w-[100%] h-[100%]" />}
+        />
       );
       break;
 
@@ -137,6 +123,8 @@ export function Table({
               isSelectable,
               onRowClick,
               selectedIds,
+              clicked,
+              handleClick,
             }),
           )}
         </div>

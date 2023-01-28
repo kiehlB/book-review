@@ -1,4 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+ 
+
+@font-face {
+  font-family: 'Peace';
+  src: url('/font/Peace.otf');
+  font-weight: normal;
+  font-style: normal;
+ 
+}
+
 
 @tailwind base;
 @tailwind components;

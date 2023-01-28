@@ -1,10 +1,13 @@
 import classNames from 'classnames';
 import styled from 'styled-components';
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { BASE_SIZE, ICON_SIZE_MD } from '../../lib/constants';
 import Table from './Table';
 import moment from 'moment';
+import { RootState } from '../../store/rootReducer';
+import { initBook } from '../../store/book';
+import clsx from 'clsx';
 
 interface HistoryTableProps {
   data?: any;
@@ -68,14 +71,23 @@ function formatRecordString(count: number) {
   return `${count?.toLocaleString('en-US')} ${count > 1 ? 'records' : 'record'}`;
 }
 
-export const HistoryTableRow = ({ datum, isSelectable, onRowClick, selectedIds }) => {
+export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
+  const dispatch = useDispatch();
+  console.log(datum);
   return (
     <div
-      className="border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] transition-all"
+      className={clsx(
+        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] active:bg-[#ffffff] transition-all',
+        {},
+      )}
       data-activity-id={datum.isbn}
+      style={{ background: clicked?.isbn == `${datum?.isbn}` ? '#cccccc' : null }}
       key={datum.isbn}
-      onClick={isSelectable && onRowClick ? () => onRowClick(datum) : undefined}>
-      <div className="flex dark:bg-[#1E1E1E]">
+      onClick={e => {
+        dispatch(initBook(datum));
+        handleClick(e, datum);
+      }}>
+      <div className="flex dark:bg-[#1E1E1E] ">
         <img
           src={datum.thumbnail ? datum.thumbnail : '/noimg.jpg'}
           width="82px"

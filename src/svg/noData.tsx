@@ -5,6 +5,7 @@ export type NoDataProps = {
 function NoData({ className }: NoDataProps) {
   return (
     <svg
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 586.47858 659.29778"
       xmlnsXlink="http://www.w3.org/1999/xlink">

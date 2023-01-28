@@ -22,7 +22,7 @@ const PostGrid = React.forwardRef<HTMLElement, GridProps>(function Grid(
   return (
     <div
       className={clsx(
-        'grid grid-cols-8 gap-x-6 max-w-[78.5rem] mx-auto w-full',
+        'grid grid-cols-8 gap-6 max-w-[78.5rem] mx-auto w-full ',
         className,
       )}>
       {children}

@@ -2,13 +2,12 @@ import { PageGrid } from '../layout/GridLayout';
 import { IoSearchOutline } from 'react-icons/io5';
 import { CiDark } from 'react-icons/ci';
 import { CiLight } from 'react-icons/ci';
-
 import useDarkMode from './useDarkmode';
 import clsx from 'clsx';
 import { useContext, useEffect } from 'react';
 import ModalContext from '../../context/modalContext';
 import useWhoAmI from '../auth/hooks/useWhoami';
-import AuthContext from '../../context/authContext';
+import Link from 'next/link';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -20,7 +19,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
         setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
       }}
       className={clsx(
-        'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
+        'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition  focus:outline-none',
         {
           'w-14': variant === 'icon',
           'px-8': variant === 'labelled',
@@ -43,17 +42,19 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 }
 
 function Header() {
-  const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBokkIsClose } =
+  const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBookIsClose } =
     useContext(ModalContext);
-  const { isAuth, SetIsAuth } = useContext(AuthContext);
+
   const { auth } = useWhoAmI();
 
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <h1
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none ml-[1rem]`}>
-        Books
+        style={{ fontFamily: 'Peace' }}
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none ml-[1rem] text-[#212529]`}>
+        <Link href="/"> BookReview </Link>
       </h1>
+
       <div className="col-span-6 mlg:hidden">
         <div className="relative">
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
@@ -71,7 +72,7 @@ function Header() {
         {auth ? (
           <div className="flex items-center">
             <div
-              onClick={() => SetBokkIsClose(!BookIsClose)}
+              onClick={() => SetBookIsClose(!BookIsClose)}
               className="text-sm font-medium border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529]">
               Write
             </div>
@@ -82,7 +83,7 @@ function Header() {
         ) : (
           <>
             <div
-              className="pr-4 text-sm text-[#181A20] font-medium "
+              className="pr-4 text-sm text-[#181A20] font-medium cursor-pointer hover:text-[#495057]"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('login');
@@ -90,7 +91,7 @@ function Header() {
               Sign in
             </div>
             <div
-              className="text-sm font-medium px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20]"
+              className="text-sm font-medium px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d]"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('register');

@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import Auth_Reducer from './auth';
+import Book_Reducer from './book';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
@@ -11,6 +12,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: Auth_Reducer,
+  book: Book_Reducer,
 });
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

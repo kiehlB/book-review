@@ -23,21 +23,19 @@ import { PageGrid, PostGrid } from '../layout/GridLayout';
 
 import ProjectCreateContentToolbar from './Toolbar';
 import BackIcon from '../../svg/back';
+import { SearchInput } from 'evergreen-ui';
+import PostPublish from './PostPublish';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/rootReducer';
 
-const itemVariants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 300, damping: 24 },
-  },
-  closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+export type TapProps = {
+  isOpen;
+  SetisOpen;
 };
 
-const Tap = () => {
+function Tap({ isOpen, SetisOpen }: TapProps) {
   const { handleSubmit } = useEditor2();
   const [isEditing, setEditing] = useState(false);
-  const TagFocusRef = useRef(0);
-
   const BodyFocusRef = useRef() as any;
 
   useEffect(() => {
@@ -91,24 +89,40 @@ const Tap = () => {
   };
 
   const a = editor?.getHTML();
-  // break-words truncate whitespace-pre-line
+  //   handleSubmit(e, a);
+
   return (
     <PageGrid as="main" className="h-full">
       <div className="col-span-2 h-full border-r borde-b border-[#E2E8F0]">
         <div className="col-span-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 sticky top-0 z-10">
-          <div className="flex px-4 py-4 border-2 items-center justify-center">
-            <BackIcon className="w-2" />
-            <div className="w-[240px]">BookReview</div>
+          <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
+            <div className="px-2 py-1">
+              <BackIcon className="w-[16px] h-[16px]" />
+            </div>
+
+            <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
+              BookReview
+            </div>
           </div>
-          <div>search</div>
-          <div>FAVORITES</div>
-          <div>MY DRAFTS (0)</div>
-          <div>NEW draft</div>
+
+          <div className="p-4">
+            <SearchInput
+              placeholder="임시 포스트를 검색해보세요"
+              name="BookSearch"
+              width={'240px'}
+              className="text-xs"
+              height={50}
+              style={{ borderRadius: '1.5rem', fontSize: '12px' }}
+            />
+          </div>
+
+          <div className="text-[#64748B] font-bold text-xs py-4 px-6">FAVORITES</div>
+          <div className="text-[#64748B] font-bold text-xs py-4 px-6">MY DRAFTS (0)</div>
         </div>
       </div>
 
-      <div className="flex w-[18.5rem] fixed bottom-0 z-50 px-4 col-span-2 bg-white shadow-sm shadow-slate-700  h-[4.5rem] items-center justify-between mxl:w-full">
-        <div>NEW draft</div>
+      <div className="flex w-[18.5rem] fixed bottom-0 z-50 px-4 col-span-2 bg-white  border-t h-[4.5rem] items-center justify-between mxl:w-full">
+        <div>새로운 포스트</div>
       </div>
 
       <div className="col-span-8">
@@ -124,7 +138,7 @@ const Tap = () => {
             </div>
             <div
               className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
-              onClick={e => handleSubmit(e, a)}>
+              onClick={() => SetisOpen(!isOpen)}>
               publish
             </div>
           </div>
@@ -144,6 +158,6 @@ const Tap = () => {
       </div>
     </PageGrid>
   );
-};
+}
 
 export default Tap;
