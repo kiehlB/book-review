@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { MdClose } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
+import useEditor2 from './hooks/useCreatePost';
 
 export type PostPublishProps = { children?: any; isOpen; SetisOpen };
 
@@ -25,6 +26,7 @@ const liVariants = {
 };
 
 function PostPublish({ isOpen, SetisOpen }: PostPublishProps) {
+  const { handleSubmit } = useEditor2();
   const { book } = useSelector((state: RootState) => state.book);
 
   console.log(isOpen);

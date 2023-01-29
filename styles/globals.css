@@ -6,7 +6,6 @@
   src: url('/font/Peace.otf');
   font-weight: normal;
   font-style: normal;
- 
 }
 
 
@@ -16,13 +15,11 @@
 
 
 body{
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+box-sizing: border-box;
+font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
 }
  
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+ 
 
 @layer components {
   .highlight__panel {
@@ -43,7 +40,7 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, A
   }
 
   .navigation-underline {
-      @apply w-full border border-yellow-300;
+      @apply w-full border border-yellow-400;
   }
 }
 
@@ -205,5 +202,8 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, A
       -moz-transform: rotateY(180deg) skew(0deg,-16deg);
     }
   }
+
+ 
+
 
  

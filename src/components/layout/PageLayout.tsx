@@ -8,7 +8,7 @@ interface PageLayoutProps {
 
 function PageLayout({ children }: PageLayoutProps) {
   return (
-    <div>
+    <div className="border px-[1rem]">
       <Header />
       <main>{children}</main>
     </div>

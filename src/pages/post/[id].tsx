@@ -22,62 +22,65 @@ import TableOfContents from '../../components/write/TableOfContents';
 import UniqueID from '../../components/write/UniqueID';
 import { useEffect, useState } from 'react';
 import useGetPost from '../../components/write/hooks/useGetSinglePost';
+import { GetServerSideProps } from 'next';
+import { initializeApollo } from '../../lib/apolloClient';
 
-export type PostProps = {};
+export type PostProps = {
+  id: any;
+};
 
-const DummyText =
-  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-
-function Post({}: PostProps) {
+function Post({ id }: PostProps) {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
   const insertID = setHeadingId(singlePostData?.post?.body);
 
   const BodyResult = insertID.replace('<toc></toc>', '');
 
-  const editor = useEditor({
-    editorProps: {
-      attributes: {
-        class: 'focus:outline-none',
-        'data-test': 'editor',
-      },
-    },
-    extensions: [
-      StarterKit,
-      Subscript,
-      Superscript,
-      Highlight,
-      TypographyExtension,
-      UnderlineExtension,
-      Document,
-      Paragraph,
-      Text,
-      Dropcursor,
-      Code,
-      Link,
+  // const editor = useEditor({
+  //   editorProps: {
+  //     attributes: {
+  //       class: 'focus:outline-none',
+  //       'data-test': 'editor',
+  //     },
+  //   },
+  //   extensions: [
+  //     StarterKit,
+  //     Subscript,
+  //     Superscript,
+  //     Highlight,
+  //     TypographyExtension,
+  //     UnderlineExtension,
+  //     Document,
+  //     Paragraph,
+  //     Text,
+  //     Dropcursor,
+  //     Code,
+  //     Link,
 
-      TextAlign.configure({
-        types: ['heading', 'paragraph'],
-      }),
-      Focus.configure({
-        className: 'has-focus',
-        mode: 'all',
-      }),
-      ColorHighlighter,
+  //     TextAlign.configure({
+  //       types: ['heading', 'paragraph'],
+  //     }),
+  //     Focus.configure({
+  //       className: 'has-focus',
+  //       mode: 'all',
+  //     }),
+  //     ColorHighlighter,
 
-      TableOfContents,
-      UniqueID.configure({
-        types: ['block'],
-      }),
-    ],
-    content: BodyResult,
-  });
+  //     TableOfContents,
+  //     UniqueID.configure({
+  //       types: ['block'],
+  //     }),
+  //   ],
+  //   content: BodyResult,
+  // });
 
-  useEffect(() => {
-    editor?.commands?.setContent(BodyResult);
-    editor?.setEditable(false);
-  }, [BodyResult]);
+  // useEffect(() => {
+  //   editor?.commands?.setContent(BodyResult);
+  //   editor?.setEditable(false);
+  // }, [BodyResult]);
 
-  if (singlePostLoding) return <div>hi</div>;
+  if (singlePostLoding) return <div>d</div>;
+
+  console.log('hello');
 
   return (
     <PageLayout>
@@ -85,7 +88,7 @@ function Post({}: PostProps) {
         <div className="col-span-2">좋아요</div>
         <div className="text-2xl col-span-6">
           <div className="border-2 border-red-500 mx-auto" style={{ maxWidth: '65ch' }}>
-            <div dangerouslySetInnerHTML={{ __html: insertID }} />
+            <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
             {/* <EditorContent editor={editor} className="" /> */}
           </div>
         </div>
@@ -98,3 +101,12 @@ function Post({}: PostProps) {
 }
 
 export default Post;
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  if (context.query.id && typeof context.query.id === 'string') {
+    const { id } = context.query;
+    const apolloClient = initializeApollo();
+
+    return { props: { id } };
+  }
+};

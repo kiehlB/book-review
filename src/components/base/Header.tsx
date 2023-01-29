@@ -51,11 +51,11 @@ function Header() {
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <h1
         style={{ fontFamily: 'Peace' }}
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none ml-[1rem] text-[#212529]`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2`}>
         <Link href="/"> BookReview </Link>
       </h1>
 
-      <div className="col-span-6 mlg:hidden">
+      <div className="col-span-6 mxl:col-span-5 mmd:hidden">
         <div className="relative">
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
             <IoSearchOutline />
@@ -64,7 +64,7 @@ function Header() {
         </div>
       </div>
 
-      <div className="flex col-span-2 ml-auto items-center mlg:col-span-10">
+      <div className="flex col-span-2 ml-auto items-center mxl:col-span-3 mmd:col-span-10 justify-end w-full">
         <div className="pr-6">
           <DarkModeToggle />
         </div>
@@ -83,7 +83,7 @@ function Header() {
         ) : (
           <>
             <div
-              className="pr-4 text-sm text-[#181A20] font-medium cursor-pointer hover:text-[#495057]"
+              className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057]"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('login');
@@ -91,7 +91,7 @@ function Header() {
               Sign in
             </div>
             <div
-              className="text-sm font-medium px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d]"
+              className="text-sm font-semibold px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d]"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('register');

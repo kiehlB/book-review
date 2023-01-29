@@ -6,6 +6,7 @@ import ModalContext from '../../../context/modalContext';
 import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
 import useWhoAmI from './useWhoami';
+import { toast } from 'react-toastify';
 
 export default function useRegister() {
   const router = useRouter();
@@ -15,7 +16,9 @@ export default function useRegister() {
   const { loading } = useWhoAmI();
 
   const validateEmail = value => {
-    return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+    return value.match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i,
+    );
   };
 
   const validatePassword = value => {
@@ -57,6 +60,7 @@ export default function useRegister() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     signUp({
       variables: {
         email,

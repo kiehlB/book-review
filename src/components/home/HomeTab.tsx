@@ -49,7 +49,7 @@ function HomeTab(props: HomeTabProps) {
               stopPropagation(e);
             }
           }}>
-          <div className="ml-6 sm:mr-8 flex flex-col relative text-base font-medium text-[#181A20]">
+          <div className="ml-6 sm:mr-8 flex flex-col relative text-base font-normal text-[#181A20]">
             {name}
             {isActiveLink(href, router.pathname) && (
               <motion.div

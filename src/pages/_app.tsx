@@ -2,6 +2,8 @@ import type { AppProps } from 'next/app';
 import '../../styles/globals.css';
 import '../../styles/tiptap.scss';
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import { NextUIProvider } from '@nextui-org/react';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../lib/apolloClient';
@@ -32,6 +34,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
                   initial={false}
                   onExitComplete={() => window.scrollTo(0, 0)}>
                   <Component {...pageProps} canonical={url} key={url} />
+                  <ToastContainer />
                 </AnimatePresence>
               </NextUIProvider>
             </ApolloProvider>

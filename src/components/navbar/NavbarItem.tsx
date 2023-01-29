@@ -18,11 +18,11 @@ export const NavbarItem = (props: NavbarItemProps) => {
   return (
     <Link
       className={clsx(
-        'flex items-center underlined whitespace-nowrap text-lg font-medium hover:text-team-current focus:text-team-current focus:outline-none px-[1rem] py-[0.5rem] hover:bg-[#E2E8F0] transition-all',
+        'flex items-center underlined whitespace-nowrap text-lg font-semibold hover:text-team-current focus:text-team-current focus:outline-none px-[1rem] py-[0.5rem] hover:bg-[#E2E8F0] transition-all',
         {
-          'active text-black border-[#f0b90b] border-l-4 bg-[#ffeeaa]  bg-opacity-30':
+          'active text-[#212529] border-[#f0b90b] border-l-4 bg-[#FFEFD2]  bg-opacity-40':
             isSelected,
-          'text-[#2B2F36]': !isSelected,
+          'text-[#495057]': !isSelected,
         },
       )}
       href={props.to}>

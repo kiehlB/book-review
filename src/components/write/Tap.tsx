@@ -154,6 +154,7 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
           <div className="col-span-8 overflow-y-scroll  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]">
             <EditorContent editor={editor} className="" />
           </div>
+          <div onClick={e => handleSubmit(e, a)}>ddd</div>
         </PostGrid>
       </div>
     </PageGrid>

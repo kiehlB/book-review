@@ -8,6 +8,7 @@ import { Input, useInput, Grid } from '@nextui-org/react';
 import Google from '../../svg/google';
 import FaceBook from '../../svg/facebook';
 import useWhoAmI from './hooks/useWhoami';
+import { toast } from 'react-toastify';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -44,6 +45,7 @@ export interface AuthFormProps {
     text: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
   };
   mode: string;
+  error: any;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -55,10 +57,30 @@ const AuthForm: React.FC<AuthFormProps> = ({
   helper,
   Passwordhelper,
   mode,
+  error,
+  email,
+  password,
 }) => {
+  const onClick = () =>
+    toast.error('아이디와 비밀번호가 비었습니다!', {
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+
+      type: 'error',
+    });
   return (
     <>
-      <form className="px-[6.46875rem] py-[1.5rem]" onSubmit={handleSubmit}>
+      {error?.graphQLErrors.map(({ message }, i) => (
+        <div className=" ">
+          <span key={i}>{message}</span>
+        </div>
+      ))}
+      <div className="px-[6.46875rem] py-[1.5rem]">
         <div className="flex items-center">
           <Input
             {...EB}
@@ -91,12 +113,18 @@ const AuthForm: React.FC<AuthFormProps> = ({
         </div>
 
         <motion.button
+          onClick={(e: any) => {
+            helper.color == 'success' && Passwordhelper.color == 'success'
+              ? handleSubmit(e)
+              : null;
+            !email && !password ? onClick() : '';
+          }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.8 }}
-          className="flex bg-[#fcd435]   text-[#202630] mt-12 h-12 justify-center items-center tracking-widest w-full rounded-xl">
+          className="flex bg-[#fcd435] text-[#212529] mt-12 h-12 justify-center items-center tracking-widest w-full rounded-xl">
           {auth}
         </motion.button>
-      </form>
+      </div>
       <div className="px-[6rem]">
         {/* {mode == 'register' ? '회원가입' : '로그인'}으로 이동 */}
       </div>

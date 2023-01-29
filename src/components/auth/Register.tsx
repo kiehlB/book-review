@@ -33,6 +33,7 @@ function Register({ mode }: RegisterProps) {
       PB={PB}
       helper={helper}
       mode={mode}
+      error={registerError}
     />
   );
 }

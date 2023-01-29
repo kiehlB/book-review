@@ -11,7 +11,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarProps) => (
-  <div className={clsx('w-[80%]', className)}>
+  <div className={clsx('w-[80%] mxl:w-[90%]', className)}>
     <ul>
       {primaryItems.map(itemProps => (
         <li key={itemProps.text}>
