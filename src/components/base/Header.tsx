@@ -8,6 +8,7 @@ import { useContext, useEffect } from 'react';
 import ModalContext from '../../context/modalContext';
 import useWhoAmI from '../auth/hooks/useWhoami';
 import Link from 'next/link';
+import useLogout from '../auth/hooks/useLogout';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -46,6 +47,7 @@ function Header() {
     useContext(ModalContext);
 
   const { auth } = useWhoAmI();
+  const { handleSubmitLogout } = useLogout();
 
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
@@ -76,7 +78,9 @@ function Header() {
               className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold">
               Write
             </div>
-            <div className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">
+            <div
+              className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold"
+              onClick={handleSubmitLogout}>
               Logout
             </div>
           </div>

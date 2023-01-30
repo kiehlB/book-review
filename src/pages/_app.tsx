@@ -15,12 +15,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 import store from '../store/store';
 import { BooksContextProvider } from '../context/booksContext';
 
+export const persistor = persistStore(store);
+
 export default function App({ Component, pageProps, router }: AppProps) {
   const url = `http://localhost:3000/${router.route}`;
 
   const apolloClient = useApollo(pageProps);
-
-  const persistor = persistStore(store);
 
   return (
     <Provider store={store}>

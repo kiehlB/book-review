@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { AppThunk, AppDispatch } from './store';
+import { PURGE } from 'redux-persist';
 
 export interface authState {
   auth: any;
@@ -21,6 +22,11 @@ const authSlice = createSlice({
 
     getauthFailure(state, { payload }: PayloadAction<authState>) {
       state.error = payload.error;
+    },
+    extraReducers: (builder: any) => {
+      builder.addCase(PURGE, state => {
+        localStorage.remove('auth');
+      });
     },
   },
 });
