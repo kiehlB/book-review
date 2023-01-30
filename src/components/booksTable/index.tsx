@@ -210,7 +210,7 @@ const BookTalble = ({}) => {
 
   return (
     <>
-      <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:px-[1rem] w-full">
+      <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:h-[100vh] mmd:px-[1rem] w-full">
         <div className="flex items-end row-span-1 pb-4">
           <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
         </div>

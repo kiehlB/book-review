@@ -55,7 +55,7 @@ const BookModal: React.FC<BookModalProps> = ({
   return (
     <motion.div
       className={clsx(
-        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75',
+        'absolute top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75 mmd:absolute mmd:bg-[#E9E9E9]',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
