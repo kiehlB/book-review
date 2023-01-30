@@ -76,8 +76,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
   return (
     <>
       {error?.graphQLErrors.map(({ message }, i) => (
-        <div className=" ">
-          <span key={i}>{message}</span>
+        <div key={i} className=" ">
+          <span>{message}</span>
         </div>
       ))}
       <div className="px-[6.46875rem] py-[1.5rem]">
