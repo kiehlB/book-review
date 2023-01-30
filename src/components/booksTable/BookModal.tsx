@@ -10,31 +10,6 @@ interface BookModalProps {
   className: string;
 }
 
-const itemVariants = {
-  open: {
-    transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 24,
-      duration: 0.6,
-      staggerChildren: 0.17,
-      delayChildren: 0.2,
-    },
-  },
-  closed: {
-    display: 'none',
-
-    transition: {
-      type: 'spring',
-      staggerChildren: 0.17,
-      delayChildren: 0.2,
-
-      staggerDirection: -1,
-      when: 'afterChildren',
-    },
-  },
-};
-
 const ulVariants = {
   open: {
     display: '',
@@ -80,7 +55,7 @@ const BookModal: React.FC<BookModalProps> = ({
   return (
     <motion.div
       className={clsx(
-        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75 mmd:absolute',
+        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}

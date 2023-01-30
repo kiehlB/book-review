@@ -1,8 +1,8 @@
 export function getNextSeo({
-  title = 'Helping people make the world a better place through quality software',
+  title = '책 리뷰작성',
   url = '',
-  canonical = 'https://www.woong.lol',
-  description = 'Make the world better with software',
+  canonical = 'https://www.bookreview.pro',
+  description = '책을 읽고 리뷰를 쓰는 곳입니다',
   origin = '',
   keywords = '',
 }: {

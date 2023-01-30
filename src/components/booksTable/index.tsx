@@ -39,14 +39,14 @@ function BooksTableForm({
 
   return (
     <form onSubmit={handleSubmit} className="Book-form">
-      <div className="">
+      <div>
         <SearchInput
           onChange={handleChange}
           value={BookName}
           placeholder="책을 검색해보세요"
           name="BookName"
           height={50}
-          style={{ borderRadius: '1.5rem' }}
+          style={{ borderRadius: '1.5rem', width: '300px' }}
         />
       </div>
     </form>
@@ -210,7 +210,7 @@ const BookTalble = ({}) => {
 
   return (
     <>
-      <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:h-[100vh] mmd:px-[1rem] w-full">
+      <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:px-[1rem] w-full">
         <div className="flex items-end row-span-1 pb-4">
           <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
         </div>

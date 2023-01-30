@@ -73,10 +73,10 @@ function Header() {
           <div className="flex items-center">
             <div
               onClick={() => SetBookIsClose(!BookIsClose)}
-              className="text-sm font-medium border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529]">
+              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold">
               Write
             </div>
-            <div className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]">
+            <div className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">
               Logout
             </div>
           </div>
