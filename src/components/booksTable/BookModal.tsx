@@ -55,14 +55,12 @@ const BookModal: React.FC<BookModalProps> = ({
   return (
     <motion.div
       className={clsx(
-        'absolute top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75 mmd:absolute mmd:bg-[#E9E9E9]',
+        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75 mmd:absolute mmd:bg-[#E9E9E9]',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
-      <motion.div
-        variants={liVariants}
-        className={`w-[80rem] h-full flex shadow-md mxs:flex-1 mxs:w-auto mxs:h-full bg-[#E9E9E9]`}>
+      <motion.div variants={liVariants} className={`py-1 bg-[#E9E9E9]`}>
         <div className="flex-1 flex flex-col shadow-2xl border">
           <div className="flex justify-end  p-[1.5rem] mxs:mb-0">
             <MdClose
