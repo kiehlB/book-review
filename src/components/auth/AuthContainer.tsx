@@ -23,7 +23,7 @@ function AuthContainer({}: AuthContainerProps) {
       </h2>
       {mode == 'register' ? <Register mode={mode} /> : <Login mode={mode} />}
       <div className="shelf mt-auto">
-        <div className="shelf">
+        <div className="shelf w-full sm:w-[616px]">
           <div className="book"></div>
           <div className="book"></div>
           <div className="book"></div>
@@ -90,6 +90,25 @@ function AuthContainer({}: AuthContainerProps) {
           <div className="book"></div>
           <div className="book"></div>
           <div className="book"></div>
+
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
+          <div className="book sm:hidden"></div>
         </div>
       </div>
     </Modal>

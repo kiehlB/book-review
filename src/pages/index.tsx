@@ -15,7 +15,7 @@ import useGetPosts from '../components/post/hooks/useGetPosts';
 import PostCard from '../components/post/PostCard';
 import ModalContext from '../context/modalContext';
 import BookTalble from '../components/booksTable';
-import RatioImage from '../components/common/RatioImage';
+import BookModal from '../components/booksTable/BookModal';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
@@ -29,12 +29,12 @@ export default function Home() {
 
       <PageLayout>
         <AuthContainer />
-        <Modal
+        <BookModal
           visible={BookIsClose}
           onClose={SetBookIsClose}
-          className="max-w-[78.5rem] mx-auto w-full h-[100%] flex shadow-md bg-[#E9E9E9]">
+          className="flex max-w-[80rem] mx-auto w-full h-[100%] shadow-md bg-[#E9E9E9] mmd:max-w-full">
           <BookTalble />
-        </Modal>
+        </BookModal>
         <PageGrid as="div" className="pt-[2.25rem]">
           <AppLayout.MainNav>
             <nav className="col-span-2 mmd:hidden">

@@ -152,7 +152,7 @@ export function Table({
   }
 
   return (
-    <div className="max-w-[76.5rem] mx-auto h-full">
+    <div className="h-full">
       <div className="h-full">{tableContent}</div>
       <div className="flex justify-end pr-4 font-semibold text-base"></div>
     </div>

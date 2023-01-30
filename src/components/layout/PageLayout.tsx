@@ -8,7 +8,7 @@ interface PageLayoutProps {
 
 function PageLayout({ children }: PageLayoutProps) {
   return (
-    <div className="border px-[1rem]">
+    <div className="border px-[1rem] dark:bg-[#1f2028]">
       <Header />
       <main>{children}</main>
     </div>

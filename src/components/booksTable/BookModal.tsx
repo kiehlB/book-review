@@ -3,7 +3,7 @@ import { MdClose } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 
-interface ModalProps {
+interface BookModalProps {
   visible?: boolean;
   onClose?: (visible) => void;
   children?: React.ReactNode;
@@ -12,8 +12,6 @@ interface ModalProps {
 
 const itemVariants = {
   open: {
-    display: 'block',
-
     transition: {
       type: 'spring',
       stiffness: 300,
@@ -39,7 +37,7 @@ const itemVariants = {
 
 const ulVariants = {
   open: {
-    display: 'block',
+    display: '',
 
     transition: {
       staggerChildren: 0.17,
@@ -73,34 +71,35 @@ const liVariants = {
   },
 };
 
-const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) => {
+const BookModal: React.FC<BookModalProps> = ({
+  visible,
+  children,
+  onClose,
+  className,
+}) => {
   return (
     <motion.div
       className={clsx(
-        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75',
+        'fixed top-0 left-0 w-full h-full flex  items-center justify-center z-50 backdrop-brightness-75 mmd:absolute',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
-      <div className="flex items-center justify-center h-full">
-        <motion.div
-          variants={liVariants}
-          className={`${className} mxs:flex-1 mxs:w-auto mxs:h-full`}>
-          <div className="flex-1 flex flex-col shadow-2xl border">
-            <div className="flex justify-end  p-[1.5rem]">
-              <MdClose
-                onClick={() => onClose(!visible)}
-                tabIndex={1}
-                size={24}
-                color="#868E96"
-              />
-            </div>
-            <div className="flex-1 flex flex-col">{children}</div>
+      <motion.div variants={liVariants} className="max-w-[80rem] w-full h-full flex">
+        <div className="flex-1 bg-[#E9E9E9] flex flex-col">
+          <div className="flex justify-end p-[1.5rem]">
+            <MdClose
+              onClick={() => onClose(!visible)}
+              tabIndex={1}
+              size={24}
+              color="#868E96"
+            />
           </div>
-        </motion.div>
-      </div>
+          <div className="flex-1 flex flex-col">{children}</div>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
 
-export default Modal;
+export default BookModal;

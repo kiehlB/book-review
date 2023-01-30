@@ -73,12 +73,11 @@ function formatRecordString(count: number) {
 
 export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
   const dispatch = useDispatch();
-  console.log(datum);
+
   return (
     <div
       className={clsx(
         'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] active:bg-[#ffffff] transition-all',
-        {},
       )}
       data-activity-id={datum.isbn}
       style={{ background: clicked?.isbn == `${datum?.isbn}` ? '#cccccc' : null }}
@@ -87,7 +86,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
         dispatch(initBook(datum));
         handleClick(e, datum);
       }}>
-      <div className="flex dark:bg-[#1E1E1E] ">
+      <div className="flex dark:bg-[#1E1E1E]">
         <img
           src={datum.thumbnail ? datum.thumbnail : '/noimg.jpg'}
           width="82px"
@@ -97,19 +96,16 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
 
         <div className="ml-5 flex flex-col text-xs truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9] w-full">
           <div className="flex justify-between w-full">
-            <strong className="text-xl">{datum.title || TITLE_PLACEHOLDER}</strong>
+            <strong className="text-xl mmd:text-base">
+              {datum.title || TITLE_PLACEHOLDER}
+            </strong>
             <div className="mr-2">{moment(datum.datetime).format('YYYY-MM-DD')}</div>
           </div>
           <div className="py-[0.5rem]">{datum.authors.map(e => e)}</div>
-          <div className="h-full flex flex-wrap">
-            <WithoutPostBody className="break-all line-clamp-3">
-              {datum.contents}
-            </WithoutPostBody>
+          <div className="">
+            <WithoutPostBody className="">{datum.contents}</WithoutPostBody>
           </div>
         </div>
-      </div>
-      <div className="flex justify-end text-xs dark:bg-[#1E1E1E]">
-        <div className="flex flex-col truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9]"></div>
       </div>
     </div>
   );
@@ -170,4 +166,8 @@ const WithoutPostBody = styled.section`
   white-space: initial;
   word-wrap: break-word;
   overflow: hidden;
+
+  @media (max-width: 1280px) {
+    line-height: 1.2rem;
+  }
 `;

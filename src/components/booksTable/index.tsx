@@ -39,13 +39,12 @@ function BooksTableForm({
 
   return (
     <form onSubmit={handleSubmit} className="Book-form">
-      <div className="py-2">
+      <div className="">
         <SearchInput
           onChange={handleChange}
           value={BookName}
           placeholder="책을 검색해보세요"
           name="BookName"
-          width={'320px'}
           height={50}
           style={{ borderRadius: '1.5rem' }}
         />
@@ -210,26 +209,28 @@ const BookTalble = ({}) => {
   }
 
   return (
-    <div className="max-w-[78.5rem] mx-auto grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] w-full">
-      <div className="flex row-span-1">
-        <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
+    <>
+      <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:h-[100vh] mmd:px-[1rem] w-full">
+        <div className="flex items-end row-span-1 pb-4">
+          <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
+        </div>
+        <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5]">
+          <BookInfo bookName={bookName} />
+        </div>
+        <div className="flex justify-end pr-4 mt-4">
+          <ArrowLink href={'/write'} direction="right" className="mr-8" textSize="small">
+            Skip
+          </ArrowLink>
+          <ArrowLink
+            href={'/write'}
+            direction="right"
+            className="font-semibold"
+            textSize="small">
+            다음
+          </ArrowLink>
+        </div>
       </div>
-      <div className="row-span-10 overflow-y-scroll  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border shadow-md rounded-md border-[#EDEFF5]">
-        <BookInfo bookName={bookName} />
-      </div>
-      <div className="flex justify-end pr-4 mt-4">
-        <ArrowLink href={'/write'} direction="right" className="mr-8" textSize="small">
-          Skip
-        </ArrowLink>
-        <ArrowLink
-          href={'/write'}
-          direction="right"
-          className="font-semibold"
-          textSize="small">
-          다음
-        </ArrowLink>
-      </div>
-    </div>
+    </>
   );
 };
 
