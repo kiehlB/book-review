@@ -80,14 +80,16 @@ const BookModal: React.FC<BookModalProps> = ({
   return (
     <motion.div
       className={clsx(
-        'fixed top-0 left-0 w-full h-full flex  items-center justify-center z-50 backdrop-brightness-75 mmd:absolute',
+        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75 mmd:absolute',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
-      <motion.div variants={liVariants} className="max-w-[80rem] w-full h-full flex">
-        <div className="flex-1 bg-[#E9E9E9] flex flex-col">
-          <div className="flex justify-end p-[1.5rem]">
+      <motion.div
+        variants={liVariants}
+        className={`w-[80rem] h-full flex shadow-md bg-[#E9E9E9] mxs:flex-1 mxs:w-auto mxs:h-full`}>
+        <div className="flex-1 flex flex-col shadow-2xl border">
+          <div className="flex justify-end  p-[1.5rem] mxs:mb-0">
             <MdClose
               onClick={() => onClose(!visible)}
               tabIndex={1}

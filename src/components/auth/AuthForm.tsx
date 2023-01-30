@@ -80,7 +80,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           <span>{message}</span>
         </div>
       ))}
-      <div className="px-[6.46875rem] py-[1.5rem]">
+      <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
         <div className="flex items-center">
           <Input
             {...EB}

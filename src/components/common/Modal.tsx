@@ -39,7 +39,7 @@ const itemVariants = {
 
 const ulVariants = {
   open: {
-    display: 'block',
+    display: '',
 
     transition: {
       staggerChildren: 0.17,
@@ -82,23 +82,21 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) 
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
-      <div className="flex items-center justify-center h-full">
-        <motion.div
-          variants={liVariants}
-          className={`${className} mxs:flex-1 mxs:w-auto mxs:h-full`}>
-          <div className="flex-1 flex flex-col shadow-2xl border">
-            <div className="flex justify-end  p-[1.5rem]">
-              <MdClose
-                onClick={() => onClose(!visible)}
-                tabIndex={1}
-                size={24}
-                color="#868E96"
-              />
-            </div>
-            <div className="flex-1 flex flex-col">{children}</div>
+      <motion.div
+        variants={liVariants}
+        className={`w-[618px] h-[680px] flex shadow-md bg-[#fff] mxs:flex-1 mxs:w-auto mxs:h-full`}>
+        <div className="flex-1 flex flex-col shadow-2xl border">
+          <div className="flex justify-end  p-[1.5rem] mxs:mb-0">
+            <MdClose
+              onClick={() => onClose(!visible)}
+              tabIndex={1}
+              size={24}
+              color="#868E96"
+            />
           </div>
-        </motion.div>
-      </div>
+          <div className="flex-1 flex flex-col">{children}</div>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
