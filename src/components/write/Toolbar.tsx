@@ -46,6 +46,7 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
   return (
     <>
       <Paper
+        className="flex flex-wrap w-full  mxl:overflow-x-scroll"
         sx={{
           display: 'flex',
           border: theme => `1px solid ${theme.palette.divider}`,
@@ -90,7 +91,9 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
         </StyledToggleButtonGroup>
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
 
-        <StyledToggleButtonGroup size="small" aria-label="text formatting">
+        <StyledToggleButtonGroup
+          size="small"
+          aria-label="vertical outlined primary button group">
           <ToggleButton
             onClick={() => editor.chain().focus().toggleSuperscript().run()}
             selected={editor.isActive('superscript')}

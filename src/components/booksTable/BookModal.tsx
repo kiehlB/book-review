@@ -87,7 +87,7 @@ const BookModal: React.FC<BookModalProps> = ({
       variants={ulVariants}>
       <motion.div
         variants={liVariants}
-        className={`w-[80rem] h-full flex shadow-md bg-[#E9E9E9] mxs:flex-1 mxs:w-auto mxs:h-full`}>
+        className={`w-[80rem] h-full flex shadow-md mxs:flex-1 mxs:w-auto mxs:h-full bg-[#E9E9E9]`}>
         <div className="flex-1 flex flex-col shadow-2xl border">
           <div className="flex justify-end  p-[1.5rem] mxs:mb-0">
             <MdClose

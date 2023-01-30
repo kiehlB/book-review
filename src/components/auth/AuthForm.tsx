@@ -61,6 +61,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   email,
   password,
 }) => {
+  console.log(error);
   const onClick = () =>
     toast.error('아이디와 비밀번호가 비었습니다!', {
       position: 'bottom-right',
@@ -80,6 +81,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           <span>{message}</span>
         </div>
       ))}
+      {error ? <div>에러발생</div> : ''}
       <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
         <div className="flex items-center">
           <Input

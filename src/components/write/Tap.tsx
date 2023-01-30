@@ -47,7 +47,6 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
     editorProps: {
       attributes: {
         class: 'focus:outline-none',
-        'data-test': 'editor',
       },
     },
     extensions: [
@@ -93,8 +92,8 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
 
   return (
     <PageGrid as="main" className="h-full">
-      <div className="col-span-2 h-full border-r borde-b border-[#E2E8F0]">
-        <div className="col-span-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 sticky top-0 z-10">
+      <div className="col-span-2 h-full border-r borde-b border-[#E2E8F0] mxl:hidden">
+        <div className="col-span-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 sticky top-0 z-10  ">
           <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
             <div className="px-2 py-1">
               <BackIcon className="w-[16px] h-[16px]" />
@@ -121,11 +120,11 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
         </div>
       </div>
 
-      <div className="flex w-[18.5rem] fixed bottom-0 z-50 px-4 col-span-2 bg-white  border-t h-[4.5rem] items-center justify-between mxl:w-full">
+      <div className="flex w-[18.5rem] fixed bottom-0 z-50 px-4 col-span-2 bg-white  border-t h-[4.5rem] items-center justify-between mxl:hidden">
         <div>새로운 포스트</div>
       </div>
 
-      <div className="col-span-8">
+      <div className="col-span-8 mxl:col-span-12">
         <div className="flex justify-between items-center">
           <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[2rem] px-[1rem]">
             <input name="title" placeholder="제목을 입력하세요" className="w-full" />
@@ -150,12 +149,11 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
         <div className="sticky top-0 z-10">
           <ProjectCreateContentToolbar editor={editor} />
         </div>
-        <PostGrid as="div" className="mt-2">
-          <div className="col-span-8 overflow-y-scroll  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]">
+        <div>
+          <div className="w-full overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]">
             <EditorContent editor={editor} className="" />
           </div>
-          <div onClick={e => handleSubmit(e, a)}>ddd</div>
-        </PostGrid>
+        </div>
       </div>
     </PageGrid>
   );
