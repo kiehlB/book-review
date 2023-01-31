@@ -87,12 +87,18 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
         handleClick(e, datum);
       }}>
       <div className="flex dark:bg-[#1E1E1E]">
-        <img
-          src={datum.thumbnail ? datum.thumbnail : '/noimg.jpg'}
-          width="82px"
-          height="116px"
-          className="min-h-[116px]"
-        />
+        {datum.thumbnail ? (
+          <img
+            src={datum.thumbnail}
+            width="82px"
+            height="116px"
+            className="min-h-[116px]"
+          />
+        ) : (
+          <div className="w-[82px] h-[116px] border-2 flex justify-center items-center text-xs text-[#121212]">
+            이미지없음
+          </div>
+        )}
 
         <div className="ml-5 flex flex-col text-xs truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9] w-full">
           <div className="flex justify-between w-full">

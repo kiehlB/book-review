@@ -217,7 +217,7 @@ const BookTalble = ({}) => {
         <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5]">
           <BookInfo bookName={bookName} />
         </div>
-        <div className="flex justify-end pr-4 mt-4">
+        <div className="flex justify-end pr-4">
           <ArrowLink href={'/write'} direction="right" className="mr-8" textSize="small">
             Skip
           </ArrowLink>

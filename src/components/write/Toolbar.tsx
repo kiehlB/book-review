@@ -46,7 +46,7 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
   return (
     <>
       <Paper
-        className="flex flex-wrap w-full  mxl:overflow-x-scroll"
+        className="flex flex-wrap w-full mxl:overflow-x-scroll"
         sx={{
           display: 'flex',
           border: theme => `1px solid ${theme.palette.divider}`,
@@ -54,8 +54,8 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
           margin: '0 16px',
           position: 'sticky',
 
-          zIndex: 9999,
-          width: '100%',
+          zIndex: 99,
+          width: 'calc(100% - 2rem);',
         }}>
         <HeadingToolbarButtons editor={editor} />
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />

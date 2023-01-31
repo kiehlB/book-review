@@ -20,14 +20,13 @@ import UniqueID from './UniqueID';
 import TableOfContents from './TableOfContents';
 import TagsForm from '../tags/TagsForm';
 import { PageGrid, PostGrid } from '../layout/GridLayout';
-
 import ProjectCreateContentToolbar from './Toolbar';
-import BackIcon from '../../svg/back';
+import { motion, useReducedMotion } from 'framer-motion';
 import { SearchInput } from 'evergreen-ui';
-import PostPublish from './PostPublish';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/rootReducer';
-
+import { ArrowLink, arrowVariants, BackLink } from '../common/ArrowButton';
+import { Collapse, Grid as NextGrid, Avatar } from '@nextui-org/react';
+import WriteHead from './WriterHead';
+import FloatingHeader from '../common/Floating';
 export type TapProps = {
   isOpen;
   SetisOpen;
@@ -37,6 +36,7 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
   const { handleSubmit } = useEditor2();
   const [isEditing, setEditing] = useState(false);
   const BodyFocusRef = useRef() as any;
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (BodyFocusRef.current) {
@@ -78,8 +78,8 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
       }),
     ],
     content: `
-      <toc></toc>
-      여기를 클릭하세요!
+      <toc></toc><br/>
+      여기를 클릭하세요
     `,
   });
 
@@ -88,19 +88,19 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
   };
 
   const a = editor?.getHTML();
-  //   handleSubmit(e, a);
 
   return (
     <PageGrid as="main" className="h-full">
       <div className="col-span-2 h-full border-r borde-b border-[#E2E8F0] mxl:hidden">
+        <div onClick={e => handleSubmit(e, a)}>ddd</div>
         <div className="col-span-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 sticky top-0 z-10  ">
           <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
             <div className="px-2 py-1">
-              <BackIcon className="w-[16px] h-[16px]" />
-            </div>
-
-            <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
-              BookReview
+              <BackLink href="/">
+                <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
+                  BookReview
+                </div>
+              </BackLink>
             </div>
           </div>
 
@@ -110,38 +110,40 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
               name="BookSearch"
               width={'240px'}
               className="text-xs"
-              height={50}
+              height={40}
               style={{ borderRadius: '1.5rem', fontSize: '12px' }}
             />
           </div>
 
-          <div className="text-[#64748B] font-bold text-xs py-4 px-6">FAVORITES</div>
-          <div className="text-[#64748B] font-bold text-xs py-4 px-6">MY DRAFTS (0)</div>
+          <div className=" font-bold text-xs px-2">
+            <Collapse.Group divider={false}>
+              <Collapse title="FAVORITES" expanded>
+                <div>1</div>
+              </Collapse>
+            </Collapse.Group>
+            <Collapse.Group divider={false}>
+              <Collapse title="MY DRAFTS (0)" expanded>
+                <div>1</div>
+              </Collapse>
+            </Collapse.Group>
+          </div>
         </div>
       </div>
 
-      <div className="flex w-[18.5rem] fixed bottom-0 z-50 px-4 col-span-2 bg-white  border-t h-[4.5rem] items-center justify-between mxl:hidden">
+      <div className="flex w-[18.5rem] fixed bottom-0 z-50 px-4 col-span-2 bg-white border-t border-r h-[4.5rem] items-center justify-between mxl:hidden">
         <div>새로운 포스트</div>
       </div>
 
       <div className="col-span-8 mxl:col-span-12">
-        <div className="flex justify-between items-center">
-          <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[2rem] px-[1rem]">
-            <input name="title" placeholder="제목을 입력하세요" className="w-full" />
-            <hr className="border-2 w-6/12 mt-3.5 h-1" />
-          </div>
+        <WriteHead isOpen={isOpen} SetisOpen={SetisOpen} />
 
-          <div className="flex">
-            <div className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] mr-4">
-              saved
-            </div>
-            <div
-              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20]"
-              onClick={() => SetisOpen(!isOpen)}>
-              publish
-            </div>
+        {/* <FloatingHeader>
+          <WriteHead isOpen={isOpen} SetisOpen={SetisOpen} />
+          <div className="px-4 py-4">
+            <TagsForm />
           </div>
-        </div>
+        </FloatingHeader> */}
+
         <div className="px-4 py-4">
           <TagsForm />
         </div>
@@ -150,7 +152,7 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
           <ProjectCreateContentToolbar editor={editor} />
         </div>
         <div>
-          <div className="w-full overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]">
+          <div className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]">
             <EditorContent editor={editor} className="" />
           </div>
         </div>

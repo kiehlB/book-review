@@ -16,7 +16,6 @@ export default function useLogout() {
     onCompleted({ logout }) {
       persistor.purge();
       dispatch(initAuth(''));
-      router.push('/');
     },
   });
 

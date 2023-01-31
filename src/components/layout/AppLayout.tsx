@@ -2,35 +2,32 @@ export type AppLayoutProps = {
   first?: React.ReactNode;
   second?: React.ReactNode;
   third?: React.ReactNode;
+  className?: string;
 };
 
 export type CellLayoutProps = {
   children?: React.ReactNode;
+  className?: string;
 };
 
-function MainNav({ children }: CellLayoutProps) {
-  return <>{children}</>;
+export function MainNav({ children, className }: CellLayoutProps) {
+  return <nav className={className}>{children}</nav>;
 }
-export default function AppLayout({ first, second, third }: AppLayoutProps) {
+export function AppLayout({ first, second, third, className }: AppLayoutProps) {
   return (
-    <>
+    <main className={className}>
       {first}
       {second}
       {third}
-    </>
+    </main>
   );
 }
-function First({ children }: CellLayoutProps) {
+export function First({ children }: CellLayoutProps) {
   return <>{children}</>;
 }
-function Second({ children }: CellLayoutProps) {
+export function Second({ children }: CellLayoutProps) {
   return <>{children}</>;
 }
-function Third({ children }: CellLayoutProps) {
+export function Third({ children }: CellLayoutProps) {
   return <>{children}</>;
 }
-
-AppLayout.MainNav = MainNav;
-AppLayout.First = First;
-AppLayout.Second = Second;
-AppLayout.Third = Third;

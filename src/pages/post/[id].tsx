@@ -24,13 +24,17 @@ import { useEffect, useState } from 'react';
 import useGetPost from '../../components/write/hooks/useGetSinglePost';
 import { GetServerSideProps } from 'next';
 import { initializeApollo } from '../../lib/apolloClient';
+import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
+import { getNextSeo } from '../../lib/nextSeo';
+import PawButton from '../../components/common/PawButton';
 
 export type PostProps = {
-  id: any;
+  id: string;
 };
 
 function Post({ id }: PostProps) {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
+
   const insertID = setHeadingId(singlePostData?.post?.body);
 
   const BodyResult = insertID.replace('<toc></toc>', '');
@@ -80,23 +84,34 @@ function Post({ id }: PostProps) {
 
   if (singlePostLoding) return <div>d</div>;
 
-  console.log('hello');
-
   return (
-    <PageLayout>
-      <div className="grid grid-cols-10 mx-[12rem] border-2">
-        <div className="col-span-2">좋아요</div>
-        <div className="text-2xl col-span-6">
-          <div className="border-2 border-red-500 mx-auto" style={{ maxWidth: '65ch' }}>
-            <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
-            {/* <EditorContent editor={editor} className="" /> */}
+    <>
+      <NextSeo
+        {...getNextSeo({ title: 'Book Review Write', description: '독후감 쓰는 곳' })}
+      />
+
+      <PageLayout>
+        <div className="grid grid-cols-10 border-2 max-w-[96rem] mx-auto"></div>
+        <div className="grid grid-cols-10 border-2 max-w-[96rem] mx-auto">
+          <div className="col-span-2">
+            <div className="sticky top-2">
+              <PawButton />
+            </div>
+          </div>
+          <div className="text-2xl col-span-6">
+            <div className="border-2 border-red-500 mx-auto" style={{ maxWidth: '65ch' }}>
+              <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
+              {/* <EditorContent editor={editor} className="" /> */}
+            </div>
+          </div>
+          <div className="col-span-2">
+            <div className="sticky top-2">
+              <PostTableOfContents />
+            </div>
           </div>
         </div>
-        <div className="col-span-2">
-          <PostTableOfContents />
-        </div>
-      </div>
-    </PageLayout>
+      </PageLayout>
+    </>
   );
 }
 
@@ -105,7 +120,6 @@ export default Post;
 export const getServerSideProps: GetServerSideProps = async context => {
   if (context.query.id && typeof context.query.id === 'string') {
     const { id } = context.query;
-    const apolloClient = initializeApollo();
 
     return { props: { id } };
   }

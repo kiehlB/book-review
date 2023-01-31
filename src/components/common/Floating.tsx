@@ -2,12 +2,10 @@ import React, { useEffect, useCallback, useRef, useState } from 'react';
 import { getScrollTop } from '../../lib/utils';
 
 export type FloatingHeaderProps = {
-  getUser: any;
-  loading: any;
-  logoutButton: any;
+  children?: React.ReactNode;
 };
 
-function FloatingHeader({ getUser, loading, logoutButton }: FloatingHeaderProps) {
+function FloatingHeader({ children }: FloatingHeaderProps) {
   const [visible, setVisible] = useState(false);
   const blockRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -62,7 +60,7 @@ function FloatingHeader({ getUser, loading, logoutButton }: FloatingHeaderProps)
 
   return (
     <div
-      className="fixed top-0 bg-white w-full z-10 shadow "
+      className="fixed top-0 bg-white w-full z-[999]"
       style={
         visible
           ? {
@@ -75,7 +73,7 @@ function FloatingHeader({ getUser, loading, logoutButton }: FloatingHeaderProps)
             }
       }
       ref={blockRef}>
-      {/* <Header getUser={getUser} loading={loading} logoutButton={logoutButton} /> */}
+      {children}
     </div>
   );
 }

@@ -52,8 +52,7 @@ function Header() {
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <h1
-        style={{ fontFamily: 'Peace' }}
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 font-[Peace]`}>
         <Link href="/"> BookReview </Link>
       </h1>
 

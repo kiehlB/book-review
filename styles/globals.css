@@ -64,6 +64,17 @@ font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Goth
 .nextui-c-ctQnhE{
   padding-right:0.5rem;
 }
+
+.nextui-c-hPzDAx .nextui-collapse-title  {
+  color:#64748B;
+}
+
+.nextui-c-hPzDAx .nextui-collapse-title-content h3:hover{
+  color:#334155;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .container {
     margin: auto;
     top: 0; right: 0; bottom: 0; left: 0;

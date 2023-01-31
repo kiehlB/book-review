@@ -1,13 +1,14 @@
-import * as React from 'react';
 import clsx from 'clsx';
-import Link from 'next/link';
 import type { Variant } from 'framer-motion';
 import { motion, useReducedMotion } from 'framer-motion';
-import { H6 } from './Typography';
+import Link, { LinkProps } from 'next/link';
 import { ElementState, useElementState } from '../../hooks/useElementState';
-import { ArrowIcon, ArrowIconProps } from '../../svg/arrow.icon';
+import { ArrowIcon } from '../../svg/arrow.icon';
+import { H6 } from './Typography';
 
-const arrowVariants: Record<
+type ArrowIconProps = React.ComponentProps<typeof ArrowIcon>;
+
+export const arrowVariants: Record<
   ArrowIconProps['direction'],
   Record<ElementState, Variant>
 > = {
@@ -68,7 +69,7 @@ type ArrowButtonBaseProps = {
 
 type ArrowLinkProps = {
   direction?: ArrowIconProps['direction'];
-} & ({ href?: string; to?: never } | { href?: never; to: any }) &
+} & ({ href?: string; to?: never } | { href?: never; to: string }) &
   ArrowButtonBaseProps & { prefetch?: 'intent' | 'render' | 'none' };
 
 type ArrowButtonProps = {
@@ -82,7 +83,7 @@ function getBaseProps({ textSize, className }: ArrowButtonBaseProps) {
       'inline-flex items-center text-left font-medium focus:outline-none cursor-pointer transition',
       {
         'text-xl': textSize === 'medium',
-        'text-[0.5rem]': textSize === 'small',
+        'text-lg': textSize === 'small',
       },
       className,
     ),
@@ -101,14 +102,14 @@ function ArrowButtonContent({
     <>
       {children &&
       (direction === 'right' || direction === 'up' || direction === 'top-right') ? (
-        <span className="text-base font-medium mr-4">{children}</span>
+        <span className="mr-8 text-xl font-medium">{children}</span>
       ) : null}
 
       <div className="relative inline-flex h-14 w-14 flex-none items-center justify-center p-1">
-        <div className="absolute text-[#f0b90b] dark:text-gray-600 ">
+        <div className="absolute">
           <svg width="60" height="60">
             <circle
-              stroke="grey"
+              stroke="currentColor"
               strokeWidth="2"
               fill="transparent"
               r="28"
@@ -117,14 +118,14 @@ function ArrowButtonContent({
             />
 
             <motion.circle
-              className="text-primary"
+              className="text-[#f0b90b]"
               stroke="currentColor"
               strokeWidth="2"
               fill="transparent"
               r="28"
               cx="30"
               cy="30"
-              style={{ strokeDasharray, rotate: -90 }}
+              style={{ strokeDasharray }}
               variants={{
                 initial: { strokeDashoffset: circumference },
                 hover: { strokeDashoffset: 0 },
@@ -147,7 +148,7 @@ function ArrowButtonContent({
       </div>
 
       {children && (direction === 'left' || direction === 'down') ? (
-        <span className="ml-8 text-[1rem] font-medium">{children}</span>
+        <span className="ml-8 text-xl font-medium">{children}</span>
       ) : null}
     </>
   );
@@ -178,44 +179,30 @@ function ArrowLink({ to, href, ...props }: ArrowLinkProps) {
 
   if (href) {
     return (
-      <Link href={href}>
-        <motion.div
-          {...getBaseProps(props)}
-          ref={ref}
-          animate={state}
-          transition={shouldReduceMotion ? { duration: 0 } : {}}>
-          <ArrowButtonContent {...props} />
-        </motion.div>
-      </Link>
-    );
-  } else if (to) {
-    return (
-      <Link href={href}>
-        <MotionLink
-          href={to}
-          {...getBaseProps(props)}
-          ref={ref}
-          animate={state}
-          transition={shouldReduceMotion ? { duration: 0 } : {}}>
-          <ArrowButtonContent {...props} />
-        </MotionLink>
-      </Link>
+      <motion.a
+        href={href}
+        {...getBaseProps(props)}
+        ref={ref}
+        animate={state}
+        transition={shouldReduceMotion ? { duration: 0 } : {}}>
+        <ArrowButtonContent {...props} />
+      </motion.a>
     );
   }
   throw new Error('Must provide either to or href to ArrowLink');
 }
 
 function BackLink({
-  to,
+  href,
   className,
   children,
-}: { to } & Pick<ArrowLinkProps, 'className' | 'children'>) {
+}: { href: LinkProps['href'] } & Pick<ArrowLinkProps, 'className' | 'children'>) {
   const [ref, state] = useElementState();
   const shouldReduceMotion = useReducedMotion();
   return (
     <MotionLink
-      href={to}
-      className={clsx('text-primary focus:outline-none flex space-x-4', className)}
+      href={href}
+      className={clsx('text-black flex focus:outline-none', className)}
       ref={ref}
       animate={state}
       transition={shouldReduceMotion ? { duration: 0 } : {}}>
