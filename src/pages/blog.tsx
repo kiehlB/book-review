@@ -7,7 +7,6 @@ import { RiFileChartFill } from 'react-icons/ri';
 import HomeTab from '../components/home/HomeTab';
 import RatioImage from '../components/common/RatioImage';
 import { PageLayout } from '../components/layout/PageLayout';
-import AppLayout from '../components/layout/AppLayout';
 import Modal from '../components/common/Modal';
 import SignUp from '../components/auth/Register';
 import { NextSeo } from 'next-seo';
@@ -24,7 +23,7 @@ export default function Home() {
         {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
       />
 
-      <PageLayout>
+      {/* <PageLayout>
         <AuthContainer />
         <PageGrid as="div" className="pt-[36px]">
           <AppLayout.MainNav>
@@ -67,7 +66,7 @@ export default function Home() {
             </AppLayout.Second>
           </main>
         </PageGrid>
-      </PageLayout>
+      </PageLayout> */}
     </>
   );
 }
