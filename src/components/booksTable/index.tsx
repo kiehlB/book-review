@@ -214,17 +214,17 @@ const BookTalble = ({}) => {
         <div className="flex items-end row-span-1 pb-4">
           <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
         </div>
-        <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5]">
+        <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5] dark:border-[#4B4B4B]">
           <BookInfo bookName={bookName} />
         </div>
-        <div className="flex justify-end pr-4">
+        <div className="flex justify-end pr-4 dark:text-[#e4e5e7]">
           <ArrowLink href={'/write'} direction="right" className="mr-8" textSize="small">
             Skip
           </ArrowLink>
           <ArrowLink
             href={'/write'}
             direction="right"
-            className="font-semibold"
+            className="font-semibold dark:text-[#e4e5e7]"
             textSize="small">
             다음
           </ArrowLink>

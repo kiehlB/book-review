@@ -18,7 +18,7 @@ function AuthContainer({}: AuthContainerProps) {
       visible={IsClose}
       onClose={SetIsClose}
       className="w-[618px] h-[680px] flex shadow-md bg-[#fff]">
-      <h2 className="flex justify-center py-6 text-[#212529] text-[1.3125rem] font-semibold">
+      <h2 className="flex justify-center py-6 text-[#212529] text-[1.3125rem] font-semibold dark:text-[#e4e5e7]">
         {mode == 'register' ? '회원가입' : '로그인'}
       </h2>
       {mode == 'register' ? <Register mode={mode} /> : <Login mode={mode} />}

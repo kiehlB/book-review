@@ -1,10 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import media from '../../lib/media';
+import { Post } from '../../types/apolloComponent';
 import RatioImage from '../common/RatioImage';
 
 interface GridProps {
-  post: any;
+  post: Post;
 }
 export type PostCardSkeletonProps = {
   hideUser?: boolean;
@@ -23,28 +24,28 @@ function PostCardItem({ post }: GridProps) {
         />
 
         <div className="flex justify-between items-center">
-          <div className="pt-[0.5rem] text-[#4b4b4b] font-semibold text-[0.8125rem]">
+          <div className="pt-[0.5rem] text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea]">
             파인만 씨 농담도 잘하시네
           </div>
         </div>
 
         {/* /{post.title} */}
-        <div className="text-[#121212] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2">
+        <div className="text-[#121212] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
           파인만 농담 독후감
         </div>
 
-        <div className="text-[13px] mt-1 text-[#2e2e2e]">
+        <div className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
           디자인 시스템을 만드는 과정에서 다른 디자인 시스템들을 참고하기 위하여 검색하고,
           원하는 컴포넌트로 스크롤해서 원하는
         </div>
 
-        <div className="flex justify-between mt-4 leading-normal text-[#2e2e2e]">
+        <div className="flex justify-between mt-4 leading-normal text-[#2e2e2e] dark:text-[#929aa5]">
           <div className="flex font-semibold text-xs">
             <div>좋아요 4개</div>
             <div>댓글 5개</div>
           </div>
 
-          <div className="flex font-semibold text-xs text-[#2e2e2e]">
+          <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5]">
             <div>2023.01.12</div>
           </div>
         </div>

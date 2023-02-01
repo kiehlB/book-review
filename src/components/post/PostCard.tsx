@@ -1,10 +1,11 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import PostCardItem, { PostCardSkeleton } from './PostCardItem';
+import { Post } from '../../types/apolloComponent';
 
 interface PostCardProps {
-  posts: any;
-  loading: any;
+  posts: Post[];
+  loading: boolean;
 }
 
 function PostCard({ posts, loading }: PostCardProps) {

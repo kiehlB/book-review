@@ -14,7 +14,7 @@ function PageLayout({ children }: PageLayoutProps) {
   const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
 
   return (
-    <div className="border px-[1rem] dark:bg-[#1f2028]">
+    <div className="px-[1rem] dark:bg-[#1a1b1e]">
       <AuthContainer />
       <BookModal
         visible={BookIsClose}

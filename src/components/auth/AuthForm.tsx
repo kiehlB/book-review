@@ -7,8 +7,9 @@ import Link from 'next/link';
 import { Input, useInput, Grid } from '@nextui-org/react';
 import Google from '../../svg/google';
 import FaceBook from '../../svg/facebook';
-import useWhoAmI from './hooks/useWhoami';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
+import useDarkMode from '../base/useDarkmode';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -45,7 +46,7 @@ export interface AuthFormProps {
     text: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
   };
   mode: string;
-  error: any;
+  error: ApolloError;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -61,8 +62,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   email,
   password,
 }) => {
-  console.log(error);
-  const onClick = () =>
+  const onClick = () => {
     toast.error('아이디와 비밀번호가 비었습니다!', {
       position: 'bottom-right',
       autoClose: 5000,
@@ -74,16 +74,33 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
       type: 'error',
     });
+  };
+
+  React.useEffect(() => {
+    const isUserInputError = error?.graphQLErrors?.map(e => e.message);
+    if (error) {
+      toast.error(
+        isUserInputError.length > 0 ? isUserInputError[0] : '서버에 문제가 생겼습니다',
+        {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+
+          type: 'error',
+        },
+      );
+    }
+  }, [error]);
+
+  //  labelPlaceholder="Email"
   return (
     <>
-      {error?.graphQLErrors.map(({ message }, i) => (
-        <div key={i} className=" ">
-          <span>{message}</span>
-        </div>
-      ))}
-      {error ? <div>에러발생</div> : ''}
       <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
-        <div className="flex items-center">
+        <InputPlaceHolder className="flex items-center">
           <Input
             {...EB}
             clearable
@@ -92,13 +109,12 @@ const AuthForm: React.FC<AuthFormProps> = ({
             helperColor={helper?.color}
             helperText={helper?.text}
             width="100%"
-            label="Email"
             className="w-full"
             type="email"
-            labelPlaceholder="Email"
+            placeholder="Email"
           />
-        </div>
-        <div className="flex items-center mt-12">
+        </InputPlaceHolder>
+        <InputPlaceHolder className="flex items-center mt-12">
           <Input.Password
             {...PB}
             clearable
@@ -106,13 +122,12 @@ const AuthForm: React.FC<AuthFormProps> = ({
             color={Passwordhelper?.color}
             helperColor={Passwordhelper?.color}
             helperText={Passwordhelper?.text}
-            label="Password"
             className="w-full"
             type="password"
-            labelPlaceholder="Password"
+            placeholder="Password"
             width="100%"
           />
-        </div>
+        </InputPlaceHolder>
 
         <motion.button
           onClick={(e: any) => {
@@ -146,3 +161,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
 };
 
 export default React.memo(AuthForm);
+
+const InputPlaceHolder = styled.div`
+  .nextui-c-hzQjrs {
+  }
+`;

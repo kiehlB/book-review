@@ -60,7 +60,7 @@ export default function Home() {
             first={
               <First>
                 <div className="flex justify-between items-center">
-                  <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem]">
+                  <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
                     포스트
                   </div>
                   <HomeTab />

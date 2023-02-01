@@ -9,8 +9,6 @@ export default function useWhoAmI() {
   const dispatch = useDispatch();
   const { auth } = useSelector((state: RootState) => state.auth);
 
-  console.log(auth);
-
   const [loading, { data: getUser, error }] = useLazyQuery(whoAmIQuery, {});
 
   const user = getUser?.whoami.id ? getUser?.whoami.id : undefined;
@@ -26,5 +24,6 @@ export default function useWhoAmI() {
     error,
     getUser,
     auth,
+    user,
   };
 }

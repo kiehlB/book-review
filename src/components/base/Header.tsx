@@ -20,7 +20,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
         setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
       }}
       className={clsx(
-        'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition  focus:outline-none',
+        'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
         {
           'w-14': variant === 'icon',
           'px-8': variant === 'labelled',
@@ -52,16 +52,16 @@ function Header() {
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <h1
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 font-[Peace]`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 font-[Peace] dark:text-[#e4e5e7]`}>
         <Link href="/"> BookReview </Link>
       </h1>
 
       <div className="col-span-6 mxl:col-span-5 mmd:hidden">
         <div className="relative">
-          <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
+          <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7] ">
             <IoSearchOutline />
           </div>
-          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none" />
+          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7]" />
         </div>
       </div>
 
@@ -74,7 +74,7 @@ function Header() {
           <div className="flex items-center">
             <div
               onClick={() => SetBookIsClose(!BookIsClose)}
-              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold">
+              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:text-[#e4e5e7]">
               Write
             </div>
             <div
@@ -86,7 +86,7 @@ function Header() {
         ) : (
           <>
             <div
-              className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057]"
+              className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057] dark:text-[#e4e5e7] dark:hover:text-[#fcd535]"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('login');

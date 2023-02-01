@@ -7,13 +7,16 @@ import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
 import useWhoAmI from './useWhoami';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { initAuth } from '../../../store/auth';
 
 export default function useRegister() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { value: email, reset: emailReset, bindings: EB } = useInput('');
   const { value: password, reset: passwordReset, bindings: PB } = useInput('');
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
-  const { loading } = useWhoAmI();
+  const { loading, user } = useWhoAmI();
 
   const validateEmail = value => {
     return value.match(
@@ -55,6 +58,16 @@ export default function useRegister() {
     onCompleted({ signUp }) {
       SetIsClose(false);
       loading();
+      dispatch(initAuth(user));
+      toast.success('회원가입 완료!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
   });
 

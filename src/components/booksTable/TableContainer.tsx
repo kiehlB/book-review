@@ -9,13 +9,27 @@ import { RootState } from '../../store/rootReducer';
 import { initBook } from '../../store/book';
 import clsx from 'clsx';
 
+interface BookInfo {
+  authors: string[];
+  contents: string;
+  datetime: string;
+  isbn: string;
+  price: number;
+  publisher: string;
+  sale_price: number;
+  status: string;
+  thumbnail: string;
+  translators: string[];
+  url: string;
+}
+
 interface HistoryTableProps {
-  data?: any;
+  data?: BookInfo;
   autoFocus?: boolean;
   disabled?: boolean;
   isLoading?: boolean;
   selectedRecordIds?: number[];
-  onRowClick?: any;
+  onRowClick?: () => void;
   status: string;
 }
 
@@ -77,16 +91,19 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
   return (
     <div
       className={clsx(
-        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] active:bg-[#ffffff] transition-all',
+        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] active:bg-[#ffffff] transition-all dark:bg-[#1a1b1e] dark:border-[#4B4B4B] dark:hover:bg-[#4B4B4B]  ',
+        {
+          'bg-[#E9E9E9] dark:bg-[#4B4B4B]': clicked?.isbn == datum?.isbn,
+        },
       )}
       data-activity-id={datum.isbn}
-      style={{ background: clicked?.isbn == `${datum?.isbn}` ? '#cccccc' : null }}
+      // style={{ background: clicked?.isbn == `${datum?.isbn}` ? '#cccccc' : null }}
       key={datum.isbn}
       onClick={e => {
         dispatch(initBook(datum));
         handleClick(e, datum);
       }}>
-      <div className="flex dark:bg-[#1E1E1E]">
+      <div className="flex">
         {datum.thumbnail ? (
           <img
             src={datum.thumbnail}
@@ -95,21 +112,27 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
             className="min-h-[116px]"
           />
         ) : (
-          <div className="w-[82px] h-[116px] border-2 flex justify-center items-center text-xs text-[#121212]">
+          <div className="w-[82px] h-[116px] border-2 flex justify-center items-center text-xs text-[#121212] dark:text-[#fff]">
             이미지없음
           </div>
         )}
 
-        <div className="ml-5 flex flex-col text-xs truncate whitespace-nowrap overflow-hidden dark:text-[#D9D9D9] w-full">
+        <div className="ml-5 flex flex-col text-xs truncate whitespace-nowrap overflow-hidden w-full">
           <div className="flex justify-between w-full">
-            <strong className="text-xl mmd:text-base">
+            <strong className="text-xl mmd:text-base dark:text-[#e4e5e7]">
               {datum.title || TITLE_PLACEHOLDER}
             </strong>
-            <div className="mr-2">{moment(datum.datetime).format('YYYY-MM-DD')}</div>
+            <div className="mr-2 dark:text-[#e4e5e7]">
+              {moment(datum.datetime).format('YYYY-MM-DD')}
+            </div>
           </div>
-          <div className="py-[0.5rem]">{datum.authors.map(e => e)}</div>
+          <div className="py-[0.5rem] dark:text-[#e4e5e7]">
+            {datum.authors.map(e => e)}
+          </div>
           <div className="">
-            <WithoutPostBody className="">{datum.contents}</WithoutPostBody>
+            <WithoutPostBody className="dark:text-[#e4e5e7]">
+              {datum.contents}
+            </WithoutPostBody>
           </div>
         </div>
       </div>

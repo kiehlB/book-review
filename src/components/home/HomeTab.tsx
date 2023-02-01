@@ -2,10 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { MdTrendingUp, MdAccessTime } from 'react-icons/md';
 import { useSpring, animated } from 'react-spring';
 import { useRouter } from 'next/router';
-import useToggle from '../../hooks/useToggle';
 import Link from 'next/link';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
-import ModalContext from '../../context/modalContext';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
 
 export type HomeTabProps = {};
@@ -20,11 +18,11 @@ export const isActiveLink = (href: string, currentPathname: string): boolean => 
 
 const links: { name: any; href: string }[] = [
   {
-    name: 'Home',
+    name: '트렌딩',
     href: '/',
   },
   {
-    name: 'Blog',
+    name: '최신',
     href: '/blog',
   },
 ];
@@ -49,7 +47,7 @@ function HomeTab(props: HomeTabProps) {
               stopPropagation(e);
             }
           }}>
-          <div className="ml-6 sm:mr-8 flex flex-col relative text-base font-normal text-[#181A20]">
+          <div className="ml-6 flex flex-col relative text-base font-normal text-[#181A20] dark:text-[#e4e5e7]">
             {name}
             {isActiveLink(href, router.pathname) && (
               <motion.div
@@ -62,7 +60,7 @@ function HomeTab(props: HomeTabProps) {
         </Link>
       ))}
 
-      <IoCalendarNumberOutline size={24} className="ml-6" />
+      <IoCalendarNumberOutline size={24} className="ml-6 dark:text-[#e4e5e7]" />
     </div>
   );
 }

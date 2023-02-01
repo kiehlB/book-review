@@ -44,20 +44,20 @@ export const logoutMutation = gql`
   }
 `;
 
-export const followMutation = gql`
-  mutation FollowUser($username: String!) {
-    followUser(username: $username) {
-      id
-      user_id
-      follower_id
-    }
-  }
-`;
+// export const followMutation = gql`
+//   mutation FollowUser($username: String!) {
+//     followUser(username: $username) {
+//       id
+//       user_id
+//       follower_id
+//     }
+//   }
+// `;
 
-export const unFollowMutation = gql`
-  mutation UnFollowUser($username: String!) {
-    unFollowUser(username: $username) {
-      id
-    }
-  }
-`;
+// export const unFollowMutation = gql`
+//   mutation UnFollowUser($username: String!) {
+//     unFollowUser(username: $username) {
+//       id
+//     }
+//   }
+// `;
