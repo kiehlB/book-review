@@ -81,7 +81,7 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) 
       variants={ulVariants}>
       <motion.div
         variants={liVariants}
-        className={`w-[618px] h-[680px] flex shadow-md bg-[#fff] mxs:flex-1 mxs:w-auto mxs:h-full dark:bg-[#1a1b1e]`}>
+        className={`w-[618px] h-[700px] flex shadow-md bg-[#fff] mxs:flex-1 mxs:w-auto mxs:h-full dark:bg-[#1a1b1e]`}>
         <div className="flex-1 flex flex-col shadow-2xl">
           <div className="flex justify-end  p-[1.5rem] mxs:mb-0">
             <MdClose

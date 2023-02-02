@@ -8,19 +8,19 @@ export type RegisterProps = {
 
 function Register({ mode }: RegisterProps) {
   const {
-    email,
+    username,
     password,
     signUp,
     handleSubmit,
     registerError,
     handleChange,
     Passwordhelper,
-    Emailhelper,
+    Usernamehelper,
   } = useRegister();
 
   return (
     <AuthForm
-      email={email}
+      username={username}
       password={password}
       handleSubmit={handleSubmit}
       authError={registerError}
@@ -31,7 +31,7 @@ function Register({ mode }: RegisterProps) {
       error={registerError}
       handleChange={handleChange}
       Passwordhelper={Passwordhelper}
-      Emailhelper={Emailhelper}
+      Usernamehelper={Usernamehelper}
     />
   );
 }

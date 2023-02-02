@@ -62,9 +62,10 @@ const LabelInput: React.FC<LabelInputProps> = ({
 
       <label
         htmlFor={label}
-        className={clsx('form__label text-zinc-400 font-Roboto', {
+        className={clsx('form__label', {
           'text-[#17c964]': helper?.color == 'success',
           'text-[#f31260]': helper?.color == 'error',
+          'text-zinc-500 dark:text-[#e4e5e7]': helper?.state == 'idle',
         })}>
         {label}
       </label>

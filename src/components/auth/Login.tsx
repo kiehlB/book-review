@@ -8,18 +8,18 @@ export type LoginProps = {
 
 function Login({ mode }: LoginProps) {
   const {
-    email,
+    username,
     password,
     LoginError,
     handleSubmit,
     Passwordhelper,
-    Emailhelper,
+    Usernamehelper,
     handleChange,
   } = useLogin();
 
   return (
     <AuthForm
-      email={email}
+      username={username}
       password={password}
       handleSubmit={handleSubmit}
       authError={LoginError}
@@ -30,7 +30,7 @@ function Login({ mode }: LoginProps) {
       error={LoginError}
       handleChange={handleChange}
       Passwordhelper={Passwordhelper}
-      Emailhelper={Emailhelper}
+      Usernamehelper={Usernamehelper}
     />
   );
 }

@@ -18,11 +18,11 @@ export default function useRegister() {
   const { loading, user } = useWhoAmI();
 
   const [inputs, handleChange] = useForms({
-    email: '',
+    username: '',
     password: '',
   } as inputProps);
 
-  const validateEmail = value => {
+  const validateUsername = value => {
     return value.match(/^[a-z0-9]{5,20}$/);
   };
 
@@ -35,28 +35,32 @@ export default function useRegister() {
       return {
         text: '',
         color: '',
+        state: 'idle',
       };
     const isValid = validatePassword(inputs.password);
     return {
       text: isValid ? 'Correct password' : '5자리 이상 입력해주세요.',
       color: isValid ? 'success' : 'error',
+      state: inputs.password ? 'on' : 'idle',
     };
   }, [inputs.password]) as any;
 
-  const Emailhelper = React.useMemo(() => {
-    if (!inputs.email)
+  const Usernamehelper = React.useMemo(() => {
+    if (!inputs.username)
       return {
         text: '',
         color: '',
+        state: 'idle',
       };
-    const isValid = validateEmail(inputs.email);
+    const isValid = validateUsername(inputs.username);
     return {
       text: isValid
-        ? 'Correct email'
+        ? 'Correct username'
         : '5~20자 사이의 영문 소문자 또는 숫자를 입력해주세요.',
       color: isValid ? 'success' : 'error',
+      state: inputs.username ? 'on' : 'idle',
     };
-  }, [inputs.email]) as any;
+  }, [inputs.username]) as any;
 
   const [signUp, { error: registerError }] = useMutation(registerMutation, {
     onCompleted({ signUp }) {
@@ -72,28 +76,32 @@ export default function useRegister() {
         draggable: true,
         progress: undefined,
       });
+      inputs.username = '';
+      inputs.password = '';
     },
   });
 
   const handleSubmit = async e => {
     e.preventDefault();
 
+    console.log('hello');
+
     signUp({
       variables: {
-        email: inputs.email,
+        username: inputs.username,
         password: inputs.password,
       },
     });
   };
 
   return {
-    email: inputs.email,
+    username: inputs.username,
     password: inputs.password,
     signUp,
     handleSubmit,
     registerError,
     handleChange,
     Passwordhelper,
-    Emailhelper,
+    Usernamehelper,
   };
 }

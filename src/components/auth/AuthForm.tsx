@@ -10,7 +10,7 @@ import clsx from 'clsx';
 
 export interface inputProps {
   password: string | number | readonly string[];
-  email: string | number | readonly string[];
+  username: string | number | readonly string[];
 }
 
 export declare type BindingsChangeTarget =
@@ -18,7 +18,7 @@ export declare type BindingsChangeTarget =
   | string;
 
 export interface AuthFormProps {
-  email?: string;
+  username?: string;
   password?: string;
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -29,7 +29,7 @@ export interface AuthFormProps {
   mode: string;
   error: ApolloError;
   Passwordhelper;
-  Emailhelper;
+  Usernamehelper;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -38,14 +38,15 @@ const AuthForm: React.FC<AuthFormProps> = ({
   auth,
   mode,
   error,
-  email,
+  username,
   password,
   handleChange,
   Passwordhelper,
-  Emailhelper,
+  Usernamehelper,
 }) => {
-  const onClick = () => {
-    toast.error('아이디와 비밀번호가 비었습니다!', {
+  const onClick = e => {
+    e.preventDefault();
+    toast.error('아이디나 비밀번호가 비었습니다!', {
       position: 'bottom-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -58,13 +59,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
     });
   };
 
-  const EmailState = () => {
-    if (email == '') {
+  const UsernameState = () => {
+    if (username == '') {
       return '';
-    } else if (Emailhelper.color == 'error') {
-      return Emailhelper.text;
+    } else if (Usernamehelper.color == 'error') {
+      return Usernamehelper.text;
     } else {
-      return Emailhelper.text;
+      return Usernamehelper.text;
     }
   };
 
@@ -97,41 +98,46 @@ const AuthForm: React.FC<AuthFormProps> = ({
       );
     }
   }, [error]);
-
+  // dark:bg-[#300313] dark:text-[#f31260]
+  // dark:text-[#41ec8b] dark:bg-[#042f14]
   return (
     <>
-      <form className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
+      <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
         <div className="flex items-center">
           <LabelInput
-            name="email"
-            label="Email"
-            value={email}
+            name="username"
+            label="username"
+            value={username}
             className={clsx('form__input', {
-              'focus:border-[#dafbe8] bg-[#dafbe8]': Emailhelper?.color == 'success',
-              'bg-[#fdd8e5] focus:border-[#fdd8e5]': Emailhelper?.color == 'error',
+              'bg-[#dafbe8]': Usernamehelper?.color == 'success',
+              'bg-[#fdd8e5]': Usernamehelper?.color == 'error',
+              'focus:border-[#f0b90b] dark:bg-[#2b3139] border border-[#d3d7e2] dark:border-none':
+                Usernamehelper?.state == 'idle',
             })}
-            type="email"
-            id="email"
+            type="username"
+            id="username"
             onChange={handleChange}
-            helper={Emailhelper}
+            helper={Usernamehelper}
           />
         </div>
 
         <div
           className={clsx('text-xs py-[0.5rem] px-1', {
-            'text-[#17c964]': Emailhelper?.color == 'success',
-            'text-[#f31260]': Emailhelper?.color == 'error',
+            'text-[#17c964]': Usernamehelper?.color == 'success',
+            'text-[#f31260]': Usernamehelper?.color == 'error',
           })}>
-          {EmailState()}
+          {UsernameState()}
         </div>
         <div className="flex items-center mt-6">
           <LabelInput
             name="password"
-            label="Password"
+            label="password"
             value={password}
-            className={clsx('form__input', {
+            className={clsx('form__input border-[#d3d7e2]', {
               'focus:border-[#dafbe8] bg-[#dafbe8]': Passwordhelper?.color == 'success',
               'bg-[#fdd8e5] focus:border-[#fdd8e5]': Passwordhelper?.color == 'error',
+              'focus:border-[#f0b90b] dark:bg-[#2b3139]  border border-[#d3d7e2] dark:border-none':
+                Passwordhelper?.state == 'idle',
             })}
             type="password"
             id="password"
@@ -149,23 +155,25 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
         <motion.button
           onClick={(e: any) => {
-            handleSubmit(e);
+            Usernamehelper.color == 'success' && Passwordhelper.color == 'success'
+              ? handleSubmit(e)
+              : '';
 
-            !email && !password ? onClick() : '';
+            !username || !password ? onClick(e) : '';
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.8 }}
-          className="flex bg-[#fcd435] text-[#212529] mt-12 h-12 justify-center items-center tracking-widest w-full rounded-xl">
+          className="flex bg-[#fcd435] text-[#212529] mt-8 h-12 justify-center items-center tracking-widest w-full rounded-xl">
           {auth}
         </motion.button>
-      </form>
+      </div>
       <div className="px-[6rem]">
         {/* {mode == 'register' ? '회원가입' : '로그인'}으로 이동 */}
       </div>
 
       <div className="flex my-4 items-center justify-between px-1">
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
-        <div className="text-[#707a8a] font-Roboto">Or</div>
+        <div className="text-[#707a8a] dark:text-[#e4e5e7]">Or</div>
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
       </div>
 
