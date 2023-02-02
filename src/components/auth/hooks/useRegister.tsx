@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useInput } from '@nextui-org/react';
 import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ModalContext from '../../../context/modalContext';
 import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
@@ -9,19 +9,21 @@ import useWhoAmI from './useWhoami';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { initAuth } from '../../../store/auth';
+import { inputProps } from '../AuthForm';
 
 export default function useRegister() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { value: email, reset: emailReset, bindings: EB } = useInput('');
-  const { value: password, reset: passwordReset, bindings: PB } = useInput('');
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
   const { loading, user } = useWhoAmI();
 
+  const [inputs, handleChange] = useForms({
+    email: '',
+    password: '',
+  } as inputProps);
+
   const validateEmail = value => {
-    return value.match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i,
-    );
+    return value.match(/^[a-z0-9]{5,20}$/);
   };
 
   const validatePassword = value => {
@@ -29,30 +31,32 @@ export default function useRegister() {
   };
 
   const Passwordhelper = React.useMemo(() => {
-    if (!password)
+    if (!inputs.password)
       return {
         text: '',
         color: '',
       };
-    const isValid = validatePassword(password);
+    const isValid = validatePassword(inputs.password);
     return {
-      text: isValid ? 'Correct password' : 'Enter a valid password',
+      text: isValid ? 'Correct password' : '5자리 이상 입력해주세요.',
       color: isValid ? 'success' : 'error',
     };
-  }, [password]) as any;
+  }, [inputs.password]) as any;
 
-  const helper = React.useMemo(() => {
-    if (!email)
+  const Emailhelper = React.useMemo(() => {
+    if (!inputs.email)
       return {
         text: '',
         color: '',
       };
-    const isValid = validateEmail(email);
+    const isValid = validateEmail(inputs.email);
     return {
-      text: isValid ? 'Correct email' : 'Enter a valid email',
+      text: isValid
+        ? 'Correct email'
+        : '5~20자 사이의 영문 소문자 또는 숫자를 입력해주세요.',
       color: isValid ? 'success' : 'error',
     };
-  }, [email]) as any;
+  }, [inputs.email]) as any;
 
   const [signUp, { error: registerError }] = useMutation(registerMutation, {
     onCompleted({ signUp }) {
@@ -76,21 +80,20 @@ export default function useRegister() {
 
     signUp({
       variables: {
-        email,
-        password,
+        email: inputs.email,
+        password: inputs.password,
       },
     });
   };
 
   return {
-    email,
-    password,
+    email: inputs.email,
+    password: inputs.password,
     signUp,
     handleSubmit,
     registerError,
-    EB,
-    PB,
-    helper,
+    handleChange,
     Passwordhelper,
+    Emailhelper,
   };
 }

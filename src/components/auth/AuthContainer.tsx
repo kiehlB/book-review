@@ -2,7 +2,6 @@ import { useInput } from '@nextui-org/react';
 import Link from 'next/link';
 import React, { FormEvent, useContext, useState } from 'react';
 import ModalContext from '../../context/modalContext';
-import LabelInput from '../common/LabelInput';
 import Modal from '../common/Modal';
 import useRegister from './hooks/useRegister';
 import Login from './Login';

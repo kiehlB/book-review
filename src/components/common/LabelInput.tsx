@@ -1,5 +1,6 @@
+import clsx from 'clsx';
 import * as React from 'react';
-import { Input, useInput } from '@nextui-org/react';
+import { MdLockOutline } from 'react-icons/md';
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -7,7 +8,7 @@ type InputProps = React.DetailedHTMLProps<
 >;
 
 export interface LabelInputProps extends InputProps {
-  label?: string;
+  label: string;
   placeholder?: string;
   name?: string;
   value?: string | number | readonly string[];
@@ -15,6 +16,7 @@ export interface LabelInputProps extends InputProps {
   className?: string;
   type?: string;
   id?: string;
+  helper: any;
 }
 
 const { useState, useCallback } = React;
@@ -24,21 +26,49 @@ const LabelInput: React.FC<LabelInputProps> = ({
   value,
   placeholder,
   onChange,
+  disabled,
   className,
   type,
   id,
+  helper,
   ...rest
 }) => {
+  const [focus, setFocus] = useState(false);
+
+  const onFocus = useCallback(() => {
+    setFocus(true);
+  }, []);
+  const onBlur = useCallback(() => {
+    setFocus(false);
+  }, []);
+
   return (
-    <Input
-      width="100%"
-      onChange={onChange}
-      className={className}
-      name={name}
-      type={type}
-      labelPlaceholder={placeholder}
-      value={value}
-    />
+    <div className="form">
+      <input
+        type={type}
+        id={id}
+        className={className}
+        name={name}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        disabled={disabled}
+        placeholder=" "
+        value={value}
+        onChange={onChange}
+        {...rest}
+      />
+
+      {disabled && <MdLockOutline />}
+
+      <label
+        htmlFor={label}
+        className={clsx('form__label text-zinc-400 font-Roboto', {
+          'text-[#17c964]': helper?.color == 'success',
+          'text-[#f31260]': helper?.color == 'error',
+        })}>
+        {label}
+      </label>
+    </div>
   );
 };
 

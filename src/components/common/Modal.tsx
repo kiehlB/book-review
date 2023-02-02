@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { MdClose } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
-import clsx from 'clsx';
 
 interface ModalProps {
   visible?: boolean;
@@ -76,9 +75,7 @@ const liVariants = {
 const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) => {
   return (
     <motion.div
-      className={clsx(
-        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 backdrop-brightness-75',
-      )}
+      className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 bg-[#00000080]"
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>

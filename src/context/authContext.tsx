@@ -5,16 +5,19 @@ import React, {
   useState,
   SetStateAction,
   useEffect,
+  useRef,
 } from 'react';
 
 type Dispatch<A> = (value: A) => void;
 
 export interface AuthContextData {
+  inputRefs: any;
   isAuth: any;
   SetIsAuth: Dispatch<SetStateAction<any>>;
 }
 
 const AuthContext = React.createContext<AuthContextData>({
+  inputRefs: {},
   SetIsAuth: () => {},
   isAuth: '',
 });
@@ -27,6 +30,7 @@ export const AuthContextProvider = ({
   children,
 }: AuthContextProviderProps): ReactElement => {
   const [isAuth, SetIsAuth] = useState(null);
+  const inputRefs = useRef({});
 
   useEffect(
     () =>
@@ -37,7 +41,9 @@ export const AuthContextProvider = ({
   );
 
   return (
-    <AuthContext.Provider value={{ isAuth, SetIsAuth }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isAuth, SetIsAuth, inputRefs }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

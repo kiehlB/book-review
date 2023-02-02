@@ -15,14 +15,6 @@ function PageLayout({ children }: PageLayoutProps) {
 
   return (
     <div className="px-[1rem] dark:bg-[#1a1b1e]">
-      <AuthContainer />
-      <BookModal
-        visible={BookIsClose}
-        onClose={SetBookIsClose}
-        className="flex max-w-[80rem] mx-auto w-full h-[100%] shadow-md bg-[#E9E9E9] mmd:max-w-full">
-        <BookTalble />
-      </BookModal>
-
       <Header />
       <main>{children}</main>
     </div>

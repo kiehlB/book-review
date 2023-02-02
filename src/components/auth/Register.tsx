@@ -13,10 +13,9 @@ function Register({ mode }: RegisterProps) {
     signUp,
     handleSubmit,
     registerError,
-    EB,
-    PB,
-    helper,
+    handleChange,
     Passwordhelper,
+    Emailhelper,
   } = useRegister();
 
   return (
@@ -24,16 +23,15 @@ function Register({ mode }: RegisterProps) {
       email={email}
       password={password}
       handleSubmit={handleSubmit}
-      Passwordhelper={Passwordhelper}
       authError={registerError}
       auth="Register"
       isRegister="Sign up for an entity account?"
       linkTo="/signin"
-      EB={EB}
-      PB={PB}
-      helper={helper}
       mode={mode}
       error={registerError}
+      handleChange={handleChange}
+      Passwordhelper={Passwordhelper}
+      Emailhelper={Emailhelper}
     />
   );
 }

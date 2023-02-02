@@ -9,6 +9,7 @@ import ModalContext from '../../context/modalContext';
 import useWhoAmI from '../auth/hooks/useWhoami';
 import Link from 'next/link';
 import useLogout from '../auth/hooks/useLogout';
+import { myFont } from '../../font/font';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -52,7 +53,7 @@ function Header() {
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <h1
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 font-[Peace] dark:text-[#e4e5e7]`}>
+        className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
         <Link href="/"> BookReview </Link>
       </h1>
 

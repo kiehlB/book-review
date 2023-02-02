@@ -29,7 +29,6 @@ function PostPublish({ isOpen, SetisOpen }: PostPublishProps) {
   const { handleSubmit } = useEditor2();
   const { book } = useSelector((state: RootState) => state.book);
 
-  console.log(isOpen);
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div

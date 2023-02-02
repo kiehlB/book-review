@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { ApolloError } from '@apollo/client';
-import LabelInput from '../common/LabelInput';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { Input, useInput, Grid } from '@nextui-org/react';
 import Google from '../../svg/google';
 import FaceBook from '../../svg/facebook';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import useDarkMode from '../base/useDarkmode';
+import LabelInput from '../common/LabelInput';
+import clsx from 'clsx';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -23,44 +20,29 @@ export declare type BindingsChangeTarget =
 export interface AuthFormProps {
   email?: string;
   password?: string;
-  EB: {
-    value: string;
-    onChange: (event: BindingsChangeTarget) => void;
-  };
-  PB: {
-    value: string;
-    onChange: (event: BindingsChangeTarget) => void;
-  };
-  helper: {
-    color: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
-    text: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
-  };
   handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   authError?: ApolloError;
   auth?: string;
   isRegister?: string;
   linkTo?: string;
-  Passwordhelper: {
-    color: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
-    text: 'error' | 'default' | 'primary' | 'secondary' | 'success' | 'warning';
-  };
   mode: string;
   error: ApolloError;
+  Passwordhelper;
+  Emailhelper;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
   handleSubmit,
   authError,
   auth,
-  EB,
-  PB,
-  helper,
-  Passwordhelper,
   mode,
   error,
   email,
   password,
+  handleChange,
+  Passwordhelper,
+  Emailhelper,
 }) => {
   const onClick = () => {
     toast.error('아이디와 비밀번호가 비었습니다!', {
@@ -74,6 +56,26 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
       type: 'error',
     });
+  };
+
+  const EmailState = () => {
+    if (email == '') {
+      return '';
+    } else if (Emailhelper.color == 'error') {
+      return Emailhelper.text;
+    } else {
+      return Emailhelper.text;
+    }
+  };
+
+  const PasswordState = () => {
+    if (password == '') {
+      return '';
+    } else if (Passwordhelper.color == 'error') {
+      return Passwordhelper.text;
+    } else {
+      return Passwordhelper.text;
+    }
   };
 
   React.useEffect(() => {
@@ -96,44 +98,59 @@ const AuthForm: React.FC<AuthFormProps> = ({
     }
   }, [error]);
 
-  //  labelPlaceholder="Email"
   return (
     <>
-      <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
-        <InputPlaceHolder className="flex items-center">
-          <Input
-            {...EB}
-            clearable
-            status={helper?.color}
-            color={helper?.color}
-            helperColor={helper?.color}
-            helperText={helper?.text}
-            width="100%"
-            className="w-full"
+      <form className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
+        <div className="flex items-center">
+          <LabelInput
+            name="email"
+            label="Email"
+            value={email}
+            className={clsx('form__input', {
+              'focus:border-[#dafbe8] bg-[#dafbe8]': Emailhelper?.color == 'success',
+              'bg-[#fdd8e5] focus:border-[#fdd8e5]': Emailhelper?.color == 'error',
+            })}
             type="email"
-            placeholder="Email"
+            id="email"
+            onChange={handleChange}
+            helper={Emailhelper}
           />
-        </InputPlaceHolder>
-        <InputPlaceHolder className="flex items-center mt-12">
-          <Input.Password
-            {...PB}
-            clearable
-            status={Passwordhelper?.color}
-            color={Passwordhelper?.color}
-            helperColor={Passwordhelper?.color}
-            helperText={Passwordhelper?.text}
-            className="w-full"
+        </div>
+
+        <div
+          className={clsx('text-xs py-[0.5rem] px-1', {
+            'text-[#17c964]': Emailhelper?.color == 'success',
+            'text-[#f31260]': Emailhelper?.color == 'error',
+          })}>
+          {EmailState()}
+        </div>
+        <div className="flex items-center mt-6">
+          <LabelInput
+            name="password"
+            label="Password"
+            value={password}
+            className={clsx('form__input', {
+              'focus:border-[#dafbe8] bg-[#dafbe8]': Passwordhelper?.color == 'success',
+              'bg-[#fdd8e5] focus:border-[#fdd8e5]': Passwordhelper?.color == 'error',
+            })}
             type="password"
-            placeholder="Password"
-            width="100%"
+            id="password"
+            onChange={handleChange}
+            helper={Passwordhelper}
           />
-        </InputPlaceHolder>
+        </div>
+        <div
+          className={clsx('text-xs py-[0.5rem] px-1', {
+            'text-[#17c964]': Passwordhelper?.color == 'success',
+            'text-[#f31260]': Passwordhelper?.color == 'error',
+          })}>
+          {PasswordState()}
+        </div>
 
         <motion.button
           onClick={(e: any) => {
-            helper.color == 'success' && Passwordhelper.color == 'success'
-              ? handleSubmit(e)
-              : null;
+            handleSubmit(e);
+
             !email && !password ? onClick() : '';
           }}
           whileHover={{ scale: 1.05 }}
@@ -141,7 +158,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           className="flex bg-[#fcd435] text-[#212529] mt-12 h-12 justify-center items-center tracking-widest w-full rounded-xl">
           {auth}
         </motion.button>
-      </div>
+      </form>
       <div className="px-[6rem]">
         {/* {mode == 'register' ? '회원가입' : '로그인'}으로 이동 */}
       </div>
@@ -161,8 +178,3 @@ const AuthForm: React.FC<AuthFormProps> = ({
 };
 
 export default React.memo(AuthForm);
-
-const InputPlaceHolder = styled.div`
-  .nextui-c-hzQjrs {
-  }
-`;
