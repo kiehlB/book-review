@@ -7,7 +7,15 @@ export type LoginProps = {
 };
 
 function Login({ mode }: LoginProps) {
-  const { email, password, LoginError, handleSubmit } = useLogin();
+  const {
+    email,
+    password,
+    LoginError,
+    handleSubmit,
+    Passwordhelper,
+    Emailhelper,
+    handleChange,
+  } = useLogin();
 
   return (
     <AuthForm
@@ -20,6 +28,9 @@ function Login({ mode }: LoginProps) {
       linkTo="/signin"
       mode={mode}
       error={LoginError}
+      handleChange={handleChange}
+      Passwordhelper={Passwordhelper}
+      Emailhelper={Emailhelper}
     />
   );
 }
