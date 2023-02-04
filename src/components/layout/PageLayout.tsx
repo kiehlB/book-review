@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import ModalContext from '../../context/modalContext';
+import { RootState } from '../../store/rootReducer';
 import AuthContainer from '../auth/AuthContainer';
 import Header from '../base/Header';
 import TestHeader from '../base/TestHeader';
@@ -12,14 +14,19 @@ interface PageLayoutProps {
 
 function PageLayout({ children }: PageLayoutProps) {
   const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
+  const { isDark } = useSelector((state: RootState) => state.core);
+
+  React.useEffect(() => {
+    const root = window.document.documentElement;
+
+    root.classList.remove(isDark == 'dark' ? 'light' : 'dark');
+    root.classList.add(isDark);
+  }, [isDark]);
 
   return (
     <div className="px-[1rem] dark:bg-[#1a1b1e] h-full">
       <AuthContainer />
-      <BookModal
-        visible={BookIsClose}
-        onClose={SetBookIsClose}
-        className="flex max-w-[80rem] mx-auto w-full h-[100%] shadow-md bg-[#E9E9E9] mmd:max-w-full">
+      <BookModal visible={BookIsClose} onClose={SetBookIsClose} className="">
         <BookTalble />
       </BookModal>
 

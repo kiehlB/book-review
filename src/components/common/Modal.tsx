@@ -9,33 +9,6 @@ interface ModalProps {
   className: string;
 }
 
-const itemVariants = {
-  open: {
-    display: 'block',
-
-    transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 24,
-      duration: 0.6,
-      staggerChildren: 0.17,
-      delayChildren: 0.2,
-    },
-  },
-  closed: {
-    display: 'none',
-
-    transition: {
-      type: 'spring',
-      staggerChildren: 0.17,
-      delayChildren: 0.2,
-
-      staggerDirection: -1,
-      when: 'afterChildren',
-    },
-  },
-};
-
 const ulVariants = {
   open: {
     display: '',
@@ -75,14 +48,14 @@ const liVariants = {
 const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) => {
   return (
     <motion.div
-      className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 bg-[#00000080]"
+      className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 bg-[#00000080] mxs:flex-1 mxs:w-full mxs:h-full"
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
       <motion.div
         variants={liVariants}
         className={`w-[618px] h-[700px] flex shadow-md bg-[#fff] mxs:flex-1 mxs:w-auto mxs:h-full dark:bg-[#1a1b1e]`}>
-        <div className="flex-1 flex flex-col shadow-2xl">
+        <div className="flex-1 flex flex-col">
           <div className="flex justify-end  p-[1.5rem] mxs:mb-0">
             <MdClose
               onClick={() => onClose(!visible)}

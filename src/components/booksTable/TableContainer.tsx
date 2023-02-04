@@ -91,9 +91,9 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
   return (
     <div
       className={clsx(
-        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] active:bg-[#ffffff] transition-all dark:bg-[#1a1b1e] dark:border-[#4B4B4B] dark:hover:bg-[#4B4B4B]  ',
+        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] active:bg-[#ffffff] transition-all dark:bg-[#282828] dark:border-[#4B4B4B] dark:hover:bg-zinc-000',
         {
-          'bg-[#E9E9E9] dark:bg-[#4B4B4B]': clicked?.isbn == datum?.isbn,
+          'bg-[#E9E9E9] dark:bg-zinc-900': clicked?.isbn == datum?.isbn,
         },
       )}
       data-activity-id={datum.isbn}
@@ -122,7 +122,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
             <strong className="text-xl mmd:text-base dark:text-[#e4e5e7]">
               {datum.title || TITLE_PLACEHOLDER}
             </strong>
-            <div className="mr-2 dark:text-[#e4e5e7]">
+            <div className="mr-2 dark:text-[#e4e5e7] mxs:hidden">
               {moment(datum.datetime).format('YYYY-MM-DD')}
             </div>
           </div>

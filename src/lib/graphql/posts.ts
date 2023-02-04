@@ -184,11 +184,11 @@ export const Create_Post = gql`
 //   }
 // `;
 
-// export const Remove_Post = gql`
-//   mutation RemovePost($post_id: String!) {
-//     removePost(post_id: $post_id)
-//   }
-// `;
+export const Remove_Post = gql`
+  mutation RemovePost($id: String!) {
+    removePost(id: $id)
+  }
+`;
 
 // export const Edit_Comment = gql`
 //   mutation EditComment($id: String, $text: String) {

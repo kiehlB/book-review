@@ -10,7 +10,6 @@ import { RootState } from '../../../store/rootReducer';
 export default function useLogout() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { auth } = useSelector((state: RootState) => state.auth);
 
   const [logout] = useMutation(logoutMutation, {
     onCompleted({ logout }) {

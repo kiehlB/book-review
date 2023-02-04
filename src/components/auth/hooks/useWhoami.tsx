@@ -11,7 +11,7 @@ export default function useWhoAmI() {
 
   const [loading, { data: getUser, error }] = useLazyQuery(whoAmIQuery, {});
 
-  const user = getUser?.whoami.id ? getUser?.whoami.id : undefined;
+  const user = getUser?.whoami.id ? getUser?.whoami : undefined;
 
   useEffect(() => {
     if (user == undefined) return;

@@ -2696,6 +2696,11 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code/-/extension-code-2.0.0-beta.209.tgz#dda857528043c5aa4c451bb9f63731aa809182cb"
   integrity sha512-LCcfQMroYps6o9ASpVZqYbbdTkSwxTokjmkkKKmWZlZSJ/h+1kThOnRZgcPkfSeaaC30T+LSxAXXyf1dMgl5+Q==
 
+"@tiptap/extension-color@^2.0.0-beta.209":
+  version "2.0.0-beta.209"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-color/-/extension-color-2.0.0-beta.209.tgz#9db791f50a2919e68a88b1ff6be236c35c46d570"
+  integrity sha512-AJfVaudk7acdgHrmz0xYVufh+W7x5oaekb6WN49WIyi0+4/BVmIJMdSl38fYE8ZWezmTn33+9pTUFmy7cL9CZA==
+
 "@tiptap/extension-document@^2.0.0-beta.209":
   version "2.0.0-beta.209"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-document/-/extension-document-2.0.0-beta.209.tgz#7bb4025737a5361c06d52e56406d7e0649387e88"
@@ -2794,6 +2799,11 @@
   version "2.0.0-beta.209"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-text-align/-/extension-text-align-2.0.0-beta.209.tgz#e89310c596ab0a8b6f1d531c11a613d5f82fe038"
   integrity sha512-PbCYNkhxi0oR1N6PgRnG8JoaSJXOvgF8gpEW1RzG8VJNCJPLrhR9/pryHfkszD55XGc4o1F5L+CryRsBJeqsIw==
+
+"@tiptap/extension-text-style@^2.0.0-beta.209":
+  version "2.0.0-beta.209"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-text-style/-/extension-text-style-2.0.0-beta.209.tgz#b2342ef96adab3932f706dd48f80034183d8c603"
+  integrity sha512-KNIkY0/Cbun1UOCa+gVM6+0Fa6Nsugd7jy8+GfWnrshElxBZyrHgxvtjMMLTwT8P/lReN/8kwJUPFAlX8BqhFw==
 
 "@tiptap/extension-text@^2.0.0-beta.209":
   version "2.0.0-beta.209"
@@ -7004,6 +7014,11 @@ react-bootstrap@^2.7.0:
     react-transition-group "^4.4.2"
     uncontrollable "^7.2.1"
     warning "^4.0.3"
+
+react-collapse@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-5.1.1.tgz#a2fa08ef13f372141b02e6a7d49ef72427bcbc2b"
+  integrity sha512-k6cd7csF1o9LBhQ4AGBIdxB60SUEUMQDAnL2z1YvYNr9KoKr+nDkhN6FK7uGaBd/rYrYfrMpzpmJEIeHRYogBw==
 
 react-dom@18.2.0:
   version "18.2.0"

@@ -53,20 +53,14 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
           flexWrap: 'wrap',
           margin: '0 16px',
           position: 'sticky',
-
           zIndex: 99,
           width: 'calc(100% - 2rem);',
         }}>
-        <HeadingToolbarButtons editor={editor} />
-        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
-        <StyledToggleButtonGroup size="small" exclusive aria-label="text alignment">
-          <ToggleButton
-            onClick={() => editor.chain().focus().setTextAlign('left').run()}
-            selected={editor.isActive({ textAlign: 'left' })}
-            value="left"
-            aria-label="left aligned">
-            <FormatAlignLeftIcon />
-          </ToggleButton>
+        <StyledToggleButtonGroup
+          size="small"
+          exclusive
+          aria-label="vertical outlined primary button group">
+          <HeadingToolbarButtons editor={editor} />
           <ToggleButton
             onClick={() => editor.chain().focus().setTextAlign('center').run()}
             selected={editor.isActive({ textAlign: 'center' })}
@@ -74,41 +68,7 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
             aria-label="Center aligned">
             <FormatAlignCenterIcon />
           </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().setTextAlign('right').run()}
-            selected={editor.isActive({ textAlign: 'right' })}
-            value="right"
-            aria-label="Right aligned">
-            <FormatAlignRightIcon />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().setTextAlign('justify').run()}
-            selected={editor.isActive({ textAlign: 'justify' })}
-            value="justify"
-            aria-label="Justify aligned">
-            <FormatAlignJustifyIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
-        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
 
-        <StyledToggleButtonGroup
-          size="small"
-          aria-label="vertical outlined primary button group">
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleSuperscript().run()}
-            selected={editor.isActive('superscript')}
-            value="superscript"
-            aria-label="superscript">
-            77
-            <SuperscriptIcon />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleSubscript().run()}
-            selected={editor.isActive('subscript')}
-            value="subscript"
-            aria-label="subscript">
-            <SubscriptIcon />
-          </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().toggleBold().run()}
             selected={editor.isActive('bold')}
@@ -186,16 +146,6 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
 
           <ToggleButton
             onClick={() => {
-              setOpenPickVideo(true);
-            }}
-            selected={editor.isActive('videoPlayer')}
-            value="videoPlayer"
-            aria-label="videoPlayer">
-            <VideoLibraryIcon />
-          </ToggleButton>
-
-          <ToggleButton
-            onClick={() => {
               const previousUrl = editor.getAttributes('link').href;
               const url = window.prompt('URL', previousUrl);
 
@@ -233,10 +183,9 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
             selected={editor.isActive('orderedList')}>
             <FormatListNumberedIcon />
           </ToggleButton>
-        </StyledToggleButtonGroup>
-        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
 
-        <StyledToggleButtonGroup size="small" exclusive aria-label="text alignment">
+          <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
+
           <ToggleButton
             onClick={() => editor.chain().focus().undo().run()}
             value="undo"
@@ -248,23 +197,6 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
             value="redo"
             aria-label="redo">
             <RedoIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
-
-        <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
-
-        <StyledToggleButtonGroup size="small" exclusive aria-label="text alignment">
-          <ToggleButton
-            onClick={() => editor.chain().focus().unsetAllMarks().run()}
-            value="clear-mark"
-            aria-label="clear-mark">
-            <LayersClearIcon />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().clearNodes().run()}
-            value="clear-node"
-            aria-label="clear-node">
-            <ClearIcon />
           </ToggleButton>
         </StyledToggleButtonGroup>
       </Paper>

@@ -35,20 +35,6 @@ export default function HeadingToolbarButtons({ editor }: { editor: Editor }) {
         aria-label="H4 Text">
         <Typography fontWeight={700}>H4</Typography>
       </ToggleButton>
-      <ToggleButton
-        onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        selected={editor.isActive('heading', { level: 5 })}
-        value="h5"
-        aria-label="H5 Text">
-        <Typography fontWeight={600}>H5</Typography>
-      </ToggleButton>
-      <ToggleButton
-        onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        selected={editor.isActive('heading', { level: 6 })}
-        value="h6"
-        aria-label="H6 Text">
-        <Typography fontWeight={500}>H6</Typography>
-      </ToggleButton>
     </StyledToggleButtonGroup>
   );
 }

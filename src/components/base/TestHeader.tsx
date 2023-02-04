@@ -3,7 +3,6 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { CiDark } from 'react-icons/ci';
 import { CiLight } from 'react-icons/ci';
 
-import useDarkMode from './useDarkmode';
 import clsx from 'clsx';
 import { useContext } from 'react';
 import ModalContext from '../../context/modalContext';
@@ -11,12 +10,8 @@ import ModalContext from '../../context/modalContext';
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
 function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' }) {
-  const [colorTheme, setTheme] = useDarkMode();
   return (
     <button
-      onClick={() => {
-        setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
-      }}
       className={clsx(
         'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
         {

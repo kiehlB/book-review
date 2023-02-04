@@ -16,6 +16,7 @@ import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import Focus from '@tiptap/extension-focus';
 import { ColorHighlighter } from './ColourHighlighter';
+import { Color } from '@tiptap/extension-color';
 import UniqueID from './UniqueID';
 import TableOfContents from './TableOfContents';
 import TagsForm from '../tags/TagsForm';
@@ -24,9 +25,13 @@ import ProjectCreateContentToolbar from './Toolbar';
 import { motion, useReducedMotion } from 'framer-motion';
 import { SearchInput } from 'evergreen-ui';
 import { ArrowLink, arrowVariants, BackLink } from '../common/ArrowButton';
-import { Collapse, Grid as NextGrid, Avatar } from '@nextui-org/react';
 import WriteHead from './WriterHead';
-import FloatingHeader from '../common/Floating';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/rootReducer';
+import SavePost from './SavePost';
+import TapSide from './TapSide';
+
 export type TapProps = {
   isOpen;
   SetisOpen;
@@ -36,6 +41,7 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
   const { handleSubmit } = useEditor2();
   const [isEditing, setEditing] = useState(false);
   const BodyFocusRef = useRef() as any;
+  const { isDark } = useSelector((state: RootState) => state.core);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -62,7 +68,6 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
       Dropcursor,
       Code,
       Link,
-
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
@@ -71,7 +76,9 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
         mode: 'all',
       }),
       ColorHighlighter,
-
+      Color.configure({
+        types: ['textStyle'],
+      }),
       TableOfContents,
       UniqueID.configure({
         types: ['block'],
@@ -83,66 +90,29 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
     `,
   });
 
+  const a = editor?.getHTML();
+
   const toggleEditing = () => {
     setEditing(!isEditing);
   };
-
-  const a = editor?.getHTML();
-
+  // overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 h-full border-2 border-red-500 w-full
   return (
-    <PageGrid as="main" className="h-full">
-      <div className="col-span-2 h-full border-r borde-b border-[#E2E8F0] mxl:hidden">
-        <div onClick={e => handleSubmit(e, a)}>ddd</div>
-        <div className="col-span-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 sticky top-0 z-10  ">
-          <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
-            <div className="px-2 py-1">
-              <BackLink href="/">
-                <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
-                  BookReview
-                </div>
-              </BackLink>
-            </div>
-          </div>
-
-          <div className="p-4">
-            <SearchInput
-              placeholder="임시 포스트를 검색해보세요"
-              name="BookSearch"
-              width={'240px'}
-              className="text-xs"
-              height={40}
-              style={{ borderRadius: '1.5rem', fontSize: '12px' }}
-            />
-          </div>
-
-          <div className=" font-bold text-xs px-2">
-            <Collapse.Group divider={false}>
-              <Collapse title="FAVORITES" expanded>
-                <div>1</div>
-              </Collapse>
-            </Collapse.Group>
-            <Collapse.Group divider={false}>
-              <Collapse title="MY DRAFTS (0)" expanded>
-                <div>1</div>
-              </Collapse>
-            </Collapse.Group>
+    <PageGrid as="main" className="">
+      <div className="col-span-2 sticky  top-0 h-[100vh] min-h-[0] overflow-hidden">
+        <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
+          <div className="px-2 py-1">
+            <BackLink href="/">
+              <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
+                BookReview
+              </div>
+            </BackLink>
           </div>
         </div>
-      </div>
 
-      <div className="flex w-[18.5rem] fixed bottom-0 z-50 px-4 col-span-2 bg-white border-t border-r h-[4.5rem] items-center justify-between mxl:hidden">
-        <div>새로운 포스트</div>
+        <TapSide />
       </div>
-
       <div className="col-span-8 mxl:col-span-12">
         <WriteHead isOpen={isOpen} SetisOpen={SetisOpen} />
-
-        {/* <FloatingHeader>
-          <WriteHead isOpen={isOpen} SetisOpen={SetisOpen} />
-          <div className="px-4 py-4">
-            <TagsForm />
-          </div>
-        </FloatingHeader> */}
 
         <div className="px-4 py-4">
           <TagsForm />
@@ -152,9 +122,11 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
           <ProjectCreateContentToolbar editor={editor} />
         </div>
         <div>
-          <div className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]">
+          <Content
+            className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]"
+            isDark={isDark}>
             <EditorContent editor={editor} className="" />
-          </div>
+          </Content>
         </div>
       </div>
     </PageGrid>
@@ -162,3 +134,23 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
 }
 
 export default Tap;
+
+const Content = styled.div<{ isDark: string }>`
+  p {
+    color: ${props => (props.isDark == 'dark' ? 'blue' : 'red')};
+  }
+`;
+
+const PostContent = styled.div`
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar-track {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+  }
+`;

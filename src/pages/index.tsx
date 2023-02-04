@@ -11,7 +11,6 @@ import { getNextSeo } from '../lib/nextSeo';
 import useGetPosts from '../components/post/hooks/useGetPosts';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
-import AuthContainer from '../components/auth/AuthContainer';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
@@ -30,7 +29,7 @@ export default function Home() {
           },
         ]}
       />
-      <AuthContainer />
+
       <PageLayout>
         <PageGrid as="div" className="pt-[2.25rem]">
           <MainNav className="col-span-2 mmd:hidden">

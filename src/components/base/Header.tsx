@@ -2,7 +2,6 @@ import { PageGrid } from '../layout/GridLayout';
 import { IoSearchOutline } from 'react-icons/io5';
 import { CiDark } from 'react-icons/ci';
 import { CiLight } from 'react-icons/ci';
-import useDarkMode from './useDarkmode';
 import clsx from 'clsx';
 import { useContext, useEffect } from 'react';
 import ModalContext from '../../context/modalContext';
@@ -10,15 +9,18 @@ import useWhoAmI from '../auth/hooks/useWhoami';
 import Link from 'next/link';
 import useLogout from '../auth/hooks/useLogout';
 import { myFont } from '../../font/font';
+import { useDispatch } from 'react-redux';
+import { getcoreInfoSuccess } from '../../store/core';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
 function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' }) {
-  const [colorTheme, setTheme] = useDarkMode();
+  const dispatch = useDispatch();
   return (
     <button
       onClick={() => {
-        setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
+        dispatch(getcoreInfoSuccess());
+        // setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
       }}
       className={clsx(
         'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
@@ -75,7 +77,7 @@ function Header() {
           <div className="flex items-center">
             <div
               onClick={() => SetBookIsClose(!BookIsClose)}
-              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:text-[#e4e5e7]">
+              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:border-none dark:hover:text-white ">
               Write
             </div>
             <div

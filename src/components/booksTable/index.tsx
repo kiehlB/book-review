@@ -4,7 +4,11 @@ import axios from 'axios';
 import BooksTableContainer from './TableContainer';
 import BooksContext from '../../context/booksContext';
 import { SearchInput } from 'evergreen-ui';
-import { ArrowLink } from '../common/ArrowButton';
+import { ArrowLink, BackLink, NextLink } from '../common/ArrowButton';
+import { RootState } from '../../store/rootReducer';
+import { MdClose } from 'react-icons/md';
+import { getBookInfoSuccess } from '../../store/book';
+import { toast } from 'react-toastify';
 
 interface BookTalbleProps {}
 
@@ -203,31 +207,121 @@ function BookInfo({ bookName }): any {
 
 const BookTalble = ({}) => {
   const [bookName, setBookName] = useState('');
+  const { book } = useSelector((state: RootState) => state.book);
+  const dispatch = useDispatch();
 
   function handleSubmit(booksName) {
     setBookName(booksName);
   }
 
+  const withoutBookInfo = () => {
+    toast.error('책을 선택해주세요.', {
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+
+      type: 'error',
+    });
+  };
+
   return (
     <>
-      <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:h-[100vh] mmd:px-[1rem] w-full">
-        <div className="flex items-end row-span-1 pb-4">
+      <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:h-[100vh] mmd:px-[1rem] w-full mxs:px-[0rem]">
+        <div className="flex items-end row-span-1 pb-4 mxs:px-[0.5rem]">
           <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
         </div>
-        <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5] dark:border-[#4B4B4B]">
+        <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5] dark:border-none">
           <BookInfo bookName={bookName} />
         </div>
-        <div className="flex justify-end pr-4 dark:text-[#e4e5e7]">
-          <ArrowLink href={'/write'} direction="right" className="mr-8" textSize="small">
-            Skip
-          </ArrowLink>
-          <ArrowLink
-            href={'/write'}
-            direction="right"
-            className="font-semibold dark:text-[#e4e5e7]"
-            textSize="small">
-            다음
-          </ArrowLink>
+
+        <div className="flex justify-between dark:text-[#e4e5e7] pt-4 mmd:hidden items-center">
+          <div className="flex">
+            {book?.thumbnail ? (
+              <img src={book?.thumbnail} width="45px" height="70px" />
+            ) : (
+              ''
+            )}
+
+            <div className="ml-2">{book?.title ? book?.title : ''}</div>
+            {book?.title ? (
+              <MdClose
+                onClick={() => dispatch(getBookInfoSuccess(''))}
+                tabIndex={1}
+                size={20}
+                color="#868E96"
+                className="ml-1 hover:bg-[#cfd2e2] transition-all rounded-full hover:p-1"
+              />
+            ) : (
+              ''
+            )}
+          </div>
+          <div className="flex items-center">
+            <ArrowLink
+              href={'/write'}
+              direction="right"
+              className="mr-8"
+              textSize="small">
+              Skip
+            </ArrowLink>
+            <ArrowLink
+              click={book?.title ? '' : withoutBookInfo}
+              href={book?.title ? '/write' : ''}
+              direction="right"
+              className="font-semibold dark:text-[#e4e5e7]"
+              textSize="small">
+              다음
+            </ArrowLink>
+          </div>
+        </div>
+      </div>
+
+      <div className="fxied bottom-0 bg-[#e9e9e9] py-2 mmd:fixed mmd:bottom-0 w-full mmd:px-[2rem] md:hidden mxs:px-[0.5rem]">
+        <div className="flex justify-between">
+          <div className="flex">
+            {book?.thumbnail ? (
+              <img
+                src={book?.thumbnail}
+                width="45px"
+                height="60px"
+                className="mxs:hidden"
+              />
+            ) : (
+              ''
+            )}
+            <div className="ml-2 text-sm truncate max-w-[100px] w-full">
+              {book?.title ? book?.title : ''}
+            </div>
+            {book?.title ? (
+              <MdClose
+                onClick={() => dispatch(getBookInfoSuccess(''))}
+                tabIndex={1}
+                size={20}
+                color="#868E96"
+                className="ml-1 hover:bg-[#cfd2e2] transition-all rounded-full hover:p-1"
+              />
+            ) : (
+              ''
+            )}
+          </div>
+
+          <div className="flex items-center">
+            <NextLink href="/write">
+              <div className="text-[#334155] text-base flex items-center justify-between font-semibold mr-2">
+                Skip
+              </div>
+            </NextLink>
+            <NextLink
+              click={book?.title ? '' : withoutBookInfo}
+              href={book?.title ? '/write' : ''}>
+              <div className="text-[#334155] text-base flex items-center justify-between font-semibold pl-6 mxs:pl-2 mr-2">
+                다음
+              </div>
+            </NextLink>
+          </div>
         </div>
       </div>
     </>

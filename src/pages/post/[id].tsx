@@ -27,6 +27,9 @@ import { initializeApollo } from '../../lib/apolloClient';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../../lib/nextSeo';
 import PawButton from '../../components/common/PawButton';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/rootReducer';
 
 export type PostProps = {
   id: string;
@@ -36,51 +39,52 @@ function Post({ id }: PostProps) {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
 
   const insertID = setHeadingId(singlePostData?.post?.body);
+  const { isDark } = useSelector((state: RootState) => state.core);
 
   const BodyResult = insertID.replace('<toc></toc>', '');
 
-  // const editor = useEditor({
-  //   editorProps: {
-  //     attributes: {
-  //       class: 'focus:outline-none',
-  //       'data-test': 'editor',
-  //     },
-  //   },
-  //   extensions: [
-  //     StarterKit,
-  //     Subscript,
-  //     Superscript,
-  //     Highlight,
-  //     TypographyExtension,
-  //     UnderlineExtension,
-  //     Document,
-  //     Paragraph,
-  //     Text,
-  //     Dropcursor,
-  //     Code,
-  //     Link,
+  const editor = useEditor({
+    editorProps: {
+      attributes: {
+        class: 'focus:outline-none',
+        'data-test': 'editor',
+      },
+    },
+    extensions: [
+      StarterKit,
+      Subscript,
+      Superscript,
+      Highlight,
+      TypographyExtension,
+      UnderlineExtension,
+      Document,
+      Paragraph,
+      Text,
+      Dropcursor,
+      Code,
+      Link,
 
-  //     TextAlign.configure({
-  //       types: ['heading', 'paragraph'],
-  //     }),
-  //     Focus.configure({
-  //       className: 'has-focus',
-  //       mode: 'all',
-  //     }),
-  //     ColorHighlighter,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      Focus.configure({
+        className: 'has-focus',
+        mode: 'all',
+      }),
+      ColorHighlighter,
 
-  //     TableOfContents,
-  //     UniqueID.configure({
-  //       types: ['block'],
-  //     }),
-  //   ],
-  //   content: BodyResult,
-  // });
+      TableOfContents,
+      UniqueID.configure({
+        types: ['block'],
+      }),
+    ],
+    content: BodyResult,
+  });
 
-  // useEffect(() => {
-  //   editor?.commands?.setContent(BodyResult);
-  //   editor?.setEditable(false);
-  // }, [BodyResult]);
+  useEffect(() => {
+    editor?.commands?.setContent(BodyResult);
+    editor?.setEditable(false);
+  }, [BodyResult]);
 
   if (singlePostLoding) return <div>d</div>;
 
@@ -99,10 +103,13 @@ function Post({ id }: PostProps) {
             </div>
           </div>
           <div className="text-2xl col-span-6">
-            <div className="border-2 border-red-500 mx-auto" style={{ maxWidth: '65ch' }}>
-              <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
-              {/* <EditorContent editor={editor} className="" /> */}
-            </div>
+            <Content
+              isDark={isDark}
+              className="border-2 border-red-500 mx-auto"
+              style={{ maxWidth: '65ch' }}>
+              {/* <div dangerouslySetInnerHTML={{ __html: BodyResult }} /> */}
+              <EditorContent editor={editor} className="" />
+            </Content>
           </div>
           <div className="col-span-2">
             <div className="sticky top-2">
@@ -124,3 +131,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
     return { props: { id } };
   }
 };
+
+const Content = styled.div<{ isDark: string }>`
+  p {
+    color: ${props => (props.isDark == 'dark' ? 'blue' : 'red')};
+  }
+`;

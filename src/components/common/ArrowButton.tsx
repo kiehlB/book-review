@@ -69,6 +69,7 @@ type ArrowButtonBaseProps = {
 
 type ArrowLinkProps = {
   direction?: ArrowIconProps['direction'];
+  click?: any;
 } & ({ href?: string; to?: never } | { href?: never; to: string }) &
   ArrowButtonBaseProps & { prefetch?: 'intent' | 'render' | 'none' };
 
@@ -173,7 +174,7 @@ function ArrowButton({ onClick, type, ...props }: ArrowButtonProps) {
 
 const MotionLink = motion(Link);
 
-function ArrowLink({ to, href, ...props }: ArrowLinkProps) {
+function ArrowLink({ to, href, click, ...props }: ArrowLinkProps) {
   const [ref, state] = useElementState();
   const shouldReduceMotion = useReducedMotion();
 
@@ -188,15 +189,28 @@ function ArrowLink({ to, href, ...props }: ArrowLinkProps) {
         <ArrowButtonContent {...props} />
       </motion.a>
     );
+  } else {
+    return (
+      <motion.a
+        {...getBaseProps(props)}
+        ref={ref}
+        animate={state}
+        onClick={click}
+        transition={shouldReduceMotion ? { duration: 0 } : {}}>
+        <ArrowButtonContent {...props} />
+      </motion.a>
+    );
   }
-  throw new Error('Must provide either to or href to ArrowLink');
 }
 
 function BackLink({
   href,
   className,
   children,
-}: { href: LinkProps['href'] } & Pick<ArrowLinkProps, 'className' | 'children'>) {
+}: { href: LinkProps['href'] } & Pick<
+  ArrowLinkProps,
+  'className' | 'children' | 'click'
+>) {
   const [ref, state] = useElementState();
   const shouldReduceMotion = useReducedMotion();
   return (
@@ -216,4 +230,33 @@ function BackLink({
   );
 }
 
-export { ArrowButton, ArrowLink, BackLink };
+function NextLink({
+  href,
+  className,
+  children,
+  click,
+}: { href: LinkProps['href'] } & Pick<
+  ArrowLinkProps,
+  'className' | 'children' | 'click'
+>) {
+  const [ref, state] = useElementState();
+  const shouldReduceMotion = useReducedMotion();
+  return (
+    <MotionLink
+      href={href}
+      className={clsx('text-black flex focus:outline-none', className)}
+      ref={ref}
+      onClick={click}
+      animate={state}
+      transition={shouldReduceMotion ? { duration: 0 } : {}}>
+      <H6 as="span">{children}</H6>
+      <motion.span
+        variants={shouldReduceMotion ? {} : arrowVariants.right}
+        transition={shouldReduceMotion ? { duration: 0 } : {}}>
+        <ArrowIcon direction="right" />
+      </motion.span>
+    </MotionLink>
+  );
+}
+
+export { ArrowButton, ArrowLink, BackLink, NextLink };
