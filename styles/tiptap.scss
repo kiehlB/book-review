@@ -122,7 +122,31 @@ p:empty::after {
     font-size: 1.125rem;
     color: #212529;
   }
+
+
+  img {
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid #68cef8;
+    }
+  }
+
+  h1{
+    font-size: 2.5rem;
+  }
  
+  h2{
+    font-size: 2rem;
+  }
+  h3{
+    font-size: 1.5rem;
+  }
+  h4{
+    font-size: 1.125rem;
+  }
   ol {
     
     list-style: none;

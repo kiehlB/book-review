@@ -1,34 +1,114 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import transitions from '../../lib/transitions';
+import { Tooltip, IconButton, EditIcon } from 'evergreen-ui';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
 };
 
+const Tag = styled.div`
+  color: #121212;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  height: 2rem;
+  border-radius: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background: #fcd545;
+  margin-right: 0.75rem;
+  transition: ease-in 0.125s;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
+  margin-bottom: 0.75rem;
+  animation: ${transitions.popIn} 0.125s forwards ease-in-out;
+`;
+
+const TagItem = ({ onClick, children }: any) => {
+  return <Tag onClick={onClick}>{children}</Tag>;
+};
+
 function TagsForm(props: TagsFormProps) {
   const [value, setValue] = useState('');
+  const [tags, setTags] = useState([]);
+  const ignore = useRef(false);
+  const [focus, setFocus] = useState(false);
 
-  const checkKeyDown = e => {
-    if (e.code === 'Enter') e.preventDefault();
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!value) return;
-    props.addTag(value);
-    setValue('');
+  const insertTag = useCallback(
+    (tag: string) => {
+      ignore.current = true;
+      setValue('');
+      if (tag === '' || tags.includes(tag)) return;
+      let processed = tag;
+      processed = tag.trim();
+      if (processed.indexOf(' #') > 0) {
+        const tempTags: string[] = [];
+        const regex = /#(\S+)/g;
+        let execArray: RegExpExecArray | null = null;
+        while ((execArray = regex.exec(processed))) {
+          if (execArray !== null) {
+            tempTags.push(execArray[1]);
+          }
+        }
+        setTags([...tags, ...tempTags]);
+        return;
+      }
+      if (processed.charAt(0) === '#') {
+        processed = processed.slice(1, processed.length);
+      }
+      setTags([...tags, processed]);
+    },
+    [tags],
+  );
+
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Backspace' && value === '') {
+        setTags(tags.slice(0, tags.length - 1));
+        return;
+      }
+      const keys = [',', 'Enter'];
+      if (keys.includes(e.key)) {
+        // 등록
+        e.preventDefault();
+        insertTag(value);
+      }
+    },
+    [insertTag, tags, value],
+  );
+
+  const onRemove = (tag: string) => {
+    const nextTags = tags.filter(t => t !== tag);
+    setTags(nextTags);
   };
+
   return (
-    <>
-      <form onSubmit={e => handleSubmit(e)}>
+    <div>
+      {tags.map(tag => (
+        <TagItem key={tag} onClick={() => onRemove(tag)}>
+          {tag}
+        </TagItem>
+      ))}
+
+      <Tooltip content="엔터키로 등록, 태그를 클릭하면 삭제 됩니다">
         <input
-          type="text"
-          value={value}
-          onChange={e => setValue(e.target.value)}
           placeholder="태그를 입력하세요"
+          tabIndex={2}
+          onKeyDown={onKeyDown}
+          onChange={onChangeInput}
+          value={value}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
         />
-      </form>
-    </>
+      </Tooltip>
+    </div>
   );
 }
 

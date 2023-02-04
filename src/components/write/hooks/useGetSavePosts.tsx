@@ -6,7 +6,6 @@ import { GET_Posts, Remove_Post } from '../../../lib/graphql/posts';
 
 export default function useSavedPosts() {
   const { auth } = useSelector((state: any) => state.auth);
-  const [removeId, setRemoveId] = useState<string | null>(null);
   const [removePost] = useMutation(Remove_Post);
   const client = useApolloClient();
 
@@ -21,20 +20,12 @@ export default function useSavedPosts() {
 
   const posts = data?.posts;
 
-  const onAskRemove = useCallback((id: string) => {
-    setRemoveId(id);
-  }, []);
-
-  const onCancelRemove = useCallback(() => {
-    setRemoveId(null);
-  }, []);
-
-  const onConfirmRemove = useCallback(async () => {
-    if (!removeId) return;
+  const onConfirmRemove = async id => {
+    if (!id) return;
     try {
       await removePost({
         variables: {
-          id: removeId,
+          id: id,
         },
       });
       client.writeQuery({
@@ -44,26 +35,17 @@ export default function useSavedPosts() {
           temp_only: true,
         },
         data: {
-          posts: data.posts.filter(p => p.id !== removeId),
+          posts: data.posts.filter(p => p.id !== id),
         },
       });
       toast.success('포스트가 삭제되었습니다.');
     } catch (e) {
       toast.error('포스트 삭제 실패');
     }
-
-    setRemoveId(null);
-  }, [client, data, removeId, removePost, auth]);
-
-  const handlers = {
-    onAskRemove,
-    onCancelRemove,
-    onConfirmRemove,
   };
 
   return {
-    askRemove: !!removeId,
-    ...handlers,
+    onConfirmRemove,
     posts,
     loading,
   };

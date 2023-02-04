@@ -1,6 +1,6 @@
 import { mergeAttributes, Node } from '@tiptap/core';
 import { ReactNodeViewRenderer } from '@tiptap/react';
-import TiptapWraaper from './TiptapWraaper';
+import TiptapWrapper from './TiptapWrapper';
 
 export default Node.create({
   name: 'tableOfContents',
@@ -22,7 +22,7 @@ export default Node.create({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(TiptapWraaper);
+    return ReactNodeViewRenderer(TiptapWrapper);
   },
 
   addGlobalAttributes() {

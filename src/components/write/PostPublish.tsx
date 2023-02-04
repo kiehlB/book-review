@@ -5,7 +5,8 @@ import { MdClose } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import useEditor2 from './hooks/useCreatePost';
-
+import { HiOutlineLockOpen, HiOutlineLockClosed } from 'react-icons/hi';
+import { Button } from '../common/Button';
 export type PostPublishProps = { children?: any; isOpen; SetisOpen };
 
 const liVariants = {
@@ -40,7 +41,9 @@ function PostPublish({ isOpen, SetisOpen }: PostPublishProps) {
         variants={liVariants}>
         <div className="w-[768px] flex">
           <div className="flex-1 min-w-[0]">
-            <div className="text-[1.3rem] text-[#212529] font-semibold">썸네일 등록</div>
+            <div className="text-[1.3rem] text-[#212529] font-semibold mb-1">
+              썸네일 등록
+            </div>
             <div className="w-full pt-[55.11%] relative border-2">
               <div className="w-full h-full absolute left-0 top-0 shadow">
                 <div className="w-full h-full flex items-center flex-col bg-[#E9ECEF] justify-center">
@@ -56,13 +59,12 @@ function PostPublish({ isOpen, SetisOpen }: PostPublishProps) {
                 </div>
               </div>
             </div>
-
+            <div className="text-[1.3rem] text-[#212529] font-semibold mt-4">
+              등록될 책
+            </div>
             <div>
-              <div className="text-[1.3rem] text-[#212529] font-semibold">
-                {book?.title}
-              </div>
               <div className="text-[1rem] text-[#212529] font-semibold">
-                {book?.authors?.map(e => e)}
+                책: {book?.title}
               </div>
               <div>
                 <img src={book?.thumbnail} />
@@ -74,20 +76,29 @@ function PostPublish({ isOpen, SetisOpen }: PostPublishProps) {
 
           <div className="flex flex-col justify-between flex-1 min-w-[0]">
             <div>
-              <div className="w-full text-[1.3rem] text-[#212529] font-semibold">
+              <div className="w-full text-[1.3rem] text-[#212529] font-semibold mb-2">
                 공개 설정
               </div>
-              <div className="flex">
-                <div className="w-full">공개</div>
-                <div className="w-full">비공개</div>
+              <div className="outline-none border-none flex">
+                <div className="w-full outline-none border-none flex-1 h-[3rem] inline-flex justify-start font-bold bg-[#FFFF] items-center p-0 rounded shadow-sm pl-[1rem]">
+                  <HiOutlineLockOpen size={24} />
+                  <div className="flex-1 flex justify-center items-center">전체 공개</div>
+                </div>
+
+                <div className="w-full outline-none border-none flex-1 h-[3rem] inline-flex justify-start font-bold bg-[#FFFF] ml-[1rem] items-center p-0 rounded shadow-sm pl-[1rem]">
+                  <HiOutlineLockClosed size={24} />
+                  <div className="flex-1 flex justify-center items-center">비공개</div>
+                </div>
               </div>
 
-              <div>시리즈 추가</div>
+              {/* <div>시리즈 추가</div> */}
             </div>
 
-            <div className="flex">
-              <div onClick={() => SetisOpen(!isOpen)}>취소</div>
-              <div>작성 완료</div>
+            <div className="flex justify-end ">
+              <Button size="medium" className="" onClick={() => SetisOpen(!isOpen)}>
+                취소
+              </Button>
+              <Button size="medium">작성 완료</Button>
             </div>
           </div>
         </div>

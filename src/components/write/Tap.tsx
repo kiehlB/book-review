@@ -1,6 +1,6 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useEditor2 from './hooks/useCreatePost';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
@@ -29,8 +29,9 @@ import WriteHead from './WriterHead';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
-import SavePost from './SavePost';
 import TapSide from './TapSide';
+import Image from '@tiptap/extension-image';
+import ImageAdd from './ImageAdd';
 
 export type TapProps = {
   isOpen;
@@ -59,6 +60,7 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
       StarterKit,
       Subscript,
       Superscript,
+      Image,
       Highlight,
       TypographyExtension,
       UnderlineExtension,
@@ -68,6 +70,9 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
       Dropcursor,
       Code,
       Link,
+      Image.configure({
+        allowBase64: true,
+      }),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
@@ -92,13 +97,27 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
 
   const a = editor?.getHTML();
 
+  const addImage = useCallback(
+    url => {
+      if (url) {
+        editor.chain().focus().setImage({ src: url }).run();
+      }
+    },
+    [editor],
+  );
+
+  if (!editor) {
+    return null;
+  }
+
   const toggleEditing = () => {
     setEditing(!isEditing);
   };
+
   // overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 h-full border-2 border-red-500 w-full
   return (
     <PageGrid as="main" className="">
-      <div className="col-span-2 sticky  top-0 h-[100vh] min-h-[0] overflow-hidden">
+      <div className="col-span-2 sticky  top-0 h-[100vh] min-h-[0] overflow-hidden border-r">
         <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
           <div className="px-2 py-1">
             <BackLink href="/">
@@ -108,19 +127,19 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
             </BackLink>
           </div>
         </div>
-
         <TapSide />
       </div>
       <div className="col-span-8 mxl:col-span-12">
         <WriteHead isOpen={isOpen} SetisOpen={SetisOpen} />
-
         <div className="px-4 py-4">
           <TagsForm />
         </div>
-
-        <div className="sticky top-0 z-10">
-          <ProjectCreateContentToolbar editor={editor} />
+        <div>
+          <ProjectCreateContentToolbar editor={editor}>
+            <ImageAdd addImage={addImage} />
+          </ProjectCreateContentToolbar>
         </div>
+
         <div>
           <Content
             className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]"
@@ -137,20 +156,6 @@ export default Tap;
 
 const Content = styled.div<{ isDark: string }>`
   p {
-    color: ${props => (props.isDark == 'dark' ? 'blue' : 'red')};
-  }
-`;
-
-const PostContent = styled.div`
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  ::-webkit-scrollbar-track {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-  }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 20px;
+    color: ${props => (props.isDark == 'dark' ? '#ececec' : '#212529')};
   }
 `;

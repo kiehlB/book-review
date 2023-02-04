@@ -7,18 +7,21 @@ import { Collapse, Grid as NextGrid, Avatar } from '@nextui-org/react';
 export type TapProps = { value: string };
 
 function SavePost({ value }: TapProps) {
-  const { posts, loading } = useSavedPosts();
+  const { posts, loading, onConfirmRemove } = useSavedPosts();
 
   if (loading) return <div>wait</div>;
 
   const isFilterData = value ? posts.filter(e => e?.title?.includes(value)) : posts;
 
   return (
-    <div className=" ">
+    <div className="">
       <Collapse.Group divider={false}>
-        <Collapse title={`임시 저장 글  (${isFilterData?.length})`} expanded>
+        <Collapse
+          className="text-[#64748b] text-base font-bold"
+          title={`임시 저장 글  (${isFilterData?.length})`}
+          expanded>
           {isFilterData?.map(post => (
-            <SavedPostItem post={post} key={post.id} />
+            <SavedPostItem post={post} key={post.id} onConfirmRemove={onConfirmRemove} />
           ))}
         </Collapse>
       </Collapse.Group>

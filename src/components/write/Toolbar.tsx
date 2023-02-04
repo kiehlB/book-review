@@ -34,8 +34,15 @@ import ToggleButton from '@mui/material/ToggleButton';
 import { Typography, Divider } from '@mui/material';
 import StyledToggleButtonGroup from './StyledToggleButtonGroup';
 import HeadingToolbarButtons from './HeadingToolbarButtons';
+import ImageAdd from './ImageAdd';
 
-const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
+const ProjectCreateContentToolbar = ({
+  editor,
+  children,
+}: {
+  editor: Editor;
+  children?: React.ReactNode;
+}) => {
   const [OpenPickImage, setOpenPickImage] = React.useState(false);
   const [OpenPickVideo, setOpenPickVideo] = React.useState(false);
 
@@ -52,8 +59,7 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
           border: theme => `1px solid ${theme.palette.divider}`,
           flexWrap: 'wrap',
           margin: '0 16px',
-          position: 'sticky',
-          zIndex: 99,
+
           width: 'calc(100% - 2rem);',
         }}>
         <StyledToggleButtonGroup
@@ -134,15 +140,8 @@ const ProjectCreateContentToolbar = ({ editor }: { editor: Editor }) => {
             aria-label="underline">
             <FormatUnderlinedIcon />
           </ToggleButton>
-          <ToggleButton
-            onClick={() => {
-              setOpenPickImage(true);
-            }}
-            selected={editor.isActive('image-renderer')}
-            value="image-renderer"
-            aria-label="image-renderer">
-            <ImageIcon />
-          </ToggleButton>
+
+          <div className="border-2 flex items-center px-[1px]">{children}</div>
 
           <ToggleButton
             onClick={() => {
