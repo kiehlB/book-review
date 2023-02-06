@@ -11,14 +11,15 @@ export const GET_Post = gql`
 `;
 
 export const GET_Posts = gql`
-  query GetPosts($cursor: String) {
-    posts(cursor: $cursor) {
+  query GetPosts($cursor: String, $username: String) {
+    posts(cursor: $cursor, username: $username) {
       id
       title
       body
       thumbnail
       created_at
       views
+      is_temp
       likes
       liked
       tags {
@@ -48,6 +49,7 @@ export const Get_TopPost = gql`
         id
         username
       }
+      c
       comments {
         id
       }
@@ -55,18 +57,35 @@ export const Get_TopPost = gql`
   }
 `;
 
-//thumbnail: $thumbnail,
 export const Create_Post = gql`
   mutation CreatePost(
     $body: String!
     $title: String!
-    # $thumbnail: String!
+    $thumbnail: String
     $tags: [String]
+    $is_temp: Boolean
+    $bookTitle: String
+    $bookContent: String
+    $bookUrl: String
+    $bookIsbn: String
+    $bookAuthors: [String]
   ) {
-    createPost(body: $body, title: $title, tags: $tags) {
+    createPost(
+      body: $body
+      title: $title
+      tags: $tags
+      is_temp: $is_temp
+      bookTitle: $bookTitle
+      thumbnail: $thumbnail
+      bookContent: $bookContent
+      bookUrl: $bookUrl
+      bookIsbn: $bookIsbn
+      bookAuthors: $bookAuthors
+    ) {
       id
       title
       body
+      is_temp
     }
   }
 `;
@@ -175,14 +194,20 @@ export const Create_Post = gql`
 //   }
 // `;
 
-// export const Edit_Post = gql`
-//   mutation EditPost($post_id: String!, $title: String, $body: String) {
-//     editPost(post_id: $post_id, title: $title, body: $body) {
-//       id
-//       title
-//     }
-//   }
-// `;
+export const Edit_Post = gql`
+  mutation EditPost(
+    $id: String!
+    $title: String
+    $body: String
+    $tags: [String]
+    $is_temp: Boolean
+  ) {
+    editPost(id: $id, title: $title, body: $body, tags: $tags, is_temp: $is_temp) {
+      id
+      title
+    }
+  }
+`;
 
 export const Remove_Post = gql`
   mutation RemovePost($id: String!) {

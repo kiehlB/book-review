@@ -4,7 +4,6 @@ import { Editor } from '@tiptap/react';
 
 import LinkIcon from '@mui/icons-material/Link';
 import ImageIcon from '@mui/icons-material/Image';
-
 import UndoIcon from '@mui/icons-material/Undo';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
@@ -14,8 +13,6 @@ import RedoIcon from '@mui/icons-material/Redo';
 import CodeIcon from '@mui/icons-material/Code';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import ClearIcon from '@mui/icons-material/Clear';
-import LayersClearIcon from '@mui/icons-material/LayersClear';
 import FormatTextdirectionRToLIcon from '@mui/icons-material/FormatTextdirectionRToL';
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
 import SubscriptIcon from '@mui/icons-material/Subscript';
@@ -26,10 +23,7 @@ import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-
 import Paper from '@mui/material/Paper';
-
 import ToggleButton from '@mui/material/ToggleButton';
 import { Typography, Divider } from '@mui/material';
 import StyledToggleButtonGroup from './StyledToggleButtonGroup';
@@ -43,9 +37,6 @@ const ProjectCreateContentToolbar = ({
   editor: Editor;
   children?: React.ReactNode;
 }) => {
-  const [OpenPickImage, setOpenPickImage] = React.useState(false);
-  const [OpenPickVideo, setOpenPickVideo] = React.useState(false);
-
   if (!editor) {
     return null;
   }

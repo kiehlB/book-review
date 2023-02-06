@@ -2,17 +2,17 @@ import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useEffect, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { GET_Posts, Remove_Post } from '../../../lib/graphql/posts';
+import { Edit_Post, GET_Posts, Remove_Post } from '../../../lib/graphql/posts';
 import { RootState } from '../../../store/rootReducer';
 
-export default function useSavedPosts() {
+export default function useEditPost() {
   const { auth } = useSelector((state: any) => state.auth);
-  const [removePost] = useMutation(Remove_Post);
+  const [editPost] = useMutation(Edit_Post);
   const client = useApolloClient();
 
   const { data, loading, fetchMore } = useQuery(GET_Posts, {
     variables: {
-      username: auth?.username,
+      username: auth.username,
       temp_only: true,
     },
     skip: !auth,
@@ -24,7 +24,7 @@ export default function useSavedPosts() {
   const onConfirmRemove = async id => {
     if (!id) return;
     try {
-      await removePost({
+      await editPost({
         variables: {
           id: id,
         },

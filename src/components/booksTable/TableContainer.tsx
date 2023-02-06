@@ -91,9 +91,9 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
   return (
     <div
       className={clsx(
-        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] active:bg-[#ffffff] transition-all dark:bg-[#282828] dark:border-[#4B4B4B] dark:hover:bg-zinc-000',
+        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] transition-all dark:bg-[#282828] dark:border-[#4B4B4B] dark:hover:bg-zinc-000',
         {
-          'bg-[#E9E9E9] dark:bg-zinc-900': clicked?.isbn == datum?.isbn,
+          'bg-gray-300 dark:bg-zinc-900': clicked?.isbn == datum?.isbn,
         },
       )}
       data-activity-id={datum.isbn}

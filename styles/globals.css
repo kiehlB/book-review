@@ -50,7 +50,7 @@ font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Goth
 }
 
 .ReactCollapse--collapse {
-  transition: height 500ms;
+  transition: height 200ms;
 }
 
 .nextui-c-ctQnhE{

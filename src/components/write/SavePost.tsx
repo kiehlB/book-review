@@ -1,30 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
-import useEditor2 from './hooks/useCreatePost';
 import useSavedPosts from './hooks/useGetSavePosts';
 import SavedPostItem from './SavePostItem';
-import { Collapse, Grid as NextGrid, Avatar } from '@nextui-org/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Collapse } from 'react-collapse';
+import { MdChevronLeft, MdExpandMore } from 'react-icons/md';
 
-export type TapProps = { value: string };
+export type TapProps = { value: string; isEditing: any; setEditing: any };
 
-function SavePost({ value }: TapProps) {
+function SavePost({ value, isEditing, setEditing }: TapProps) {
+  const dispatch = useDispatch();
+
   const { posts, loading, onConfirmRemove } = useSavedPosts();
+  const [isCollapse, setIsCollapse] = useState(true);
 
-  if (loading) return <div>wait</div>;
+  console.log('준수');
 
   const isFilterData = value ? posts.filter(e => e?.title?.includes(value)) : posts;
 
   return (
     <div className="">
-      <Collapse.Group divider={false}>
-        <Collapse
-          className="text-[#64748b] text-base font-bold"
-          title={`임시 저장 글  (${isFilterData?.length})`}
-          expanded>
+      <div
+        className="text-[#64748b] text-base font-bold flex items-center justify-between px-4"
+        onClick={() => setIsCollapse(!isCollapse)}>
+        <div> 임시 저장 글 ({isFilterData?.length})</div>
+        <div>{isCollapse ? <MdExpandMore size={20} /> : <MdChevronLeft size={20} />}</div>
+      </div>
+      <Collapse isOpened={isCollapse}>
+        <div className="text-[#64748b] text-base font-bold px-4 mt-3">
           {isFilterData?.map(post => (
             <SavedPostItem post={post} key={post.id} onConfirmRemove={onConfirmRemove} />
           ))}
-        </Collapse>
-      </Collapse.Group>
+        </div>
+      </Collapse>
     </div>
   );
 }

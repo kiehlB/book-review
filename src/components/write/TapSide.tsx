@@ -6,15 +6,15 @@ import { useDebounce } from 'use-debounce';
 import Modal from '../common/Modal';
 import SavePost from './SavePost';
 
-export type TapProps = {};
+export type TapProps = { isEditing: any; setEditing: any };
 
-function TapSide({}: TapProps) {
+function TapSide({ isEditing, setEditing }: TapProps) {
   const [text, setText] = useState('');
   const [value] = useDebounce(text, 0);
 
   return (
     <>
-      <div className="p-4">
+      <div className="py-4 mx-2">
         <div className="relative">
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7] ">
             <IoSearchOutline />
@@ -35,13 +35,13 @@ function TapSide({}: TapProps) {
       </div>
 
       <PostContent className="sticky top-0 h-[calc(100vh-9.375rem)] min-h-[0] scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100 scrollbar-w-1">
-        <SavePost value={value} />
+        <SavePost value={value} isEditing={isEditing} setEditing={setEditing} />
       </PostContent>
     </>
   );
 }
 
-export default TapSide;
+export default React.memo(TapSide);
 
 const Content = styled.div<{ isDark: string }>`
   p {

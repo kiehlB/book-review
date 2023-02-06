@@ -1,7 +1,6 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import useEditor2 from './hooks/useCreatePost';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import Highlight from '@tiptap/extension-highlight';
@@ -27,11 +26,13 @@ import { SearchInput } from 'evergreen-ui';
 import { ArrowLink, arrowVariants, BackLink } from '../common/ArrowButton';
 import WriteHead from './WriterHead';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import TapSide from './TapSide';
 import Image from '@tiptap/extension-image';
 import ImageAdd from './ImageAdd';
+import { getPostBody, getPostTitle, getPostTags } from '../../store/book';
+import useCreateSavePost from './hooks/usecreateSavePost';
 
 export type TapProps = {
   isOpen;
@@ -39,16 +40,17 @@ export type TapProps = {
 };
 
 function Tap({ isOpen, SetisOpen }: TapProps) {
-  const { handleSubmit } = useEditor2();
   const [isEditing, setEditing] = useState(false);
-  const BodyFocusRef = useRef() as any;
+  const dispatch = useDispatch();
   const { isDark } = useSelector((state: RootState) => state.core);
-  const shouldReduceMotion = useReducedMotion();
+  const body = useSelector((state: RootState) => state.book.body);
+  const tags = useSelector((state: RootState) => state.book.tags);
+  const title = useSelector((state: RootState) => state.book.title);
+  const postId = useSelector((state: RootState) => state.book.postId);
 
-  useEffect(() => {
-    if (BodyFocusRef.current) {
-    }
-  }, [BodyFocusRef]);
+  const { onConfirmSave, posts, loading } = useCreateSavePost();
+
+  const findPost = posts?.filter(e => e.id == postId);
 
   const editor = useEditor({
     editorProps: {
@@ -89,13 +91,29 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
         types: ['block'],
       }),
     ],
-    content: `
-      <toc></toc><br/>
-      여기를 클릭하세요
-    `,
+    content:
+      body?.length > 9
+        ? body
+        : `
+    <toc></toc><br/>
+    여기를 클릭하세요
+  `,
   });
 
   const a = editor?.getHTML();
+  useEffect(() => {
+    dispatch(getPostBody(a));
+  }, [a]);
+
+  useEffect(() => {
+    if (findPost) {
+      console.log(findPost[0]?.body);
+      dispatch(getPostTitle(findPost[0]?.title));
+      dispatch(getPostBody(findPost[0]?.body));
+      dispatch(getPostTags(findPost[0]?.tags));
+      editor?.commands?.setContent(findPost[0]?.body);
+    }
+  }, [postId, dispatch]);
 
   const addImage = useCallback(
     url => {
@@ -110,16 +128,12 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
     return null;
   }
 
-  const toggleEditing = () => {
-    setEditing(!isEditing);
-  };
-
   // overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 h-full border-2 border-red-500 w-full
   return (
     <PageGrid as="main" className="">
       <div className="col-span-2 sticky  top-0 h-[100vh] min-h-[0] overflow-hidden border-r">
         <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
-          <div className="px-2 py-1">
+          <div className="py-2 px-4">
             <BackLink href="/">
               <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
                 BookReview
@@ -127,12 +141,25 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
             </BackLink>
           </div>
         </div>
-        <TapSide />
+        <TapSide isEditing={isEditing} setEditing={setEditing} />
       </div>
       <div className="col-span-8 mxl:col-span-12">
-        <WriteHead isOpen={isOpen} SetisOpen={SetisOpen} />
+        <WriteHead>
+          <div className="flex">
+            <div
+              onClick={() => onConfirmSave(postId, title, body, tags)}
+              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] mr-4 cursor-pointer">
+              saved
+            </div>
+            <div
+              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer"
+              onClick={() => SetisOpen(!isOpen)}>
+              publish
+            </div>
+          </div>
+        </WriteHead>
         <div className="px-4 py-4">
-          <TagsForm />
+          <TagsForm isOpen={isOpen} />
         </div>
         <div>
           <ProjectCreateContentToolbar editor={editor}>

@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import transitions from '../../lib/transitions';
 import { Tooltip, IconButton, EditIcon } from 'evergreen-ui';
+import { useDispatch } from 'react-redux';
+import { getPostTags } from '../../store/book';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
+  isOpen: any;
 };
 
 const Tag = styled.div`
@@ -36,6 +39,11 @@ function TagsForm(props: TagsFormProps) {
   const [tags, setTags] = useState([]);
   const ignore = useRef(false);
   const [focus, setFocus] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPostTags(tags));
+  }, [props.isOpen]);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -74,9 +82,8 @@ function TagsForm(props: TagsFormProps) {
         setTags(tags.slice(0, tags.length - 1));
         return;
       }
-      const keys = [',', 'Enter'];
+      const keys = ['Enter'];
       if (keys.includes(e.key)) {
-        // 등록
         e.preventDefault();
         insertTag(value);
       }
@@ -112,4 +119,4 @@ function TagsForm(props: TagsFormProps) {
   );
 }
 
-export default TagsForm;
+export default React.memo(TagsForm);

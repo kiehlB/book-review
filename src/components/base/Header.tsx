@@ -9,13 +9,15 @@ import useWhoAmI from '../auth/hooks/useWhoami';
 import Link from 'next/link';
 import useLogout from '../auth/hooks/useLogout';
 import { myFont } from '../../font/font';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getcoreInfoSuccess } from '../../store/core';
+import { RootState } from '../../store/rootReducer';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
 function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' }) {
   const dispatch = useDispatch();
+
   return (
     <button
       onClick={() => {

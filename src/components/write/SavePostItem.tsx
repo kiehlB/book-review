@@ -1,7 +1,9 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostIcon from '../../svg/post';
 import { Popover, Pane, Button } from 'evergreen-ui';
+import { getPostBody, getPostId } from '../../store/book';
+import { useDispatch } from 'react-redux';
 
 export interface SavedPostItemProps {
   post: any;
@@ -11,6 +13,7 @@ export interface SavedPostItemProps {
 function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
   const [isHovering, setIsHovering] = useState(false);
   const [IsClose, SetIsClose] = useState(true);
+  const dispatch = useDispatch();
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -20,19 +23,15 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
     setIsHovering(false);
   };
 
+  console.log('위험');
   const editUrl = `/write?id=${post.id}`;
 
   return (
-    <div
-      className="flex justify-between hover:bg-[#e2e8f0] py-[6px] px-2"
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}>
-      <div className="flex items-center">
-        <PostIcon className="w-6" />
+    <div className="flex justify-between hover:bg-[#e2e8f0] py-[6px]">
+      <div className="flex items-center" onClick={() => dispatch(getPostId(post.id))}>
+        <PostIcon className="w-6 cursor-pointer" />
         <h3 className="ml-1">
-          <Link href={editUrl} className="text-[#64748b] text-sm">
-            {post.title}
-          </Link>
+          <div className="text-[#64748b] text-sm cursor-pointer">{post.title}</div>
         </h3>
       </div>
 
@@ -55,7 +54,9 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
                 <Button
                   className="text-red-500 shadow-2xl"
                   color="red"
-                  onClick={() => onConfirmRemove(post.id)}>
+                  onClick={() => {
+                    onConfirmRemove(post.id);
+                  }}>
                   삭제
                 </Button>
               </div>

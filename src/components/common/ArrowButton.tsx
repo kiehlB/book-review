@@ -103,7 +103,7 @@ function ArrowButtonContent({
     <>
       {children &&
       (direction === 'right' || direction === 'up' || direction === 'top-right') ? (
-        <span className="mr-8 text-xl font-medium">{children}</span>
+        <span className="mr-4 text-xl font-medium">{children}</span>
       ) : null}
 
       <div className="relative inline-flex h-14 w-14 flex-none items-center justify-center p-1">
@@ -180,14 +180,16 @@ function ArrowLink({ to, href, click, ...props }: ArrowLinkProps) {
 
   if (href) {
     return (
-      <motion.a
-        href={href}
-        {...getBaseProps(props)}
-        ref={ref}
-        animate={state}
-        transition={shouldReduceMotion ? { duration: 0 } : {}}>
-        <ArrowButtonContent {...props} />
-      </motion.a>
+      <Link href={href}>
+        <motion.div
+          {...getBaseProps(props)}
+          ref={ref}
+          animate={state}
+          onClick={click}
+          transition={shouldReduceMotion ? { duration: 0 } : {}}>
+          <ArrowButtonContent {...props} />
+        </motion.div>
+      </Link>
     );
   } else {
     return (

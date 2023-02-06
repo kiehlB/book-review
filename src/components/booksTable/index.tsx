@@ -7,7 +7,13 @@ import { SearchInput } from 'evergreen-ui';
 import { ArrowLink, BackLink, NextLink } from '../common/ArrowButton';
 import { RootState } from '../../store/rootReducer';
 import { MdClose } from 'react-icons/md';
-import { getBookInfoSuccess } from '../../store/book';
+import {
+  getBookInfoSuccess,
+  getPostBody,
+  getPostId,
+  getPostTags,
+  getPostTitle,
+} from '../../store/book';
 import { toast } from 'react-toastify';
 
 interface BookTalbleProps {}
@@ -267,14 +273,23 @@ const BookTalble = ({}) => {
               textSize="small">
               Skip
             </ArrowLink>
-            <ArrowLink
-              click={book?.title ? '' : withoutBookInfo}
-              href={book?.title ? '/write' : ''}
-              direction="right"
-              className="font-semibold dark:text-[#e4e5e7]"
-              textSize="small">
-              다음
-            </ArrowLink>
+
+            <div
+              onClick={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags(''));
+                dispatch(getPostId(''));
+                book?.title ? '' : withoutBookInfo();
+              }}>
+              <ArrowLink
+                href={book?.title ? '/write' : ''}
+                direction="right"
+                className="font-semibold dark:text-[#e4e5e7]"
+                textSize="small">
+                다음
+              </ArrowLink>
+            </div>
           </div>
         </div>
       </div>
@@ -314,8 +329,15 @@ const BookTalble = ({}) => {
                 Skip
               </div>
             </NextLink>
+
             <NextLink
-              click={book?.title ? '' : withoutBookInfo}
+              click={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags(''));
+                dispatch(getPostId(''));
+                book?.title ? '' : withoutBookInfo;
+              }}
               href={book?.title ? '/write' : ''}>
               <div className="text-[#334155] text-base flex items-center justify-between font-semibold pl-6 mxs:pl-2 mr-2">
                 다음
