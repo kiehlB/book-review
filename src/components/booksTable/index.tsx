@@ -222,7 +222,7 @@ const BookTalble = ({}) => {
 
   const withoutBookInfo = () => {
     toast.error('책을 선택해주세요.', {
-      position: 'bottom-right',
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -258,7 +258,7 @@ const BookTalble = ({}) => {
                 onClick={() => dispatch(getBookInfoSuccess(''))}
                 tabIndex={1}
                 size={20}
-                color="#868E96"
+                color="#f31260"
                 className="ml-1 hover:bg-[#cfd2e2] transition-all rounded-full hover:p-1"
               />
             ) : (
@@ -315,7 +315,7 @@ const BookTalble = ({}) => {
                 onClick={() => dispatch(getBookInfoSuccess(''))}
                 tabIndex={1}
                 size={20}
-                color="#868E96"
+                color="#f31260"
                 className="ml-1 hover:bg-[#cfd2e2] transition-all rounded-full hover:p-1"
               />
             ) : (
@@ -336,7 +336,7 @@ const BookTalble = ({}) => {
                 dispatch(getPostBody(''));
                 dispatch(getPostTags(''));
                 dispatch(getPostId(''));
-                book?.title ? '' : withoutBookInfo;
+                book?.title ? '' : withoutBookInfo();
               }}
               href={book?.title ? '/write' : ''}>
               <div className="text-[#334155] text-base flex items-center justify-between font-semibold pl-6 mxs:pl-2 mr-2">

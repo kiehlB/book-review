@@ -34,7 +34,7 @@ export default function useLogin() {
       color: isValid ? 'success' : 'error',
       state: inputs.password ? 'on' : 'idle',
     };
-  }, [inputs.password]) as any;
+  }, [inputs.password]);
 
   const Usernamehelper = React.useMemo(() => {
     if (!inputs.username)

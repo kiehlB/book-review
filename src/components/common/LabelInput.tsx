@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import * as React from 'react';
 import { MdLockOutline } from 'react-icons/md';
+import { helperProps } from '../auth/AuthForm';
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -16,7 +17,7 @@ export interface LabelInputProps extends InputProps {
   className?: string;
   type?: string;
   id?: string;
-  helper: any;
+  helper: helperProps;
 }
 
 const { useState, useCallback } = React;

@@ -13,10 +13,10 @@ function AuthContainer({}: AuthContainerProps) {
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
 
   return (
-    <Modal visible={IsClose} onClose={SetIsClose} className="w-[618px] h-[680px]">
-      <h2 className="flex justify-center py-6 text-[#212529] text-[1.3125rem] font-semibold dark:text-[#e4e5e7]">
+    <Modal visible={IsClose} onClose={SetIsClose} className="w-[618px] h-[710px]">
+      <div className="flex justify-center py-6 text-[#212529] text-[1.3125rem] font-semibold dark:text-[#e4e5e7]">
         {mode == 'register' ? '회원가입' : '로그인'}
-      </h2>
+      </div>
       {mode == 'register' ? <Register mode={mode} /> : <Login mode={mode} />}
       <div className="mt-auto mxs:hidden">
         <div className="shelf">

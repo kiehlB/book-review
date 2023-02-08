@@ -116,116 +116,7 @@ $text-col: #111111, #eeeeee, #111111;
 p:empty::after {
   content: "\00A0";
 }
-.ProseMirror {
-  > * + * {
-    line-height: 1.5;
-    font-size: 1.125rem;
-    color: #212529;
-  }
-  padding:0 4px;
-
-  img {
-    height: 100%;
-    max-width: 100%;
-    object-fit: cover;
-
-    &.ProseMirror-selectednode {
-      outline: 3px solid #68cef8;
-    }
-  }
-
-  h1{
-    font-size: 2.5rem;
-  }
  
-  h2{
-    font-size: 2rem;
-  }
-  h3{
-    font-size: 1.5rem;
-  }
-  h4{
-    font-size: 1.125rem;
-  }
-  ol {
-    
-    list-style: none;
-    counter-reset: item;
-  }
-  li {
-    display: flex;
-    counter-increment: item;
-    margin-bottom: 5px;
-  }
-  li:before {
-    margin-right: 10px;
-    content: counter(item);
-    background: lightblue;
-    border-radius: 100%;
-    color: white;
-    width: 1.5em;
-    text-align: center;
-    display: inline-block;
-  }
-
-  outline: none;
-  min-height: 100%;
-  max-height: 100%;
-  width: 100%;
-  
-  
-  ul,
-  ol {
-    padding: 0 1rem;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-  }
-
-  code {
-    background-color: rgba(#616161, 0.1);
-    color: #616161;
-  }
-
-  pre {
-    background: #0D0D0D;
-    color: #FFF;
-    font-family: 'JetBrainsMono', monospace;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-
-    code {
-      color: inherit;
-      padding: 0;
-      background: none;
-      font-size: 0.8rem;
-    }
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  blockquote {
-    padding-left: 1rem;
-    border-left: 2px solid rgba(#0D0D0D, 0.1);
-  }
-
-  hr {
-    border: none; 
-    border-top: 2px solid rgba(#0D0D0D, 0.1);
-    margin: 2rem 0;
-  }
-
- 
-}
 
 
 
@@ -559,6 +450,36 @@ p:empty::after {
   }
 }
 
+.sc-gswNZR{
+  color: blue;
+  img {
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid #68cef8;
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+  h4 {
+    font-size: 1.3125rem;
+    line-height: 1.5;
+  }
+}
  
 
 $clr-primary: #18ffff;

@@ -10,9 +10,7 @@ export default function useCreatePost() {
   const handleSubmit = async (e, title, body, tags, fileInputState, isPrivate, book) => {
     e.preventDefault();
 
-    console.log(book.contents);
-
-    if (book.title) {
+    if (book?.title) {
       createPost({
         variables: {
           title: title,

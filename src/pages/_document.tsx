@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>{CssBaseline.flush()}</Head>
-      <body>
+      <body className="transition duration-500">
         <Main />
         <NextScript />
       </body>

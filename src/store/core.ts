@@ -9,6 +9,7 @@ export interface coreState {
 
 export const initialState = {
   isDark: 'light',
+  isLoading: false,
   error: '',
 };
 
@@ -20,6 +21,9 @@ const CoreSlice = createSlice({
       const isDarkSet = state.isDark == 'dark' ? 'light' : 'dark';
       state.isDark = isDarkSet;
     },
+    getcoreIsLoading(state) {
+      state.isLoading = !state.isLoading;
+    },
 
     getcoreFailure(state, { payload }: PayloadAction<coreState>) {
       state.error = payload.error;
@@ -27,6 +31,6 @@ const CoreSlice = createSlice({
   },
 });
 
-export const { getcoreFailure, getcoreInfoSuccess } = CoreSlice.actions;
+export const { getcoreFailure, getcoreInfoSuccess, getcoreIsLoading } = CoreSlice.actions;
 
 export default CoreSlice.reducer;

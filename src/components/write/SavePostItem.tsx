@@ -4,6 +4,7 @@ import PostIcon from '../../svg/post';
 import { Popover, Pane, Button } from 'evergreen-ui';
 import { getPostBody, getPostId } from '../../store/book';
 import { useDispatch } from 'react-redux';
+import { Post } from '../../types/apolloComponent';
 
 export interface SavedPostItemProps {
   post: any;
@@ -23,7 +24,6 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
     setIsHovering(false);
   };
 
-  console.log('위험');
   const editUrl = `/write?id=${post.id}`;
 
   return (

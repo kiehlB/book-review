@@ -1,10 +1,16 @@
-import { Table } from 'evergreen-ui';
 import React from 'react';
 import { BASE_SIZE } from '../../lib/constants';
 
 export const DEFAULT_TABLE_ROW_HEIGHT = BASE_SIZE * 3;
 
-function TalbeContent({ svg, title, subtitle }) {
+export interface DefaultTableContentProps {
+  svg: React.ReactNode;
+  title: string;
+  subtitle: string;
+}
+
+function DefaultTableContent({ svg, title, subtitle }: DefaultTableContentProps) {
+  console.log(typeof svg);
   return (
     <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl">
       <div className="flex justify-between items-center w-[80%] mx-auto">
@@ -18,4 +24,4 @@ function TalbeContent({ svg, title, subtitle }) {
   );
 }
 
-export default React.memo(TalbeContent);
+export default React.memo(DefaultTableContent);

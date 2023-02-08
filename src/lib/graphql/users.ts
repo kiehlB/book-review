@@ -3,7 +3,10 @@ import gql from 'graphql-tag';
 export const loginMutation = gql`
   mutation Login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
+      id
+      username
       accessToken
+      refreshToken
     }
   }
 `;
@@ -12,6 +15,9 @@ export const registerMutation = gql`
   mutation Register($username: String!, $password: String!) {
     register(username: $username, password: $password) {
       id
+      username
+      accessToken
+      refreshToken
     }
   }
 `;
@@ -21,9 +27,13 @@ export const getUsersQuery = gql`
     users {
       id
       username
-      follower {
+      profile {
         id
-        follower_id
+        bio
+        profile_name
+        user_id
+        created_at
+        updated_at
       }
     }
   }
@@ -34,6 +44,14 @@ export const whoAmIQuery = gql`
     whoami {
       id
       username
+      profile {
+        id
+        bio
+        profile_name
+        user_id
+        created_at
+        updated_at
+      }
     }
   }
 `;
@@ -43,21 +61,3 @@ export const logoutMutation = gql`
     logout
   }
 `;
-
-// export const followMutation = gql`
-//   mutation FollowUser($username: String!) {
-//     followUser(username: $username) {
-//       id
-//       user_id
-//       follower_id
-//     }
-//   }
-// `;
-
-// export const unFollowMutation = gql`
-//   mutation UnFollowUser($username: String!) {
-//     unFollowUser(username: $username) {
-//       id
-//     }
-//   }
-// `;

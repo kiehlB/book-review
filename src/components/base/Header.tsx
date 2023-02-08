@@ -12,6 +12,7 @@ import { myFont } from '../../font/font';
 import { useDispatch, useSelector } from 'react-redux';
 import { getcoreInfoSuccess } from '../../store/core';
 import { RootState } from '../../store/rootReducer';
+import styled from 'styled-components';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -22,7 +23,6 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
     <button
       onClick={() => {
         dispatch(getcoreInfoSuccess());
-        // setTheme(previousTheme => (previousTheme === 'dark' ? 'light' : 'dark'));
       }}
       className={clsx(
         'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
@@ -50,6 +50,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 function Header() {
   const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBookIsClose } =
     useContext(ModalContext);
+  const { isDark } = useSelector((state: RootState) => state.core);
 
   const { auth } = useWhoAmI();
   const { handleSubmitLogout } = useLogout();
@@ -66,7 +67,10 @@ function Header() {
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7] ">
             <IoSearchOutline />
           </div>
-          <input className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7]" />
+          <HedaerInput
+            isDark={isDark}
+            className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7]"
+          />
         </div>
       </div>
 
@@ -114,3 +118,9 @@ function Header() {
 }
 
 export default Header;
+
+const HedaerInput = styled.input<{ isDark: string }>`
+  ::selection {
+    background: ${props => (props.isDark == 'dark' ? '#e4e5e7' : '')};
+  }
+`;

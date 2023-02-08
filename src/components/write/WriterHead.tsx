@@ -5,7 +5,7 @@ import { getPostTitle } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
 
 export type TapProps = {
-  children;
+  children: React.ReactNode;
 };
 
 function WriteHead({ children }: TapProps) {

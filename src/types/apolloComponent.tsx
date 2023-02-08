@@ -2,13 +2,9 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-const defaultOptions = {};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -23,6 +19,7 @@ export type CategoryInput = {
   __typename?: 'CategoryInput';
   name?: Maybe<Scalars['String']>;
 };
+
 
 export type Followers = {
   __typename?: 'Followers';
@@ -49,46 +46,66 @@ export type Mutation = {
   register?: Maybe<User>;
   login?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']>;
+  createProfile: UserProfile;
   createPost?: Maybe<Post>;
   uploadImage?: Maybe<UploadedImage>;
   createPostHistory?: Maybe<Post>;
   editPost?: Maybe<Post>;
-  removePost?: Maybe<Post>;
+  removePost?: Maybe<Scalars['Boolean']>;
   likePost?: Maybe<Post>;
   unlikePost?: Maybe<Post>;
   postView?: Maybe<Scalars['Boolean']>;
+  removeSub?: Maybe<Scalars['Boolean']>;
+  editSub?: Maybe<Sub>;
+  createSub?: Maybe<Sub>;
 };
+
 
 export type MutationRegisterArgs = {
   username: Scalars['String'];
   password: Scalars['String'];
 };
 
+
 export type MutationLoginArgs = {
   username: Scalars['String'];
   password: Scalars['String'];
 };
 
+
+export type MutationCreateProfileArgs = {
+  bio?: Maybe<Scalars['String']>;
+  profile_name?: Maybe<Scalars['String']>;
+};
+
+
 export type MutationCreatePostArgs = {
   title?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  is_temp?: Maybe<Scalars['Boolean']>;
+  is_private?: Maybe<Scalars['Boolean']>;
+  series_id?: Maybe<Scalars['String']>;
   thumbnail?: Maybe<Scalars['String']>;
   bookTitle?: Maybe<Scalars['String']>;
   bookContent?: Maybe<Scalars['String']>;
   bookUrl?: Maybe<Scalars['String']>;
   bookIsbn?: Maybe<Scalars['String']>;
+  bookAuthors?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
+
 
 export type MutationUploadImageArgs = {
   body?: Maybe<Scalars['String']>;
 };
+
 
 export type MutationCreatePostHistoryArgs = {
   post_id?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
 };
+
 
 export type MutationEditPostArgs = {
   id?: Maybe<Scalars['String']>;
@@ -97,22 +114,46 @@ export type MutationEditPostArgs = {
   thumbnail?: Maybe<Scalars['String']>;
   series_id?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  is_temp?: Maybe<Scalars['Boolean']>;
+  is_private?: Maybe<Scalars['Boolean']>;
 };
+
 
 export type MutationRemovePostArgs = {
   id?: Maybe<Scalars['String']>;
 };
 
+
 export type MutationLikePostArgs = {
   id: Scalars['String'];
 };
+
 
 export type MutationUnlikePostArgs = {
   id: Scalars['String'];
 };
 
+
 export type MutationPostViewArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationRemoveSubArgs = {
+  id: Scalars['String'];
+};
+
+
+export type MutationEditSubArgs = {
+  id?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationCreateSubArgs = {
+  post_id?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  comment_id?: Maybe<Scalars['String']>;
 };
 
 export type Post = {
@@ -124,17 +165,20 @@ export type Post = {
   likes?: Maybe<Scalars['Int']>;
   views?: Maybe<Scalars['Int']>;
   url: Scalars['String'];
+  is_temp?: Maybe<Scalars['Boolean']>;
+  is_private?: Maybe<Scalars['Boolean']>;
   user?: Maybe<User>;
   released_at?: Maybe<Scalars['Date']>;
   created_at?: Maybe<Scalars['Date']>;
   updated_at?: Maybe<Scalars['Date']>;
-  comments?: Maybe<Array<Maybe<PostComment>>>;
+  subs?: Maybe<Array<Maybe<Sub>>>;
   name?: Maybe<Scalars['String']>;
-  tags?: Maybe<Tag>;
+  tags?: Maybe<Array<Maybe<Tag>>>;
   post_id?: Maybe<Scalars['String']>;
   liked?: Maybe<Scalars['Boolean']>;
   hasMore?: Maybe<Scalars['Boolean']>;
   endCursor?: Maybe<Scalars['String']>;
+  subs_count?: Maybe<Scalars['Int']>;
   bookInfo?: Maybe<PostBookInfo>;
 };
 
@@ -144,20 +188,22 @@ export type PostBookInfo = {
   bookContent?: Maybe<Scalars['String']>;
   bookUrl?: Maybe<Scalars['String']>;
   bookIsbn?: Maybe<Scalars['String']>;
+  bookAuthors?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
-export type PostComment = {
-  __typename?: 'PostComment';
-  id: Scalars['String'];
-  text?: Maybe<Scalars['String']>;
-  likes?: Maybe<Scalars['Int']>;
-  has_replies?: Maybe<Scalars['Boolean']>;
-  deleted?: Maybe<Scalars['Boolean']>;
-  user?: Maybe<User>;
-  post_id?: Maybe<Scalars['String']>;
-  reply?: Maybe<Scalars['String']>;
-  replies?: Maybe<Array<Maybe<PostComment>>>;
-  comment?: Maybe<Scalars['String']>;
+export type PostTag = {
+  __typename?: 'PostTag';
+  name?: Maybe<Scalars['String']>;
+};
+
+export type Profile = {
+  __typename?: 'Profile';
+  id?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
+  profile_name?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
 };
 
 export type Query = {
@@ -169,35 +215,91 @@ export type Query = {
   post?: Maybe<Post>;
   posts?: Maybe<Array<Maybe<Post>>>;
   searchPosts?: Maybe<Array<Maybe<Post>>>;
-  topFivePost?: Maybe<Array<Maybe<Post>>>;
+  recentPosts?: Maybe<Array<Maybe<Post>>>;
+  trendingPosts?: Maybe<Array<Maybe<Post>>>;
+  postHistories?: Maybe<Array<Maybe<Post>>>;
+  getProfile?: Maybe<Profile>;
+  getSub?: Maybe<Sub>;
+  subcomments?: Maybe<Array<Maybe<Sub>>>;
+  sub?: Maybe<Array<Maybe<Sub>>>;
 };
+
 
 export type QueryUserArgs = {
   id?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
 };
 
+
 export type QueryPostArgs = {
   id?: Maybe<Scalars['String']>;
 };
 
+
 export type QueryPostsArgs = {
   cursor?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  username?: Maybe<Scalars['String']>;
+  istemp?: Maybe<Scalars['Boolean']>;
+  tag?: Maybe<Scalars['String']>;
 };
+
 
 export type QuerySearchPostsArgs = {
   searchInput?: Maybe<Scalars['String']>;
 };
 
-export type QueryTopFivePostArgs = {
+
+export type QueryRecentPostsArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryTrendingPostsArgs = {
   offset?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
+  timeframe?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryPostHistoriesArgs = {
+  post_id?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetProfileArgs = {
+  user_id?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetSubArgs = {
+  comment_id?: Maybe<Scalars['String']>;
+};
+
+
+export type QuerySubcommentsArgs = {
+  comment_id?: Maybe<Scalars['String']>;
+};
+
+export type Sub = {
+  __typename?: 'Sub';
+  id: Scalars['String'];
+  text?: Maybe<Scalars['String']>;
+  likes?: Maybe<Scalars['Int']>;
+  has_replies?: Maybe<Scalars['Boolean']>;
+  deleted?: Maybe<Scalars['Boolean']>;
+  user?: Maybe<User>;
+  post_id?: Maybe<Scalars['String']>;
+  reply?: Maybe<Scalars['String']>;
+  replies?: Maybe<Array<Maybe<Sub>>>;
+  replies_count?: Maybe<Scalars['Int']>;
 };
 
 export type Tag = {
   __typename?: 'Tag';
-  name: Scalars['String'];
+  post_id?: Maybe<Scalars['String']>;
+  tag?: Maybe<PostTag>;
 };
 
 export type TagInput = {
@@ -257,16 +359,14 @@ export type User = {
   __typename?: 'User';
   id?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
-  email_verified?: Maybe<Scalars['Boolean']>;
   tokenVersion?: Maybe<Scalars['String']>;
   profile?: Maybe<UserProfile>;
   auth?: Maybe<Array<Maybe<User>>>;
   follower?: Maybe<Followers>;
   accessToken?: Maybe<Scalars['String']>;
   refreshToken?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
 };
 
 export type UserProfile = {
@@ -274,121 +374,362 @@ export type UserProfile = {
   id?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   user_id?: Maybe<Scalars['String']>;
+  profile_name?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
 };
 
 export type GetPostQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type GetPostQuery = { __typename?: 'Query' } & {
-  post?: Maybe<{ __typename?: 'Post' } & Pick<Post, 'id' | 'title' | 'body'>>;
-};
+
+export type GetPostQuery = (
+  { __typename?: 'Query' }
+  & { post?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
+    & { bookInfo?: Maybe<(
+      { __typename?: 'PostBookInfo' }
+      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )> }
+);
 
 export type GetPostsQueryVariables = Exact<{
   cursor?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 }>;
 
-export type GetPostsQuery = { __typename?: 'Query' } & {
-  posts?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<
-          Post,
-          | 'id'
-          | 'title'
-          | 'body'
-          | 'thumbnail'
-          | 'created_at'
-          | 'views'
-          | 'likes'
-          | 'liked'
-        > & {
-            tags?: Maybe<{ __typename?: 'Tag' } & Pick<Tag, 'name'>>;
-            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
-            comments?: Maybe<
-              Array<
-                Maybe<{ __typename?: 'PostComment' } & Pick<PostComment, 'id' | 'text'>>
-              >
-            >;
-          }
-      >
-    >
-  >;
-};
 
-export type TopFivePostQueryVariables = Exact<{ [key: string]: never }>;
+export type GetPostsQuery = (
+  { __typename?: 'Query' }
+  & { posts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
+    & { bookInfo?: Maybe<(
+      { __typename?: 'PostBookInfo' }
+      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )>>> }
+);
 
-export type TopFivePostQuery = { __typename?: 'Query' } & {
-  topFivePost?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & Pick<
-          Post,
-          'id' | 'title' | 'thumbnail' | 'created_at' | 'body'
-        > & {
-            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username'>>;
-            comments?: Maybe<
-              Array<Maybe<{ __typename?: 'PostComment' } & Pick<PostComment, 'id'>>>
-            >;
-          }
-      >
-    >
-  >;
-};
+export type RecentPostsQueryVariables = Exact<{
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type RecentPostsQuery = (
+  { __typename?: 'Query' }
+  & { recentPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
+    & { bookInfo?: Maybe<(
+      { __typename?: 'PostBookInfo' }
+      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )>>> }
+);
+
+export type TrendingPostsQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  timeframe?: Maybe<Scalars['String']>;
+}>;
+
+
+export type TrendingPostsQuery = (
+  { __typename?: 'Query' }
+  & { trendingPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
+    & { bookInfo?: Maybe<(
+      { __typename?: 'PostBookInfo' }
+      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )>>> }
+);
+
+export type CreatePostMutationVariables = Exact<{
+  body: Scalars['String'];
+  title: Scalars['String'];
+  thumbnail?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+  is_temp?: Maybe<Scalars['Boolean']>;
+  is_private?: Maybe<Scalars['Boolean']>;
+  bookTitle?: Maybe<Scalars['String']>;
+  bookContent?: Maybe<Scalars['String']>;
+  bookUrl?: Maybe<Scalars['String']>;
+  bookIsbn?: Maybe<Scalars['String']>;
+  bookAuthors?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+}>;
+
+
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { createPost?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
+    & { bookInfo?: Maybe<(
+      { __typename?: 'PostBookInfo' }
+      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )> }
+  )> }
+);
+
+export type SearchPostsQueryVariables = Exact<{
+  searchInput?: Maybe<Scalars['String']>;
+}>;
+
+
+export type SearchPostsQuery = (
+  { __typename?: 'Query' }
+  & { searchPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
+    & { bookInfo?: Maybe<(
+      { __typename?: 'PostBookInfo' }
+      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )>>> }
+);
+
+export type EditPostMutationVariables = Exact<{
+  id: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
+  body?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+  is_temp?: Maybe<Scalars['Boolean']>;
+  is_private?: Maybe<Scalars['Boolean']>;
+}>;
+
+
+export type EditPostMutation = (
+  { __typename?: 'Mutation' }
+  & { editPost?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )> }
+);
+
+export type RemovePostMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type RemovePostMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removePost'>
+);
+
+export type LikePostMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type LikePostMutation = (
+  { __typename?: 'Mutation' }
+  & { likePost?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )> }
+);
+
+export type UnlikePostMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type UnlikePostMutation = (
+  { __typename?: 'Mutation' }
+  & { unlikePost?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
+  )> }
+);
+
+export type CreateProfileMutationVariables = Exact<{
+  bio?: Maybe<Scalars['String']>;
+  profile_name?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateProfileMutation = (
+  { __typename?: 'Mutation' }
+  & { createProfile: (
+    { __typename?: 'UserProfile' }
+    & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'created_at' | 'updated_at'>
+  ) }
+);
+
+export type GetProfileQueryVariables = Exact<{
+  user_id?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetProfileQuery = (
+  { __typename?: 'Query' }
+  & { getProfile?: Maybe<(
+    { __typename?: 'Profile' }
+    & Pick<Profile, 'id' | 'bio' | 'profile_name' | 'created_at' | 'updated_at'>
+  )> }
+);
 
 export type LoginMutationVariables = Exact<{
-  email: Scalars['String'];
+  username: Scalars['String'];
   password: Scalars['String'];
 }>;
 
-export type LoginMutation = { __typename?: 'Mutation' } & {
-  login?: Maybe<{ __typename?: 'User' } & Pick<User, 'accessToken'>>;
-};
+
+export type LoginMutation = (
+  { __typename?: 'Mutation' }
+  & { login?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username' | 'accessToken' | 'refreshToken'>
+  )> }
+);
 
 export type RegisterMutationVariables = Exact<{
-  email: Scalars['String'];
+  username: Scalars['String'];
   password: Scalars['String'];
 }>;
 
-export type RegisterMutation = { __typename?: 'Mutation' } & {
-  register?: Maybe<{ __typename?: 'User' } & Pick<User, 'id'>>;
-};
 
-export type UsersQueryVariables = Exact<{ [key: string]: never }>;
+export type RegisterMutation = (
+  { __typename?: 'Mutation' }
+  & { register?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username' | 'accessToken' | 'refreshToken'>
+  )> }
+);
 
-export type UsersQuery = { __typename?: 'Query' } & {
-  users?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'User' } & Pick<User, 'id' | 'username'> & {
-            follower?: Maybe<
-              { __typename?: 'Followers' } & Pick<Followers, 'id' | 'follower_id'>
-            >;
-          }
-      >
-    >
-  >;
-};
+export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type WhoAmIQueryVariables = Exact<{ [key: string]: never }>;
 
-export type WhoAmIQuery = { __typename?: 'Query' } & {
-  whoami: { __typename?: 'User' } & Pick<User, 'id' | 'username'>;
-};
+export type UsersQuery = (
+  { __typename?: 'Query' }
+  & { users?: Maybe<Array<Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username'>
+    & { profile?: Maybe<(
+      { __typename?: 'UserProfile' }
+      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'user_id' | 'created_at' | 'updated_at'>
+    )> }
+  )>>> }
+);
 
-export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
+export type WhoAmIQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type LogoutMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'logout'>;
+
+export type WhoAmIQuery = (
+  { __typename?: 'Query' }
+  & { whoami: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'username'>
+    & { profile?: Maybe<(
+      { __typename?: 'UserProfile' }
+      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'user_id' | 'created_at' | 'updated_at'>
+    )> }
+  ) }
+);
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'logout'>
+);
+
 
 export const GetPostDocument = gql`
-  query GetPost($id: String!) {
-    post(id: $id) {
+    query GetPost($id: String!) {
+  post(id: $id) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    bookInfo {
+      bookTitle
+      bookContent
+      bookUrl
+      bookIsbn
+      bookAuthors
+    }
+    user {
       id
-      title
-      body
+      username
+    }
+    subs {
+      id
+      text
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetPostQuery__
@@ -406,49 +747,51 @@ export const GetPostDocument = gql`
  *   },
  * });
  */
-export function useGetPostQuery(
-  baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
-}
-export function useGetPostLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(
-    GetPostDocument,
-    options,
-  );
-}
+export function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+      }
+export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+        }
 export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsDocument = gql`
-  query GetPosts($cursor: String) {
-    posts(cursor: $cursor) {
-      id
-      title
-      body
-      thumbnail
-      created_at
-      views
-      likes
-      liked
-      tags {
-        name
-      }
-      user {
-        id
-        username
-      }
-      comments {
-        id
-        text
-      }
+    query GetPosts($cursor: String, $username: String) {
+  posts(cursor: $cursor, username: $username) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    bookInfo {
+      bookTitle
+      bookContent
+      bookUrl
+      bookIsbn
+      bookAuthors
     }
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+    subs_count
   }
-`;
+}
+    `;
 
 /**
  * __useGetPostsQuery__
@@ -463,102 +806,578 @@ export const GetPostsDocument = gql`
  * const { data, loading, error } = useGetPostsQuery({
  *   variables: {
  *      cursor: // value for 'cursor'
+ *      username: // value for 'username'
  *   },
  * });
  */
-export function useGetPostsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(
-    GetPostsDocument,
-    options,
-  );
-}
-export function useGetPostsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(
-    GetPostsDocument,
-    options,
-  );
-}
+export function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+      }
+export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+        }
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
-export type GetPostsQueryResult = Apollo.QueryResult<
-  GetPostsQuery,
-  GetPostsQueryVariables
->;
-export const TopFivePostDocument = gql`
-  query TopFivePost {
-    topFivePost {
-      id
-      title
-      thumbnail
-      created_at
-      body
-      user {
-        id
-        username
-      }
-      comments {
-        id
-      }
+export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const RecentPostsDocument = gql`
+    query RecentPosts($cursor: String) {
+  recentPosts(cursor: $cursor) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    bookInfo {
+      bookTitle
+      bookContent
+      bookUrl
+      bookIsbn
+      bookAuthors
     }
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+    subs_count
   }
-`;
+}
+    `;
 
 /**
- * __useTopFivePostQuery__
+ * __useRecentPostsQuery__
  *
- * To run a query within a React component, call `useTopFivePostQuery` and pass it any options that fit your needs.
- * When your component renders, `useTopFivePostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useRecentPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecentPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useTopFivePostQuery({
+ * const { data, loading, error } = useRecentPostsQuery({
  *   variables: {
+ *      cursor: // value for 'cursor'
  *   },
  * });
  */
-export function useTopFivePostQuery(
-  baseOptions?: Apollo.QueryHookOptions<TopFivePostQuery, TopFivePostQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<TopFivePostQuery, TopFivePostQueryVariables>(
-    TopFivePostDocument,
-    options,
-  );
+export function useRecentPostsQuery(baseOptions?: Apollo.QueryHookOptions<RecentPostsQuery, RecentPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecentPostsQuery, RecentPostsQueryVariables>(RecentPostsDocument, options);
+      }
+export function useRecentPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentPostsQuery, RecentPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecentPostsQuery, RecentPostsQueryVariables>(RecentPostsDocument, options);
+        }
+export type RecentPostsQueryHookResult = ReturnType<typeof useRecentPostsQuery>;
+export type RecentPostsLazyQueryHookResult = ReturnType<typeof useRecentPostsLazyQuery>;
+export type RecentPostsQueryResult = Apollo.QueryResult<RecentPostsQuery, RecentPostsQueryVariables>;
+export const TrendingPostsDocument = gql`
+    query TrendingPosts($offset: Int, $limit: Int, $timeframe: String) {
+  trendingPosts(offset: $offset, limit: $limit, timeframe: $timeframe) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    bookInfo {
+      bookTitle
+      bookContent
+      bookUrl
+      bookIsbn
+      bookAuthors
+    }
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+    subs_count
+  }
 }
-export function useTopFivePostLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TopFivePostQuery, TopFivePostQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<TopFivePostQuery, TopFivePostQueryVariables>(
-    TopFivePostDocument,
-    options,
-  );
-}
-export type TopFivePostQueryHookResult = ReturnType<typeof useTopFivePostQuery>;
-export type TopFivePostLazyQueryHookResult = ReturnType<typeof useTopFivePostLazyQuery>;
-export type TopFivePostQueryResult = Apollo.QueryResult<
-  TopFivePostQuery,
-  TopFivePostQueryVariables
->;
-export const LoginDocument = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      accessToken
+    `;
+
+/**
+ * __useTrendingPostsQuery__
+ *
+ * To run a query within a React component, call `useTrendingPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTrendingPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTrendingPostsQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      timeframe: // value for 'timeframe'
+ *   },
+ * });
+ */
+export function useTrendingPostsQuery(baseOptions?: Apollo.QueryHookOptions<TrendingPostsQuery, TrendingPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TrendingPostsQuery, TrendingPostsQueryVariables>(TrendingPostsDocument, options);
+      }
+export function useTrendingPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrendingPostsQuery, TrendingPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TrendingPostsQuery, TrendingPostsQueryVariables>(TrendingPostsDocument, options);
+        }
+export type TrendingPostsQueryHookResult = ReturnType<typeof useTrendingPostsQuery>;
+export type TrendingPostsLazyQueryHookResult = ReturnType<typeof useTrendingPostsLazyQuery>;
+export type TrendingPostsQueryResult = Apollo.QueryResult<TrendingPostsQuery, TrendingPostsQueryVariables>;
+export const CreatePostDocument = gql`
+    mutation CreatePost($body: String!, $title: String!, $thumbnail: String, $tags: [String], $is_temp: Boolean, $is_private: Boolean, $bookTitle: String, $bookContent: String, $bookUrl: String, $bookIsbn: String, $bookAuthors: [String]) {
+  createPost(
+    body: $body
+    title: $title
+    tags: $tags
+    thumbnail: $thumbnail
+    is_temp: $is_temp
+    is_private: $is_private
+    bookTitle: $bookTitle
+    bookContent: $bookContent
+    bookUrl: $bookUrl
+    bookIsbn: $bookIsbn
+    bookAuthors: $bookAuthors
+  ) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    bookInfo {
+      bookTitle
+      bookContent
+      bookUrl
+      bookIsbn
+      bookAuthors
+    }
+    user {
+      id
+      username
     }
   }
-`;
-export type LoginMutationFn = Apollo.MutationFunction<
-  LoginMutation,
-  LoginMutationVariables
->;
+}
+    `;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      body: // value for 'body'
+ *      title: // value for 'title'
+ *      thumbnail: // value for 'thumbnail'
+ *      tags: // value for 'tags'
+ *      is_temp: // value for 'is_temp'
+ *      is_private: // value for 'is_private'
+ *      bookTitle: // value for 'bookTitle'
+ *      bookContent: // value for 'bookContent'
+ *      bookUrl: // value for 'bookUrl'
+ *      bookIsbn: // value for 'bookIsbn'
+ *      bookAuthors: // value for 'bookAuthors'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export const SearchPostsDocument = gql`
+    query SearchPosts($searchInput: String) {
+  searchPosts(searchInput: $searchInput) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    bookInfo {
+      bookTitle
+      bookContent
+      bookUrl
+      bookIsbn
+      bookAuthors
+    }
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+    subs_count
+  }
+}
+    `;
+
+/**
+ * __useSearchPostsQuery__
+ *
+ * To run a query within a React component, call `useSearchPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchPostsQuery({
+ *   variables: {
+ *      searchInput: // value for 'searchInput'
+ *   },
+ * });
+ */
+export function useSearchPostsQuery(baseOptions?: Apollo.QueryHookOptions<SearchPostsQuery, SearchPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchPostsQuery, SearchPostsQueryVariables>(SearchPostsDocument, options);
+      }
+export function useSearchPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchPostsQuery, SearchPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchPostsQuery, SearchPostsQueryVariables>(SearchPostsDocument, options);
+        }
+export type SearchPostsQueryHookResult = ReturnType<typeof useSearchPostsQuery>;
+export type SearchPostsLazyQueryHookResult = ReturnType<typeof useSearchPostsLazyQuery>;
+export type SearchPostsQueryResult = Apollo.QueryResult<SearchPostsQuery, SearchPostsQueryVariables>;
+export const EditPostDocument = gql`
+    mutation EditPost($id: String!, $title: String, $body: String, $thumbnail: String, $tags: [String], $is_temp: Boolean, $is_private: Boolean) {
+  editPost(
+    id: $id
+    title: $title
+    body: $body
+    tags: $tags
+    is_temp: $is_temp
+    thumbnail: $thumbnail
+    is_private: $is_private
+  ) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+    subs_count
+  }
+}
+    `;
+export type EditPostMutationFn = Apollo.MutationFunction<EditPostMutation, EditPostMutationVariables>;
+
+/**
+ * __useEditPostMutation__
+ *
+ * To run a mutation, you first call `useEditPostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditPostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editPostMutation, { data, loading, error }] = useEditPostMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      title: // value for 'title'
+ *      body: // value for 'body'
+ *      thumbnail: // value for 'thumbnail'
+ *      tags: // value for 'tags'
+ *      is_temp: // value for 'is_temp'
+ *      is_private: // value for 'is_private'
+ *   },
+ * });
+ */
+export function useEditPostMutation(baseOptions?: Apollo.MutationHookOptions<EditPostMutation, EditPostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditPostMutation, EditPostMutationVariables>(EditPostDocument, options);
+      }
+export type EditPostMutationHookResult = ReturnType<typeof useEditPostMutation>;
+export type EditPostMutationResult = Apollo.MutationResult<EditPostMutation>;
+export type EditPostMutationOptions = Apollo.BaseMutationOptions<EditPostMutation, EditPostMutationVariables>;
+export const RemovePostDocument = gql`
+    mutation RemovePost($id: String!) {
+  removePost(id: $id)
+}
+    `;
+export type RemovePostMutationFn = Apollo.MutationFunction<RemovePostMutation, RemovePostMutationVariables>;
+
+/**
+ * __useRemovePostMutation__
+ *
+ * To run a mutation, you first call `useRemovePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removePostMutation, { data, loading, error }] = useRemovePostMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemovePostMutation(baseOptions?: Apollo.MutationHookOptions<RemovePostMutation, RemovePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemovePostMutation, RemovePostMutationVariables>(RemovePostDocument, options);
+      }
+export type RemovePostMutationHookResult = ReturnType<typeof useRemovePostMutation>;
+export type RemovePostMutationResult = Apollo.MutationResult<RemovePostMutation>;
+export type RemovePostMutationOptions = Apollo.BaseMutationOptions<RemovePostMutation, RemovePostMutationVariables>;
+export const LikePostDocument = gql`
+    mutation LikePost($id: String!) {
+  likePost(id: $id) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+    subs_count
+  }
+}
+    `;
+export type LikePostMutationFn = Apollo.MutationFunction<LikePostMutation, LikePostMutationVariables>;
+
+/**
+ * __useLikePostMutation__
+ *
+ * To run a mutation, you first call `useLikePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likePostMutation, { data, loading, error }] = useLikePostMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useLikePostMutation(baseOptions?: Apollo.MutationHookOptions<LikePostMutation, LikePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LikePostMutation, LikePostMutationVariables>(LikePostDocument, options);
+      }
+export type LikePostMutationHookResult = ReturnType<typeof useLikePostMutation>;
+export type LikePostMutationResult = Apollo.MutationResult<LikePostMutation>;
+export type LikePostMutationOptions = Apollo.BaseMutationOptions<LikePostMutation, LikePostMutationVariables>;
+export const UnlikePostDocument = gql`
+    mutation UnlikePost($id: String!) {
+  unlikePost(id: $id) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    released_at
+    created_at
+    updated_at
+    liked
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+    subs_count
+  }
+}
+    `;
+export type UnlikePostMutationFn = Apollo.MutationFunction<UnlikePostMutation, UnlikePostMutationVariables>;
+
+/**
+ * __useUnlikePostMutation__
+ *
+ * To run a mutation, you first call `useUnlikePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnlikePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unlikePostMutation, { data, loading, error }] = useUnlikePostMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUnlikePostMutation(baseOptions?: Apollo.MutationHookOptions<UnlikePostMutation, UnlikePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnlikePostMutation, UnlikePostMutationVariables>(UnlikePostDocument, options);
+      }
+export type UnlikePostMutationHookResult = ReturnType<typeof useUnlikePostMutation>;
+export type UnlikePostMutationResult = Apollo.MutationResult<UnlikePostMutation>;
+export type UnlikePostMutationOptions = Apollo.BaseMutationOptions<UnlikePostMutation, UnlikePostMutationVariables>;
+export const CreateProfileDocument = gql`
+    mutation CreateProfile($bio: String, $profile_name: String) {
+  createProfile(bio: $bio, profile_name: $profile_name) {
+    id
+    bio
+    profile_name
+    created_at
+    updated_at
+  }
+}
+    `;
+export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutation, CreateProfileMutationVariables>;
+
+/**
+ * __useCreateProfileMutation__
+ *
+ * To run a mutation, you first call `useCreateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
+ *   variables: {
+ *      bio: // value for 'bio'
+ *      profile_name: // value for 'profile_name'
+ *   },
+ * });
+ */
+export function useCreateProfileMutation(baseOptions?: Apollo.MutationHookOptions<CreateProfileMutation, CreateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateProfileMutation, CreateProfileMutationVariables>(CreateProfileDocument, options);
+      }
+export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
+export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
+export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
+export const GetProfileDocument = gql`
+    query GetProfile($user_id: String) {
+  getProfile(user_id: $user_id) {
+    id
+    bio
+    profile_name
+    created_at
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useGetProfileQuery__
+ *
+ * To run a query within a React component, call `useGetProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProfileQuery({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useGetProfileQuery(baseOptions?: Apollo.QueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
+      }
+export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
+        }
+export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
+export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
+export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
+export const LoginDocument = gql`
+    mutation Login($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
+    id
+    username
+    accessToken
+    refreshToken
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
  * __useLoginMutation__
@@ -573,37 +1392,29 @@ export type LoginMutationFn = Apollo.MutationFunction<
  * @example
  * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
- *      email: // value for 'email'
+ *      username: // value for 'username'
  *      password: // value for 'password'
  *   },
  * });
  */
-export function useLoginMutation(
-  baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
-    LoginDocument,
-    options,
-  );
-}
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<
-  LoginMutation,
-  LoginMutationVariables
->;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const RegisterDocument = gql`
-  mutation Register($email: String!, $password: String!) {
-    register(email: $email, password: $password) {
-      id
-    }
+    mutation Register($username: String!, $password: String!) {
+  register(username: $username, password: $password) {
+    id
+    username
+    accessToken
+    refreshToken
   }
-`;
-export type RegisterMutationFn = Apollo.MutationFunction<
-  RegisterMutation,
-  RegisterMutationVariables
->;
+}
+    `;
+export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, RegisterMutationVariables>;
 
 /**
  * __useRegisterMutation__
@@ -618,38 +1429,34 @@ export type RegisterMutationFn = Apollo.MutationFunction<
  * @example
  * const [registerMutation, { data, loading, error }] = useRegisterMutation({
  *   variables: {
- *      email: // value for 'email'
+ *      username: // value for 'username'
  *      password: // value for 'password'
  *   },
  * });
  */
-export function useRegisterMutation(
-  baseOptions?: Apollo.MutationHookOptions<RegisterMutation, RegisterMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(
-    RegisterDocument,
-    options,
-  );
-}
+export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<RegisterMutation, RegisterMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, options);
+      }
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
-export type RegisterMutationOptions = Apollo.BaseMutationOptions<
-  RegisterMutation,
-  RegisterMutationVariables
->;
+export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const UsersDocument = gql`
-  query Users {
-    users {
+    query Users {
+  users {
+    id
+    username
+    profile {
       id
-      username
-      follower {
-        id
-        follower_id
-      }
+      bio
+      profile_name
+      user_id
+      created_at
+      updated_at
     }
   }
-`;
+}
+    `;
 
 /**
  * __useUsersQuery__
@@ -666,29 +1473,33 @@ export const UsersDocument = gql`
  *   },
  * });
  */
-export function useUsersQuery(
-  baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
-}
-export function useUsersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
-}
+export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+      }
+export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        }
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
 export const WhoAmIDocument = gql`
-  query whoAmI {
-    whoami {
+    query whoAmI {
+  whoami {
+    id
+    username
+    profile {
       id
-      username
+      bio
+      profile_name
+      user_id
+      created_at
+      updated_at
     }
   }
-`;
+}
+    `;
 
 /**
  * __useWhoAmIQuery__
@@ -705,30 +1516,23 @@ export const WhoAmIDocument = gql`
  *   },
  * });
  */
-export function useWhoAmIQuery(
-  baseOptions?: Apollo.QueryHookOptions<WhoAmIQuery, WhoAmIQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
-}
-export function useWhoAmILazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<WhoAmIQuery, WhoAmIQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
-}
+export function useWhoAmIQuery(baseOptions?: Apollo.QueryHookOptions<WhoAmIQuery, WhoAmIQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
+      }
+export function useWhoAmILazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WhoAmIQuery, WhoAmIQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
+        }
 export type WhoAmIQueryHookResult = ReturnType<typeof useWhoAmIQuery>;
 export type WhoAmILazyQueryHookResult = ReturnType<typeof useWhoAmILazyQuery>;
 export type WhoAmIQueryResult = Apollo.QueryResult<WhoAmIQuery, WhoAmIQueryVariables>;
 export const LogoutDocument = gql`
-  mutation Logout {
-    logout
-  }
-`;
-export type LogoutMutationFn = Apollo.MutationFunction<
-  LogoutMutation,
-  LogoutMutationVariables
->;
+    mutation Logout {
+  logout
+}
+    `;
+export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
 
 /**
  * __useLogoutMutation__
@@ -746,18 +1550,10 @@ export type LogoutMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useLogoutMutation(
-  baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(
-    LogoutDocument,
-    options,
-  );
-}
+export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
+      }
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
-export type LogoutMutationOptions = Apollo.BaseMutationOptions<
-  LogoutMutation,
-  LogoutMutationVariables
->;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;

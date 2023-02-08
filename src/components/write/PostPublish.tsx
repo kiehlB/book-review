@@ -7,7 +7,11 @@ import { RootState } from '../../store/rootReducer';
 import { HiOutlineLockOpen, HiOutlineLockClosed } from 'react-icons/hi';
 import { Button } from '../common/Button';
 import useCreatePost from './hooks/useCreatePost';
-export type PostPublishProps = { children?: any; isOpen?; SetisOpen? };
+export type PostPublishProps = {
+  children?: React.ReactNode;
+  isOpen?: boolean;
+  SetisOpen: (e) => void;
+};
 
 const liVariants = {
   open: {
@@ -33,8 +37,6 @@ function PostPublish({ isOpen, SetisOpen }: PostPublishProps) {
   const [previewSource, setPreviewSource] = useState('');
   const [fileInputState, setFileInputState] = useState<any>();
   const [isPrivate, setIsPrivate] = useState(false);
-
-  console.log(book);
 
   const handleFileInputChange = e => {
     const file = e.target.files[0];

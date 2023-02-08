@@ -5,7 +5,7 @@ import { Spinner } from 'evergreen-ui';
 import { Pane, Badge, Text } from 'evergreen-ui';
 
 type ImageProps = {
-  addImage: any;
+  addImage: (e) => void;
 };
 
 export default class ImageAdd extends React.Component<ImageProps> {
@@ -89,7 +89,7 @@ export default class ImageAdd extends React.Component<ImageProps> {
 
   async compressImage(event, useWebWorker) {
     const file = event.target.files[0];
-    console.log('input', file);
+
     console.log('ExifOrientation', await imageCompression.getExifOrientation(file));
     const targetName = useWebWorker ? 'webWorker' : 'mainThread';
     this.setState(prevState => ({

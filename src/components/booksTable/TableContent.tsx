@@ -4,7 +4,13 @@ import { BASE_SIZE } from '../../lib/constants';
 
 export const DEFAULT_TABLE_ROW_HEIGHT = BASE_SIZE * 3;
 
-function TalbeContent({ svg, title, subtitle }) {
+export interface TableContentProps {
+  svg: React.ReactNode;
+  title: string;
+  subtitle: string;
+}
+
+function TableContent({ svg, title, subtitle }: TableContentProps) {
   return (
     <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl dark:bg-[#282828]">
       <div className="flex justify-between items-center w-[80%] mx-auto mxs:text-center mxs:w-[90%]">
@@ -22,4 +28,4 @@ function TalbeContent({ svg, title, subtitle }) {
   );
 }
 
-export default React.memo(TalbeContent);
+export default React.memo(TableContent);

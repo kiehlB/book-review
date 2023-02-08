@@ -6,6 +6,30 @@ export const GET_Post = gql`
       id
       title
       body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      bookInfo {
+        bookTitle
+        bookContent
+        bookUrl
+        bookIsbn
+        bookAuthors
+      }
+      user {
+        id
+        username
+      }
+      subs {
+        id
+        text
+      }
     }
   }
 `;
@@ -17,42 +41,100 @@ export const GET_Posts = gql`
       title
       body
       thumbnail
-      created_at
+      likes
       views
       is_temp
-      likes
+      is_private
+      released_at
+      created_at
+      updated_at
       liked
-      tags {
-        name
+      bookInfo {
+        bookTitle
+        bookContent
+        bookUrl
+        bookIsbn
+        bookAuthors
       }
       user {
         id
         username
       }
-      comments {
+      subs {
         id
         text
       }
+      subs_count
     }
   }
 `;
 
-export const Get_TopPost = gql`
-  query TopFivePost {
-    topFivePost {
+export const GET_recentPosts = gql`
+  query RecentPosts($cursor: String) {
+    recentPosts(cursor: $cursor) {
       id
       title
-      thumbnail
-      created_at
       body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      bookInfo {
+        bookTitle
+        bookContent
+        bookUrl
+        bookIsbn
+        bookAuthors
+      }
       user {
         id
         username
       }
-      c
-      comments {
+      subs {
         id
+        text
       }
+      subs_count
+    }
+  }
+`;
+
+export const GET_trendingPosts = gql`
+  query TrendingPosts($offset: Int, $limit: Int, $timeframe: String) {
+    trendingPosts(offset: $offset, limit: $limit, timeframe: $timeframe) {
+      id
+      title
+      body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      bookInfo {
+        bookTitle
+        bookContent
+        bookUrl
+        bookIsbn
+        bookAuthors
+      }
+      user {
+        id
+        username
+      }
+      subs {
+        id
+        text
+      }
+      subs_count
     }
   }
 `;
@@ -64,6 +146,7 @@ export const Create_Post = gql`
     $thumbnail: String
     $tags: [String]
     $is_temp: Boolean
+    $is_private: Boolean
     $bookTitle: String
     $bookContent: String
     $bookUrl: String
@@ -74,9 +157,10 @@ export const Create_Post = gql`
       body: $body
       title: $title
       tags: $tags
-      is_temp: $is_temp
-      bookTitle: $bookTitle
       thumbnail: $thumbnail
+      is_temp: $is_temp
+      is_private: $is_private
+      bookTitle: $bookTitle
       bookContent: $bookContent
       bookUrl: $bookUrl
       bookIsbn: $bookIsbn
@@ -85,35 +169,170 @@ export const Create_Post = gql`
       id
       title
       body
+      thumbnail
+      likes
+      views
       is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      bookInfo {
+        bookTitle
+        bookContent
+        bookUrl
+        bookIsbn
+        bookAuthors
+      }
+      user {
+        id
+        username
+      }
     }
   }
 `;
 
-// export const GET_Search_Posts = gql`
-//   query SearchPosts($searchInput: String) {
-//     searchPosts(searchInput: $searchInput) {
-//       id
-//       title
-//       thumbnail
-//       created_at
-//       views
-//       body
-//       likes
-//       tags {
-//         name
-//       }
-//       liked
-//       user {
-//         id
-//         username
-//         follower {
-//           id
-//         }
-//       }
-//     }
-//   }
-// `;
+export const GET_Search_Posts = gql`
+  query SearchPosts($searchInput: String) {
+    searchPosts(searchInput: $searchInput) {
+      id
+      title
+      body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      bookInfo {
+        bookTitle
+        bookContent
+        bookUrl
+        bookIsbn
+        bookAuthors
+      }
+      user {
+        id
+        username
+      }
+      subs {
+        id
+        text
+      }
+      subs_count
+    }
+  }
+`;
+
+export const Edit_Post = gql`
+  mutation EditPost(
+    $id: String!
+    $title: String
+    $body: String
+    $thumbnail: String
+    $tags: [String]
+    $is_temp: Boolean
+    $is_private: Boolean
+  ) {
+    editPost(
+      id: $id
+      title: $title
+      body: $body
+      tags: $tags
+      is_temp: $is_temp
+      thumbnail: $thumbnail
+      is_private: $is_private
+    ) {
+      id
+      title
+      body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      user {
+        id
+        username
+      }
+      subs {
+        id
+        text
+      }
+      subs_count
+    }
+  }
+`;
+
+export const Remove_Post = gql`
+  mutation RemovePost($id: String!) {
+    removePost(id: $id)
+  }
+`;
+
+export const Like_Post = gql`
+  mutation LikePost($id: String!) {
+    likePost(id: $id) {
+      id
+      title
+      body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      user {
+        id
+        username
+      }
+      subs {
+        id
+        text
+      }
+      subs_count
+    }
+  }
+`;
+
+export const UnLike_Post = gql`
+  mutation UnlikePost($id: String!) {
+    unlikePost(id: $id) {
+      id
+      title
+      body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      released_at
+      created_at
+      updated_at
+      liked
+      user {
+        id
+        username
+      }
+      subs {
+        id
+        text
+      }
+      subs_count
+    }
+  }
+`;
 
 // export const GET_IMAGE_URL = gql`
 //   query GetImageUrl($imageName: String!, $transformOptions: TransformImageOptionsInput) {
@@ -177,43 +396,6 @@ export const Create_Post = gql`
 //     }
 //   }
 // `;
-
-// export const Like_Post = gql`
-//   mutation LikePost($id: String!) {
-//     likePost(id: $id) {
-//       liked
-//     }
-//   }
-// `;
-
-// export const UnLike_Post = gql`
-//   mutation UnLikePost($id: String!) {
-//     unLikePost(id: $id) {
-//       liked
-//     }
-//   }
-// `;
-
-export const Edit_Post = gql`
-  mutation EditPost(
-    $id: String!
-    $title: String
-    $body: String
-    $tags: [String]
-    $is_temp: Boolean
-  ) {
-    editPost(id: $id, title: $title, body: $body, tags: $tags, is_temp: $is_temp) {
-      id
-      title
-    }
-  }
-`;
-
-export const Remove_Post = gql`
-  mutation RemovePost($id: String!) {
-    removePost(id: $id)
-  }
-`;
 
 // export const Edit_Comment = gql`
 //   mutation EditComment($id: String, $text: String) {

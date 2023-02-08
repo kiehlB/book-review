@@ -5,15 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Collapse } from 'react-collapse';
 import { MdChevronLeft, MdExpandMore } from 'react-icons/md';
 
-export type TapProps = { value: string; isEditing: any; setEditing: any };
+export type TapProps = { value: string };
 
-function SavePost({ value, isEditing, setEditing }: TapProps) {
+function SavePost({ value }: TapProps) {
   const dispatch = useDispatch();
 
   const { posts, loading, onConfirmRemove } = useSavedPosts();
   const [isCollapse, setIsCollapse] = useState(true);
-
-  console.log('준수');
 
   const isFilterData = value ? posts.filter(e => e?.title?.includes(value)) : posts;
 

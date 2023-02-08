@@ -46,6 +46,11 @@ const liVariants = {
 };
 
 const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) => {
+  React.useEffect(() => {
+    // scrollbar
+    document.body.style.overflowY = visible ? 'hidden' : 'initial';
+  }, [visible]);
+
   return (
     <motion.div
       className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[999] bg-[#00000080] mxs:flex-1 mxs:w-full mxs:h-full"

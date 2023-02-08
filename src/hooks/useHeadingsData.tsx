@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
 
 const getNestedHeadings = headingElements => {
   const nestedHeadings = [];
@@ -21,13 +23,14 @@ const getNestedHeadings = headingElements => {
 
 export const useHeadingsData = () => {
   const [nestedHeadings, setNestedHeadings] = useState([]);
+  const isLoading = useSelector((state: RootState) => state.core.isLoading);
 
   useEffect(() => {
     const headingElements = Array.from(document.querySelectorAll('h2, h3'));
 
     const newNestedHeadings = getNestedHeadings(headingElements);
     setNestedHeadings(newNestedHeadings);
-  }, []);
+  }, [isLoading]);
 
   return { nestedHeadings };
 };

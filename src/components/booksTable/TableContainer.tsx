@@ -93,11 +93,10 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
       className={clsx(
         'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] transition-all dark:bg-[#282828] dark:border-[#4B4B4B] dark:hover:bg-zinc-000',
         {
-          'bg-gray-300 dark:bg-zinc-900': clicked?.isbn == datum?.isbn,
+          'bg-[#E9E9E8] dark:bg-zinc-900': clicked?.isbn == datum?.isbn,
         },
       )}
       data-activity-id={datum.isbn}
-      // style={{ background: clicked?.isbn == `${datum?.isbn}` ? '#cccccc' : null }}
       key={datum.isbn}
       onClick={e => {
         dispatch(initBook(datum));

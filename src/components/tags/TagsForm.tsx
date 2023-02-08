@@ -7,7 +7,7 @@ import { getPostTags } from '../../store/book';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
-  isOpen: any;
+  isOpen: boolean;
 };
 
 const Tag = styled.div`
@@ -23,6 +23,7 @@ const Tag = styled.div`
   margin-right: 0.75rem;
   transition: ease-in 0.125s;
   cursor: pointer;
+  text: #212529;
   &:hover {
     opacity: 0.6;
   }

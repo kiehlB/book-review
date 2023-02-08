@@ -52,6 +52,11 @@ const BookModal: React.FC<BookModalProps> = ({
   onClose,
   className,
 }) => {
+  React.useEffect(() => {
+    // scrollbar
+    document.body.style.overflowY = visible ? 'hidden' : 'initial';
+  }, [visible]);
+
   return (
     <motion.div
       className={clsx(
@@ -70,6 +75,7 @@ const BookModal: React.FC<BookModalProps> = ({
               tabIndex={1}
               size={24}
               color="#868E96"
+              className="cursor-pointer"
             />
           </div>
           <div className="flex-1 flex flex-col">{children}</div>

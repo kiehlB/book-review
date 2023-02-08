@@ -50,7 +50,8 @@ const ProjectCreateContentToolbar = ({
           border: theme => `1px solid ${theme.palette.divider}`,
           flexWrap: 'wrap',
           margin: '0 16px',
-
+          position: 'sticky',
+          top: 0,
           width: 'calc(100% - 2rem);',
         }}>
         <StyledToggleButtonGroup

@@ -8,8 +8,11 @@ import TypographyExtension from '@tiptap/extension-typography';
 import UnderlineExtension from '@tiptap/extension-underline';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
-import Text from '@tiptap/extension-text';
+import BulletList from '@tiptap/extension-bullet-list';
+import ListItem from '@tiptap/extension-list-item';
+import OrderedList from '@tiptap/extension-ordered-list';
 import Dropcursor from '@tiptap/extension-dropcursor';
+import Text from '@tiptap/extension-text';
 import Code from '@tiptap/extension-code';
 import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
@@ -30,13 +33,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import TapSide from './TapSide';
 import Image from '@tiptap/extension-image';
+import HardBreak from '@tiptap/extension-hard-break';
 import ImageAdd from './ImageAdd';
 import { getPostBody, getPostTitle, getPostTags } from '../../store/book';
 import useCreateSavePost from './hooks/usecreateSavePost';
 
 export type TapProps = {
-  isOpen;
-  SetisOpen;
+  isOpen: boolean;
+  SetisOpen: (e) => void;
 };
 
 function Tap({ isOpen, SetisOpen }: TapProps) {
@@ -61,6 +65,7 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
     extensions: [
       StarterKit,
       Subscript,
+      Dropcursor,
       Superscript,
       Image,
       Highlight,
@@ -69,8 +74,10 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
       Document,
       Paragraph,
       Text,
-      Dropcursor,
       Code,
+      BulletList,
+      OrderedList,
+      ListItem,
       Link,
       Image.configure({
         allowBase64: true,
@@ -91,29 +98,30 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
         types: ['block'],
       }),
     ],
+
+    autofocus: true,
     content:
       body?.length > 9
         ? body
         : `
-    <toc></toc><br/>
-    여기를 클릭하세요
+    <toc></toc> 
+  여기를 클릭하세요
   `,
   });
 
-  const a = editor?.getHTML();
+  const getContent = editor?.getHTML();
   useEffect(() => {
-    dispatch(getPostBody(a));
-  }, [a]);
+    dispatch(getPostBody(getContent));
+  }, [getContent]);
 
   useEffect(() => {
     if (findPost) {
-      console.log(findPost[0]?.body);
       dispatch(getPostTitle(findPost[0]?.title));
       dispatch(getPostBody(findPost[0]?.body));
       dispatch(getPostTags(findPost[0]?.tags));
       editor?.commands?.setContent(findPost[0]?.body);
     }
-  }, [postId, dispatch]);
+  }, [postId]);
 
   const addImage = useCallback(
     url => {
@@ -128,7 +136,6 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
     return null;
   }
 
-  // overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 h-full border-2 border-red-500 w-full
   return (
     <PageGrid as="main" className="">
       <div className="col-span-2 sticky  top-0 h-[100vh] min-h-[0] overflow-hidden border-r">
@@ -141,7 +148,7 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
             </BackLink>
           </div>
         </div>
-        <TapSide isEditing={isEditing} setEditing={setEditing} />
+        <TapSide />
       </div>
       <div className="col-span-8 mxl:col-span-12">
         <WriteHead>
@@ -182,7 +189,90 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
 export default Tap;
 
 const Content = styled.div<{ isDark: string }>`
+  .ProseMirror {
+    > * + * {
+      line-height: 1.5;
+      color: #212529;
+      padding: 0 0.5rem;
+      margin-top: 1rem;
+    }
+    img {
+      height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+
+      &.ProseMirror-selectednode {
+        outline: 3px solid #68cef8;
+      }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: 2rem;
+      line-height: 1.5;
+    }
+    h3 {
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+    h4 {
+      font-size: 1.3125rem;
+      line-height: 1.5;
+    }
+
+    min-height: 100%;
+    max-height: 100%;
+    width: 100%;
+
+    ol {
+      margin-left: 1rem;
+      list-style: decimal;
+    }
+
+    ul {
+      margin-left: 1rem;
+      list-style: disc;
+    }
+
+    code {
+      background-color: rgba(#616161, 0.1);
+      color: #616161;
+    }
+
+    pre {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'JetBrainsMono', monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+    }
+
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid rgba(#0d0d0d, 0.1);
+      margin: 2rem 0;
+    }
+  }
+
   p {
+    font-size: 1.125rem;
+    line-height: 1.5;
     color: ${props => (props.isDark == 'dark' ? '#ececec' : '#212529')};
   }
 `;

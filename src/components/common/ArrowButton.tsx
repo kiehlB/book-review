@@ -69,7 +69,7 @@ type ArrowButtonBaseProps = {
 
 type ArrowLinkProps = {
   direction?: ArrowIconProps['direction'];
-  click?: any;
+  click?: () => void;
 } & ({ href?: string; to?: never } | { href?: never; to: string }) &
   ArrowButtonBaseProps & { prefetch?: 'intent' | 'render' | 'none' };
 

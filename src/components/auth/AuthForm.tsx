@@ -12,6 +12,11 @@ export interface inputProps {
   password: string | number | readonly string[];
   username: string | number | readonly string[];
 }
+export interface helperProps {
+  color: string;
+  state: string;
+  text: string;
+}
 
 export declare type BindingsChangeTarget =
   | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,8 +33,8 @@ export interface AuthFormProps {
   linkTo?: string;
   mode: string;
   error: ApolloError;
-  Passwordhelper;
-  Usernamehelper;
+  Passwordhelper: helperProps;
+  Usernamehelper: helperProps;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({

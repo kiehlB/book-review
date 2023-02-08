@@ -28,8 +28,9 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../../lib/nextSeo';
 import PawButton from '../../components/common/PawButton';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
+import { getcoreIsLoading } from '../../store/core';
 
 export type PostProps = {
   id: string;
@@ -37,7 +38,7 @@ export type PostProps = {
 
 function Post({ id }: PostProps) {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
-
+  const dispatch = useDispatch();
   const insertID = setHeadingId(singlePostData?.post?.body);
   const { isDark } = useSelector((state: RootState) => state.core);
 
@@ -84,6 +85,7 @@ function Post({ id }: PostProps) {
   useEffect(() => {
     editor?.commands?.setContent(BodyResult);
     editor?.setEditable(false);
+    dispatch(getcoreIsLoading());
   }, [BodyResult]);
 
   if (singlePostLoding) return <div>d</div>;
@@ -107,7 +109,7 @@ function Post({ id }: PostProps) {
               isDark={isDark}
               className="border-2 border-red-500 mx-auto"
               style={{ maxWidth: '65ch' }}>
-              {/* <div dangerouslySetInnerHTML={{ __html: BodyResult }} /> */}
+              {/* <div dangerouslySetInnerHTML={{ __html: insertID }} /> */}
               <EditorContent editor={editor} className="" />
             </Content>
           </div>
@@ -133,7 +135,165 @@ export const getServerSideProps: GetServerSideProps = async context => {
 };
 
 const Content = styled.div<{ isDark: string }>`
+  .sc-gswNZR {
+    ol {
+      margin-left: 1rem;
+      list-style: decimal;
+    }
+
+    ul {
+      margin-left: 1rem;
+      list-style: disc;
+    }
+
+    img {
+      height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+
+      &.ProseMirror-selectednode {
+        outline: 3px solid #68cef8;
+      }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: 2rem;
+      line-height: 1.5;
+    }
+    h3 {
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+    h4 {
+      font-size: 1.3125rem;
+      line-height: 1.5;
+    }
+
+    min-height: 100%;
+    max-height: 100%;
+    width: 100%;
+
+    code {
+      background-color: rgba(#616161, 0.1);
+      color: #616161;
+    }
+
+    pre {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'JetBrainsMono', monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+    }
+
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid rgba(#0d0d0d, 0.1);
+      margin: 2rem 0;
+    }
+  }
+
+  .ProseMirror {
+    > * + * {
+      line-height: 1.5;
+      color: #212529;
+      padding: 0 0.5rem;
+      margin-top: 1rem;
+    }
+    img {
+      height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+
+      &.ProseMirror-selectednode {
+        outline: 3px solid #68cef8;
+      }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: 2rem;
+      line-height: 1.5;
+    }
+    h3 {
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+    h4 {
+      font-size: 1.3125rem;
+      line-height: 1.5;
+    }
+
+    min-height: 100%;
+    max-height: 100%;
+    width: 100%;
+
+    ol {
+      margin-left: 1rem;
+      list-style: decimal;
+    }
+
+    ul {
+      margin-left: 1rem;
+      list-style: disc;
+    }
+
+    code {
+      background-color: rgba(#616161, 0.1);
+      color: #616161;
+    }
+
+    pre {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'JetBrainsMono', monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+    }
+
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid rgba(#0d0d0d, 0.1);
+      margin: 2rem 0;
+    }
+  }
+
   p {
-    color: ${props => (props.isDark == 'dark' ? 'blue' : 'red')};
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: ${props => (props.isDark == 'dark' ? '#ececec' : '#212529')};
   }
 `;

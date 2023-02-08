@@ -77,15 +77,7 @@ export default function Home() {
           />
         </PageGrid>
       </PageLayout>
-      <style global jsx>{`
-        html,
-        body,
-        body > div:first-child,
-        div#__next,
-        div#__next > div {
-          height: 100%;
-        }
-      `}</style>
+      <style global jsx>{``}</style>
     </>
   );
 }
