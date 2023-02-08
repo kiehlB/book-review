@@ -2,7 +2,7 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { whoAmIQuery } from '../../../lib/graphql/users';
-import { getAuthInfoSuccess } from '../../../store/auth';
+import { getAuthInfoSuccess, initAuth } from '../../../store/auth';
 import { RootState } from '../../../store/rootReducer';
 
 export default function useWhoAmI() {
@@ -17,7 +17,7 @@ export default function useWhoAmI() {
   useEffect(() => {
     if (user == undefined) return;
 
-    dispatch(getAuthInfoSuccess(user));
+    dispatch(initAuth(user));
   }, [user, dispatch]);
 
   return {

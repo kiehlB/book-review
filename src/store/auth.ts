@@ -41,4 +41,10 @@ const authSlice = createSlice({
 
 export const { getauthFailure, getAuthInfoSuccess } = authSlice.actions;
 
+export const initAuth =
+  (payload): any =>
+  async (dispatch: AppDispatch) => {
+    dispatch(getAuthInfoSuccess(payload));
+  };
+
 export default authSlice.reducer;
