@@ -4,11 +4,12 @@ import {
   createSelector,
   createAction,
 } from '@reduxjs/toolkit';
+import { PostBookInfo } from '../types/apolloComponent';
 import { RootState } from './rootReducer';
 import { AppThunk, AppDispatch } from './store';
 
 export interface BookState {
-  book: any;
+  book: PostBookInfo;
   error: string;
   title: string;
   body: string;
@@ -38,19 +39,19 @@ const BookSlice = createSlice({
   name: 'Book',
   initialState,
   reducers: {
-    getBookInfoSuccess(state, { payload }) {
+    getBookInfoSuccess(state: BookState, { payload }) {
       state.book = payload;
     },
-    getPostTitle(state, action) {
+    getPostTitle(state: BookState, action: PayloadAction<string>) {
       state.title = action.payload;
     },
-    getPostBody(state, action) {
+    getPostBody(state: BookState, action: PayloadAction<string>) {
       state.body = action.payload;
     },
-    getPostTags(state, action) {
+    getPostTags(state: BookState, action: PayloadAction<string[]>) {
       state.tags = action.payload;
     },
-    getPostId(state, action) {
+    getPostId(state: BookState, action: PayloadAction<string>) {
       state.postId = action.payload;
     },
 
