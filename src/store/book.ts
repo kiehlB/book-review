@@ -13,7 +13,7 @@ export interface BookState {
   error: string;
   title: string;
   body: string;
-  tags: string[];
+  tags: string[] | string;
   publish: boolean;
   isPrivate: boolean;
   thumbnail: string | null;
@@ -48,7 +48,7 @@ const BookSlice = createSlice({
     getPostBody(state: BookState, action: PayloadAction<string>) {
       state.body = action.payload;
     },
-    getPostTags(state: BookState, action: PayloadAction<string[]>) {
+    getPostTags(state: BookState, action: PayloadAction<string[] | string>) {
       state.tags = action.payload;
     },
     getPostId(state: BookState, action: PayloadAction<string>) {
