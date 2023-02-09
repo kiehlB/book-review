@@ -5,10 +5,11 @@ import { Popover, Pane, Button } from 'evergreen-ui';
 import { getPostBody, getPostId } from '../../store/book';
 import { useDispatch } from 'react-redux';
 import { Post } from '../../types/apolloComponent';
+import styled from 'styled-components';
 
 export interface SavedPostItemProps {
-  post: any;
-  onConfirmRemove: any;
+  post: Post;
+  onConfirmRemove: (e) => any;
 }
 
 function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
@@ -16,23 +17,19 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
   const [IsClose, SetIsClose] = useState(true);
   const dispatch = useDispatch();
 
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-
   const editUrl = `/write?id=${post.id}`;
 
   return (
     <div className="flex justify-between hover:bg-[#e2e8f0] py-[6px]">
       <div className="flex items-center" onClick={() => dispatch(getPostId(post.id))}>
-        <PostIcon className="w-6 cursor-pointer" />
-        <h3 className="ml-1">
-          <div className="text-[#64748b] text-sm cursor-pointer">{post.title}</div>
-        </h3>
+        <div>
+          <PostIcon className="w-6 cursor-pointer" />
+        </div>
+        <div className="ml-1">
+          <SideTitle className="text-[#64748b] text-sm cursor-pointer w-[200px]">
+            {post.title}
+          </SideTitle>
+        </div>
       </div>
 
       <section>
@@ -70,3 +67,9 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
 }
 
 export default SavedPostItem;
+
+const SideTitle = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;

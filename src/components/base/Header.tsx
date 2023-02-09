@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getcoreInfoSuccess } from '../../store/core';
 import { RootState } from '../../store/rootReducer';
 import styled from 'styled-components';
+import Sidebar from '../side/Sidebar';
+import MenuIcon from '../../../menu-icon';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -59,23 +61,33 @@ function Header() {
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <h1
         className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
-        <Link href="/"> BookReview </Link>
+        <div className="flex items-center">
+          <div className="mds:hidden mr-3">
+            <Sidebar />
+          </div>
+          <Link href="/" className="mxs:text-lg mxs:hidden">
+            BookReview
+          </Link>
+          <Link href="/" className="mxs:text-lg sm:hidden">
+            BR
+          </Link>
+        </div>
       </h1>
 
-      <div className="col-span-6 mxl:col-span-5 mmd:hidden">
+      <div className="col-span-6 mxl:col-span-5 mmx:hidden">
         <div className="relative">
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7] ">
             <IoSearchOutline />
           </div>
-          <HedaerInput
+          <HeaderInput
             isDark={isDark}
             className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7]"
           />
         </div>
       </div>
 
-      <div className="flex col-span-2 ml-auto items-center mxl:col-span-3 mmd:col-span-10 justify-end w-full">
-        <div className="pr-6">
+      <div className="flex col-span-2 ml-auto items-center justify-end mxl:col-span-3 w-full mmx:col-span-8">
+        <div className="pr-6  mxs:hidden">
           <DarkModeToggle />
         </div>
 
@@ -119,7 +131,7 @@ function Header() {
 
 export default Header;
 
-const HedaerInput = styled.input<{ isDark: string }>`
+const HeaderInput = styled.input<{ isDark: string }>`
   ::selection {
     background: ${props => (props.isDark == 'dark' ? '#e4e5e7' : '')};
   }

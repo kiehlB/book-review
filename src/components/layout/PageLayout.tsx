@@ -24,7 +24,7 @@ function PageLayout({ children }: PageLayoutProps) {
   }, [isDark]);
 
   return (
-    <div className="px-[1rem] dark:bg-[#1a1b1e] h-full">
+    <div className="px-[1rem] dark:bg-[#1a1b1e] h-full mxs:px-3">
       <AuthContainer />
       <BookModal visible={BookIsClose} onClose={SetBookIsClose} className="">
         <BookTalble />

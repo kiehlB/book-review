@@ -91,7 +91,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
   return (
     <div
       className={clsx(
-        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] transition-all dark:bg-[#282828] dark:border-[#4B4B4B] dark:hover:bg-zinc-000',
+        'border-b border-[#BDC1C6] p-4 bg-[#fff] hover:bg-[#E9E9E9] transition-all dark:bg-[#282828] dark:border-[#4B4B4B] dark:hover:bg-zinc-900',
         {
           'bg-[#E9E9E8] dark:bg-zinc-900': clicked?.isbn == datum?.isbn,
         },
@@ -111,7 +111,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
             className="min-h-[116px]"
           />
         ) : (
-          <div className="w-[82px] h-[116px] border-2 flex justify-center items-center text-xs text-[#121212] dark:text-[#fff]">
+          <div className="w-[92px] h-[116px] border-2 flex justify-center items-center text-xs text-[#121212] dark:text-[#fff]">
             이미지없음
           </div>
         )}

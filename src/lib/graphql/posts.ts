@@ -35,8 +35,8 @@ export const GET_Post = gql`
 `;
 
 export const GET_Posts = gql`
-  query GetPosts($cursor: String, $username: String) {
-    posts(cursor: $cursor, username: $username) {
+  query GetPosts($cursor: String, $username: String, $istemp: Boolean) {
+    posts(cursor: $cursor, username: $username, istemp: $istemp) {
       id
       title
       body

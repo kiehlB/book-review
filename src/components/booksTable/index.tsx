@@ -15,6 +15,7 @@ import {
   getPostTitle,
 } from '../../store/book';
 import { toast } from 'react-toastify';
+import { IoSearchOutline } from 'react-icons/io5';
 
 interface BookTalbleProps {}
 
@@ -48,15 +49,18 @@ function BooksTableForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="Book-form">
-      <div>
-        <SearchInput
+    <form onSubmit={handleSubmit}>
+      <div className="relative">
+        <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7]">
+          <IoSearchOutline />
+        </div>
+        <input
           onChange={handleChange}
           value={BookName}
           placeholder="책을 검색해보세요"
           name="BookName"
-          height={50}
-          style={{ borderRadius: '1.5rem', width: '300px' }}
+          className=" text-xs border-[#d8dae5] text-[#474d66] w-[310px] rounded-full h-[50px] border-[1px] py-[0.5rem] px-[2.5rem] focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7] dark:placeholder-gray-300"
+          style={{ borderRadius: '1.5rem', fontSize: '12px' }}
         />
       </div>
     </form>
@@ -265,7 +269,14 @@ const BookTalble = ({}) => {
               ''
             )}
           </div>
-          <div className="flex items-center">
+          <div
+            onClick={() => {
+              dispatch(getPostTitle(''));
+              dispatch(getPostBody(''));
+              dispatch(getPostTags(''));
+              dispatch(getPostId(''));
+            }}
+            className="flex items-center">
             <ArrowLink
               href={'/write'}
               direction="right"
@@ -324,7 +335,14 @@ const BookTalble = ({}) => {
           </div>
 
           <div className="flex items-center">
-            <NextLink href="/write">
+            <NextLink
+              click={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags(''));
+                dispatch(getPostId(''));
+              }}
+              href="/write">
               <div className="text-[#334155] text-base flex items-center justify-between font-semibold mr-2">
                 Skip
               </div>

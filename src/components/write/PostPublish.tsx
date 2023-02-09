@@ -18,14 +18,14 @@ const liVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      y: { stiffness: 1500, velocity: -100 },
+      x: { stiffness: 1500, velocity: -100 },
     },
   },
   closed: {
     y: 2160,
     opacity: 0,
     transition: {
-      y: { stiffness: 1000 },
+      x: { stiffness: 1000 },
     },
   },
 };

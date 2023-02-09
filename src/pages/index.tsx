@@ -11,6 +11,7 @@ import { getNextSeo } from '../lib/nextSeo';
 import useGetPosts from '../components/post/hooks/useGetPosts';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
+import Sidebar from '../components/side/Sidebar';
 
 export default function Home() {
   const { data, loading } = useGetPosts();

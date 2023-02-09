@@ -13,13 +13,14 @@ import { RootState } from '../../../store/rootReducer';
 export default function useCreateSavePost() {
   const { auth } = useSelector((state: any) => state.auth);
   const [writePost] = useMutation(Create_Post, {});
+  const [removePost] = useMutation(Remove_Post);
   const [editPost] = useMutation(Edit_Post, {});
   const client = useApolloClient();
 
   const { data, loading, fetchMore } = useQuery(GET_Posts, {
     variables: {
       username: auth.username,
-      temp_only: true,
+      istemp: true,
     },
     skip: !auth,
     notifyOnNetworkStatusChange: true,
@@ -49,7 +50,7 @@ export default function useCreateSavePost() {
               query: GET_Posts,
               variables: {
                 username: auth.username,
-                temp_only: true,
+                istemp: true,
               },
               data: {
                 posts: [createPost?.createPost, ...posts],
@@ -96,7 +97,32 @@ export default function useCreateSavePost() {
     }
   };
 
+  const onConfirmRemove = async id => {
+    if (!id) return;
+    try {
+      await removePost({
+        variables: {
+          id: id,
+        },
+      });
+      client.writeQuery({
+        query: GET_Posts,
+        variables: {
+          username: auth.username,
+          istemp: true,
+        },
+        data: {
+          posts: data.posts.filter(p => p.id !== id),
+        },
+      });
+      toast.success('포스트가 삭제되었습니다.');
+    } catch (e) {
+      toast.error('포스트 삭제 실패');
+    }
+  };
+
   return {
+    onConfirmRemove,
     onConfirmSave,
     posts,
     loading,

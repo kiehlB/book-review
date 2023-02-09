@@ -60,7 +60,7 @@ const BookModal: React.FC<BookModalProps> = ({
   return (
     <motion.div
       className={clsx(
-        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-10 bg-[#00000080] mxs:flex-1 mxs:w-full mxs:h-full',
+        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-[1000] bg-[#00000080] mxs:flex-1 mxs:w-full mxs:h-full',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}

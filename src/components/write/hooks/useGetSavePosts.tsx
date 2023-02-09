@@ -13,7 +13,7 @@ export default function useSavedPosts() {
   const { data, loading, fetchMore } = useQuery(GET_Posts, {
     variables: {
       username: auth?.username,
-      temp_only: true,
+      istemp: true,
     },
     skip: !auth,
     notifyOnNetworkStatusChange: true,

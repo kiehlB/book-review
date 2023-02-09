@@ -4,13 +4,14 @@ import SavedPostItem from './SavePostItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { Collapse } from 'react-collapse';
 import { MdChevronLeft, MdExpandMore } from 'react-icons/md';
+import useCreateSavePost from './hooks/usecreateSavePost';
 
 export type TapProps = { value: string };
 
 function SavePost({ value }: TapProps) {
   const dispatch = useDispatch();
 
-  const { posts, loading, onConfirmRemove } = useSavedPosts();
+  const { posts, loading, onConfirmRemove } = useCreateSavePost();
   const [isCollapse, setIsCollapse] = useState(true);
 
   const isFilterData = value ? posts.filter(e => e?.title?.includes(value)) : posts;

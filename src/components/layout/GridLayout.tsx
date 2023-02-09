@@ -11,7 +11,7 @@ function PageGrid({ children, className, as: Tag = 'div' }: GridProps) {
   return (
     <Tag
       className={clsx(
-        'grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto mxl:max-w-[75rem] mmd:grid-cols-12',
+        'grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto mxl:max-w-[75rem] mmd:grid-cols-10',
         className,
       )}>
       {children}

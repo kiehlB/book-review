@@ -163,6 +163,25 @@ font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Goth
     -webkit-animation: flip 10s linear infinite;
     -moz-animation: flip 10s linear infinite;
   }
+
+  .icon-placeholder {
+    width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex: 40px 0;
+  margin-right: 20px;
+  z-index: 800;
+  }
+
+  .se {
+    list-style: none;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+ 
   
   @keyframes flip {
     0% {
