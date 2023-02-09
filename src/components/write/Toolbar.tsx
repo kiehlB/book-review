@@ -33,9 +33,11 @@ import ImageAdd from './ImageAdd';
 const ProjectCreateContentToolbar = ({
   editor,
   children,
+  addImage,
 }: {
   editor: Editor;
   children?: React.ReactNode;
+  addImage;
 }) => {
   if (!editor) {
     return null;
@@ -133,7 +135,9 @@ const ProjectCreateContentToolbar = ({
             <FormatUnderlinedIcon />
           </ToggleButton>
 
-          <div className="border-2 flex items-center px-[1px]">{children}</div>
+          <div className="border-2 flex items-center px-[1px]">
+            <ImageAdd addImage={addImage} />
+          </div>
 
           <ToggleButton
             onClick={() => {

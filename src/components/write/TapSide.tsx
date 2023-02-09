@@ -43,12 +43,6 @@ function TapSide({}: TapProps) {
 
 export default React.memo(TapSide);
 
-const Content = styled.div<{ isDark: string }>`
-  p {
-    color: ${props => (props.isDark == 'dark' ? 'blue' : 'red')};
-  }
-`;
-
 const PostContent = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;

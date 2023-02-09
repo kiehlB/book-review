@@ -18,13 +18,13 @@ export type PathProps = {
   d?: string;
   transition?: { duration: number };
   isOpen: boolean;
-  isDark: string;
+  isdark: string;
 };
 
 function Path(props: PathProps) {
   return (
     <>
-      {props.isDark == 'dark' ? (
+      {props.isdark == 'dark' ? (
         <motion.path
           fill={props.isOpen ? '#fff' : '#e4e5e7'}
           strokeWidth="3"
@@ -46,7 +46,7 @@ function Path(props: PathProps) {
 }
 
 function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
-  const { isDark } = useSelector((state: RootState) => state.core);
+  const { isdark } = useSelector((state: RootState) => state.core);
 
   return (
     <button
@@ -56,7 +56,7 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
       onClick={toggle}>
       <svg width="23" height="23" viewBox="0 0 23 23">
         <Path
-          isDark={isDark}
+          isdark={isdark}
           isOpen={isOpen}
           variants={{
             closed: { d: 'M 2 2.5 L 20 2.5' },
@@ -64,7 +64,7 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
           }}
         />
         <Path
-          isDark={isDark}
+          isdark={isdark}
           isOpen={isOpen}
           d="M 2 9.423 L 20 9.423"
           variants={{
@@ -74,7 +74,7 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
           transition={{ duration: 0.1 }}
         />
         <Path
-          isDark={isDark}
+          isdark={isdark}
           isOpen={isOpen}
           variants={{
             closed: { d: 'M 2 16.346 L 20 16.346' },

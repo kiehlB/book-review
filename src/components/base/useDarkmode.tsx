@@ -4,7 +4,7 @@ import { RootState } from '../../store/rootReducer';
 
 export default function useDarkMode() {
   const dispatch = useDispatch();
-  const { isDark } = useSelector((state: RootState) => state.core);
+  const { isdark } = useSelector((state: RootState) => state.core);
 
   // const [theme, setTheme]: any = useState(
   //   typeof window !== 'undefined' ? localStorage.getItem('theme') : null,
@@ -20,5 +20,5 @@ export default function useDarkMode() {
   //   localStorage.setItem('theme', theme);
   // }, [theme, colorTheme]);
 
-  return [isDark];
+  return [isdark];
 }

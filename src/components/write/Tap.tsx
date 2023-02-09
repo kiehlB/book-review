@@ -21,40 +21,28 @@ import { ColorHighlighter } from './ColourHighlighter';
 import { Color } from '@tiptap/extension-color';
 import UniqueID from './UniqueID';
 import TableOfContents from './TableOfContents';
-import TagsForm from '../tags/TagsForm';
-import { PageGrid, PostGrid } from '../layout/GridLayout';
-import ProjectCreateContentToolbar from './Toolbar';
-import { motion, useReducedMotion } from 'framer-motion';
-import { SearchInput } from 'evergreen-ui';
-import { ArrowLink, arrowVariants, BackLink } from '../common/ArrowButton';
-import WriteHead from './WriterHead';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
-import TapSide from './TapSide';
 import Image from '@tiptap/extension-image';
-import HardBreak from '@tiptap/extension-hard-break';
-import ImageAdd from './ImageAdd';
 import { getPostBody, getPostTitle, getPostTags } from '../../store/book';
 import useCreateSavePost from './hooks/usecreateSavePost';
+import ProjectCreateContentToolbar from './Toolbar';
+import ImageAdd from './ImageAdd';
 
-export type TapProps = {
-  isOpen: boolean;
-  SetisOpen: (e) => void;
-};
+export type TapProps = {};
 
-function Tap({ isOpen, SetisOpen }: TapProps) {
-  const [isEditing, setEditing] = useState(false);
+function Tap({}: TapProps) {
   const dispatch = useDispatch();
-  const { isDark } = useSelector((state: RootState) => state.core);
-  const body = useSelector((state: RootState) => state.book.body);
-  const tags = useSelector((state: RootState) => state.book.tags);
-  const title = useSelector((state: RootState) => state.book.title);
-  const postId = useSelector((state: RootState) => state.book.postId);
+  const isdark = useSelector((state: RootState) => state.core.isdark);
+  // const body = useSelector((state: RootState) => state.book.body);
+  // const postId = useSelector((state: RootState) => state.book.postId);
 
-  const { onConfirmSave, posts, loading } = useCreateSavePost();
+  const { book } = useSelector((state: RootState) => state.book);
 
-  const findPost = posts?.filter(e => e.id == postId);
+  const { posts } = useCreateSavePost();
+
+  const findPost = posts?.filter(e => e.id == book.postId);
 
   const editor = useEditor({
     editorProps: {
@@ -101,13 +89,22 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
 
     autofocus: true,
     content:
-      body?.length > 9
-        ? body
+      book.body?.length > 9
+        ? book.body
         : `
     <toc></toc> 
-  여기를 클릭하세요
+     반갑습니다
   `,
   });
+
+  const addImage = useCallback(
+    url => {
+      if (url) {
+        editor.chain().focus().setImage({ src: url }).run();
+      }
+    },
+    [editor],
+  );
 
   const getContent = editor?.getHTML();
   useEffect(() => {
@@ -121,74 +118,30 @@ function Tap({ isOpen, SetisOpen }: TapProps) {
       dispatch(getPostTags(findPost[0]?.tags));
       editor?.commands?.setContent(findPost[0]?.body);
     }
-  }, [postId]);
-
-  const addImage = useCallback(
-    url => {
-      if (url) {
-        editor.chain().focus().setImage({ src: url }).run();
-      }
-    },
-    [editor],
-  );
+  }, [book.postId]);
 
   if (!editor) {
     return null;
   }
 
+  console.log('탭');
   return (
-    <PageGrid as="main" className="">
-      <div className="col-span-2 sticky  top-0 h-[100vh] min-h-[0] overflow-hidden border-r">
-        <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
-          <div className="py-2 px-4">
-            <BackLink href="/">
-              <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
-                BookReview
-              </div>
-            </BackLink>
-          </div>
-        </div>
-        <TapSide />
-      </div>
-      <div className="col-span-8 mxl:col-span-12">
-        <WriteHead>
-          <div className="flex">
-            <div
-              onClick={() => onConfirmSave(postId, title, body, tags)}
-              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] mr-4 cursor-pointer">
-              saved
-            </div>
-            <div
-              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer"
-              onClick={() => SetisOpen(!isOpen)}>
-              publish
-            </div>
-          </div>
-        </WriteHead>
-        <div className="px-4 py-4">
-          <TagsForm isOpen={isOpen} />
-        </div>
-        <div>
-          <ProjectCreateContentToolbar editor={editor}>
-            <ImageAdd addImage={addImage} />
-          </ProjectCreateContentToolbar>
-        </div>
-
-        <div>
-          <Content
-            className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]"
-            isDark={isDark}>
-            <EditorContent editor={editor} className="" />
-          </Content>
-        </div>
-      </div>
-    </PageGrid>
+    <>
+      <ProjectCreateContentToolbar editor={editor}>
+        <ImageAdd addImage={addImage} />
+      </ProjectCreateContentToolbar>
+      <Content
+        className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]"
+        isDark={isdark}>
+        <EditorContent editor={editor} className="" />
+      </Content>
+    </>
   );
 }
 
 export default Tap;
 
-const Content = styled.div<{ isDark: string }>`
+const Content = styled.div<{ isdark: string }>`
   .ProseMirror {
     > * + * {
       line-height: 1.5;
@@ -273,6 +226,6 @@ const Content = styled.div<{ isDark: string }>`
   p {
     font-size: 1.125rem;
     line-height: 1.5;
-    color: ${props => (props.isDark == 'dark' ? '#ececec' : '#212529')};
+    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
   }
 `;

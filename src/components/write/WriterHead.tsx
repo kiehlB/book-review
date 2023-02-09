@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPostTitle } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
 
-export type TapProps = {
-  children: React.ReactNode;
-};
+export type TapProps = {};
 
-function WriteHead({ children }: TapProps) {
+function WriteHead({}: TapProps) {
   const title = useSelector((state: RootState) => state.book.title);
   const dispatch = useDispatch();
 
@@ -19,6 +17,8 @@ function WriteHead({ children }: TapProps) {
     },
     [dispatch],
   );
+
+  console.log('제목');
 
   return (
     <div className="flex justify-between items-center px-[1rem]">
@@ -33,7 +33,18 @@ function WriteHead({ children }: TapProps) {
         <hr className="border-2 w-6/12 mt-3.5 h-1" />
       </div>
 
-      {children}
+      {/* <div className="flex">
+            <div
+              onClick={() => onConfirmSave(postId, title, body, tags)}
+              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] mr-4 cursor-pointer">
+              saved
+            </div>
+            <div
+              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer"
+              onClick={() => SetisOpen(!isOpen)}>
+              publish
+            </div>
+          </div> */}
     </div>
   );
 }

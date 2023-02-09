@@ -14,14 +14,14 @@ interface PageLayoutProps {
 
 function PageLayout({ children }: PageLayoutProps) {
   const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
-  const { isDark } = useSelector((state: RootState) => state.core);
+  const { isdark } = useSelector((state: RootState) => state.core);
 
   React.useEffect(() => {
     const root = window.document.documentElement;
 
-    root.classList.remove(isDark == 'dark' ? 'light' : 'dark');
-    root.classList.add(isDark);
-  }, [isDark]);
+    root.classList.remove(isdark == 'dark' ? 'light' : 'dark');
+    root.classList.add(isdark);
+  }, [isdark]);
 
   return (
     <div className="px-[1rem] dark:bg-[#1a1b1e] h-full mxs:px-3">

@@ -3,13 +3,13 @@ import { AppThunk, AppDispatch } from './store';
 import { PURGE } from 'redux-persist';
 
 export interface coreState {
-  isDark: string;
+  isdark: string;
   error: string;
   isLoading: boolean;
 }
 
 export const initialState = {
-  isDark: 'light',
+  isdark: 'light',
   isLoading: false,
   error: '',
 };
@@ -19,8 +19,8 @@ const CoreSlice = createSlice({
   initialState,
   reducers: {
     getcoreInfoSuccess(state: coreState) {
-      const isDarkSet = state.isDark == 'dark' ? 'light' : 'dark';
-      state.isDark = isDarkSet;
+      const isdarkSet = state.isdark == 'dark' ? 'light' : 'dark';
+      state.isdark = isdarkSet;
     },
     getcoreIsLoading(state: coreState) {
       state.isLoading = !state.isLoading;

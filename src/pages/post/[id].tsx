@@ -40,7 +40,7 @@ function Post({ id }: PostProps) {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
   const dispatch = useDispatch();
   const insertID = setHeadingId(singlePostData?.post?.body);
-  const { isDark } = useSelector((state: RootState) => state.core);
+  const { isdark } = useSelector((state: RootState) => state.core);
 
   const BodyResult = insertID.replace('<toc></toc>', '');
 
@@ -106,7 +106,7 @@ function Post({ id }: PostProps) {
           </div>
           <div className="text-2xl col-span-6">
             <Content
-              isDark={isDark}
+              isDark={isdark}
               className="border-2 border-red-500 mx-auto"
               style={{ maxWidth: '65ch' }}>
               {/* <div dangerouslySetInnerHTML={{ __html: insertID }} /> */}
@@ -134,7 +134,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 };
 
-const Content = styled.div<{ isDark: string }>`
+const Content = styled.div<{ isdark: string }>`
   .sc-gswNZR {
     ol {
       margin-left: 1rem;
@@ -294,6 +294,6 @@ const Content = styled.div<{ isDark: string }>`
   p {
     font-size: 1.125rem;
     line-height: 1.5;
-    color: ${props => (props.isDark == 'dark' ? '#ececec' : '#212529')};
+    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
   }
 `;

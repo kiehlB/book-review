@@ -52,7 +52,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 function Header() {
   const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBookIsClose } =
     useContext(ModalContext);
-  const { isDark } = useSelector((state: RootState) => state.core);
+  const { isdark } = useSelector((state: RootState) => state.core);
 
   const { auth } = useWhoAmI();
   const { handleSubmitLogout } = useLogout();
@@ -80,7 +80,7 @@ function Header() {
             <IoSearchOutline />
           </div>
           <HeaderInput
-            isDark={isDark}
+            isDark={isdark}
             className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7]"
           />
         </div>
@@ -131,8 +131,8 @@ function Header() {
 
 export default Header;
 
-const HeaderInput = styled.input<{ isDark: string }>`
+const HeaderInput = styled.input<{ isdark: string }>`
   ::selection {
-    background: ${props => (props.isDark == 'dark' ? '#e4e5e7' : '')};
+    background: ${props => (props.isdark == 'dark' ? '#e4e5e7' : '')};
   }
 `;
