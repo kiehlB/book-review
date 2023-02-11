@@ -7,15 +7,11 @@ import CoreButton from './CoreButton';
 import ImageAdd from './ImageAdd';
 import Tap from './Tap';
 import TapSide from './TapSide';
-import ProjectCreateContentToolbar from './Toolbar';
-import WriterHead from './WriterHead';
+import WriterHead from './WriterHeader';
 
-export type TapProps = {
-  isOpen: boolean;
-  SetisOpen: (e) => void;
-};
+export type TapProps = {};
 
-function WriteTemplate({ isOpen }: TapProps) {
+function WriteTemplate({}: TapProps) {
   return (
     <PageGrid as="main">
       <MainNav className="col-span-2 sticky top-0 h-[100vh] min-h-[0] overflow-hidden border-r">
@@ -34,12 +30,12 @@ function WriteTemplate({ isOpen }: TapProps) {
         className="col-span-8 mxl:col-span-12"
         first={
           <First>
-            <div className="flex">
+            <div className="flex items-center justify-between">
               <WriterHead />
               <CoreButton />
             </div>
             <div className="px-4 py-4">
-              <TagsForm isOpen={isOpen} />
+              <TagsForm />
             </div>
           </First>
         }

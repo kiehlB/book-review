@@ -12,41 +12,44 @@ export type PostCardSkeletonProps = {
 };
 
 function PostCardItem({ post }: GridProps) {
+  console.log(post);
   return (
-    <div className="col-span-2  mxl:col-span-4 mmx:col-span-6 mxs:col-span-12">
+    <div className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12">
       <div className="flex flex-1 flex-col">
         <RatioImage
           alt="img"
           widthRatio={1.644444444444444}
           heightRatio={1}
-          src="/test.jpg"
+          src="https://content.surfit.io/thumbs/image/3A8pK/LL149/47443226663e376e7e0bf7.png/cover-center-1x.webp"
           className="relative"
         />
 
-        <div className="flex justify-between items-center">
-          <div className="pt-[0.5rem] text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea]">
-            파인만 씨 농담도 잘하시네
-          </div>
-        </div>
-
-        {/* /{post.title} */}
-        <div className="text-[#121212] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
-          파인만 농담 독후감
-        </div>
-
-        <div className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
-          디자인 시스템을 만드는 과정에서 다른 디자인 시스템들을 참고하기 위하여 검색하고,
-          원하는 컴포넌트로 스크롤해서 원하는
-        </div>
-
-        <div className="flex justify-between mt-4 leading-normal text-[#2e2e2e] dark:text-[#929aa5]">
-          <div className="flex font-semibold text-xs">
-            <div>좋아요 4개</div>
-            <div>댓글 5개</div>
+        <div className="px-[4px]">
+          <div className="flex justify-between items-center">
+            <div className="pt-[0.5rem] text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea] truncate">
+              도서: 파인만 씨 농담도 잘하시네 파인만 씨 농담도 잘하시네 파인만 씨 농담도
+              잘하시네
+            </div>
           </div>
 
-          <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5]">
-            <div>2023.01.12</div>
+          {/* /{post.title} */}
+          <WithoutPostTitle className="text-[#121212] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
+            {post?.title}
+          </WithoutPostTitle>
+
+          <WithoutPostBody className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
+            <div dangerouslySetInnerHTML={{ __html: post?.body }} />
+          </WithoutPostBody>
+
+          <div className="flex justify-between mt-4 leading-normal text-[#2e2e2e] dark:text-[#929aa5]">
+            <div className="flex font-semibold text-xs">
+              <div className="mr-2">좋아요 {post?.likes}개</div>
+              <div>댓글 {post?.subs_count}개</div>
+            </div>
+
+            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5]">
+              <div>2023.01.12</div>
+            </div>
           </div>
         </div>
       </div>
@@ -136,15 +139,18 @@ const WithFlexWrapper = styled.section`
   height: 21.875rem;
 `;
 
-const WithoutPostBody = styled.section`
-  color: #3c4858;
-  font-weight: 500;
-  display: block;
-  margin-top: 4rem;
-  max-height: 20.4375rem;
+const WithoutPostTitle = styled.section`
   display: -webkit-box;
-  line-height: 1.5rem;
-  -webkit-line-clamp: 9;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: initial;
+  word-wrap: break-word;
+  overflow: hidden;
+`;
+const WithoutPostBody = styled.section`
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   white-space: initial;

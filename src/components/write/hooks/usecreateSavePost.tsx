@@ -8,7 +8,6 @@ import {
   GET_Posts,
   Remove_Post,
 } from '../../../lib/graphql/posts';
-import { RootState } from '../../../store/rootReducer';
 
 export default function useCreateSavePost() {
   const { auth } = useSelector((state: any) => state.auth);
@@ -28,7 +27,7 @@ export default function useCreateSavePost() {
 
   const posts = data?.posts;
 
-  const onConfirmSave = async (id, title, body, tags) => {
+  const onConfirmSave = async (id, title, body, tags = [], book) => {
     if (!title) {
       toast.error('제목 또는 내용이 비어있습니다.');
       return;
@@ -37,12 +36,17 @@ export default function useCreateSavePost() {
       try {
         await writePost({
           variables: {
+            id: id,
             title,
             body,
-            tags: ['asdasd'],
+            tags: tags,
             is_temp: true,
-            is_private: false,
-            thumbnail: 'ddd',
+
+            bookTitle: book?.title,
+            bookContent: book?.contents,
+            bookUrl: book?.thumbnail,
+            bookIsbn: book?.isbn,
+            bookAuthors: book?.authors,
           },
 
           update: async (proxy, { data: createPost }) => {
@@ -66,13 +70,17 @@ export default function useCreateSavePost() {
       try {
         await editPost({
           variables: {
-            id,
+            id: id,
             title,
             body,
-            tags: ['asd'],
+            tags: tags,
             is_temp: true,
-            is_private: false,
-            thumbnail: 'asdasd',
+
+            bookTitle: book?.title,
+            bookContent: book?.contents,
+            bookUrl: book?.thumbnail,
+            bookIsbn: book?.isbn,
+            bookAuthors: book?.authors,
           },
 
           update: async (proxy, { data: editPost }) => {

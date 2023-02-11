@@ -22,26 +22,27 @@ export default function useEditPost() {
   const posts = data?.posts;
 
   const onConfirmRemove = async id => {
-    if (!id) return;
-    try {
-      await editPost({
-        variables: {
-          id: id,
-        },
-      });
-      client.writeQuery({
-        query: GET_Posts,
-        variables: {
-          username: auth.username,
-          temp_only: true,
-        },
-        data: {
-          posts: data.posts.filter(p => p.id !== id),
-        },
-      });
-      toast.success('포스트가 삭제되었습니다.');
-    } catch (e) {
-      toast.error('포스트 삭제 실패');
+    if (!id) {
+      try {
+        await editPost({
+          variables: {
+            id: id,
+          },
+        });
+        client.writeQuery({
+          query: GET_Posts,
+          variables: {
+            username: auth.username,
+            temp_only: true,
+          },
+          data: {
+            posts: data.posts.filter(p => p.id !== id),
+          },
+        });
+        toast.success('포스트가 삭제되었습니다.');
+      } catch (e) {
+        toast.error('포스트 삭제 실패');
+      }
     }
   };
 

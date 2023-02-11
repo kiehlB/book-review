@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import useScrollPagination from '../../../hooks/useScrollPagination';
-import { GET_Posts } from '../../../lib/graphql/posts';
+import { GET_Posts, GET_recentPosts } from '../../../lib/graphql/posts';
 
 export default function useGetPosts() {
-  const { data, loading, fetchMore } = useQuery(GET_Posts, {
+  const { data, loading, fetchMore } = useQuery(GET_recentPosts, {
     variables: {
       limit: 24,
     },
@@ -13,6 +13,7 @@ export default function useGetPosts() {
   });
   const [isFinished, setIsFinished] = useState(false);
 
+  console.log(data);
   const onLoadMore = useCallback(
     (cursor: string) => {
       fetchMore({
@@ -22,11 +23,11 @@ export default function useGetPosts() {
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
-          if (fetchMoreResult.posts.length === 0) {
+          if (fetchMoreResult.recentPosts.length === 0) {
             setIsFinished(true);
           }
           return {
-            posts: [...prev.posts, ...fetchMoreResult.posts],
+            recentPosts: [...prev.recentPosts, ...fetchMoreResult.recentPosts],
           };
         },
       });
@@ -34,7 +35,7 @@ export default function useGetPosts() {
     [fetchMore],
   );
 
-  const cursor = data?.posts[data?.posts.length - 1]?.id;
+  const cursor = data?.recentPosts[data?.recentPosts.length - 1]?.id;
 
   useScrollPagination({
     cursor,

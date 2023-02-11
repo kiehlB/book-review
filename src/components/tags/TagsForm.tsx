@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import transitions from '../../lib/transitions';
 import { Tooltip, IconButton, EditIcon } from 'evergreen-ui';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPostTags } from '../../store/book';
+import { RootState } from '../../store/rootReducer';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
-  isOpen: boolean;
 };
 
 const Tag = styled.div`
@@ -36,6 +36,8 @@ const TagItem = ({ onClick, children }: any) => {
 };
 
 function TagsForm(props: TagsFormProps) {
+  const isopen = useSelector((state: RootState) => state.book.isopen);
+
   const [value, setValue] = useState('');
   const [tags, setTags] = useState([]);
   const ignore = useRef(false);
@@ -44,7 +46,7 @@ function TagsForm(props: TagsFormProps) {
 
   useEffect(() => {
     dispatch(getPostTags(tags));
-  }, [props.isOpen]);
+  }, [isopen]);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

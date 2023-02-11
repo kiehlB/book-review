@@ -11,7 +11,6 @@ import { getNextSeo } from '../lib/nextSeo';
 import useGetPosts from '../components/post/hooks/useGetPosts';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
-import Sidebar from '../components/side/Sidebar';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
@@ -38,12 +37,12 @@ export default function Home() {
               primaryItems={[
                 {
                   icon: <RiBookOpenLine />,
-                  text: 'Book',
+                  text: '포스트',
                   to: '/',
                 },
                 {
                   icon: <RiDashboard3Line />,
-                  text: 'Post',
+                  text: '게시판',
                   to: '/post',
                 },
               ]}
@@ -71,7 +70,7 @@ export default function Home() {
             second={
               <Second>
                 <PostGrid className="mt-[1rem]">
-                  <PostCard posts={data?.posts || []} loading={!data || loading} />
+                  <PostCard posts={data?.recentPosts || []} loading={!data || loading} />
                 </PostGrid>
               </Second>
             }

@@ -70,8 +70,8 @@ export const GET_Posts = gql`
 `;
 
 export const GET_recentPosts = gql`
-  query RecentPosts($cursor: String) {
-    recentPosts(cursor: $cursor) {
+  query RecentPosts($cursor: String, $limit: Int) {
+    recentPosts(cursor: $cursor, limit: $limit) {
       id
       title
       body

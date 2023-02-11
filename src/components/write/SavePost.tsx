@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import useSavedPosts from './hooks/useGetSavePosts';
 import SavedPostItem from './SavePostItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { Collapse } from 'react-collapse';
@@ -17,7 +16,7 @@ function SavePost({ value }: TapProps) {
   const isFilterData = value ? posts.filter(e => e?.title?.includes(value)) : posts;
 
   return (
-    <div className="">
+    <div>
       <div
         className="text-[#64748b] text-base font-bold flex items-center justify-between px-4"
         onClick={() => setIsCollapse(!isCollapse)}>

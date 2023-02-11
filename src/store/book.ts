@@ -9,7 +9,7 @@ import { RootState } from './rootReducer';
 import { AppThunk, AppDispatch } from './store';
 
 export interface BookState {
-  book: PostBookInfo;
+  book: any;
   error: string;
   title: string;
   body: string;
@@ -19,6 +19,7 @@ export interface BookState {
   thumbnail: string | null;
   postId: null | string;
   isTemp: boolean;
+  isopen: boolean;
 }
 
 export const initialState = {
@@ -33,6 +34,7 @@ export const initialState = {
   thumbnail: null,
   postId: null,
   isTemp: false,
+  isopen: false,
 };
 
 const BookSlice = createSlice({
@@ -55,6 +57,10 @@ const BookSlice = createSlice({
       state.postId = action.payload;
     },
 
+    getIsOpenSuccess(state: BookState) {
+      state.isopen = !state.isopen;
+    },
+
     getBookFailure(state, { payload }: PayloadAction<BookState>) {
       state.error = payload.error;
     },
@@ -68,6 +74,7 @@ export const {
   getPostBody,
   getPostTags,
   getPostId,
+  getIsOpenSuccess,
 } = BookSlice.actions;
 
 export const initBook =

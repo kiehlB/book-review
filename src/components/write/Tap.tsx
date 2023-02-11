@@ -35,14 +35,14 @@ export type TapProps = {};
 function Tap({}: TapProps) {
   const dispatch = useDispatch();
   const isdark = useSelector((state: RootState) => state.core.isdark);
-  // const body = useSelector((state: RootState) => state.book.body);
-  // const postId = useSelector((state: RootState) => state.book.postId);
+  const body = useSelector((state: RootState) => state.book.body);
+  const postId = useSelector((state: RootState) => state.book.postId);
 
-  const { book } = useSelector((state: RootState) => state.book);
+  // const { book } = useSelector((state: RootState) => state.book);
 
   const { posts } = useCreateSavePost();
 
-  const findPost = posts?.filter(e => e.id == book.postId);
+  const findPost = posts?.filter(e => e.id == postId);
 
   const editor = useEditor({
     editorProps: {
@@ -89,8 +89,8 @@ function Tap({}: TapProps) {
 
     autofocus: true,
     content:
-      book.body?.length > 9
-        ? book.body
+      body?.length > 9
+        ? body
         : `
     <toc></toc> 
      반갑습니다
@@ -107,6 +107,7 @@ function Tap({}: TapProps) {
   );
 
   const getContent = editor?.getHTML();
+
   useEffect(() => {
     dispatch(getPostBody(getContent));
   }, [getContent]);
@@ -118,7 +119,7 @@ function Tap({}: TapProps) {
       dispatch(getPostTags(findPost[0]?.tags));
       editor?.commands?.setContent(findPost[0]?.body);
     }
-  }, [book.postId]);
+  }, [postId]);
 
   if (!editor) {
     return null;

@@ -21,7 +21,7 @@ function WriteHead({}: TapProps) {
   console.log('제목');
 
   return (
-    <div className="flex justify-between items-center px-[1rem]">
+    <div className="flex justify-between items-center px-[1rem] w-full">
       <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[2rem] mxs:text-lg">
         <input
           name="title"
@@ -32,19 +32,6 @@ function WriteHead({}: TapProps) {
         />
         <hr className="border-2 w-6/12 mt-3.5 h-1" />
       </div>
-
-      {/* <div className="flex">
-            <div
-              onClick={() => onConfirmSave(postId, title, body, tags)}
-              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] mr-4 cursor-pointer">
-              saved
-            </div>
-            <div
-              className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer"
-              onClick={() => SetisOpen(!isOpen)}>
-              publish
-            </div>
-          </div> */}
     </div>
   );
 }
