@@ -30,7 +30,6 @@ const TestNavbar = ({
       <div className="flex items-center underlined whitespace-nowrap text-lg font-medium px-[1rem] py-[0.5rem] transition-all">
         Trending tags
       </div>
-      <Trending />
     </ul>
   </nav>
 );
