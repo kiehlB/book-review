@@ -16,6 +16,7 @@ import {
 } from '../../store/book';
 import { toast } from 'react-toastify';
 import { IoSearchOutline } from 'react-icons/io5';
+import ModalContext from '../../context/modalContext';
 
 interface BookTalbleProps {}
 
@@ -217,6 +218,7 @@ function BookInfo({ bookName }): any {
 
 const BookTalble = ({}) => {
   const [bookName, setBookName] = useState('');
+  const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
   const { book } = useSelector((state: RootState) => state.book);
   const dispatch = useDispatch();
 
@@ -269,21 +271,23 @@ const BookTalble = ({}) => {
               ''
             )}
           </div>
-          <div
-            onClick={() => {
-              dispatch(getPostTitle(''));
-              dispatch(getPostBody(''));
-              dispatch(getPostTags(''));
-              dispatch(getPostId(''));
-            }}
-            className="flex items-center">
-            <ArrowLink
-              href={'/write'}
-              direction="right"
-              className="mr-8"
-              textSize="small">
-              Skip
-            </ArrowLink>
+          <div className="flex items-center">
+            <div
+              onClick={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags(''));
+                dispatch(getPostId(''));
+                SetBookIsClose(!BookIsClose);
+              }}>
+              <ArrowLink
+                href={'/write'}
+                direction="right"
+                className="mr-8"
+                textSize="small">
+                Skip
+              </ArrowLink>
+            </div>
 
             <div
               onClick={() => {
@@ -291,6 +295,7 @@ const BookTalble = ({}) => {
                 dispatch(getPostBody(''));
                 dispatch(getPostTags(''));
                 dispatch(getPostId(''));
+                book?.title ? SetBookIsClose(!BookIsClose) : '';
                 book?.title ? '' : withoutBookInfo();
               }}>
               <ArrowLink
@@ -336,11 +341,13 @@ const BookTalble = ({}) => {
 
           <div className="flex items-center">
             <NextLink
+              className=""
               click={() => {
                 dispatch(getPostTitle(''));
                 dispatch(getPostBody(''));
                 dispatch(getPostTags(''));
                 dispatch(getPostId(''));
+                SetBookIsClose(!BookIsClose);
               }}
               href="/write">
               <div className="text-[#334155] text-base flex items-center justify-between font-semibold mr-2">
@@ -354,6 +361,7 @@ const BookTalble = ({}) => {
                 dispatch(getPostBody(''));
                 dispatch(getPostTags(''));
                 dispatch(getPostId(''));
+                book?.title ? SetBookIsClose(!BookIsClose) : '';
                 book?.title ? '' : withoutBookInfo();
               }}
               href={book?.title ? '/write' : ''}>

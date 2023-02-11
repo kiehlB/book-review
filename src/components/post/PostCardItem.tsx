@@ -1,3 +1,5 @@
+import moment from 'moment';
+import Link from 'next/link';
 import * as React from 'react';
 import styled from 'styled-components';
 import media from '../../lib/media';
@@ -12,17 +14,22 @@ export type PostCardSkeletonProps = {
 };
 
 function PostCardItem({ post }: GridProps) {
-  console.log(post);
   return (
-    <div className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12">
-      <div className="flex flex-1 flex-col">
-        <RatioImage
-          alt="img"
-          widthRatio={1.644444444444444}
-          heightRatio={1}
-          src="https://content.surfit.io/thumbs/image/3A8pK/LL149/47443226663e376e7e0bf7.png/cover-center-1x.webp"
-          className="relative"
-        />
+    <Link
+      href={`/post/${post.id}`}
+      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12">
+      <div className="flex flex-1 flex-col h-full justify-between">
+        {post?.thumbnail ? (
+          <RatioImage
+            alt="img"
+            widthRatio={1.644444444444444}
+            heightRatio={1}
+            src={post?.thumbnail}
+            className="relative"
+          />
+        ) : (
+          ''
+        )}
 
         <div className="px-[4px]">
           <div className="flex justify-between items-center">
@@ -40,20 +47,20 @@ function PostCardItem({ post }: GridProps) {
           <WithoutPostBody className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
             <div dangerouslySetInnerHTML={{ __html: post?.body }} />
           </WithoutPostBody>
+        </div>
 
-          <div className="flex justify-between mt-4 leading-normal text-[#2e2e2e] dark:text-[#929aa5]">
-            <div className="flex font-semibold text-xs">
-              <div className="mr-2">좋아요 {post?.likes}개</div>
-              <div>댓글 {post?.subs_count}개</div>
-            </div>
+        <div className="flex justify-between mt-4 leading-normal text-[#2e2e2e] dark:text-[#929aa5]">
+          <div className="flex font-semibold text-xs">
+            <div className="mr-2">좋아요 {post?.likes}개</div>
+            <div>댓글 {post?.subs_count}개</div>
+          </div>
 
-            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5]">
-              <div>2023.01.12</div>
-            </div>
+          <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5] ">
+            {moment(post?.released_at).fromNow()}
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

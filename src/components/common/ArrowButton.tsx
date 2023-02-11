@@ -218,7 +218,7 @@ function BackLink({
   return (
     <MotionLink
       href={href}
-      className={clsx('text-black flex focus:outline-none', className)}
+      className={clsx('text-black flex focus:outline-none items-center', className)}
       ref={ref}
       animate={state}
       transition={shouldReduceMotion ? { duration: 0 } : {}}>
@@ -246,7 +246,7 @@ function NextLink({
   return (
     <MotionLink
       href={href}
-      className={clsx('text-black flex focus:outline-none', className)}
+      className={clsx('text-black flex focus:outline-none items-center', className)}
       ref={ref}
       onClick={click}
       animate={state}

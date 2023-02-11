@@ -45,7 +45,7 @@ const PostTableOfContents = () => {
   useIntersectionObserver(setActiveId);
 
   return (
-    <nav aria-label="Table of contents">
+    <nav aria-label="Table of contents" className="flex flex-col border-2">
       <Headings headings={nestedHeadings} activeId={activeId} />
     </nav>
   );

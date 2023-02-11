@@ -10,7 +10,6 @@ export interface DefaultTableContentProps {
 }
 
 function DefaultTableContent({ svg, title, subtitle }: DefaultTableContentProps) {
-  console.log(typeof svg);
   return (
     <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl">
       <div className="flex justify-between items-center w-[80%] mx-auto">

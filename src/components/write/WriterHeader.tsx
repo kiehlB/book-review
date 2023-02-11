@@ -18,8 +18,6 @@ function WriteHead({}: TapProps) {
     [dispatch],
   );
 
-  console.log('제목');
-
   return (
     <div className="flex justify-between items-center px-[1rem] w-full">
       <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[2rem] mxs:text-lg">

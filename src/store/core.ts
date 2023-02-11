@@ -6,12 +6,14 @@ export interface coreState {
   isdark: string;
   error: string;
   isLoading: boolean;
+  search: string;
 }
 
 export const initialState = {
   isdark: 'light',
   isLoading: false,
   error: '',
+  search: '',
 };
 
 const CoreSlice = createSlice({
@@ -25,6 +27,9 @@ const CoreSlice = createSlice({
     getcoreIsLoading(state: coreState) {
       state.isLoading = !state.isLoading;
     },
+    getSearchInput(state: coreState, actions: PayloadAction<string>) {
+      state.search = actions.payload;
+    },
 
     getcoreFailure(state: coreState, { payload }: PayloadAction<coreState>) {
       state.error = payload.error;
@@ -32,6 +37,7 @@ const CoreSlice = createSlice({
   },
 });
 
-export const { getcoreFailure, getcoreInfoSuccess, getcoreIsLoading } = CoreSlice.actions;
+export const { getcoreFailure, getcoreInfoSuccess, getcoreIsLoading, getSearchInput } =
+  CoreSlice.actions;
 
 export default CoreSlice.reducer;

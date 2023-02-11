@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
-import { PageGrid, PostGrid } from '../components/layout/GridLayout';
-import Navbar from '../components/navbar';
-import { RiBookOpenLine } from 'react-icons/ri';
-import { RiDashboard3Line } from 'react-icons/ri';
-import { RiFileChartFill } from 'react-icons/ri';
-import HomeTab from '../components/home/HomeTab';
-import RatioImage from '../components/common/RatioImage';
-import { PageLayout } from '../components/layout/PageLayout';
-import Modal from '../components/common/Modal';
-import SignUp from '../components/auth/Register';
-import { NextSeo } from 'next-seo';
-import { getNextSeo } from '../lib/nextSeo';
-import AuthContainer from '../components/auth/AuthContainer';
-import PostCard from '../components/post/PostCard';
-import useGetPosts from '../components/post/hooks/useGetPosts';
-import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
+import { GetServerSideProps } from 'next';
+import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { RiBookOpenLine, RiDashboard3Line, RiFileChartFill } from 'react-icons/ri';
+import HomeTab from '../../components/home/HomeTab';
+import { AppLayout, First, MainNav, Second } from '../../components/layout/AppLayout';
+import { PageGrid, PostGrid } from '../../components/layout/GridLayout';
+import { PageLayout } from '../../components/layout/PageLayout';
+import Navbar from '../../components/navbar';
+import useGetSearchPosts from '../../components/post/hooks/useGetSearchPosts';
+import PostCard from '../../components/post/PostCard';
+import { getNextSeo } from '../../lib/nextSeo';
 import { motion, useReducedMotion } from 'framer-motion';
 
-export default function Home() {
-  const { data, loading } = useGetPosts();
+export default function Search({ id }) {
+  const { data, loading } = useGetSearchPosts(id);
 
   return (
     <motion.div>
       <NextSeo {...getNextSeo({ title: 'Search page', description: '검색 페이지' })} />
+      <SiteLinksSearchBoxJsonLd
+        url="https://www.bookreview.pro"
+        potentialActions={[
+          {
+            target: 'https://www.bookreview.pro/search?q',
+            queryInput: 'search_term_string',
+          },
+        ]}
+      />
 
       <PageLayout>
         <PageGrid as="div" className="pt-[2.25rem]">
@@ -64,10 +68,7 @@ export default function Home() {
             second={
               <Second>
                 <PostGrid className="mt-[1rem]">
-                  <PostCard
-                    posts={data?.recentPosts.slice(0, 3) || []}
-                    loading={!data || loading}
-                  />
+                  <PostCard posts={data?.searchPosts || []} loading={!data || loading} />
                 </PostGrid>
               </Second>
             }
@@ -78,3 +79,9 @@ export default function Home() {
     </motion.div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { id } = context.query;
+
+  return { props: { id } };
+};

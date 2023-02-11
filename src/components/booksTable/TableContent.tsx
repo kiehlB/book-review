@@ -12,7 +12,7 @@ export interface TableContentProps {
 
 function TableContent({ svg, title, subtitle }: TableContentProps) {
   return (
-    <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl dark:bg-[#282828]">
+    <div className="flex h-full justify-center items-center bg-[#fff] rounded-2xl dark:bg-[#3E3E3E]">
       <div className="flex justify-between items-center w-[80%] mx-auto mxs:text-center mxs:w-[90%]">
         <div className="mb-[10%] w-[50%] mxs:w-[100%]">
           <div className="text-xl text-[#333332] font-semibold dark:text-[#e4e5e7]">

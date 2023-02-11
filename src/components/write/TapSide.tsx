@@ -10,7 +10,7 @@ export type TapProps = {};
 
 function TapSide({}: TapProps) {
   const [text, setText] = useState('');
-  const [value] = useDebounce(text, 0);
+  const [value] = useDebounce(text, 300);
 
   return (
     <>

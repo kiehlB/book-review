@@ -92,23 +92,17 @@ function Post({ id }: PostProps) {
 
   return (
     <>
-      <NextSeo
-        {...getNextSeo({ title: 'Book Review Write', description: '독후감 쓰는 곳' })}
-      />
+      <NextSeo {...getNextSeo({ title: 'Book Review Write', description: '책리뷰' })} />
 
       <PageLayout>
-        <div className="grid grid-cols-10 border-2 max-w-[96rem] mx-auto"></div>
-        <div className="grid grid-cols-10 border-2 max-w-[96rem] mx-auto">
-          <div className="col-span-2">
+        <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem]">
+          <div className="col-span-2 justify-self-center">
             <div className="sticky top-2">
               <PawButton />
             </div>
           </div>
-          <div className="text-2xl col-span-6">
-            <Content
-              isDark={isdark}
-              className="border-2 border-red-500 mx-auto"
-              style={{ maxWidth: '65ch' }}>
+          <div className="text-[1.25rem] col-span-6 w-full">
+            <Content isDark={isdark} className="text-[1.25rem] max-w-[812.5px] mx-auto">
               {/* <div dangerouslySetInnerHTML={{ __html: insertID }} /> */}
               <EditorContent editor={editor} className="" />
             </Content>
@@ -134,166 +128,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 };
 
-const Content = styled.div<{ isdark: string }>`
-  .sc-gswNZR {
-    ol {
-      margin-left: 1rem;
-      list-style: decimal;
-    }
-
-    ul {
-      margin-left: 1rem;
-      list-style: disc;
-    }
-
-    img {
-      height: 100%;
-      max-width: 100%;
-      object-fit: cover;
-
-      &.ProseMirror-selectednode {
-        outline: 3px solid #68cef8;
-      }
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      line-height: 1.5;
-    }
-
-    h2 {
-      font-size: 2rem;
-      line-height: 1.5;
-    }
-    h3 {
-      font-size: 1.5rem;
-      line-height: 1.5;
-    }
-    h4 {
-      font-size: 1.3125rem;
-      line-height: 1.5;
-    }
-
-    min-height: 100%;
-    max-height: 100%;
-    width: 100%;
-
-    code {
-      background-color: rgba(#616161, 0.1);
-      color: #616161;
-    }
-
-    pre {
-      background: #0d0d0d;
-      color: #fff;
-      font-family: 'JetBrainsMono', monospace;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-
-      code {
-        color: inherit;
-        padding: 0;
-        background: none;
-        font-size: 0.8rem;
-      }
-    }
-
-    blockquote {
-      padding-left: 1rem;
-      border-left: 2px solid rgba(#0d0d0d, 0.1);
-    }
-
-    hr {
-      border: none;
-      border-top: 2px solid rgba(#0d0d0d, 0.1);
-      margin: 2rem 0;
-    }
-  }
-
-  .ProseMirror {
-    > * + * {
-      line-height: 1.5;
-      color: #212529;
-      padding: 0 0.5rem;
-      margin-top: 1rem;
-    }
-    img {
-      height: 100%;
-      max-width: 100%;
-      object-fit: cover;
-
-      &.ProseMirror-selectednode {
-        outline: 3px solid #68cef8;
-      }
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      line-height: 1.5;
-    }
-
-    h2 {
-      font-size: 2rem;
-      line-height: 1.5;
-    }
-    h3 {
-      font-size: 1.5rem;
-      line-height: 1.5;
-    }
-    h4 {
-      font-size: 1.3125rem;
-      line-height: 1.5;
-    }
-
-    min-height: 100%;
-    max-height: 100%;
-    width: 100%;
-
-    ol {
-      margin-left: 1rem;
-      list-style: decimal;
-    }
-
-    ul {
-      margin-left: 1rem;
-      list-style: disc;
-    }
-
-    code {
-      background-color: rgba(#616161, 0.1);
-      color: #616161;
-    }
-
-    pre {
-      background: #0d0d0d;
-      color: #fff;
-      font-family: 'JetBrainsMono', monospace;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-
-      code {
-        color: inherit;
-        padding: 0;
-        background: none;
-        font-size: 0.8rem;
-      }
-    }
-
-    blockquote {
-      padding-left: 1rem;
-      border-left: 2px solid rgba(#0d0d0d, 0.1);
-    }
-
-    hr {
-      border: none;
-      border-top: 2px solid rgba(#0d0d0d, 0.1);
-      margin: 2rem 0;
-    }
-  }
-
-  p {
-    font-size: 1.125rem;
-    line-height: 1.5;
-    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
-  }
-`;
+const Content = styled.div<{ isdark: string }>``;

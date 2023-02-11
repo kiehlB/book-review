@@ -39,7 +39,6 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
   const [isPrivate, setIsPrivate] = useState(false);
   const book = useSelector((state: RootState) => state?.book.book);
 
-  console.log('메인');
   const handleFileInputChange = e => {
     const file = e.target.files[0];
 

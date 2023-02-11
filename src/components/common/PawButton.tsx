@@ -37,14 +37,15 @@ export default function PawButton() {
           createConfetti(elem);
         }
         setTimeout(() => {
+          console.log('hello');
           elem.classList.add('confetti');
           setTimeout(() => {
             elem.classList.add('liked');
             elem.children[1].textContent = parseInt(number) + 1;
-          }, 400);
+          }, 200);
           setTimeout(() => {
             elem.querySelectorAll('i').forEach(i => i.remove());
-          }, 600);
+          }, 200);
         }, 260);
       } else {
         elem.classList.remove('animation', 'liked', 'confetti');
@@ -56,7 +57,7 @@ export default function PawButton() {
 
   const debounced = useDebouncedCallback(e => {
     a(e);
-  }, 300);
+  }, 400);
 
   return (
     <>

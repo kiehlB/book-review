@@ -38,8 +38,6 @@ function Tap({}: TapProps) {
   const body = useSelector((state: RootState) => state.book.body);
   const postId = useSelector((state: RootState) => state.book.postId);
 
-  // const { book } = useSelector((state: RootState) => state.book);
-
   const { posts } = useCreateSavePost();
 
   const findPost = posts?.filter(e => e.id == postId);
@@ -125,7 +123,6 @@ function Tap({}: TapProps) {
     return null;
   }
 
-  console.log('탭');
   return (
     <>
       <ProjectCreateContentToolbar editor={editor}>

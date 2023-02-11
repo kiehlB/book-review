@@ -42,9 +42,9 @@ function PublishCoreButton({ fileInputState, isPrivate, book }: PublishCoreButto
       <Button
         size="medium"
         className="text-[#191919] font-bold border bg-[#FCd545] rounded border-[#FCd545]  shadow-sm"
-        onClick={e =>
-          handleSubmit(e, title, body, tags, fileInputState, isPrivate, book)
-        }>
+        onClick={e => {
+          handleSubmit(e, title, body, tags, fileInputState, isPrivate, book);
+        }}>
         작성 완료
       </Button>
     </div>

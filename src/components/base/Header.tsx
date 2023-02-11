@@ -3,18 +3,18 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { CiDark } from 'react-icons/ci';
 import { CiLight } from 'react-icons/ci';
 import clsx from 'clsx';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ModalContext from '../../context/modalContext';
 import useWhoAmI from '../auth/hooks/useWhoami';
 import Link from 'next/link';
 import useLogout from '../auth/hooks/useLogout';
 import { myFont } from '../../font/font';
 import { useDispatch, useSelector } from 'react-redux';
-import { getcoreInfoSuccess } from '../../store/core';
+import { getcoreInfoSuccess, getSearchInput } from '../../store/core';
 import { RootState } from '../../store/rootReducer';
 import styled from 'styled-components';
 import Sidebar from '../side/Sidebar';
-import MenuIcon from '../../../menu-icon';
+import { useRouter } from 'next/router';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -50,12 +50,19 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 }
 
 function Header() {
+  const [input, setInput] = useState('');
+  const router = useRouter();
   const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBookIsClose } =
     useContext(ModalContext);
   const { isdark } = useSelector((state: RootState) => state.core);
-
+  const dispatch = useDispatch();
   const { auth } = useWhoAmI();
   const { handleSubmitLogout } = useLogout();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    router.push('search/' + input);
+  };
 
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
@@ -65,7 +72,7 @@ function Header() {
           <div className="mds:hidden mr-3">
             <Sidebar />
           </div>
-          <Link href="/" className="mxs:text-lg mxs:hidden">
+          <Link key="트렌딩" href="/home" className="mxs:text-lg mxs:hidden">
             BookReview
           </Link>
           <Link href="/" className="mxs:text-lg sm:hidden">
@@ -74,17 +81,24 @@ function Header() {
         </div>
       </h1>
 
-      <div className="col-span-6 mxl:col-span-5 mmx:hidden">
+      <form
+        onSubmit={e => {
+          dispatch(getSearchInput(input));
+          handleSubmit(e);
+        }}
+        className="col-span-6 mxl:col-span-5 mmx:hidden">
         <div className="relative">
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7] ">
             <IoSearchOutline />
           </div>
           <HeaderInput
+            value={input}
+            onChange={e => setInput(e.target.value)}
             isDark={isdark}
             className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7]"
           />
         </div>
-      </div>
+      </form>
 
       <div className="flex col-span-2 ml-auto items-center justify-end mxl:col-span-3 w-full mmx:col-span-8">
         <div className="pr-6  mxs:hidden">

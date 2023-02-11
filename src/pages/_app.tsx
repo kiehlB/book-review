@@ -18,7 +18,7 @@ import { BooksContextProvider } from '../context/booksContext';
 export const persistor = persistStore(store);
 
 export default function App({ Component, pageProps, router }: AppProps) {
-  const url = `http://localhost:3000/${router.route}`;
+  // const url = `http://localhost:3000/${router.route}`;
 
   const apolloClient = useApollo(pageProps);
 
@@ -28,15 +28,13 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <BooksContextProvider>
           <ModalContextProvider>
             <ApolloProvider client={apolloClient}>
-              <NextUIProvider>
-                <AnimatePresence
-                  mode="wait"
-                  initial={false}
-                  onExitComplete={() => window.scrollTo(0, 0)}>
-                  <Component {...pageProps} canonical={url} key={url} />
-                  <ToastContainer />
-                </AnimatePresence>
-              </NextUIProvider>
+              <AnimatePresence
+                mode="wait"
+                initial={false}
+                onExitComplete={() => window.scrollTo(0, 0)}>
+                <Component {...pageProps} canonical={router.asPath} key={router.asPath} />
+                <ToastContainer />
+              </AnimatePresence>
             </ApolloProvider>
           </ModalContextProvider>
         </BooksContextProvider>
