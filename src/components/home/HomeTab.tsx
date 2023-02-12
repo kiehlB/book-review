@@ -19,7 +19,7 @@ export const isActiveLink = (href: string, currentPathname: string): boolean => 
 const links: { name: any; href: string }[] = [
   {
     name: '트렌딩',
-    href: '/home',
+    href: '/',
   },
   {
     name: '최신',

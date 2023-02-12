@@ -28,13 +28,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <BooksContextProvider>
           <ModalContextProvider>
             <ApolloProvider client={apolloClient}>
-              <AnimatePresence
-                mode="wait"
-                initial={false}
-                onExitComplete={() => window.scrollTo(0, 0)}>
-                <Component {...pageProps} canonical={router.asPath} key={router.asPath} />
-                <ToastContainer />
-              </AnimatePresence>
+              <Component {...pageProps} canonical={router.asPath} key={router.asPath} />
+              <ToastContainer />
             </ApolloProvider>
           </ModalContextProvider>
         </BooksContextProvider>

@@ -72,7 +72,7 @@ function Header() {
           <div className="mds:hidden mr-3">
             <Sidebar />
           </div>
-          <Link key="트렌딩" href="/home" className="mxs:text-lg mxs:hidden">
+          <Link href="/" className="mxs:text-lg mxs:hidden">
             BookReview
           </Link>
           <Link href="/" className="mxs:text-lg sm:hidden">

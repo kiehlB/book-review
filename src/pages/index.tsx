@@ -44,7 +44,7 @@ export default function Home({ post }) {
                 {
                   icon: <RiBookOpenLine />,
                   text: '포스트',
-                  to: '/home',
+                  to: '/',
                 },
                 {
                   icon: <RiDashboard3Line />,
