@@ -1,13 +1,15 @@
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useEffect, useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useDebouncedCallback } from 'use-debounce';
 import {
   Create_Post,
   Edit_Post,
   GET_Posts,
   Remove_Post,
 } from '../../../lib/graphql/posts';
+import { getPostId } from '../../../store/book';
 
 export default function useCreateSavePost() {
   const { auth } = useSelector((state: any) => state.auth);
@@ -15,6 +17,7 @@ export default function useCreateSavePost() {
   const [removePost] = useMutation(Remove_Post);
   const [editPost] = useMutation(Edit_Post, {});
   const client = useApolloClient();
+  const dispatch = useDispatch();
 
   const { data, loading, fetchMore } = useQuery(GET_Posts, {
     variables: {
@@ -27,7 +30,7 @@ export default function useCreateSavePost() {
 
   const posts = data?.posts;
 
-  const onConfirmSave = async (id, title, body, tags = [], book) => {
+  const ConfirmSave = async (id, title, body, tags = [], book) => {
     if (!title) {
       toast.error('제목 또는 내용이 비어있습니다.');
       return;
@@ -50,6 +53,9 @@ export default function useCreateSavePost() {
           },
 
           update: async (proxy, { data: createPost }) => {
+            console.log(createPost?.createPost.id);
+            dispatch(getPostId(createPost?.createPost.id));
+
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
@@ -128,6 +134,8 @@ export default function useCreateSavePost() {
       toast.error('포스트 삭제 실패');
     }
   };
+
+  const onConfirmSave = useDebouncedCallback(ConfirmSave, 200);
 
   return {
     onConfirmRemove,

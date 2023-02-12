@@ -90,8 +90,11 @@ function Tap({}: TapProps) {
       body?.length > 9
         ? body
         : `
+         <div>
     <toc></toc> 
+    </div>
      반갑습니다
+ 
   `,
   });
 
@@ -125,12 +128,12 @@ function Tap({}: TapProps) {
 
   return (
     <>
-      <ProjectCreateContentToolbar editor={editor}>
+      <ProjectCreateContentToolbar editor={editor} isdark={isdark}>
         <ImageAdd addImage={addImage} />
       </ProjectCreateContentToolbar>
       <Content
         className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]"
-        isDark={isdark}>
+        isdark={isdark}>
         <EditorContent editor={editor} className="" />
       </Content>
     </>
@@ -143,7 +146,6 @@ const Content = styled.div<{ isdark: string }>`
   .ProseMirror {
     > * + * {
       line-height: 1.5;
-      color: #212529;
       padding: 0 0.5rem;
       margin-top: 1rem;
     }
@@ -193,6 +195,9 @@ const Content = styled.div<{ isdark: string }>`
       background-color: rgba(#616161, 0.1);
       color: #616161;
     }
+    div {
+      color: ${props => (props.isdark == 'dark' ? '#ffff' : '#212529')};
+    }
 
     pre {
       background: #0d0d0d;
@@ -224,6 +229,6 @@ const Content = styled.div<{ isdark: string }>`
   p {
     font-size: 1.125rem;
     line-height: 1.5;
-    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    color: ${props => (props.isdark == 'dark' ? '#ffff' : '#212529')};
   }
 `;

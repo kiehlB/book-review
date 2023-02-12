@@ -225,7 +225,7 @@ function BackLink({
       <motion.span
         variants={shouldReduceMotion ? {} : arrowVariants.left}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
-        <ArrowIcon direction="left" />
+        <ArrowIcon direction="left" className="dark:text-white" />
       </motion.span>
       <H6 as="span">{children}</H6>
     </MotionLink>

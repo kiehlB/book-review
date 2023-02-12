@@ -3,12 +3,25 @@ import { Editor } from '@tiptap/react';
 import ToggleButton from '@mui/material/ToggleButton';
 import { Typography } from '@mui/material';
 import StyledToggleButtonGroup from './StyledToggleButtonGroup';
+import { styled } from '@mui/material/styles';
+
+const ToggleButton2 = styled(ToggleButton)({
+  '&.Mui-selected, &.Mui-selected:hover': {
+    color: 'white',
+    backgroundColor: '#00ff00',
+  },
+});
 
 export default function HeadingToolbarButtons({ editor }: { editor: Editor }) {
   return (
-    <StyledToggleButtonGroup size="small" exclusive aria-label="text alignment">
+    <StyledToggleButtonGroup
+      size="small"
+      exclusive
+      aria-label="text alignment"
+      color="primary">
       <ToggleButton
         value="h1"
+        className="text-white"
         aria-label="H1 Text"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         selected={editor.isActive('heading', { level: 1 })}>

@@ -301,7 +301,7 @@ const BookTalble = ({}) => {
               <ArrowLink
                 href={book?.title ? '/write' : ''}
                 direction="right"
-                className="font-semibold dark:text-[#e4e5e7]"
+                className=""
                 textSize="small">
                 다음
               </ArrowLink>

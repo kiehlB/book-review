@@ -14,26 +14,51 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from '../store/store';
 import { BooksContextProvider } from '../context/booksContext';
+import Head from 'next/head';
+import Script from 'next/script';
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 
 export const persistor = persistStore(store);
 
-export default function App({ Component, pageProps, router }: AppProps) {
-  // const url = `http://localhost:3000/${router.route}`;
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#D3D3D3',
+    },
+    secondary: {
+      main: '#0000008a',
+    },
+  },
+});
 
+export default function App({ Component, pageProps, router }: AppProps) {
   const apolloClient = useApollo(pageProps);
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BooksContextProvider>
-          <ModalContextProvider>
-            <ApolloProvider client={apolloClient}>
-              <Component {...pageProps} canonical={router.asPath} key={router.asPath} />
-              <ToastContainer />
-            </ApolloProvider>
-          </ModalContextProvider>
-        </BooksContextProvider>
-      </PersistGate>
-    </Provider>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Script src="/theme.js" strategy="beforeInteractive" />
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <BooksContextProvider>
+              <ModalContextProvider>
+                <ApolloProvider client={apolloClient}>
+                  <Component
+                    {...pageProps}
+                    canonical={router.asPath}
+                    key={router.asPath}
+                  />
+                  <ToastContainer />
+                </ApolloProvider>
+              </ModalContextProvider>
+            </BooksContextProvider>
+          </PersistGate>
+        </Provider>
+      </ThemeProvider>
+    </>
   );
 }

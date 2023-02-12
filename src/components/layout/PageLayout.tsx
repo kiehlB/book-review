@@ -14,17 +14,9 @@ interface PageLayoutProps {
 
 function PageLayout({ children }: PageLayoutProps) {
   const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
-  const { isdark } = useSelector((state: RootState) => state.core);
-
-  React.useEffect(() => {
-    const root = window.document.documentElement;
-
-    root.classList.remove(isdark == 'dark' ? 'light' : 'dark');
-    root.classList.add(isdark);
-  }, [isdark]);
 
   return (
-    <div className="px-[1rem] dark:bg-[#1a1b1e] h-full mxs:px-3">
+    <div className="px-[1rem] h-full mxs:px-3">
       <AuthContainer />
       <BookModal visible={BookIsClose} onClose={SetBookIsClose} className="">
         <BookTalble />

@@ -24,7 +24,7 @@ function WriteHead({}: TapProps) {
         <input
           name="title"
           placeholder="제목을 입력하세요"
-          className="w-full"
+          className="w-full dark:bg-[#1a1b1e] focus:outline-none"
           value={title}
           onChange={handleChange}
         />

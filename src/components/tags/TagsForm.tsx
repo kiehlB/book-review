@@ -113,6 +113,7 @@ function TagsForm(props: TagsFormProps) {
           tabIndex={2}
           onKeyDown={onKeyDown}
           onChange={onChangeInput}
+          className="dark:bg-[#1a1b1e] dark:text-white"
           value={value}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}

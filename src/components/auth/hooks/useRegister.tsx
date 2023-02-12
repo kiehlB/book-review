@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { initAuth } from '../../../store/auth';
 import { inputProps } from '../AuthForm';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function useRegister() {
   const router = useRouter();
@@ -81,7 +82,7 @@ export default function useRegister() {
     },
   });
 
-  const handleSubmit = async e => {
+  const Submit = async e => {
     e.preventDefault();
 
     signUp({
@@ -91,6 +92,8 @@ export default function useRegister() {
       },
     });
   };
+
+  const handleSubmit = useDebouncedCallback(Submit, 200);
 
   return {
     username: inputs.username,

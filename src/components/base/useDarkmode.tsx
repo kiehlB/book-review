@@ -1,16 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/rootReducer';
 
 export default function useDarkMode() {
-  const dispatch = useDispatch();
-  const { isdark } = useSelector((state: RootState) => state.core);
+  const [theme, setTheme]: any = useState(localStorage.getItem('theme'));
 
-  // const [theme, setTheme]: any = useState(
-  //   typeof window !== 'undefined' ? localStorage.getItem('theme') : null,
-  // );
-
-  // const colorTheme = theme === 'dark' ? 'light' : 'dark';
+  const colorTheme = theme === 'dark' ? 'light' : 'dark';
 
   // useEffect(() => {
   //   const root = window.document.documentElement;
@@ -20,5 +13,5 @@ export default function useDarkMode() {
   //   localStorage.setItem('theme', theme);
   // }, [theme, colorTheme]);
 
-  return [isdark];
+  return [colorTheme, setTheme];
 }

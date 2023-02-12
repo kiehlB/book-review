@@ -16,7 +16,7 @@ function TapSide({}: TapProps) {
     <>
       <div className="py-4 mx-2">
         <div className="relative mr-2">
-          <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7]">
+          <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
             <IoSearchOutline />
           </div>
           <input

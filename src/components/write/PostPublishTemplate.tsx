@@ -39,6 +39,8 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
   const [isPrivate, setIsPrivate] = useState(false);
   const book = useSelector((state: RootState) => state?.book.book);
 
+  console.log(isPrivate);
+
   const handleFileInputChange = e => {
     const file = e.target.files[0];
 
@@ -150,12 +152,12 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                   </div>
                   <div className="outline-none flex">
                     <div
-                      onClick={onClickPrivate}
+                      onClick={onClickPublic}
                       className={clsx(
                         'w-full flex-1 h-[3rem] outline-none border inline-flex justify-start bg-[#fff] font-bold items-center p-0 rounded shadow-sm pl-[1rem]',
                         {
                           'border-[#FCd545] text-[#191919] bg-[#FCd545] border':
-                            isPrivate == true,
+                            isPrivate == false,
                         },
                       )}>
                       <HiOutlineLockOpen size={24} />
@@ -165,12 +167,12 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                     </div>
 
                     <div
-                      onClick={onClickPublic}
+                      onClick={onClickPrivate}
                       className={clsx(
                         'w-full outline-none flex-1 h-[3rem] border inline-flex justify-start font-bold ml-[1rem]  bg-[#fff] items-center p-0 rounded shadow-sm pl-[1rem]',
                         {
                           'border-[#FCd545] text-[#191919] border bg-[#FCd545]':
-                            isPrivate == false,
+                            isPrivate == true,
                         },
                       )}>
                       <HiOutlineLockClosed size={24} />

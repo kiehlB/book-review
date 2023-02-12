@@ -14,11 +14,11 @@ export type TapProps = {};
 function WriteTemplate({}: TapProps) {
   return (
     <PageGrid as="main">
-      <MainNav className="col-span-2 sticky top-0 h-[100vh] min-h-[0] overflow-hidden border-r">
+      <MainNav className="col-span-2 sticky top-0 h-[100vh] min-h-[0] overflow-hidden border-r mxl:hidden">
         <div className="flex px-4 py-4 border-b items-center justify-center h-[4.6875rem]">
           <div className="flex item py-2 px-4">
             <BackLink href="/">
-              <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3">
+              <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3 dark:text-[#D3D3D3]">
                 BookReview
               </div>
             </BackLink>

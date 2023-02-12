@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client';
 import { useInput } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import useForms from '../../../hooks/useForm';
 import { loginMutation, registerMutation } from '../../../lib/graphql/users';
 import { inputProps } from '../AuthForm';
@@ -60,7 +61,7 @@ export default function useLogin() {
     },
   });
 
-  const handleSubmit = async e => {
+  const Submit = async e => {
     e.preventDefault();
     signIn({
       variables: {
@@ -69,6 +70,8 @@ export default function useLogin() {
       },
     });
   };
+
+  const handleSubmit = useDebouncedCallback(Submit, 200);
 
   return {
     username: inputs.username,

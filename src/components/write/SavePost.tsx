@@ -20,7 +20,7 @@ function SavePost({ value }: TapProps) {
       <div
         className="text-[#64748b] text-base font-bold flex items-center justify-between px-4"
         onClick={() => setIsCollapse(!isCollapse)}>
-        <div> 임시 저장 글 ({isFilterData?.length})</div>
+        <div className="dark:text-[#D3D3D3]"> 임시 저장 글 ({isFilterData?.length})</div>
         <div>{isCollapse ? <MdExpandMore size={20} /> : <MdChevronLeft size={20} />}</div>
       </div>
       <Collapse isOpened={isCollapse}>

@@ -33,9 +33,11 @@ import ImageAdd from './ImageAdd';
 const ProjectCreateContentToolbar = ({
   editor,
   children,
+  isdark,
 }: {
   editor: Editor;
   children?: React.ReactNode;
+  isdark: string;
 }) => {
   if (!editor) {
     return null;
@@ -52,6 +54,7 @@ const ProjectCreateContentToolbar = ({
           margin: '0 16px',
           position: 'sticky',
           top: 0,
+          background: isdark == 'dark' ? '#2b2d31' : '',
           width: 'calc(100% - 2rem);',
         }}>
         <StyledToggleButtonGroup
@@ -64,7 +67,9 @@ const ProjectCreateContentToolbar = ({
             selected={editor.isActive({ textAlign: 'center' })}
             value="center"
             aria-label="Center aligned">
-            <FormatAlignCenterIcon />
+            <FormatAlignCenterIcon
+              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
+            />
           </ToggleButton>
 
           <ToggleButton

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
@@ -8,18 +8,13 @@ import HomeTab from '../components/home/HomeTab';
 import { PageLayout } from '../components/layout/PageLayout';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
-import useGetPosts from '../components/post/hooks/useGetPosts';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
-import { GetServerSideProps } from 'next';
-import { initializeApollo } from '../lib/apolloClient';
-import { GET_recentPosts } from '../lib/graphql/posts';
-import { motion, useReducedMotion } from 'framer-motion';
+import useGetPosts from '../components/post/hooks/useGetPosts';
+import { useDebounce, useDebouncedCallback } from 'use-debounce';
 
-export default function Home({ post }) {
-  // const { data, loading } = useGetPosts();
-
-  // console.log(data);
+export default function Home() {
+  const { data, loading } = useGetPosts();
 
   return (
     <>
@@ -76,25 +71,13 @@ export default function Home({ post }) {
             second={
               <Second>
                 <PostGrid className="mt-[1rem]">
-                  <PostCard posts={post || []} loading={false} />
+                  <PostCard posts={data?.recentPosts || []} loading={!data || loading} />
                 </PostGrid>
               </Second>
             }
           />
         </PageGrid>
       </PageLayout>
-      <style global jsx>{``}</style>
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { id } = context.query;
-  const apolloClient = initializeApollo();
-  const postData = await apolloClient.query({
-    query: GET_recentPosts,
-    variables: { limit: 24 },
-  });
-
-  return { props: { post: postData?.data.recentPosts } };
-};

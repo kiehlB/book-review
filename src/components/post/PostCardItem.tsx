@@ -17,7 +17,7 @@ function PostCardItem({ post }: GridProps) {
   return (
     <Link
       href={`/post/${post.id}`}
-      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12">
+      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full">
       <div className="flex flex-1 flex-col h-full justify-between">
         {post?.thumbnail ? (
           <RatioImage
