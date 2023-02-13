@@ -1,5 +1,7 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { mergeAttributes } from '@tiptap/core';
+
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
@@ -7,6 +9,7 @@ import Highlight from '@tiptap/extension-highlight';
 import TypographyExtension from '@tiptap/extension-typography';
 import UnderlineExtension from '@tiptap/extension-underline';
 import Document from '@tiptap/extension-document';
+import Blockquote from '@tiptap/extension-blockquote';
 import Paragraph from '@tiptap/extension-paragraph';
 import BulletList from '@tiptap/extension-bullet-list';
 import ListItem from '@tiptap/extension-list-item';
@@ -17,10 +20,12 @@ import Code from '@tiptap/extension-code';
 import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import Focus from '@tiptap/extension-focus';
+import TextStyle from '@tiptap/extension-text-style';
 import { ColorHighlighter } from './ColourHighlighter';
 import { Color } from '@tiptap/extension-color';
 import UniqueID from './UniqueID';
 import TableOfContents from './TableOfContents';
+import Heading from '@tiptap/extension-heading';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
@@ -28,9 +33,18 @@ import Image from '@tiptap/extension-image';
 import { getPostBody, getPostTitle, getPostTags } from '../../store/book';
 import useCreateSavePost from './hooks/usecreateSavePost';
 import ProjectCreateContentToolbar from './Toolbar';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import ImageAdd from './ImageAdd';
 
 export type TapProps = {};
+
+type Levels = 1 | 2 | 3;
+
+const classes: Record<Levels, string> = {
+  1: 'text-4xl',
+  2: 'text-3xl',
+  3: 'text-2xl',
+};
 
 function Tap({}: TapProps) {
   const dispatch = useDispatch();
@@ -56,18 +70,56 @@ function Tap({}: TapProps) {
       Image,
       Highlight,
       TypographyExtension,
-      UnderlineExtension,
       Document,
-      Paragraph,
       Text,
       Code,
-      BulletList,
       OrderedList,
       ListItem,
+      TextStyle,
       Link,
+      BulletList.configure({
+        HTMLAttributes: {
+          class: 'list-disc',
+        },
+      }),
+      HorizontalRule.configure({
+        HTMLAttributes: {
+          class: 'hor',
+        },
+      }),
+      Blockquote.configure({
+        HTMLAttributes: {
+          class: 'quote',
+        },
+      }),
+      UnderlineExtension.configure({
+        HTMLAttributes: {
+          class: 'underlinetag',
+        },
+      }),
       Image.configure({
         allowBase64: true,
       }),
+      Paragraph.configure({
+        HTMLAttributes: {
+          class: 'ptag',
+        },
+      }),
+      Heading.configure({ levels: [1, 2, 3] }).extend({
+        renderHTML({ node, HTMLAttributes }) {
+          const hasLevel = this.options.levels.includes(node.attrs.level);
+          const level: Levels = hasLevel ? node.attrs.level : this.options.levels[0];
+
+          return [
+            `h${level}`,
+            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+              class: `${classes[level]} leading-normal`,
+            }),
+            0,
+          ];
+        },
+      }),
+
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
@@ -113,14 +165,14 @@ function Tap({}: TapProps) {
     dispatch(getPostBody(getContent));
   }, [getContent]);
 
-  useEffect(() => {
-    if (findPost) {
-      dispatch(getPostTitle(findPost[0]?.title));
-      dispatch(getPostBody(findPost[0]?.body));
-      dispatch(getPostTags(findPost[0]?.tags));
-      editor?.commands?.setContent(findPost[0]?.body);
-    }
-  }, [postId]);
+  // useEffect(() => {
+  //   if (findPost) {
+  //     dispatch(getPostTitle(findPost[0]?.title));
+  //     dispatch(getPostBody(findPost[0]?.body));
+  //     dispatch(getPostTags(findPost[0]?.tags));
+  //     editor?.commands?.setContent(findPost[0]?.body);
+  //   }
+  // }, [postId]);
 
   if (!editor) {
     return null;
@@ -131,6 +183,7 @@ function Tap({}: TapProps) {
       <ProjectCreateContentToolbar editor={editor} isdark={isdark}>
         <ImageAdd addImage={addImage} />
       </ProjectCreateContentToolbar>
+
       <Content
         className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]"
         isdark={isdark}>
@@ -146,8 +199,8 @@ const Content = styled.div<{ isdark: string }>`
   .ProseMirror {
     > * + * {
       line-height: 1.5;
-      padding: 0 0.5rem;
       margin-top: 1rem;
+      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
     }
     img {
       height: 100%;
@@ -162,6 +215,7 @@ const Content = styled.div<{ isdark: string }>`
     h1 {
       font-size: 2.5rem;
       line-height: 1.5;
+      font-weight: 700;
     }
 
     h2 {
@@ -196,7 +250,11 @@ const Content = styled.div<{ isdark: string }>`
       color: #616161;
     }
     div {
-      color: ${props => (props.isdark == 'dark' ? '#ffff' : '#212529')};
+      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      background: ${props => (props.isdark == 'dark' ? '#283139' : '')};
+      .toc__list::before {
+        color: ${props => (props.isdark == 'dark' ? 'white' : '')};
+      }
     }
 
     pre {
@@ -214,21 +272,30 @@ const Content = styled.div<{ isdark: string }>`
       }
     }
 
-    blockquote {
-      padding-left: 1rem;
-      border-left: 2px solid rgba(#0d0d0d, 0.1);
-    }
-
     hr {
-      border: none;
       border-top: 2px solid rgba(#0d0d0d, 0.1);
-      margin: 2rem 0;
+      margin: 1.5rem 0;
     }
   }
 
   p {
     font-size: 1.125rem;
     line-height: 1.5;
-    color: ${props => (props.isdark == 'dark' ? '#ffff' : '#212529')};
+    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+  }
+
+  u {
+    text-decoration: none;
+
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+      linear-gradient(to right, #e9756b, #e9756b, #e9756b);
+    background-size: 100% 0.1em, 30% 0.1em;
+    background-position: 100% 100%, 0 100%;
+
+    background-repeat: no-repeat;
+    transition: background-size 600ms;
+    &:hover {
+      background-size: 100% 0.1em, 100% 0.1em;
+    }
   }
 `;

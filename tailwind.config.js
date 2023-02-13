@@ -33,6 +33,7 @@ module.exports = {
       mmd: { max: '1279px' },
       mmx: { max: '1023px' },
       mxs: { max: '767px' },
+      ssm: { max: '374px' },
     },
   },
   corePlugins: {

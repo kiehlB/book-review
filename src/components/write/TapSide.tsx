@@ -17,7 +17,7 @@ function TapSide({}: TapProps) {
       <div className="py-4 mx-2">
         <div className="relative mr-2">
           <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)]">
-            <IoSearchOutline />
+            <IoSearchOutline className="dark:text-[#D3D3D3]" />
           </div>
           <input
             placeholder="임시 포스트를 검색해보세요"

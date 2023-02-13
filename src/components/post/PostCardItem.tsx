@@ -14,6 +14,8 @@ export type PostCardSkeletonProps = {
 };
 
 function PostCardItem({ post }: GridProps) {
+  const body = post?.body.replace(/<[^>]+>/g, ' ');
+
   return (
     <Link
       href={`/post/${post.id}`}
@@ -45,7 +47,8 @@ function PostCardItem({ post }: GridProps) {
           </WithoutPostTitle>
 
           <WithoutPostBody className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
-            <div dangerouslySetInnerHTML={{ __html: post?.body }} />
+            {/* <div className="text-base" dangerouslySetInnerHTML={{ __html: post?.body }} /> */}
+            <div>{body}</div>
           </WithoutPostBody>
         </div>
 

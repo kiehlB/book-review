@@ -29,6 +29,15 @@ import { Typography, Divider } from '@mui/material';
 import StyledToggleButtonGroup from './StyledToggleButtonGroup';
 import HeadingToolbarButtons from './HeadingToolbarButtons';
 import ImageAdd from './ImageAdd';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import styled from 'styled-components';
+import { Tooltip, IconButton, EditIcon, Position } from 'evergreen-ui';
+
+{
+  /* <button onClick={() => editor.chain().focus().unsetColor().run()}>
+unsetColor
+</button> */
+}
 
 const ProjectCreateContentToolbar = ({
   editor,
@@ -46,9 +55,10 @@ const ProjectCreateContentToolbar = ({
   return (
     <>
       <Paper
-        className="flex flex-wrap w-full mxl:overflow-x-scroll"
+        className="flex flex-wrap w-full mxl:overflow-x-scroll items-center"
         sx={{
           display: 'flex',
+          alignItems: 'center',
           border: theme => `1px solid ${theme.palette.divider}`,
           flexWrap: 'wrap',
           margin: '0 16px',
@@ -57,12 +67,33 @@ const ProjectCreateContentToolbar = ({
           background: isdark == 'dark' ? '#2b2d31' : '',
           width: 'calc(100% - 2rem);',
         }}>
+        <div className="ml-2 mr-1">
+          <SetColor
+            type="color"
+            className="border-none bg-none"
+            onInput={(event: any) =>
+              editor.chain().focus().setColor(event.target.value).run()
+            }
+            value={editor.getAttributes('textStyle').color}
+          />
+        </div>
+
         <StyledToggleButtonGroup
           size="small"
           exclusive
           aria-label="vertical outlined primary button group">
-          <HeadingToolbarButtons editor={editor} />
-          <ToggleButton
+          <Tooltip content="색깔을 초기화 시킵니다" position={Position.TOP}>
+            <ToggleButton
+              onClick={() => editor.chain().focus().unsetColor().run()}
+              value="unset color"
+              aria-label="unset color">
+              <RestartAltIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
+            </ToggleButton>
+          </Tooltip>
+
+          <HeadingToolbarButtons editor={editor} isdark={isdark} />
+
+          {/* <ToggleButton
             onClick={() => editor.chain().focus().setTextAlign('center').run()}
             selected={editor.isActive({ textAlign: 'center' })}
             value="center"
@@ -70,14 +101,14 @@ const ProjectCreateContentToolbar = ({
             <FormatAlignCenterIcon
               color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
             />
-          </ToggleButton>
+          </ToggleButton> */}
 
           <ToggleButton
             onClick={() => editor.chain().focus().toggleBold().run()}
             selected={editor.isActive('bold')}
             value="bold"
             aria-label="bold">
-            <FormatBoldIcon />
+            <FormatBoldIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
 
           <ToggleButton
@@ -85,21 +116,23 @@ const ProjectCreateContentToolbar = ({
             value="italic"
             aria-label="italic"
             selected={editor.isActive('italic')}>
-            <FormatItalicIcon />
+            <FormatItalicIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().toggleStrike().run()}
             value="strike"
             aria-label="strike"
             selected={editor.isActive('strike')}>
-            <FormatStrikethroughIcon />
+            <FormatStrikethroughIcon
+              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
+            />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().toggleCode().run()}
             value="code"
             aria-label="code"
             selected={editor.isActive('code')}>
-            <CodeIcon />
+            <CodeIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
 
           <ToggleButton
@@ -107,35 +140,39 @@ const ProjectCreateContentToolbar = ({
             value="highlight"
             aria-label="highlight"
             selected={editor.isActive('highlight')}>
-            <BorderColorIcon />
+            <BorderColorIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             value="blockQuote"
             aria-label="blockQuote"
             selected={editor.isActive('blockQuote')}>
-            <FormatQuoteIcon />
+            <FormatQuoteIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().setHorizontalRule().run()}
             selected={editor.isActive('HorizontalRule')}
             value="HorizontalRule"
             aria-label="HorizontalRule">
-            <HorizontalRuleIcon />
+            <HorizontalRuleIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().setParagraph().run()}
             selected={editor.isActive('paragraph')}
             value="paragraph"
             aria-label="paragraph">
-            <FormatTextdirectionRToLIcon />
+            <FormatTextdirectionRToLIcon
+              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
+            />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().toggleUnderline().run()}
             selected={editor.isActive('underline')}
             value="underline"
             aria-label="underline">
-            <FormatUnderlinedIcon />
+            <FormatUnderlinedIcon
+              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
+            />
           </ToggleButton>
 
           <div className="border-2 flex items-center px-[1px]">{children}</div>
@@ -163,21 +200,25 @@ const ProjectCreateContentToolbar = ({
             selected={editor.isActive('link')}
             value="link"
             aria-label="link">
-            <LinkIcon />
+            <LinkIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             value="bullettList"
             aria-label="bullettList"
             selected={editor.isActive('bulletList')}>
-            <FormatListBulletedIcon />
+            <FormatListBulletedIcon
+              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
+            />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             value="orderedList"
             aria-label="orderedList"
             selected={editor.isActive('orderedList')}>
-            <FormatListNumberedIcon />
+            <FormatListNumberedIcon
+              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
+            />
           </ToggleButton>
 
           <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
@@ -186,13 +227,13 @@ const ProjectCreateContentToolbar = ({
             onClick={() => editor.chain().focus().undo().run()}
             value="undo"
             aria-label="undo">
-            <UndoIcon />
+            <UndoIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
           <ToggleButton
             onClick={() => editor.chain().focus().redo().run()}
             value="redo"
             aria-label="redo">
-            <RedoIcon />
+            <RedoIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
         </StyledToggleButtonGroup>
       </Paper>
@@ -201,3 +242,5 @@ const ProjectCreateContentToolbar = ({
 };
 
 export default ProjectCreateContentToolbar;
+
+const SetColor = styled.input``;

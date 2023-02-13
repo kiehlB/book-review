@@ -107,7 +107,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   // dark:text-[#41ec8b] dark:bg-[#042f14]
   return (
     <>
-      <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem]">
+      <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem] ssm:px-[1rem]">
         <div className="flex items-center">
           <LabelInput
             name="username"

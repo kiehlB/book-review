@@ -2741,10 +2741,10 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code/-/extension-code-2.0.0-beta.209.tgz#dda857528043c5aa4c451bb9f63731aa809182cb"
   integrity sha512-LCcfQMroYps6o9ASpVZqYbbdTkSwxTokjmkkKKmWZlZSJ/h+1kThOnRZgcPkfSeaaC30T+LSxAXXyf1dMgl5+Q==
 
-"@tiptap/extension-color@^2.0.0-beta.209":
-  version "2.0.0-beta.209"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-color/-/extension-color-2.0.0-beta.209.tgz#9db791f50a2919e68a88b1ff6be236c35c46d570"
-  integrity sha512-AJfVaudk7acdgHrmz0xYVufh+W7x5oaekb6WN49WIyi0+4/BVmIJMdSl38fYE8ZWezmTn33+9pTUFmy7cL9CZA==
+"@tiptap/extension-color@^2.0.0-beta.217":
+  version "2.0.0-beta.217"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-color/-/extension-color-2.0.0-beta.217.tgz#714c6e8c0a584186c967233cce91228fd267b776"
+  integrity sha512-ExpdPhzUR90tXxquEOOvMZ/Il7IGTQazsE2c2yk7py3Aaut9Uppw/3rF09h1WMiH3rQf/ADUOOUgyO1aOTzUJQ==
 
 "@tiptap/extension-document@^2.0.0-beta.209":
   version "2.0.0-beta.209"
@@ -2865,10 +2865,10 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-text-align/-/extension-text-align-2.0.0-beta.209.tgz#e89310c596ab0a8b6f1d531c11a613d5f82fe038"
   integrity sha512-PbCYNkhxi0oR1N6PgRnG8JoaSJXOvgF8gpEW1RzG8VJNCJPLrhR9/pryHfkszD55XGc4o1F5L+CryRsBJeqsIw==
 
-"@tiptap/extension-text-style@^2.0.0-beta.209":
-  version "2.0.0-beta.209"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-text-style/-/extension-text-style-2.0.0-beta.209.tgz#b2342ef96adab3932f706dd48f80034183d8c603"
-  integrity sha512-KNIkY0/Cbun1UOCa+gVM6+0Fa6Nsugd7jy8+GfWnrshElxBZyrHgxvtjMMLTwT8P/lReN/8kwJUPFAlX8BqhFw==
+"@tiptap/extension-text-style@^2.0.0-beta.217":
+  version "2.0.0-beta.217"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-text-style/-/extension-text-style-2.0.0-beta.217.tgz#f7e8db5411d350d683fcaf06077d2ebd85879abd"
+  integrity sha512-I0uEhQ62YALZRxaXa70G0QlMjwUakD5+rQwKiNa2d8u8XaIgKQSLRclI57+l3NDIX22bTJbYnGA7dtvX4YtP2Q==
 
 "@tiptap/extension-text@^2.0.0-beta.209":
   version "2.0.0-beta.209"

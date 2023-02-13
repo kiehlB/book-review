@@ -271,7 +271,7 @@ const BookTalble = ({}) => {
               ''
             )}
           </div>
-          <div className="flex items-center">
+          <div className="flex">
             <div
               onClick={() => {
                 dispatch(getPostTitle(''));

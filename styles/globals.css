@@ -11,6 +11,13 @@ font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Goth
 }
  
  
+h1,h2,h3,h4{
+  font-weight: 700;
+  color:#212529;
+  line-height: 1.5;
+}
+ 
+
  
 @layer components {
   .highlight__panel {
@@ -36,6 +43,14 @@ font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Goth
       }
   }
 }
+.css-ueukts-MuiButtonBase-root-MuiToggleButton-root{
+  border:none !important;
+  
+}
+.css-x2fs5v-MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped{
+  margin:4px !important;
+}
+
 
 .ReactCollapse--collapse {
   transition: height 200ms;

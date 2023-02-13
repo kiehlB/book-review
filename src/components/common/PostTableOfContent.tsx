@@ -2,42 +2,29 @@ import { useEffect, useState } from 'react';
 import { useHeadingsData } from '../../hooks/useHeadingsData';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
-const Headings = ({ headings, activeId }) => (
-  <ul>
-    {headings.map(heading => (
-      <li key={heading.id} className={heading.id === activeId ? 'active' : ''}>
-        <a
-          href={`#${heading.id}`}
-          onClick={e => {
-            e.preventDefault();
-            document.querySelector(`#${heading.id}`).scrollIntoView({
-              behavior: 'smooth',
-            });
-          }}>
-          {heading.title}
-        </a>
-        {heading.items.length > 0 && (
-          <ul>
-            {heading.items.map(child => (
-              <li key={child.id} className={child.id === activeId ? 'active' : ''}>
-                <a
-                  href={`#${child.id}`}
-                  onClick={e => {
-                    e.preventDefault();
-                    document.querySelector(`#${child.id}`).scrollIntoView({
-                      behavior: 'smooth',
-                    });
-                  }}>
-                  {child.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </li>
-    ))}
-  </ul>
-);
+const Headings = ({ headings, activeId }) => {
+  return (
+    <ul className="border-l">
+      {headings.map(heading => (
+        <li
+          key={heading.id}
+          className={heading.id === activeId ? 'active' : ''}
+          style={{ marginLeft: heading.level * 12 }}>
+          <a
+            href={`#${heading.id}`}
+            onClick={e => {
+              e.preventDefault();
+              document.querySelector(`#${heading.id}`).scrollIntoView({
+                behavior: 'smooth',
+              });
+            }}>
+            {heading.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const PostTableOfContents = () => {
   const [activeId, setActiveId] = useState();
@@ -45,7 +32,9 @@ const PostTableOfContents = () => {
   useIntersectionObserver(setActiveId);
 
   return (
-    <nav aria-label="Table of contents" className="flex flex-col border-2">
+    <nav
+      aria-label="Table of contents"
+      className="flex flex-col text-[#868E96] max-h-[calc(100vh-128px)] overflow-y-hidden overflow-x-hidden">
       <Headings headings={nestedHeadings} activeId={activeId} />
     </nav>
   );

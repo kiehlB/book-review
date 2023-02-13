@@ -1,11 +1,16 @@
 import { useMutation } from '@apollo/client';
 import { useInput } from '@nextui-org/react';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
+import ModalContext from '../../../context/modalContext';
 import useForms from '../../../hooks/useForm';
 import { loginMutation, registerMutation } from '../../../lib/graphql/users';
+import { initAuth } from '../../../store/auth';
 import { inputProps } from '../AuthForm';
+import useWhoAmI from './useWhoami';
+import { toast } from 'react-toastify';
 
 export default function useLogin() {
   const router = useRouter();
@@ -13,6 +18,9 @@ export default function useLogin() {
     username: '',
     password: '',
   } as inputProps);
+  const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
+  const { loading, user } = useWhoAmI();
+  const dispatch = useDispatch();
 
   const validateUsername = value => {
     return value.match(/^[a-z0-9]{5,20}$/);
@@ -56,6 +64,18 @@ export default function useLogin() {
 
   const [signIn, { error: LoginError }] = useMutation(loginMutation, {
     onCompleted({ signUp }) {
+      SetIsClose(false);
+      loading();
+      dispatch(initAuth(user));
+      toast.success('로그인 완료!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       inputs.username = '';
       inputs.password = '';
     },

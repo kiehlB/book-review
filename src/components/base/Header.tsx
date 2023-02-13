@@ -66,7 +66,7 @@ function Header() {
 
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
-      <h1
+      <div
         className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
         <div className="flex items-center">
           <div className="mds:hidden mr-3">
@@ -79,7 +79,7 @@ function Header() {
             BR
           </Link>
         </div>
-      </h1>
+      </div>
 
       <form
         onSubmit={e => {

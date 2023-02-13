@@ -31,6 +31,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import { getcoreIsLoading } from '../../store/core';
+import TextStyle from '@tiptap/extension-text-style';
 
 export type PostProps = {
   id: string;
@@ -64,6 +65,7 @@ function Post({ id }: PostProps) {
       Dropcursor,
       Code,
       Link,
+      TextStyle,
 
       TextAlign.configure({
         types: ['heading', 'paragraph'],
@@ -82,11 +84,11 @@ function Post({ id }: PostProps) {
     content: BodyResult,
   });
 
-  useEffect(() => {
-    editor?.commands?.setContent(BodyResult);
-    editor?.setEditable(false);
-    dispatch(getcoreIsLoading());
-  }, [BodyResult]);
+  // useEffect(() => {
+  //   editor?.commands?.setContent(BodyResult);
+  //   editor?.setEditable(false);
+  //   dispatch(getcoreIsLoading());
+  // }, [BodyResult]);
 
   if (singlePostLoding) return <div>d</div>;
 
@@ -103,8 +105,8 @@ function Post({ id }: PostProps) {
           </div>
           <div className="text-[1.25rem] col-span-6 w-full">
             <Content isDark={isdark} className="text-[1.25rem] max-w-[812.5px] mx-auto">
-              {/* <div dangerouslySetInnerHTML={{ __html: insertID }} /> */}
-              <EditorContent editor={editor} className="" />
+              <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
+              {/* <EditorContent editor={editor} className="" /> */}
             </Content>
           </div>
           <div className="col-span-2">
@@ -128,4 +130,47 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 };
 
-const Content = styled.div<{ isdark: string }>``;
+const Content = styled.div<{ isdark: string }>`
+  ol {
+    margin-left: 1rem;
+    list-style: decimal;
+  }
+
+  ul {
+    margin-left: 1rem;
+    list-style: disc;
+  }
+
+  .quote {
+    margin: 0 auto;
+    position: relative;
+    padding-left: 55px;
+    margin: 75px 0;
+
+    &:before {
+      color: #fcd545;
+      font-size: 100px;
+      line-height: 0.7;
+      content: open-quote;
+      vertical-align: top;
+
+      position: absolute;
+      left: -5px;
+    }
+  }
+
+  u {
+    text-decoration: none;
+
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+      linear-gradient(to right, #e9756b, #e9756b, #e9756b);
+    background-size: 100% 0.1em, 30% 0.1em;
+    background-position: 100% 100%, 0 100%;
+
+    background-repeat: no-repeat;
+    transition: background-size 600ms;
+    &:hover {
+      background-size: 100% 0.1em, 100% 0.1em;
+    }
+  }
+`;
