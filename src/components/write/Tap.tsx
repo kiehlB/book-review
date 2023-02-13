@@ -17,6 +17,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Text from '@tiptap/extension-text';
 import Code from '@tiptap/extension-code';
+import FontFamily from '@tiptap/extension-font-family';
 import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import Focus from '@tiptap/extension-focus';
@@ -55,6 +56,7 @@ function Tap({}: TapProps) {
   const { posts } = useCreateSavePost();
 
   const findPost = posts?.filter(e => e.id == postId);
+  console.log(findPost);
 
   const editor = useEditor({
     editorProps: {
@@ -76,6 +78,7 @@ function Tap({}: TapProps) {
       OrderedList,
       ListItem,
       TextStyle,
+      FontFamily,
       Link,
       BulletList.configure({
         HTMLAttributes: {
@@ -139,7 +142,7 @@ function Tap({}: TapProps) {
 
     autofocus: true,
     content:
-      body?.length > 9
+      body?.length > 10
         ? body
         : `
          <div>
@@ -165,14 +168,14 @@ function Tap({}: TapProps) {
     dispatch(getPostBody(getContent));
   }, [getContent]);
 
-  // useEffect(() => {
-  //   if (findPost) {
-  //     dispatch(getPostTitle(findPost[0]?.title));
-  //     dispatch(getPostBody(findPost[0]?.body));
-  //     dispatch(getPostTags(findPost[0]?.tags));
-  //     editor?.commands?.setContent(findPost[0]?.body);
-  //   }
-  // }, [postId]);
+  useEffect(() => {
+    if (findPost) {
+      console.log(findPost[0]?.body);
+      dispatch(getPostTitle(findPost[0]?.title));
+      dispatch(getPostBody(findPost[0]?.body));
+      dispatch(getPostTags(findPost[0]?.tags));
+    }
+  }, [postId]);
 
   if (!editor) {
     return null;
@@ -269,6 +272,25 @@ const Content = styled.div<{ isdark: string }>`
         padding: 0;
         background: none;
         font-size: 0.8rem;
+      }
+    }
+
+    .quote {
+      margin: 0 auto;
+      position: relative;
+      padding-left: 55px;
+      margin: 75px 0;
+
+      &:before {
+        color: #fcd545;
+        font-size: 100px;
+        font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        line-height: 0.9;
+        content: open-quote;
+        vertical-align: top;
+
+        position: absolute;
+        left: -5px;
       }
     }
 

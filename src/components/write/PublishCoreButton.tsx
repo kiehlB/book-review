@@ -43,7 +43,7 @@ function PublishCoreButton({ fileInputState, isPrivate, book }: PublishCoreButto
         size="medium"
         className="text-[#191919] font-bold border bg-[#FCd545] rounded border-[#FCd545]  shadow-sm"
         onClick={e => {
-          handleSubmit(e, title, body, tags, fileInputState, isPrivate, book);
+          handleSubmit(e, postId, title, body, tags, fileInputState, isPrivate, book);
         }}>
         작성 완료
       </Button>

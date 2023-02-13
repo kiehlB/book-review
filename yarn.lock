@@ -2773,6 +2773,11 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-focus/-/extension-focus-2.0.0-beta.209.tgz#d0528ce612148ba41e2a3c6b127e9c23d8415812"
   integrity sha512-V60Oimkf8+10zHfiYcknKHYtS89ctpuz9W8Sxhn0gvQS37W6QzUR2DH2ReG9c3O+OE7in0A2ql7rPCsgykfpxA==
 
+"@tiptap/extension-font-family@^2.0.0-beta.217":
+  version "2.0.0-beta.217"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-font-family/-/extension-font-family-2.0.0-beta.217.tgz#b39b0073d2bffd088a2c9d1e40a145e0cd94c963"
+  integrity sha512-7Uuw9QSht653IMzEJvj3DFAS+O8xqNXCxLZPM8k4BSvIQjrE892RTfYMDgndJ/yjtsZHrPmoDiO8mLxqpfC5Gg==
+
 "@tiptap/extension-gapcursor@^2.0.0-beta.209":
   version "2.0.0-beta.209"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-gapcursor/-/extension-gapcursor-2.0.0-beta.209.tgz#91eadf2863cfd6ba0325d378aff49af95c2783b5"

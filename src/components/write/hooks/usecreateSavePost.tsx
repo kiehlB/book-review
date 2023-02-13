@@ -9,7 +9,7 @@ import {
   GET_Posts,
   Remove_Post,
 } from '../../../lib/graphql/posts';
-import { getPostId } from '../../../store/book';
+import { getPostBody, getPostId, getPostTitle } from '../../../store/book';
 
 export default function useCreateSavePost() {
   const { auth } = useSelector((state: any) => state.auth);
@@ -32,7 +32,9 @@ export default function useCreateSavePost() {
 
   const ConfirmSave = async (id, title, body, tags = [], book) => {
     if (!title) {
-      toast.error('제목 또는 내용이 비어있습니다.');
+      toast.error('제목 또는 내용이 비어있습니다.', {
+        position: 'bottom-right',
+      });
       return;
     }
     if (!id) {
@@ -53,7 +55,6 @@ export default function useCreateSavePost() {
           },
 
           update: async (proxy, { data: createPost }) => {
-            console.log(createPost?.createPost.id);
             dispatch(getPostId(createPost?.createPost.id));
 
             proxy?.writeQuery({
@@ -68,11 +69,15 @@ export default function useCreateSavePost() {
             });
           },
         });
-        toast.success('포스트 저장 성공');
+        toast.success('포스트 저장 성공', {
+          position: 'bottom-right',
+        });
       } catch (e) {
-        toast.error('포스트 저장 실패');
+        toast.error('포스트 저장 실패', {
+          position: 'bottom-right',
+        });
       }
-    } else if (id) {
+    } else if (id && posts?.length !== 0) {
       try {
         await editPost({
           variables: {
@@ -104,9 +109,56 @@ export default function useCreateSavePost() {
             });
           },
         });
-        toast.success('포스트 저장 성공');
+        toast.success('포스트 저장 성공', {
+          position: 'bottom-right',
+        });
       } catch (e) {
-        toast.error('포스트 저장 실패');
+        toast.error('포스트 저장 실패', {
+          position: 'bottom-right',
+        });
+      }
+    } else if (id && posts?.length == 0) {
+      try {
+        await writePost({
+          variables: {
+            id: id,
+            title,
+            body,
+            tags: tags,
+            is_temp: true,
+
+            bookTitle: book?.title,
+            bookContent: book?.contents,
+            bookUrl: book?.thumbnail,
+            bookIsbn: book?.isbn,
+            bookAuthors: book?.authors,
+          },
+
+          update: async (proxy, { data: createPost }) => {
+            console.log(createPost?.createPost.id);
+            dispatch(getPostId(createPost?.createPost.id));
+            // dispatch(getPostTitle(createPost?.createPost.title));
+            // dispatch(getPostBody(createPost?.createPost.body));
+
+            proxy?.writeQuery({
+              query: GET_Posts,
+              variables: {
+                username: auth.username,
+                istemp: true,
+              },
+              data: {
+                posts: [createPost?.createPost, ...posts],
+              },
+            });
+          },
+        });
+        toast.success('포스트 저장 성공', {
+          position: 'bottom-right',
+        });
+      } catch (e) {
+        toast.error('포스트 저장 실패', {
+          position: 'bottom-right',
+        });
       }
     }
   };
@@ -129,9 +181,13 @@ export default function useCreateSavePost() {
           posts: data.posts.filter(p => p.id !== id),
         },
       });
-      toast.success('포스트가 삭제되었습니다.');
+      toast.success('포스트가 삭제되었습니다.', {
+        position: 'bottom-right',
+      });
     } catch (e) {
-      toast.error('포스트 삭제 실패');
+      toast.error('포스트 삭제 실패', {
+        position: 'bottom-right',
+      });
     }
   };
 

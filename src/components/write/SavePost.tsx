@@ -13,7 +13,7 @@ function SavePost({ value }: TapProps) {
   const { posts, loading, onConfirmRemove } = useCreateSavePost();
   const [isCollapse, setIsCollapse] = useState(true);
 
-  const isFilterData = value ? posts.filter(e => e?.title?.includes(value)) : posts;
+  const isFilterData = value ? posts?.filter(e => e?.title?.includes(value)) : posts;
 
   return (
     <div>

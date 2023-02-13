@@ -130,7 +130,6 @@ export default class ImageAdd extends React.Component<ImageProps> {
   render() {
     const { webWorker }: any = this.state;
 
-    console.log('dasdasdasdsa');
     return (
       <div className="cursor-pointer">
         <ButtonStyles>
