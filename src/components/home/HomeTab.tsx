@@ -26,7 +26,7 @@ const links: { name: string; href: string; svg: any }[] = [
   {
     svg: <IoMdTime />,
     name: '최신',
-    href: '/blog',
+    href: '/recent',
   },
 ];
 

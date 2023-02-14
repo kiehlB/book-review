@@ -7,6 +7,7 @@ import Header from '../base/Header';
 import TestHeader from '../base/TestHeader';
 import BookTalble from '../booksTable';
 import BookModal from '../booksTable/BookModal';
+import FloatingHeader from '../common/Floating';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ function PageLayout({ children }: PageLayoutProps) {
   const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
 
   return (
-    <div className="px-[1rem] h-full mxs:px-3">
+    <div className="h-full mxl:px-3">
       <AuthContainer />
       <BookModal visible={BookIsClose} onClose={SetBookIsClose} className="">
         <BookTalble />

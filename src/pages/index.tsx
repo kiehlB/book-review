@@ -11,6 +11,10 @@ import { getNextSeo } from '../lib/nextSeo';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
 import useGetPosts from '../components/post/hooks/useGetPosts';
+import useGetTags from '../components/tags/hooks/usegetTags';
+import Tags from '../components/tags/Tags';
+import FloatingHeader from '../components/common/Floating';
+import Header from '../components/base/Header';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
@@ -29,29 +33,36 @@ export default function Home() {
           },
         ]}
       />
+      <FloatingHeader>
+        <Header />
+      </FloatingHeader>
       <PageLayout>
-        <PageGrid as="div" className="pt-[2.25rem]">
+        <PageGrid as="div" className="pt-[2rem] pb-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">
-            <Navbar
-              primaryItems={[
-                {
-                  icon: <RiBookOpenLine />,
-                  text: '포스트',
-                  to: '/',
-                },
-                {
-                  icon: <RiDashboard3Line />,
-                  text: '게시판',
-                  to: '/post',
-                },
-              ]}
-              secondaryItems={[
-                {
-                  icon: <RiFileChartFill />,
-                  text: 'Trending tags',
-                  to: '/Trending tags',
-                },
-              ]}></Navbar>
+            <div className="sticky top-24">
+              <Navbar
+                primaryItems={[
+                  {
+                    icon: <RiBookOpenLine />,
+                    text: '포스트',
+                    to: '/',
+                  },
+                  {
+                    icon: <RiDashboard3Line />,
+                    text: '게시판',
+                    to: '/post',
+                  },
+                ]}
+                secondaryItems={[
+                  {
+                    icon: <RiFileChartFill />,
+                    text: 'Trending tags',
+                    to: '/Trending tags',
+                  },
+                ]}
+              />
+              <Tags />
+            </div>
           </MainNav>
 
           <AppLayout
@@ -68,7 +79,7 @@ export default function Home() {
             }
             second={
               <Second>
-                <PostGrid className="mt-[2rem]">
+                <PostGrid className="mt-[1rem]">
                   <PostCard posts={data?.recentPosts || []} loading={!data || loading} />
                 </PostGrid>
               </Second>

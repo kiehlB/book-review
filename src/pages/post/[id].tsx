@@ -84,22 +84,21 @@ function Post({ id }: PostProps) {
     content: BodyResult,
   });
 
-  // useEffect(() => {
-  //   editor?.commands?.setContent(BodyResult);
-  //   editor?.setEditable(false);
-  //   dispatch(getcoreIsLoading());
-  // }, [BodyResult]);
-
   if (singlePostLoding) return <div>d</div>;
 
+  console.log(singlePostData);
   return (
     <>
       <NextSeo {...getNextSeo({ title: 'Book Review Write', description: '책리뷰' })} />
 
       <PageLayout>
+        <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center mt-[3rem]">
+          {singlePostData?.post?.title}
+        </PostTitle>
+
         <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem]">
           <div className="col-span-2 justify-self-center">
-            <div className="sticky top-2">
+            <div className="sticky top-24">
               <PawButton />
             </div>
           </div>
@@ -110,7 +109,7 @@ function Post({ id }: PostProps) {
             </Content>
           </div>
           <div className="col-span-2">
-            <div className="sticky top-2">
+            <div className="sticky top-24">
               <PostTableOfContents />
             </div>
           </div>
@@ -130,7 +129,27 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 };
 
+const PostTitle = styled.section`
+  display: -webkit-box;
+  line-height: 1.5;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: initial;
+  word-wrap: break-word;
+  overflow: hidden;
+  height: 100%;
+`;
+
 const Content = styled.div<{ isdark: string }>`
+  white-space: initial;
+  word-wrap: break-word;
+  .ptag {
+    line-height: 1.7;
+    margin: 18px 0;
+    color: #212529;
+    font-size: 18px;
+  }
   ol {
     margin-left: 1rem;
     list-style: decimal;

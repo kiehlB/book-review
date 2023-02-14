@@ -16,44 +16,56 @@ import PostCard from '../components/post/PostCard';
 import useGetPosts from '../components/post/hooks/useGetPosts';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
 import { motion, useReducedMotion } from 'framer-motion';
+import Tags from '../components/tags/Tags';
+import FloatingHeader from '../components/common/Floating';
+import Header from '../components/base/Header';
 
-export default function Home() {
+export default function Recent() {
   const { data, loading } = useGetPosts();
 
   return (
-    <motion.div>
-      <NextSeo {...getNextSeo({ title: 'Search page', description: '검색 페이지' })} />
+    <>
+      <NextSeo
+        {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
+      />
 
+      <FloatingHeader>
+        <Header />
+      </FloatingHeader>
       <PageLayout>
-        <PageGrid as="div" className="pt-[2.25rem]">
+        <PageGrid as="div" className="pt-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">
-            <Navbar
-              primaryItems={[
-                {
-                  icon: <RiBookOpenLine />,
-                  text: '포스트',
-                  to: '/',
-                },
-                {
-                  icon: <RiDashboard3Line />,
-                  text: '게시판',
-                  to: '/post',
-                },
-              ]}
-              secondaryItems={[
-                {
-                  icon: <RiFileChartFill />,
-                  text: 'Trending tags',
-                  to: '/Trending tags',
-                },
-              ]}></Navbar>
+            <div className="sticky top-24">
+              <Navbar
+                primaryItems={[
+                  {
+                    icon: <RiBookOpenLine />,
+                    text: '포스트',
+                    to: '/',
+                  },
+                  {
+                    icon: <RiDashboard3Line />,
+                    text: '게시판',
+                    to: '/post',
+                  },
+                ]}
+                secondaryItems={[
+                  {
+                    icon: <RiFileChartFill />,
+                    text: 'Trending tags',
+                    to: '/Trending tags',
+                  },
+                ]}
+              />
+              <Tags />
+            </div>
           </MainNav>
 
           <AppLayout
             className="col-span-8 mmd:col-span-12"
             first={
               <First>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center my-4">
                   <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
                     포스트
                   </div>
@@ -64,17 +76,13 @@ export default function Home() {
             second={
               <Second>
                 <PostGrid className="mt-[1rem]">
-                  <PostCard
-                    posts={data?.recentPosts.slice(0, 3) || []}
-                    loading={!data || loading}
-                  />
+                  <PostCard posts={data?.recentPosts || []} loading={!data || loading} />
                 </PostGrid>
               </Second>
             }
           />
         </PageGrid>
       </PageLayout>
-      <style global jsx>{``}</style>
-    </motion.div>
+    </>
   );
 }

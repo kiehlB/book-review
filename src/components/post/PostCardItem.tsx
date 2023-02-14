@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import moment from 'moment';
 import Link from 'next/link';
 import * as React from 'react';
@@ -16,11 +17,13 @@ export type PostCardSkeletonProps = {
 function PostCardItem({ post }: GridProps) {
   const body = post?.body.replace(/<[^>]+>/g, ' ');
 
+  console.log(post);
+
   return (
     <Link
       href={`/post/${post.id}`}
-      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full">
-      <div className="flex flex-1 flex-col h-full justify-between">
+      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full text-black relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#1E1E1E]">
+      <div className="flex flex-1 flex-col h-full">
         {post?.thumbnail ? (
           <RatioImage
             alt="img"
@@ -33,33 +36,33 @@ function PostCardItem({ post }: GridProps) {
           ''
         )}
 
-        <div className="px-[4px]">
-          <div className="flex justify-between items-center">
-            <div className="pt-[0.5rem] text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea] truncate">
-              도서: 파인만 씨 농담도 잘하시네 파인만 씨 농담도 잘하시네 파인만 씨 농담도
-              잘하시네
+        <div className="h-full justify-between flex flex-col">
+          <div className="px-4">
+            <div
+              className={clsx(
+                'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea] truncate pt-[1rem]',
+              )}>
+              도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
             </div>
+
+            <WithoutPostTitle className="text-[#121212] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
+              {post?.title}
+            </WithoutPostTitle>
+
+            <WithoutPostBody className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
+              <div>{body}</div>
+            </WithoutPostBody>
           </div>
 
-          {/* /{post.title} */}
-          <WithoutPostTitle className="text-[#121212] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
-            {post?.title}
-          </WithoutPostTitle>
+          <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#929aa5] p-4">
+            <div className="flex font-semibold text-xs">
+              <div className="mr-2">좋아요 {post?.likes}개</div>
+              <div>댓글 {post?.subs_count}개</div>
+            </div>
 
-          <WithoutPostBody className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
-            {/* <div className="text-base" dangerouslySetInnerHTML={{ __html: post?.body }} /> */}
-            <div>{body}</div>
-          </WithoutPostBody>
-        </div>
-
-        <div className="flex justify-between mt-4 leading-normal text-[#2e2e2e] dark:text-[#929aa5]">
-          <div className="flex font-semibold text-xs">
-            <div className="mr-2">좋아요 {post?.likes}개</div>
-            <div>댓글 {post?.subs_count}개</div>
-          </div>
-
-          <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5] ">
-            {moment(post?.released_at).fromNow()}
+            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5] ">
+              {moment(post?.released_at).fromNow()}
+            </div>
           </div>
         </div>
       </div>

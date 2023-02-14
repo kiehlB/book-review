@@ -60,7 +60,7 @@ function FloatingHeader({ children }: FloatingHeaderProps) {
 
   return (
     <div
-      className="fixed top-0 bg-white w-full z-[999]"
+      className="fixed top-0 bg-white w-full z-[999] dark:bg-[#1a1b1e] mxl:px-3"
       style={
         visible
           ? {
