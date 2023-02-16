@@ -168,6 +168,7 @@ p:empty::after {
 
 
 .paw-button {
+   
   --background: #fff;
   --background-active: #FEE8F4;
   --border: #F1ECEB;
@@ -190,6 +191,7 @@ p:empty::after {
   --paw-clap-background: #FEF0A5;
   --paw-clap-border: var(--paw-border);
   --paw-clap-shadow: #FED75C;
+  --paw-clap-border: var(--paw-border);
   --circle: #df3dce;
   --circle-line: #000;
   display: inline-flex;
@@ -198,6 +200,8 @@ p:empty::after {
   position: relative;
   line-height: 19px;
   padding: 12px 16px;
+  border:1px solid red;
+  
   &:before {
       content: '';
       position: absolute;
@@ -210,19 +214,23 @@ p:empty::after {
       border-radius: 5px;
       transition: background .45s, border-color .45s;
       background: var(--background);
+      border: 2px solid var(--border);
+      border-radius: 5px;
    
   }
   svg {
       display: block;
+      
   }
   .text {
+    
       position: relative;
       backface-visibility: hidden;
       transform: translateZ(0);
       z-index: 3;
       margin-right: 8px;
       transition: width .25s;
-      width: var(--w, 60px);
+      width: var(--w, 30px);
       span,
       svg {
           transition: transform .15s ease-out, opacity .2s;
@@ -255,10 +263,11 @@ p:empty::after {
       color: var(--number);
   }
   .paws {
+    
       overflow: hidden;
       position: absolute;
-      left: 0;
-      right: 0;
+      left: -20px;
+      right: 0px;
       bottom: 0;
       height: 60px;
       z-index: 2;

@@ -19,9 +19,10 @@ import { motion, useReducedMotion } from 'framer-motion';
 import Tags from '../components/tags/Tags';
 import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
+import useGetTrendingPosts from '../components/post/hooks/useGetTrending';
 
 export default function Recent() {
-  const { data, loading } = useGetPosts();
+  const { data, loading } = useGetTrendingPosts();
 
   return (
     <>
@@ -76,7 +77,10 @@ export default function Recent() {
             second={
               <Second>
                 <PostGrid className="mt-[1rem]">
-                  <PostCard posts={data?.recentPosts || []} loading={!data || loading} />
+                  <PostCard
+                    posts={data?.trendingPosts || []}
+                    loading={!data || loading}
+                  />
                 </PostGrid>
               </Second>
             }

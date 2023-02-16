@@ -251,7 +251,7 @@ const BookTalble = ({}) => {
         </div>
 
         <div className="flex justify-between dark:text-[#e4e5e7] pt-4 mmd:hidden items-center">
-          <div className="flex">
+          <div className="flex ml-2">
             {book?.thumbnail ? (
               <img src={book?.thumbnail} width="45px" height="70px" />
             ) : (

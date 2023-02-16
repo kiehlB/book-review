@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import imageCompression from 'browser-image-compression';
 import styled from 'styled-components';
 import { Spinner } from 'evergreen-ui';
@@ -8,7 +8,7 @@ type ImageProps = {
   addImage: (e) => void;
 };
 
-export default class ImageAdd extends React.Component<ImageProps> {
+export default class ImageAdd extends PureComponent<ImageProps> {
   constructor(args) {
     super(args);
     this.compressImage = this.compressImage.bind(this);

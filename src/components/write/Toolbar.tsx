@@ -64,7 +64,8 @@ const ProjectCreateContentToolbar = ({
           margin: '0 16px',
           position: 'sticky',
           top: 0,
-          background: isdark == 'dark' ? '#2b2d31' : '',
+          zIndex: 99,
+          background: isdark == 'dark' ? '#2b2d31' : '#fff',
           width: 'calc(100% - 2rem);',
         }}>
         <div className="ml-2 mr-1">
@@ -135,13 +136,13 @@ const ProjectCreateContentToolbar = ({
             <CodeIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
 
-          <ToggleButton
+          {/* <ToggleButton
             onClick={() => editor.chain().focus().toggleHighlight().run()}
             value="highlight"
             aria-label="highlight"
             selected={editor.isActive('highlight')}>
             <BorderColorIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
+          </ToggleButton> */}
           <ToggleButton
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             value="blockQuote"

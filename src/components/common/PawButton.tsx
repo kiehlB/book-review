@@ -1,8 +1,14 @@
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useDebounce, useDebouncedCallback } from 'use-debounce';
+import usePostLike from '../post/hooks/usePostLike';
 
-export default function PawButton() {
+export type PostProps = {
+  id: string;
+};
+
+export default function PawButton({ id }: PostProps) {
   let confettiAmount = 60;
+  const { data, onLikeToggle } = usePostLike({ id });
 
   const confettiColors = [
     '#7d32f5',
@@ -37,7 +43,6 @@ export default function PawButton() {
           createConfetti(elem);
         }
         setTimeout(() => {
-          console.log('hello');
           elem.classList.add('confetti');
           setTimeout(() => {
             elem.classList.add('liked');
@@ -57,7 +62,8 @@ export default function PawButton() {
 
   const debounced = useDebouncedCallback(e => {
     a(e);
-  }, 400);
+    onLikeToggle();
+  }, 500);
 
   return (
     <>
@@ -67,9 +73,8 @@ export default function PawButton() {
             <svg>
               <use xlinkHref="#heart"></use>
             </svg>
-            <span>Like</span>
           </div>
-          <span>12</span>
+          <div className="text-black z-40">{data?.post?.likes}</div>
           <div className="paws">
             <svg className="paw">
               <use xlinkHref="#paw"></use>

@@ -19,14 +19,14 @@ export const isActiveLink = (href: string, currentPathname: string): boolean => 
 
 const links: { name: string; href: string; svg: any }[] = [
   {
-    svg: <MdOutlineLocalFireDepartment />,
-    name: '트렌딩',
+    svg: <IoMdTime />,
+    name: '최신',
     href: '/',
   },
   {
-    svg: <IoMdTime />,
-    name: '최신',
-    href: '/recent',
+    svg: <MdOutlineLocalFireDepartment />,
+    name: '트렌딩',
+    href: '/trending',
   },
 ];
 

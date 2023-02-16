@@ -105,8 +105,7 @@ export function Table({
       tableContent = (
         <TableContent
           title="찾으시는 책이 없습니다"
-          subtitle="새로운 책을 발견하고, 새로운 세상을 접해보세요. 새로운 책들이 여러분을
-        기다리고 있습니다"
+          subtitle="더 짧은 검색어로 검색해 보세요!"
           svg={<NoData className="w-[100%] h-[100%]" />}
         />
       );

@@ -10,7 +10,7 @@ export type TagItemProps = {
 function TagItem(props: TagItemProps) {
   return (
     <div className="flex flex-col">
-      <div className="flex items-center w-[80%] py-1">
+      <div className="flex items-center w-[80%] py-1 pl-3">
         <div className="flex-1">{props.name}</div>
         <div className="rounded-full border bg-[#f1f5f9] text-[#64748b] px-2 py-1 text-sm font-bold">
           +{props.postsCount}

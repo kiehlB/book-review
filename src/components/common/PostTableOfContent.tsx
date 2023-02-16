@@ -1,7 +1,9 @@
+import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { useHeadingsData } from '../../hooks/useHeadingsData';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { getScrollTop } from '../../lib/utils';
+import styled, { css } from 'styled-components';
 
 const PostTableOfContents = () => {
   const [activeId, setActiveId] = useState();
@@ -80,17 +82,47 @@ const PostTableOfContents = () => {
     onScroll();
   }, [onScroll]);
 
+  if (!nestedHeadings || !headingTops) return null;
+
   return (
     <nav
       aria-label="Table of contents"
-      className="flex flex-col text-[#868E96] max-h-[calc(100vh-128px)] overflow-y-scroll overflow-x-hidden scrollbar scrollbar-thumb-slate-600 scrollbar-track-gray-100 scrollbar-w-1">
+      className="flex flex-col border-l-2 text-[#999ba0] max-h-[calc(100vh-128px)] overflow-y-scroll overflow-x-hidden scrollbar scrollbar-thumb-slate-600 scrollbar-track-gray-100 scrollbar-w-1">
       {nestedHeadings?.map(item => (
-        <div key={item.id}>
+        <Toc
+          className="text-sm mt-[6px]"
+          active={activeId === item.id}
+          key={item.id}
+          style={{ marginLeft: item.level * 12 }}>
           <a href={`#${item.id}`}>{item.title}</a>
-        </div>
+        </Toc>
       ))}
     </nav>
   );
 };
 
 export default PostTableOfContents;
+
+// className={clsx('text-sm mt-2', {
+//   'text-[#212529] ': activeId === item.id,
+// })}
+
+const Toc = styled.div<{ active: boolean }>`
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  a {
+    &:hover {
+      color: #212529;
+    }
+    text-decoration: none;
+    color: inherit;
+  }
+  ${props =>
+    props.active &&
+    css`
+      color: #212529;
+      font-weight: 700;
+      transform: scale(1.02);
+    `}
+`;

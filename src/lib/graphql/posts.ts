@@ -11,6 +11,7 @@ export const GET_Post = gql`
       views
       is_temp
       is_private
+      subs_count
       released_at
       created_at
       updated_at
@@ -188,6 +189,41 @@ export const Create_Post = gql`
       user {
         id
         username
+      }
+    }
+  }
+`;
+
+export const RELOAD_COMMENTS = gql`
+  query ReloadComments($id: String!) {
+    post(id: $id) {
+      id
+      title
+      body
+      thumbnail
+      likes
+      views
+      is_temp
+      is_private
+      subs_count
+      released_at
+      created_at
+      updated_at
+      liked
+      bookInfo {
+        bookTitle
+        bookContent
+        bookUrl
+        bookIsbn
+        bookAuthors
+      }
+      user {
+        id
+        username
+      }
+      subs {
+        id
+        text
       }
     }
   }

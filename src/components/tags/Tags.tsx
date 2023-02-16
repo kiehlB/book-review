@@ -7,10 +7,9 @@ export type TagsProps = {};
 
 function Tags(props: TagsProps) {
   const { data: Tags } = useGetTags({ sort: 'byName' });
-  console.log(Tags);
 
   return (
-    <div className="px-1 text-[#475569]">
+    <div className=" text-[#475569]">
       {Tags?.tags?.map(tag => (
         <TagItem name={tag.name} key={tag.id} postsCount={tag.posts_count} />
       ))}

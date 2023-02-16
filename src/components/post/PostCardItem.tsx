@@ -17,9 +17,45 @@ export type PostCardSkeletonProps = {
 function PostCardItem({ post }: GridProps) {
   const body = post?.body.replace(/<[^>]+>/g, ' ');
 
-  console.log(post);
+  const withoutThumbnail = (
+    <Link
+      href={`/post/${post.id}`}
+      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full text-black relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#212227]">
+      <div className="flex flex-1 flex-col h-full">
+        <div className="h-full justify-between flex flex-col">
+          <div className="px-4">
+            <div
+              className={clsx(
+                'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea] truncate pt-[1rem]',
+              )}>
+              도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
+            </div>
 
-  return (
+            <WithoutPostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
+              {post?.title}
+            </WithoutPostTitle>
+
+            <WithoutPostBody className="text-sm mt-2 text-[#495057] dark:text-[#e4e5e7]">
+              <div>{body}</div>
+            </WithoutPostBody>
+          </div>
+
+          <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#929aa5] p-4">
+            <div className="flex font-semibold text-xs">
+              <div className="mr-2">좋아요 {post?.likes}개</div>
+              <div>댓글 {post?.subs_count}개</div>
+            </div>
+
+            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5] ">
+              {moment(post?.released_at).fromNow()}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+
+  const withThumbnail = (
     <Link
       href={`/post/${post.id}`}
       className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full text-black relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#1E1E1E]">
@@ -45,13 +81,13 @@ function PostCardItem({ post }: GridProps) {
               도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
             </div>
 
-            <WithoutPostTitle className="text-[#121212] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
+            <PostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
               {post?.title}
-            </WithoutPostTitle>
+            </PostTitle>
 
-            <WithoutPostBody className="text-[13px] mt-1 text-[#2e2e2e] dark:text-[#e4e5e7]">
+            <PostBody className="text-sm mt-1 text-[#495057] dark:text-[#e4e5e7]">
               <div>{body}</div>
-            </WithoutPostBody>
+            </PostBody>
           </div>
 
           <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#929aa5] p-4">
@@ -68,6 +104,8 @@ function PostCardItem({ post }: GridProps) {
       </div>
     </Link>
   );
+
+  return <>{post?.thumbnail ? withThumbnail : withoutThumbnail}</>;
 }
 
 export function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
@@ -116,42 +154,6 @@ export function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
 
 export default PostCardItem;
 
-const C = styled.section`
-  box-shadow: 0px 10px 20px rgba(34, 45, 65, 0.05), 0px 0px 2px rgba(0, 0, 0, 0.13);
-  background-color: #fff;
-  border-radius: 15px;
-  transition: all 0.5s ease;
-  &: hover {
-    box-shadow: 0 5px 24px rgba(0, 0, 0, 0.1);
-    transform: translateY(-15px);
-    cursor: pointer;
-    opacity: 1;
-  }
-`;
-
-const ContentImg = styled.img`
-  width: 100%;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-`;
-
-const PostContent = styled.section`
-  margin-top: 2.5rem;
-  padding: 0rem 1.5rem;
-`;
-
-const FlexWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-const WithFlexWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  height: 21.875rem;
-`;
-
 const WithoutPostTitle = styled.section`
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -162,6 +164,16 @@ const WithoutPostTitle = styled.section`
   overflow: hidden;
 `;
 const WithoutPostBody = styled.section`
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: initial;
+  word-wrap: break-word;
+  overflow: hidden;
+`;
+
+const PostBody = styled.section`
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -204,19 +216,13 @@ const TagBlock = styled.section`
 `;
 
 const PostTitle = styled.section`
-  font-size: 1.625rem;
-  line-height: 2.125rem;
-  color: #1f2d2d;
   display: -webkit-box;
-  font-weight: 600;
-  color: #1f2d3d;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   white-space: initial;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 6.375rem;
 `;
 
 const ByWho = styled.section`
@@ -226,22 +232,6 @@ const ByWho = styled.section`
   margin-top: 1rem;
   display: -webkit-box;
   -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-`;
-
-const PostBody = styled.section`
-  line-height: 24px;
-  color: #3c4858;
-  font-weight: 500;
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  height: 6rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
