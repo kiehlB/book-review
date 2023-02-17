@@ -12,7 +12,7 @@ function TagItem(props: TagItemProps) {
     <div className="flex flex-col">
       <div className="flex items-center w-[80%] py-1 pl-3">
         <div className="flex-1">{props.name}</div>
-        <div className="rounded-full border bg-[#f1f5f9] text-[#64748b] px-2 py-1 text-sm font-bold">
+        <div className="rounded-full border bg-[#f1f5f9] text-[#64748b] px-2 py-1 text-sm font-bold dark:bg-[#1e293b] dark:border-none dark:text-[#e4e5e7]">
           +{props.postsCount}
         </div>
       </div>

@@ -35,6 +35,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import 'moment/locale/ko';
 import moment from 'moment';
 import Comments from '../../components/comments/Comments';
+import { AppLayout, First, MainNav, Third } from '../../components/layout/AppLayout';
 
 export type PostProps = {
   id: string;
@@ -56,29 +57,63 @@ function Post({ id }: PostProps) {
       <NextSeo {...getNextSeo({ title: 'Book Review Write', description: '책리뷰' })} />
 
       <PageLayout>
-        <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center mt-[3rem] mb-[3rem]">
-          {singlePostData?.post?.title}
-        </PostTitle>
+        <AppLayout
+          first={
+            <First>
+              <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center mt-[3rem] mb-[3rem] dark:text-[#ececec]">
+                {singlePostData?.post?.title}
+              </PostTitle>
 
-        <div className="flex justify-center items-center text-[#212529]">
-          <div className="text-lg font-semibold">
-            {singlePostData?.post?.user?.username}
-          </div>
-          <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
-          <div className="text-lg text-[#344155]">
-            {moment(singlePostData.post?.released_at).format('YYYY MMMM Do')}
-          </div>
-        </div>
+              <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec]">
+                <div className="text-lg font-semibold">
+                  {singlePostData?.post?.user?.username}
+                </div>
+                <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
+                <div className="text-lg text-[#344155] dark:text-[#ececec]">
+                  {moment(singlePostData.post?.released_at).format('YYYY년 MMMM Do')}
+                </div>
+              </div>
+            </First>
+          }
+          second={
+            <MainNav>
+              <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem]">
+                <div className="col-span-2 justify-self-center">
+                  <div className="sticky top-24">
+                    <PawButton id={id} isdark={isdark} />
+                  </div>
+                </div>
 
-        <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem]">
-          <div className="col-span-2 justify-self-center">
-            <div className="sticky top-24">
-              <PawButton id={id} />
-            </div>
-          </div>
+                <div className="col-span-6 w-full">
+                  <Content isdark={isdark} className="max-w-[812.5px] mx-auto">
+                    <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
+                  </Content>
 
-          <div className="col-span-6 w-full">
-            {/* <div className="flex">
+                  <Comments
+                    commentCount={singlePostData?.post?.subs_count}
+                    comments={singlePostData?.post?.subs}
+                    postId={singlePostData?.post?.id}
+                    isMine={singlePostData?.post?.user?.id == auth.id}
+                  />
+                </div>
+                <div className="col-span-2">
+                  <div className="sticky top-24">
+                    <PostTableOfContents isdark={isdark} />
+                  </div>
+                </div>
+              </div>
+            </MainNav>
+          }
+        />
+      </PageLayout>
+    </>
+  );
+}
+
+export default Post;
+
+{
+  /* <div className="flex">
               <div className="card">
                 <div className="imgBox">
                   <div className="bark"></div>
@@ -98,32 +133,8 @@ function Post({ id }: PostProps) {
                 <div>{singlePostData.post?.bookInfo?.bookTitle}</div>
                 <div>{singlePostData.post?.bookInfo?.bookAuthors?.map(e => e)}</div>
               </div>
-            </div> */}
-
-            <Content isDark={isdark} className="max-w-[812.5px] mx-auto">
-              <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
-              {/* <EditorContent editor={editor} className="" /> */}
-            </Content>
-
-            <Comments
-              commentCount={singlePostData?.post?.subs_count}
-              comments={singlePostData?.post?.subs}
-              postId={singlePostData?.post?.id}
-              isMine={singlePostData?.post?.user?.id == auth.id}
-            />
-          </div>
-          <div className="col-span-2">
-            <div className="sticky top-24">
-              <PostTableOfContents />
-            </div>
-          </div>
-        </div>
-      </PageLayout>
-    </>
-  );
+            </div> */
 }
-
-export default Post;
 
 export const getServerSideProps: GetServerSideProps = async context => {
   if (context.query.id && typeof context.query.id === 'string') {
@@ -148,7 +159,7 @@ const PostTitle = styled.section`
 const Content = styled.div<{ isdark: string }>`
   white-space: initial;
   word-wrap: break-word;
-  
+
   img {
     height: 100%;
     max-width: 100%;
@@ -281,7 +292,6 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1.5rem;
     }
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
-    background: ${props => (props.isdark == 'dark' ? '#283139' : '')};
 
     .toc__list::before {
       color: ${props => (props.isdark == 'dark' ? 'white' : '')};
@@ -330,29 +340,27 @@ const Content = styled.div<{ isdark: string }>`
     border-top: 2px solid rgba(#0d0d0d, 0.1);
     margin: 1.5rem 0;
   }
-}
 
-.ptag {
-  font-size: 1.125rem;
-  line-height: 1.7;
-  letter-spacing: -0.004em;
-  color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
-  display: block;
-}
-
-u {
-  text-decoration: none;
-
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
-    linear-gradient(to right, #e9756b, #e9756b, #e9756b);
-  background-size: 100% 0.1em, 30% 0.1em;
-  background-position: 100% 100%, 0 100%;
-
-  background-repeat: no-repeat;
-  transition: background-size 600ms;
-  &:hover {
-    background-size: 100% 0.1em, 100% 0.1em;
+  .ptag {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    letter-spacing: -0.004em;
+    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    display: block;
   }
-}
+
+  u {
+    text-decoration: none;
+
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+      linear-gradient(to right, #e9756b, #e9756b, #e9756b);
+    background-size: 100% 0.1em, 30% 0.1em;
+    background-position: 100% 100%, 0 100%;
+
+    background-repeat: no-repeat;
+    transition: background-size 600ms;
+    &:hover {
+      background-size: 100% 0.1em, 100% 0.1em;
+    }
   }
 `;

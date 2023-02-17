@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import PostPublishTemplate from '../components/write/PostPublishTemplate';
 import WriteTemplate from '../components/write/WriteTemplate';
 import { getNextSeo } from '../lib/nextSeo';
-import { RootState } from '../store/rootReducer';
 
 export type WriteProps = {};
 

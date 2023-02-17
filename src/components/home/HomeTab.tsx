@@ -50,17 +50,21 @@ function HomeTab(props: HomeTabProps) {
               stopPropagation(e);
             }
           }}>
-          <div className="ml-4 flex flex-col relative text-base font-semibold text-[#181A20] dark:text-[#e4e5e7] ">
+          <div className="ml-4 flex flex-col relative text-base font-semibold text-[#181A20] dark:text-[#e4e5e7]">
             <div className="flex items-center">
               <div
                 className={`${
-                  router.pathname == href ? 'text-[#ffa000]' : 'text-[#4b4b4b]'
+                  router.pathname == href
+                    ? 'text-[#ffa000]'
+                    : 'text-[#4b4b4b] dark:text-[#CFCFCF]'
                 } mr-2`}>
                 {svg}{' '}
               </div>
               <div
                 className={`${
-                  router.pathname == href ? 'text-[#ffa000]' : 'text-[#4b4b4b]'
+                  router.pathname == href
+                    ? 'text-[#ffa000]'
+                    : 'text-[#4b4b4b] dark:text-[#CFCFCF]'
                 }`}>
                 {name}
               </div>

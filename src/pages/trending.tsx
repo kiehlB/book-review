@@ -27,7 +27,10 @@ export default function Recent() {
   return (
     <>
       <NextSeo
-        {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
+        {...getNextSeo({
+          title: 'Book Review Trading',
+          description: '책 리뷰 트렌딩 페이지',
+        })}
       />
 
       <FloatingHeader>
@@ -43,6 +46,7 @@ export default function Recent() {
                     icon: <RiBookOpenLine />,
                     text: '포스트',
                     to: '/',
+                    sub: '/trending',
                   },
                   {
                     icon: <RiDashboard3Line />,

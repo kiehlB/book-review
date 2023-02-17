@@ -5,7 +5,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { getScrollTop } from '../../lib/utils';
 import styled, { css } from 'styled-components';
 
-const PostTableOfContents = () => {
+const PostTableOfContents = ({ isdark }) => {
   const [activeId, setActiveId] = useState();
   const { nestedHeadings } = useHeadingsData();
   useIntersectionObserver(setActiveId);
@@ -87,9 +87,10 @@ const PostTableOfContents = () => {
   return (
     <nav
       aria-label="Table of contents"
-      className="flex flex-col border-l-2 text-[#999ba0] max-h-[calc(100vh-128px)] overflow-y-scroll overflow-x-hidden scrollbar scrollbar-thumb-slate-600 scrollbar-track-gray-100 scrollbar-w-1">
+      className="flex flex-col border-l-2 text-[#868e96] dark:text-[#acacac] max-h-[calc(100vh-128px)] overflow-y-scroll overflow-x-hidden scrollbar scrollbar-thumb-slate-600 scrollbar-track-gray-100 scrollbar-w-1">
       {nestedHeadings?.map(item => (
         <Toc
+          isdark={isdark}
           className="text-sm mt-[6px]"
           active={activeId === item.id}
           key={item.id}
@@ -107,13 +108,13 @@ export default PostTableOfContents;
 //   'text-[#212529] ': activeId === item.id,
 // })}
 
-const Toc = styled.div<{ active: boolean }>`
+const Toc = styled.div<{ active: boolean; isdark: string }>`
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
   a {
     &:hover {
-      color: #212529;
+      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
     }
     text-decoration: none;
     color: inherit;
@@ -121,7 +122,8 @@ const Toc = styled.div<{ active: boolean }>`
   ${props =>
     props.active &&
     css`
-      color: #212529;
+      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+
       font-weight: 700;
       transform: scale(1.02);
     `}

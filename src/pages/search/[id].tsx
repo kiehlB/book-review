@@ -19,7 +19,7 @@ export default function Search({ id }) {
     <motion.div>
       <NextSeo {...getNextSeo({ title: 'Search page', description: '검색 페이지' })} />
       <SiteLinksSearchBoxJsonLd
-        url="https://www.bookreview.pro"
+        url="https://www.bookreview.pro/search?q"
         potentialActions={[
           {
             target: 'https://www.bookreview.pro/search?q',
@@ -37,6 +37,7 @@ export default function Search({ id }) {
                   icon: <RiBookOpenLine />,
                   text: '포스트',
                   to: '/',
+                  sub: '/search',
                 },
                 {
                   icon: <RiDashboard3Line />,
@@ -61,7 +62,6 @@ export default function Search({ id }) {
                   <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
                     포스트
                   </div>
-                  <HomeTab />
                 </div>
               </First>
             }

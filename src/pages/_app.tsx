@@ -4,11 +4,9 @@ import '../../styles/tiptap.scss';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import { NextUIProvider } from '@nextui-org/react';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../lib/apolloClient';
 import { ModalContextProvider } from '../context/modalContext';
-import { AnimatePresence } from 'framer-motion';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';

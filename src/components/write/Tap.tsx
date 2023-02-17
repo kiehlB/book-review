@@ -230,7 +230,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       margin-top: 2.5rem;
       letter-spacing: -0.004em;
-      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
     }
 
     h2 {
@@ -239,7 +239,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       margin-top: 2.5rem;
       letter-spacing: -0.004em;
-      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
     }
     h3 {
       font-size: 1.5rem;
@@ -247,7 +247,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       margin-top: 1.5rem;
       letter-spacing: -0.004em;
-      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
     }
     h4 {
       font-size: 1.3125rem;
@@ -255,7 +255,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       letter-spacing: -0.004em;
       margin-top: 1.5rem;
-      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
     }
 
     min-height: 100%;
@@ -344,7 +344,7 @@ const Content = styled.div<{ isdark: string }>`
       .toc {
         margin-bottom: 1.5rem;
       }
-      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
       background: ${props => (props.isdark == 'dark' ? '#283139' : '')};
 
       .toc__list::before {
@@ -401,7 +401,7 @@ const Content = styled.div<{ isdark: string }>`
     font-size: 1.125rem;
     line-height: 1.7;
     letter-spacing: -0.004em;
-    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
     display: block;
   }
 

@@ -60,7 +60,7 @@ function BooksTableForm({
           value={BookName}
           placeholder="책을 검색해보세요"
           name="BookName"
-          className=" text-xs border-[#d8dae5] text-[#474d66] w-[310px] rounded-full h-[50px] border-[1px] py-[0.5rem] px-[2.5rem] focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7] dark:placeholder-gray-300"
+          className=" text-xs border-[#d8dae5] text-[#474d66] w-[310px] rounded-full h-[50px] border-[1px] py-[0.5rem] px-[2.5rem] focus:outline-none dark:bg-[#2b2d31] dark:border-[#1a1b1e] dark:text-[#e4e5e7] dark:placeholder-gray-300"
           style={{ borderRadius: '1.5rem', fontSize: '12px' }}
         />
       </div>

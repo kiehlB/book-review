@@ -95,7 +95,7 @@ function Header() {
             value={input}
             onChange={e => setInput(e.target.value)}
             isDark={isdark}
-            className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b3139] dark:border-[#1a1b1e] dark:text-[#e4e5e7]"
+            className="w-full rounded-full h-[42px] border-[1px] bg-[#F5F7FA] py-[0.5rem] px-[2.5rem]  text-sm focus:outline-none dark:bg-[#2b2d31] dark:border-[#1a1b1e] dark:text-[#e4e5e7]"
           />
         </div>
       </form>

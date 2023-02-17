@@ -21,12 +21,12 @@ function CoreButton({}: TapProps) {
     <div className="flex">
       <div
         onClick={() => onConfirmSave(postId, title, body, tags, book)}
-        className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] mr-4 cursor-pointer">
+        className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] mr-4 cursor-pointer">
         saved
       </div>
       <div
         onClick={() => dispatch(getIsOpenSuccess())}
-        className="text-sm font-medium px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer">
+        className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] cursor-pointer">
         publish
       </div>
     </div>

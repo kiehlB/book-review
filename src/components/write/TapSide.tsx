@@ -57,6 +57,7 @@ const PostContent = styled.div`
   }
   .nextui-c-lfcDHB {
     padding: 0 0.5rem;
-    padding-top:0.5rem;
-    padding-bottom:0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
 `;

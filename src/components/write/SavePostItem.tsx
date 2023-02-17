@@ -20,13 +20,13 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
   const editUrl = `/write?id=${post.id}`;
 
   return (
-    <div className="flex justify-between hover:bg-[#e2e8f0] py-[6px]">
+    <div className="flex justify-between hover:bg-[#e2e8f0] py-[6px] transition-all dark:hover:bg-[#54565f33]">
       <div className="flex items-center" onClick={() => dispatch(getPostId(post.id))}>
         <div>
           <PostIcon className="w-6 cursor-pointer" />
         </div>
         <div className="ml-1">
-          <SideTitle className="text-[#64748b] text-sm cursor-pointer w-[200px]">
+          <SideTitle className="text-[#64748b] text-sm cursor-pointer w-[200px] dark:text-[#CFCFCF]">
             {post.title}
           </SideTitle>
         </div>
@@ -39,7 +39,7 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
               width={300}
               height={200}
               className="flex flex-col justify-center items-center">
-              <div className="text-center font-bold text-lg">삭제</div>
+              <div className="text-center font-bold text-lg ">삭제</div>
               <div className="text-center mt-2 text-[#495057] text-sm ">
                 정말 삭제 하시겠습니까?
               </div>
@@ -59,7 +59,7 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
               </div>
             </Pane>
           )}>
-          <button className="text-[#64748b] text-sm">삭제</button>
+          <button className="text-[#64748b] text-sm dark:text-[#CFCFCF]">삭제</button>
         </Popover>
       </section>
     </div>

@@ -20,33 +20,33 @@ function PostCardItem({ post }: GridProps) {
   const withoutThumbnail = (
     <Link
       href={`/post/${post.id}`}
-      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full text-black relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#212227]">
+      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#212227]">
       <div className="flex flex-1 flex-col h-full">
         <div className="h-full justify-between flex flex-col">
           <div className="px-4">
             <div
               className={clsx(
-                'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea] truncate pt-[1rem]',
+                'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#CFCFCF] truncate pt-[1rem]',
               )}>
               도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
             </div>
 
-            <WithoutPostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
+            <WithoutPostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#CFCFCF]">
               {post?.title}
             </WithoutPostTitle>
 
-            <WithoutPostBody className="text-sm mt-2 text-[#495057] dark:text-[#e4e5e7]">
+            <WithoutPostBody className="text-sm mt-2 text-[#495057] dark:text-[#CFCFCF]">
               <div>{body}</div>
             </WithoutPostBody>
           </div>
 
-          <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#929aa5] p-4">
+          <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
             <div className="flex font-semibold text-xs">
               <div className="mr-2">좋아요 {post?.likes}개</div>
               <div>댓글 {post?.subs_count}개</div>
             </div>
 
-            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5] ">
+            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF] ">
               {moment(post?.released_at).fromNow()}
             </div>
           </div>
@@ -58,7 +58,7 @@ function PostCardItem({ post }: GridProps) {
   const withThumbnail = (
     <Link
       href={`/post/${post.id}`}
-      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full text-black relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#1E1E1E]">
+      className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full text-black relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#212227]">
       <div className="flex flex-1 flex-col h-full">
         {post?.thumbnail ? (
           <RatioImage
@@ -76,27 +76,27 @@ function PostCardItem({ post }: GridProps) {
           <div className="px-4">
             <div
               className={clsx(
-                'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#e6e8ea] truncate pt-[1rem]',
+                'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#CFCFCF] truncate pt-[1rem]',
               )}>
               도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
             </div>
 
-            <PostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#e6e8ea]">
+            <PostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#CFCFCF]">
               {post?.title}
             </PostTitle>
 
-            <PostBody className="text-sm mt-1 text-[#495057] dark:text-[#e4e5e7]">
+            <PostBody className="text-sm mt-1 text-[#495057] dark:text-[#CFCFCF]">
               <div>{body}</div>
             </PostBody>
           </div>
 
-          <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#929aa5] p-4">
+          <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
             <div className="flex font-semibold text-xs">
               <div className="mr-2">좋아요 {post?.likes}개</div>
               <div>댓글 {post?.subs_count}개</div>
             </div>
 
-            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#929aa5] ">
+            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF]">
               {moment(post?.released_at).fromNow()}
             </div>
           </div>
