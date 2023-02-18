@@ -47,7 +47,6 @@ const liVariants = {
 
 const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) => {
   React.useEffect(() => {
-    // scrollbar
     document.body.style.overflowY = visible ? 'hidden' : 'initial';
   }, [visible]);
 

@@ -25,7 +25,6 @@ export default function useCreateSavePost() {
       istemp: true,
     },
     skip: !auth,
-    notifyOnNetworkStatusChange: true,
   });
 
   const posts = data?.posts;
@@ -135,10 +134,7 @@ export default function useCreateSavePost() {
           },
 
           update: async (proxy, { data: createPost }) => {
-            console.log(createPost?.createPost.id);
             dispatch(getPostId(createPost?.createPost.id));
-            // dispatch(getPostTitle(createPost?.createPost.title));
-            // dispatch(getPostBody(createPost?.createPost.body));
 
             proxy?.writeQuery({
               query: GET_Posts,

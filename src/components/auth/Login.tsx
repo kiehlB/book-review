@@ -15,10 +15,12 @@ function Login({ mode }: LoginProps) {
     Passwordhelper,
     Usernamehelper,
     handleChange,
+    SetMode,
   } = useLogin();
 
   return (
     <AuthForm
+      SetMode={SetMode}
       username={username}
       password={password}
       handleSubmit={handleSubmit}

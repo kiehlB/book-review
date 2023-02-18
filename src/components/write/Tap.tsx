@@ -38,6 +38,8 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import ImageAdd from './ImageAdd';
 import { BackgroundColorExtension } from './BackgroundColorExtension';
 import { BackgroundColorMark } from './BackgroundColorMark';
+import media from '../../lib/media';
+import { toast } from 'react-toastify';
 
 export type TapProps = {};
 
@@ -53,7 +55,13 @@ function Tap({}: TapProps) {
   const dispatch = useDispatch();
   const isdark = useSelector((state: RootState) => state.core.isdark);
   const body = useSelector((state: RootState) => state.book.body);
+  const isopen = useSelector((state: RootState) => state.book.isopen);
   const postId = useSelector((state: RootState) => state.book.postId);
+  const [state, setState] = useState(false);
+
+  const loadDataOnlyOnce = useCallback(() => {
+    setState(true);
+  }, [state]);
 
   const { posts } = useCreateSavePost();
 
@@ -146,7 +154,7 @@ function Tap({}: TapProps) {
 
     autofocus: true,
     content:
-      body?.length > 10 && undefined
+      body?.length > 10
         ? body
         : `
          <div>
@@ -168,12 +176,27 @@ function Tap({}: TapProps) {
   const getContent = editor?.getHTML();
 
   useEffect(() => {
-    dispatch(getPostBody(getContent));
-  }, [getContent]);
+    if (getContent?.length < 30000) {
+      dispatch(getPostBody(getContent));
+    } else if (!state && getContent?.length > 30000) {
+      loadDataOnlyOnce();
+      toast.warning('너무 길기 때문에 지금 부터는 자동저장이 되지 않습니다', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else if (isopen) {
+      dispatch(getPostBody(getContent));
+    }
+  }, [getContent, loadDataOnlyOnce, isopen]);
 
   useEffect(() => {
+    if (findPost?.length == 0) return;
     if (findPost) {
-      console.log(findPost[0]?.body);
       dispatch(getPostTitle(findPost[0]?.title));
       dispatch(getPostBody(findPost[0]?.body));
       dispatch(getPostTags(findPost[0]?.tags));
@@ -231,6 +254,10 @@ const Content = styled.div<{ isdark: string }>`
       margin-top: 2.5rem;
       letter-spacing: -0.004em;
       color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+
+      ${media.custom(768)} {
+        font-size: 2rem;
+      }
     }
 
     h2 {
@@ -240,6 +267,9 @@ const Content = styled.div<{ isdark: string }>`
       margin-top: 2.5rem;
       letter-spacing: -0.004em;
       color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      ${media.custom(768)} {
+        font-size: 1.5rem;
+      }
     }
     h3 {
       font-size: 1.5rem;
@@ -248,6 +278,9 @@ const Content = styled.div<{ isdark: string }>`
       margin-top: 1.5rem;
       letter-spacing: -0.004em;
       color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      ${media.custom(768)} {
+        font-size: 1.15rem;
+      }
     }
     h4 {
       font-size: 1.3125rem;
@@ -256,6 +289,9 @@ const Content = styled.div<{ isdark: string }>`
       letter-spacing: -0.004em;
       margin-top: 1.5rem;
       color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      ${media.custom(768)} {
+        font-size: 1rem;
+      }
     }
 
     min-height: 100%;
@@ -263,16 +299,19 @@ const Content = styled.div<{ isdark: string }>`
     width: 100%;
 
     ol {
+      white-space: initial;
+      word-wrap: break-word;
       list-style: none;
       counter-reset: my-awesome-counter;
       margin-top: 1rem;
       margin-bottom: 1rem;
       counter-increment: list;
+      height: 100%;
 
       li {
         display: block;
         clear: both;
-        font-size: 1.1rem;
+        font-size: 0.8rem;
         line-height: 1.375;
         position: relative;
         counter-increment: my-awesome-counter;
@@ -282,30 +321,20 @@ const Content = styled.div<{ isdark: string }>`
       }
       li:before {
         content: counter(my-awesome-counter);
-        width: 2.8rem;
-        height: 2.8rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        min-width: 24px;
+        min-height: 20px;
         float: left;
-        margin: 0 1.5rem 0rem 0;
-        color: #fdfdfd;
-        background: #ed4264 linear-gradient(to bottom right, #ed4264 25%, #ffedbc);
-        text-shadow: 0 0 2px #ed4264;
+        margin: 0 1rem 0rem 0;
+        color: #212529;
+        background: #fcd545;
         border-radius: 50%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         shape-outside: ellipse();
         z-index: 1;
-      }
-      li:after {
-        width: 1.5rem;
-        height: 1.5rem;
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: '';
-        background: #ed4264;
-        z-index: -1;
-        border-top-left-radius: 3px;
       }
     }
 
@@ -323,7 +352,7 @@ const Content = styled.div<{ isdark: string }>`
         margin: 0 1rem 0rem 0;
         display: block;
         clear: both;
-        font-size: 1.1rem;
+        font-size: 1.8rem;
         line-height: 1.8;
         position: relative;
         counter-increment: my-awesome-counter;
@@ -340,9 +369,30 @@ const Content = styled.div<{ isdark: string }>`
       border-radius: 3px;
       font-size: 90%;
     }
+
     div {
       .toc {
         margin-bottom: 1.5rem;
+        white-space: initial;
+        word-wrap: break-word;
+        list-style: none;
+
+        overflow: hidden;
+
+        .toc__list {
+          list-style: none;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        ul {
+          list-style: none;
+        }
+        li:before {
+          content: '';
+          margin-left: 0;
+          margin-right: 0;
+          list-style: none;
+        }
       }
       color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
       background: ${props => (props.isdark == 'dark' ? '#283139' : '')};
@@ -372,7 +422,9 @@ const Content = styled.div<{ isdark: string }>`
       position: relative;
       padding-left: 55px;
       margin: 75px 0;
-
+      ${media.custom(768)} {
+        margin: 25px 0;
+      }
       &:before {
         color: #fcd545;
         font-size: 100px;
@@ -415,8 +467,56 @@ const Content = styled.div<{ isdark: string }>`
 
     background-repeat: no-repeat;
     transition: background-size 600ms;
+
     &:hover {
       background-size: 100% 0.1em, 100% 0.1em;
     }
   }
 `;
+
+// ol {
+//   list-style: none;
+//   counter-reset: my-awesome-counter;
+//   margin-top: 1rem;
+//   margin-bottom: 1rem;
+//   counter-increment: list;
+
+//   li {
+//     display: block;
+//     clear: both;
+//     font-size: 1.1rem;
+//     line-height: 1.375;
+//     position: relative;
+//     counter-increment: my-awesome-counter;
+//     display: flex;
+//     align-items: center;
+//     margin-bottom: 0.5rem;
+//   }
+//   li:before {
+//     content: counter(my-awesome-counter);
+//     width: 2.8rem;
+//     height: 2.8rem;
+//     float: left;
+//     margin: 0 1.5rem 0rem 0;
+//     color: #fdfdfd;
+//     background: #ed4264 linear-gradient(to bottom right, #ed4264 25%, #ffedbc);
+//     text-shadow: 0 0 2px #ed4264;
+//     border-radius: 50%;
+//     display: inline-flex;
+//     align-items: center;
+//     justify-content: center;
+//     shape-outside: ellipse();
+//     z-index: 1;
+//   }
+//   li:after {
+//     width: 1.5rem;
+//     height: 1.5rem;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     content: '';
+//     background: #ed4264;
+//     z-index: -1;
+//     border-top-left-radius: 3px;
+//   }
+// }

@@ -30,6 +30,21 @@ export const GET_Post = gql`
       subs {
         id
         text
+        likes
+        has_replies
+        deleted
+        reply
+        created_at
+        updated_at
+        replies {
+          id
+          text
+        }
+        replies_count
+        user {
+          id
+          username
+        }
       }
     }
   }

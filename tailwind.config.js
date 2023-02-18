@@ -8,6 +8,9 @@ module.exports = {
       Oswald: ['Oswald', 'sans-serif'],
     },
     extend: {
+      flex: {
+        '48': '0 0 48px',
+      },
       gridTemplateRows: {
         '12': 'repeat(12, minmax(0, 1fr))',
 

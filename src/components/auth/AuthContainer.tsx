@@ -87,7 +87,6 @@ function AuthContainer({}: AuthContainerProps) {
             <div className="book"></div>
             <div className="book"></div>
             <div className="book"></div>
-
             <div className="book sm:hidden"></div>
             <div className="book sm:hidden"></div>
             <div className="book sm:hidden"></div>

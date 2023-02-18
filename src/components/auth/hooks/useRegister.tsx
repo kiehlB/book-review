@@ -104,5 +104,6 @@ export default function useRegister() {
     handleChange,
     Passwordhelper,
     Usernamehelper,
+    SetMode,
   };
 }

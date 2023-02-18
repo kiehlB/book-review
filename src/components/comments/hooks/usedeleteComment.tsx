@@ -4,61 +4,33 @@ import { useRouter } from 'next/router';
 import { Create_Post, Edit_Post, RELOAD_COMMENTS } from '../../../lib/graphql/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { CreateComment, RemoveSub } from '../../../lib/graphql/comments';
+import { CreateComment, GET_SubComment, RemoveSub } from '../../../lib/graphql/comments';
 import useBoolean from '../../../hooks/useBoolean';
 
-export default function useCreateCommentWrite(postId) {
+export default function usedeleteComment(id) {
   const { auth } = useSelector((state: any) => state.auth);
-  const [writeComment] = useMutation(CreateComment);
+
   const [removeComment] = useMutation(RemoveSub);
   const [askRemove, onToggleAskRemove] = useBoolean(false);
   const [removeId, setRemoveId] = useState('');
-
-  const reloadComments = useQuery(RELOAD_COMMENTS, {
-    skip: true,
-    fetchPolicy: 'network-only',
+  const replies = useQuery(GET_SubComment, {
     variables: {
-      id: postId,
+      comment_id: id,
     },
   });
+
   const [comment, setComment] = useState('');
 
   const onChange = e => {
     setComment(e.target.value);
   };
 
-  const onWrite = async () => {
-    if (comment === '') return;
-    if (!auth.id) {
-      toast.error('로그인이 필요합니다', {
-        position: 'bottom-right',
-      });
-    }
-    try {
-      await writeComment({
-        variables: {
-          post_id: postId,
-          text: comment,
-        },
-      });
-      setComment('');
-      await reloadComments.refetch();
-
-      const comments = document.querySelectorAll('.comment');
-      if (comments.length === 0) return;
-      const lastComment = comments.item(comments.length - 1);
-      lastComment.scrollIntoView();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const onConfirmRemove = useCallback(async () => {
     onToggleAskRemove();
 
     await removeComment({ variables: { id: removeId } });
-    reloadComments.refetch();
-  }, [onToggleAskRemove, reloadComments, removeComment, removeId]);
+    replies.refetch();
+  }, [onToggleAskRemove, replies, removeComment, removeId]);
 
   const onRemove = useCallback(
     (id: string) => {
@@ -69,7 +41,6 @@ export default function useCreateCommentWrite(postId) {
   );
 
   return {
-    onWrite,
     comment,
     onChange,
     onConfirmRemove,

@@ -75,7 +75,6 @@ export default function Search({ id }) {
           />
         </PageGrid>
       </PageLayout>
-      <style global jsx>{``}</style>
     </motion.div>
   );
 }

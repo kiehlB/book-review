@@ -68,30 +68,10 @@ const ProjectCreateContentToolbar = ({
           background: isdark == 'dark' ? '#2b2d31' : '#fff',
           width: 'calc(100% - 2rem);',
         }}>
-        <div className="ml-2 mr-1">
-          <SetColor
-            type="color"
-            className="border-none bg-none"
-            onInput={(event: any) =>
-              editor.chain().focus().setColor(event.target.value).run()
-            }
-            value={editor.getAttributes('textStyle').color}
-          />
-        </div>
-
         <StyledToggleButtonGroup
           size="small"
           exclusive
           aria-label="vertical outlined primary button group">
-          <Tooltip content="색깔을 초기화 시킵니다" position={Position.TOP}>
-            <ToggleButton
-              onClick={() => editor.chain().focus().unsetColor().run()}
-              value="unset color"
-              aria-label="unset color">
-              <RestartAltIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-            </ToggleButton>
-          </Tooltip>
-
           <HeadingToolbarButtons editor={editor} isdark={isdark} />
 
           {/* <ToggleButton
@@ -236,6 +216,27 @@ const ProjectCreateContentToolbar = ({
             aria-label="redo">
             <RedoIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
+
+          <div className="ml-2 mr-1 flex items-center">
+            <SetColor
+              type="color"
+              ad
+              className="border-none bg-none"
+              onInput={(event: any) =>
+                editor.chain().focus().setColor(event.target.value).run()
+              }
+              value={editor.getAttributes('textStyle').color}
+            />
+          </div>
+
+          <Tooltip content="색깔을 초기화 시킵니다" position={Position.TOP}>
+            <ToggleButton
+              onClick={() => editor.chain().focus().unsetColor().run()}
+              value="unset color"
+              aria-label="unset color">
+              <RestartAltIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
+            </ToggleButton>
+          </Tooltip>
         </StyledToggleButtonGroup>
       </Paper>
     </>

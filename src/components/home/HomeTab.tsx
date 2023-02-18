@@ -55,7 +55,7 @@ function HomeTab(props: HomeTabProps) {
               <div
                 className={`${
                   router.pathname == href
-                    ? 'text-[#ffa000]'
+                    ? 'text-[#FFA500]'
                     : 'text-[#4b4b4b] dark:text-[#CFCFCF]'
                 } mr-2`}>
                 {svg}{' '}
@@ -63,7 +63,7 @@ function HomeTab(props: HomeTabProps) {
               <div
                 className={`${
                   router.pathname == href
-                    ? 'text-[#ffa000]'
+                    ? 'text-[#FFA500]'
                     : 'text-[#4b4b4b] dark:text-[#CFCFCF]'
                 }`}>
                 {name}

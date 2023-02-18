@@ -67,9 +67,9 @@ function Header() {
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <div
-        className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] font-medium transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
+        className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
         <div className="flex items-center">
-          <div className="mds:hidden mr-3">
+          <div className="md:hidden mr-3">
             <Sidebar />
           </div>
           <Link href="/" className="mxs:text-lg mxs:hidden">
@@ -101,7 +101,7 @@ function Header() {
       </form>
 
       <div className="flex col-span-2 ml-auto items-center justify-end mxl:col-span-3 w-full mmx:col-span-8">
-        <div className="pr-6  mxs:hidden">
+        <div className="pr-6 mxs:pr-2">
           <DarkModeToggle />
         </div>
 
@@ -109,11 +109,11 @@ function Header() {
           <div className="flex items-center">
             <div
               onClick={() => SetBookIsClose(!BookIsClose)}
-              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:border-none dark:hover:text-white ">
+              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:border-none dark:hover:text-white mxs:mr-0">
               Write
             </div>
             <div
-              className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold"
+              className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold mxs:hidden"
               onClick={handleSubmitLogout}>
               Logout
             </div>
@@ -121,7 +121,7 @@ function Header() {
         ) : (
           <>
             <div
-              className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057] dark:text-[#e4e5e7] dark:hover:text-[#fcd535]"
+              className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057] dark:text-[#e4e5e7] dark:mxs:text-[#212529] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[20px] mxs:py-[12px] rounded-3xl"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('login');
@@ -129,7 +129,7 @@ function Header() {
               Sign in
             </div>
             <div
-              className="text-sm font-semibold px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d]"
+              className="text-sm font-semibold px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] mxs:hidden"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('register');

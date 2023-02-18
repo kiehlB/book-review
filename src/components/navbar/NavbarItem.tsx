@@ -13,8 +13,6 @@ export interface NavbarItemProps extends Pick<any, 'to'> {
 export const NavbarItem = (props: NavbarItemProps) => {
   const router = useRouter();
 
-  console.log(props);
-  console.log(router.pathname);
   const isSelected =
     props.to === router.pathname ||
     router.pathname.startsWith(`${props.to}/`) ||

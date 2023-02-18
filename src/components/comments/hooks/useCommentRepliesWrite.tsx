@@ -4,23 +4,17 @@ import { useRouter } from 'next/router';
 import { Create_Post, Edit_Post, RELOAD_COMMENTS } from '../../../lib/graphql/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { CreateComment, RemoveSub } from '../../../lib/graphql/comments';
-import useBoolean from '../../../hooks/useBoolean';
+import { CreateComment, GET_SubComment } from '../../../lib/graphql/comments';
 
-export default function useCreateCommentWrite(postId) {
+export default function useCommentRepliesWrite(postId, commendId) {
   const { auth } = useSelector((state: any) => state.auth);
   const [writeComment] = useMutation(CreateComment);
-  const [removeComment] = useMutation(RemoveSub);
-  const [askRemove, onToggleAskRemove] = useBoolean(false);
-  const [removeId, setRemoveId] = useState('');
-
-  const reloadComments = useQuery(RELOAD_COMMENTS, {
-    skip: true,
-    fetchPolicy: 'network-only',
+  const replies = useQuery(GET_SubComment, {
     variables: {
-      id: postId,
+      comment_id: commendId,
     },
   });
+
   const [comment, setComment] = useState('');
 
   const onChange = e => {
@@ -39,10 +33,11 @@ export default function useCreateCommentWrite(postId) {
         variables: {
           post_id: postId,
           text: comment,
+          comment_id: commendId,
         },
       });
       setComment('');
-      await reloadComments.refetch();
+      await replies.refetch();
 
       const comments = document.querySelectorAll('.comment');
       if (comments.length === 0) return;
@@ -53,28 +48,5 @@ export default function useCreateCommentWrite(postId) {
     }
   };
 
-  const onConfirmRemove = useCallback(async () => {
-    onToggleAskRemove();
-
-    await removeComment({ variables: { id: removeId } });
-    reloadComments.refetch();
-  }, [onToggleAskRemove, reloadComments, removeComment, removeId]);
-
-  const onRemove = useCallback(
-    (id: string) => {
-      onToggleAskRemove();
-      setRemoveId(id);
-    },
-    [onToggleAskRemove],
-  );
-
-  return {
-    onWrite,
-    comment,
-    onChange,
-    onConfirmRemove,
-    onRemove,
-    askRemove,
-    onToggleAskRemove,
-  };
+  return { onWrite, comment, onChange, replies };
 }

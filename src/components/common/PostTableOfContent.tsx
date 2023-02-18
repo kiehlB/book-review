@@ -104,10 +104,6 @@ const PostTableOfContents = ({ isdark }) => {
 
 export default PostTableOfContents;
 
-// className={clsx('text-sm mt-2', {
-//   'text-[#212529] ': activeId === item.id,
-// })}
-
 const Toc = styled.div<{ active: boolean; isdark: string }>`
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

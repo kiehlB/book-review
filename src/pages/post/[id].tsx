@@ -35,7 +35,13 @@ import TextStyle from '@tiptap/extension-text-style';
 import 'moment/locale/ko';
 import moment from 'moment';
 import Comments from '../../components/comments/Comments';
-import { AppLayout, First, MainNav, Third } from '../../components/layout/AppLayout';
+import {
+  AppLayout,
+  First,
+  MainNav,
+  Second,
+  Third,
+} from '../../components/layout/AppLayout';
 
 export type PostProps = {
   id: string;
@@ -70,13 +76,13 @@ function Post({ id }: PostProps) {
                 </div>
                 <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
                 <div className="text-lg text-[#344155] dark:text-[#ececec]">
-                  {moment(singlePostData.post?.released_at).format('YYYY년 MMMM Do')}
+                  {moment(singlePostData?.post?.released_at).format('YYYY년 MMMM Do')}
                 </div>
               </div>
             </First>
           }
           second={
-            <MainNav>
+            <Second>
               <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem]">
                 <div className="col-span-2 justify-self-center">
                   <div className="sticky top-24">
@@ -84,17 +90,10 @@ function Post({ id }: PostProps) {
                   </div>
                 </div>
 
-                <div className="col-span-6 w-full">
-                  <Content isdark={isdark} className="max-w-[812.5px] mx-auto">
+                <div className="col-span-6 w-full max-w-[812.5px] mx-auto">
+                  <Content isdark={isdark}>
                     <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
                   </Content>
-
-                  <Comments
-                    commentCount={singlePostData?.post?.subs_count}
-                    comments={singlePostData?.post?.subs}
-                    postId={singlePostData?.post?.id}
-                    isMine={singlePostData?.post?.user?.id == auth.id}
-                  />
                 </div>
                 <div className="col-span-2">
                   <div className="sticky top-24">
@@ -102,7 +101,19 @@ function Post({ id }: PostProps) {
                   </div>
                 </div>
               </div>
-            </MainNav>
+            </Second>
+          }
+          third={
+            <Third>
+              <div className="max-w-[812.5px] mx-auto">
+                <Comments
+                  commentCount={singlePostData?.post?.subs_count}
+                  comments={singlePostData?.post?.subs}
+                  postId={singlePostData?.post?.id}
+                  isMine={singlePostData?.post?.user?.id == auth.id}
+                />
+              </div>
+            </Third>
           }
         />
       </PageLayout>

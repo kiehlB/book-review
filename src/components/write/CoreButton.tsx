@@ -1,7 +1,7 @@
 import { bindActionCreators, createDraftSafeSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsOpenSuccess, getPostTitle } from '../../store/book';
+import { getIsOpenSuccess, getPostBody, getPostTitle } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
 import useCreateSavePost from './hooks/usecreateSavePost';
 
@@ -21,12 +21,12 @@ function CoreButton({}: TapProps) {
     <div className="flex">
       <div
         onClick={() => onConfirmSave(postId, title, body, tags, book)}
-        className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] mr-4 cursor-pointer">
+        className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] mr-4 cursor-pointer ssm:mr-1">
         saved
       </div>
       <div
         onClick={() => dispatch(getIsOpenSuccess())}
-        className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] cursor-pointer">
+        className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] cursor-pointer mr-1">
         publish
       </div>
     </div>

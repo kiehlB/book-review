@@ -35,6 +35,7 @@ export interface AuthFormProps {
   error: ApolloError;
   Passwordhelper: helperProps;
   Usernamehelper: helperProps;
+  SetMode: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -48,6 +49,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   handleChange,
   Passwordhelper,
   Usernamehelper,
+  SetMode,
 }) => {
   const onClick = e => {
     e.preventDefault();
@@ -172,8 +174,19 @@ const AuthForm: React.FC<AuthFormProps> = ({
           {auth}
         </motion.button>
       </div>
-      <div className="px-[6rem]">
-        {/* {mode == 'register' ? '회원가입' : '로그인'}으로 이동 */}
+      <div className="px-[6.46875rem] text-base flex justify-end mmd:px-[2rem] ssm:px-[1rem]">
+        {mode == 'register' ? (
+          <div className="text-[#C99400] font-semibold" onClick={() => SetMode('login')}>
+            로그인
+          </div>
+        ) : (
+          <div
+            className="text-[#C99400] font-semibold"
+            onClick={() => SetMode('register')}>
+            회원가입
+          </div>
+        )}
+        <div className="dark:text-[#e4e5e7]"> 으로 이동</div>
       </div>
 
       <div className="flex my-4 items-center justify-between px-1">
@@ -183,8 +196,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
       </div>
 
       <div className="flex justify-between w-[50%] mx-auto pt-3">
-        <Google />
-        <FaceBook />
+        {/* <Google />
+        <FaceBook /> */}
       </div>
     </>
   );

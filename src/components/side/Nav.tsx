@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { MenuItem } from './NavMenuItem';
+import { useSelector } from 'react-redux';
+import useLogout from '../auth/hooks/useLogout';
 
 const variants = {
   open: {
@@ -11,38 +13,47 @@ const variants = {
   },
 };
 
-export const Navigation = () => (
-  <motion.ul variants={variants} className="absolute top-24 z-[600] px-4">
-    {itemIds.map(i => (
-      <MenuItem i={i} key={i.id} />
-    ))}
-  </motion.ul>
-);
+export const Navigation = () => {
+  const { auth } = useSelector((state: any) => state.auth);
+  const { handleSubmitLogout } = useLogout();
 
-const itemIds = [
-  {
-    id: 1,
-    text: 'Home',
-    link: '/',
-  },
-  {
-    id: 2,
-    text: 'See All Post',
-    link: '/filter',
-  },
-  {
-    id: 3,
-    text: 'Glossaries',
-    link: '/',
-  },
-  {
-    id: 4,
-    text: 'Regsiter',
-    link: '/signup',
-  },
-  {
-    id: 5,
-    text: 'Login',
-    link: '/signin',
-  },
-];
+  const itemIds = [
+    {
+      id: 1,
+      text: 'Home',
+      link: '/',
+    },
+    {
+      id: 2,
+      text: 'Search',
+      link: '/serach',
+    },
+  ];
+
+  const MobileitemIds = [
+    {
+      id: 1,
+      text: 'Home',
+      link: '/',
+    },
+    {
+      id: 2,
+      text: 'Search',
+      link: '/search',
+    },
+    {
+      id: 3,
+      text: 'Logout',
+      link: '/',
+      onClick: handleSubmitLogout,
+    },
+  ];
+
+  return (
+    <motion.ul variants={variants} className="absolute top-24 z-[600] px-4">
+      {auth?.username
+        ? MobileitemIds.map(i => <MenuItem i={i} key={i.id} />)
+        : itemIds.map(i => <MenuItem i={i} key={i.id} />)}
+    </motion.ul>
+  );
+};

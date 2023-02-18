@@ -16,10 +16,12 @@ function Register({ mode }: RegisterProps) {
     handleChange,
     Passwordhelper,
     Usernamehelper,
+    SetMode,
   } = useRegister();
 
   return (
     <AuthForm
+      SetMode={SetMode}
       username={username}
       password={password}
       handleSubmit={handleSubmit}

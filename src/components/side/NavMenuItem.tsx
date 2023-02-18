@@ -26,6 +26,7 @@ export const MenuItem = ({ i }) => {
   return (
     <Link href={i.link}>
       <motion.li
+        onClick={i?.onClick ? i?.onClick : ''}
         variants={variants}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
