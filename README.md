@@ -7,7 +7,7 @@ Website link: https://www.bookreview.pro/
  
  * Next Js
  * Typescript
- * Tailwind Css
+ * Tailwind css
  * Redux Toolkit
  * Apollo GraphQL
  * TipTap
