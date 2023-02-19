@@ -7,19 +7,16 @@ import { toast } from 'react-toastify';
 import { CreateComment, GET_SubComment, RemoveSub } from '../../../lib/graphql/comments';
 import useBoolean from '../../../hooks/useBoolean';
 
-export default function usedeleteComment(id) {
-  const { auth } = useSelector((state: any) => state.auth);
-
+export default function useDeleteComment(id) {
   const [removeComment] = useMutation(RemoveSub);
   const [askRemove, onToggleAskRemove] = useBoolean(false);
+  const [comment, setComment] = useState('');
   const [removeId, setRemoveId] = useState('');
   const replies = useQuery(GET_SubComment, {
     variables: {
       comment_id: id,
     },
   });
-
-  const [comment, setComment] = useState('');
 
   const onChange = e => {
     setComment(e.target.value);

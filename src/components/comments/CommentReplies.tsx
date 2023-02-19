@@ -4,7 +4,7 @@ import PopUpContainer from '../common/PopupContainer';
 import CommentList from './CommentList';
 import CommentsWrite from './CommentWrite';
 import useCommentRepliesWrite from './hooks/useCommentRepliesWrite';
-import usedeleteComment from './hooks/usedeleteComment';
+import useDeleteComment from './hooks/useDeleteComment';
 
 export type CommentRepliesProps = {
   id: string;
@@ -21,7 +21,7 @@ function CommentReplies({ id, onToggleOpen, open }: CommentRepliesProps) {
   );
 
   const { onRemove, askRemove, onConfirmRemove, onToggleAskRemove } =
-    usedeleteComment(id);
+    useDeleteComment(id);
   return (
     <div>
       {open ? (

@@ -32,6 +32,7 @@ module.exports = {
       mds: '1024px',
       sm: '768px',
       mxl: { max: '1599px' },
+      mp: { max: '1535px' },
       mlg: { max: '1365px' },
       mmd: { max: '1279px' },
       mmx: { max: '1023px' },

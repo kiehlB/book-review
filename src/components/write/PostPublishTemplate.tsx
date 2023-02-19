@@ -72,6 +72,10 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
     setIsPrivate(false);
   }, [isPrivate]);
 
+  const setFileValue = () => {
+    setFileInputState('');
+    setPreviewSource('');
+  };
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
@@ -82,12 +86,28 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
         animate={isopen ? 'open' : 'closed'}
         variants={liVariants}>
         <AppLayout
-          className="w-[768px] flex"
+          className="w-[768px] flex px-4 mxs:flex-col mxs:overflow-auto mxs:h-[100%] mxs:py-4"
           first={
             <First>
               <div className="flex-1 min-w-[0]">
-                <div className="text-[1.3rem] text-[#212529] font-semibold mb-1">
-                  썸네일 등록
+                <div className="flex justify-between items-center">
+                  <div className="text-[1.3rem] text-[#212529] font-semibold mb-1">
+                    썸네일 등록
+                  </div>
+
+                  <div className="flex">
+                    {fileInputState ? (
+                      <>
+                        <div
+                          className="text-base text-[#212529] cursor-pointer"
+                          onClick={setFileValue}>
+                          취소
+                        </div>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                  </div>
                 </div>
                 <div className="w-full pt-[55.11%] relative">
                   <div className="w-full h-full absolute left-0 top-0 shadow">
@@ -115,14 +135,16 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                             onChange={handleFileInputChange}
                             style={{ display: 'none' }}
                           />
-                          <div>등록</div>
+                          <div className="mt-2 text-sm px-[32px] py-[6px] rounded-3xl bg-[#Fff] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold ">
+                            업로드
+                          </div>
                         </div>
                       </label>
                     )}
                   </div>
                 </div>
 
-                <div className="text-[1.3rem] text-[#212529] font-semibold mt-4">
+                <div className="text-[1.3rem] text-[#212529] font-semibold mt-4 mxs:py-2">
                   등록될 책
                 </div>
                 <div>
@@ -138,12 +160,12 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
           }
           second={
             <Second>
-              <div className="w-[1px] min-h-[425px] bg-[#757575] mx-[2rem]"></div>
+              <div className="w-[1px] min-h-[425px] bg-[#757575] mx-[2rem] mxs:hidden"></div>
             </Second>
           }
           third={
             <Third>
-              <div className="flex flex-col justify-between flex-1 min-w-[0]">
+              <div className="flex flex-col justify-between flex-1 min-w-[0] mxs:mt-4">
                 <div>
                   <div className="w-full text-[1.3rem] text-[#212529] font-semibold mb-2">
                     공개 설정
@@ -180,11 +202,14 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                     </div>
                   </div>
                 </div>
-                <PublishCoreButton
-                  fileInputState={fileInputState}
-                  isPrivate={isPrivate}
-                  book={book}
-                />
+
+                <div className="mxs:mt-4">
+                  <PublishCoreButton
+                    fileInputState={fileInputState}
+                    isPrivate={isPrivate}
+                    book={book}
+                  />
+                </div>
               </div>
             </Third>
           }

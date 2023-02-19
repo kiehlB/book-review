@@ -42,6 +42,7 @@ import {
   Second,
   Third,
 } from '../../components/layout/AppLayout';
+import media from '../../lib/media';
 
 export type PostProps = {
   id: string;
@@ -83,20 +84,20 @@ function Post({ id }: PostProps) {
           }
           second={
             <Second>
-              <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem]">
-                <div className="col-span-2 justify-self-center">
-                  <div className="sticky top-24">
+              <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
+                <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden ">
+                  <div className="sticky top-[20%]">
                     <PawButton id={id} isdark={isdark} />
                   </div>
                 </div>
 
-                <div className="col-span-6 w-full max-w-[812.5px] mx-auto">
+                <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
                   <Content isdark={isdark}>
                     <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
                   </Content>
                 </div>
-                <div className="col-span-2">
-                  <div className="sticky top-24">
+                <div className="col-span-2 mp:hidden">
+                  <div className="sticky top-[20%]">
                     <PostTableOfContents isdark={isdark} />
                   </div>
                 </div>
@@ -189,6 +190,9 @@ const Content = styled.div<{ isdark: string }>`
     margin-top: 2.5rem;
     letter-spacing: -0.004em;
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    ${media.custom(768)} {
+      font-size: 2rem;
+    }
   }
 
   h2 {
@@ -198,6 +202,9 @@ const Content = styled.div<{ isdark: string }>`
     margin-top: 2.5rem;
     letter-spacing: -0.004em;
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    ${media.custom(768)} {
+      font-size: 1.5rem;
+    }
   }
   h3 {
     font-size: 1.5rem;
@@ -206,6 +213,9 @@ const Content = styled.div<{ isdark: string }>`
     margin-top: 1.5rem;
     letter-spacing: -0.004em;
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    ${media.custom(768)} {
+      font-size: 1.15rem;
+    }
   }
   h4 {
     font-size: 1.3125rem;
@@ -221,16 +231,19 @@ const Content = styled.div<{ isdark: string }>`
   width: 100%;
 
   ol {
+    white-space: initial;
+    word-wrap: break-word;
     list-style: none;
     counter-reset: my-awesome-counter;
     margin-top: 1rem;
     margin-bottom: 1rem;
     counter-increment: list;
+    height: 100%;
 
     li {
       display: block;
       clear: both;
-      font-size: 1.1rem;
+      font-size: 0.8rem;
       line-height: 1.375;
       position: relative;
       counter-increment: my-awesome-counter;
@@ -240,30 +253,20 @@ const Content = styled.div<{ isdark: string }>`
     }
     li:before {
       content: counter(my-awesome-counter);
-      width: 2.8rem;
-      height: 2.8rem;
+      width: 2rem;
+      height: 2rem;
+      min-width: 24px;
+      min-height: 20px;
       float: left;
-      margin: 0 1.5rem 0rem 0;
-      color: #fdfdfd;
-      background: #ed4264 linear-gradient(to bottom right, #ed4264 25%, #ffedbc);
-      text-shadow: 0 0 2px #ed4264;
+      margin: 0 1rem 0rem 0;
+      color: #212529;
+      background: #fcd545;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       shape-outside: ellipse();
       z-index: 1;
-    }
-    li:after {
-      width: 1.5rem;
-      height: 1.5rem;
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: '';
-      background: #ed4264;
-      z-index: -1;
-      border-top-left-radius: 3px;
     }
   }
 
@@ -281,7 +284,7 @@ const Content = styled.div<{ isdark: string }>`
       margin: 0 1rem 0rem 0;
       display: block;
       clear: both;
-      font-size: 1.1rem;
+      font-size: 1.8rem;
       line-height: 1.8;
       position: relative;
       counter-increment: my-awesome-counter;
