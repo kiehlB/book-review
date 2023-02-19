@@ -4,7 +4,7 @@ import PopUpContainer from '../common/PopupContainer';
 import CommentList from './CommentList';
 import CommentsWrite from './CommentWrite';
 import useCommentRepliesWrite from './hooks/useCommentRepliesWrite';
-import useDeleteComment from './hooks/useDeleteComment';
+import useDeleteComment from './hooks/useDeleteSub';
 
 export type CommentRepliesProps = {
   id: string;
