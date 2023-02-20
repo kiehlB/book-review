@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PopUpContainer from '../common/PopupContainer';
 import CommentList from './CommentList';
 import CommentsWrite from './CommentWrite';
@@ -10,9 +11,10 @@ export type CommentRepliesProps = {
   id: string;
   onToggleOpen: () => void;
   open: boolean;
+  isMine: boolean;
 };
 
-function CommentReplies({ id, onToggleOpen, open }: CommentRepliesProps) {
+function CommentReplies({ id, onToggleOpen, open, isMine }: CommentRepliesProps) {
   const router = useRouter();
 
   const { onWrite, comment, onChange, replies } = useCommentRepliesWrite(
@@ -22,6 +24,9 @@ function CommentReplies({ id, onToggleOpen, open }: CommentRepliesProps) {
 
   const { onRemove, askRemove, onConfirmRemove, onToggleAskRemove } =
     useDeleteComment(id);
+
+  const { auth } = useSelector((state: any) => state.auth);
+
   return (
     <div>
       {open ? (
@@ -32,8 +37,13 @@ function CommentReplies({ id, onToggleOpen, open }: CommentRepliesProps) {
         ''
       )}
 
-      <div className="ml-10">
-        <CommentList comments={replies?.data?.getSub?.replies} onRemove={onRemove} />
+      <div className="ml-10 mxs:ml-6">
+        <CommentList
+          comments={replies?.data?.getSub?.replies}
+          onRemove={onRemove}
+          isMine={isMine}
+          currentId={auth?.id}
+        />
       </div>
 
       <PopUpContainer

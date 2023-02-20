@@ -9,9 +9,10 @@ export type CommentsProps = {
   comments: Sub[];
   postId: string;
   isMine: boolean;
+  currentId: string;
 };
 
-function Comments({ commentCount, postId, comments }: CommentsProps) {
+function Comments({ commentCount, postId, comments, isMine, currentId }: CommentsProps) {
   const {
     onWrite,
     comment,
@@ -24,7 +25,9 @@ function Comments({ commentCount, postId, comments }: CommentsProps) {
 
   return (
     <div className="mt-24">
-      <div className="text-[#212529] text-lg font-bold mb-4">{commentCount}개의 댓글</div>
+      <div className="text-[#212529] text-lg font-bold mb-4 dark:text-[#ececec]">
+        {commentCount}개의 댓글
+      </div>
       <CommentsWrite
         postId={postId}
         comment={comment}
@@ -32,7 +35,12 @@ function Comments({ commentCount, postId, comments }: CommentsProps) {
         onWrite={onWrite}
       />
       <div className="mt-[4rem]">
-        <CommentList comments={comments} onRemove={onRemove} />
+        <CommentList
+          comments={comments}
+          onRemove={onRemove}
+          isMine={isMine}
+          currentId={currentId}
+        />
       </div>
 
       <PopUpContainer

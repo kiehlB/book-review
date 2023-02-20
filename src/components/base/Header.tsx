@@ -56,9 +56,10 @@ function Header() {
     useContext(ModalContext);
   const { isdark } = useSelector((state: RootState) => state.core);
   const dispatch = useDispatch();
-  const { auth } = useWhoAmI();
+  const { auth } = useSelector((state: any) => state.auth);
   const { handleSubmitLogout } = useLogout();
 
+  console.log(auth);
   const handleSubmit = e => {
     e.preventDefault();
     router.push('search/' + input);
@@ -69,14 +70,11 @@ function Header() {
       <div
         className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
         <div className="flex items-center">
-          <div className="md:hidden mr-3">
+          <div className="md:hidden mr-2 mxs:mr-1">
             <Sidebar />
           </div>
-          <Link href="/" className="mxs:text-lg mxs:hidden">
+          <Link href="/" className="mxs:text-lg ssm:text-base">
             BookReview
-          </Link>
-          <Link href="/" className="mxs:text-lg sm:hidden">
-            BR
           </Link>
         </div>
       </div>

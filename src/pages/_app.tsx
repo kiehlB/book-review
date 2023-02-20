@@ -16,6 +16,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
+import ReactGA from 'react-ga4';
+import { useEffect } from 'react';
 
 export const persistor = persistStore(store);
 
@@ -33,6 +35,20 @@ export const theme = createTheme({
 export default function App({ Component, pageProps, router }: AppProps) {
   const apolloClient = useApollo(pageProps);
 
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
+      ReactGA.send({ hitType: 'pageview', page: '/my-path' });
+      console.log(
+        `App is changing to ${url} ${shallow ? 'with' : 'without'} shallow routing`,
+      );
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, []);
   return (
     <>
       <Head>

@@ -57,8 +57,6 @@ function Post({ id }: PostProps) {
 
   const BodyResult = insertID.replace('<toc></toc>', '');
 
-  if (singlePostLoding) return <div>d</div>;
-
   return (
     <>
       <NextSeo {...getNextSeo({ title: 'Book Review Write', description: '책리뷰' })} />
@@ -67,7 +65,7 @@ function Post({ id }: PostProps) {
         <AppLayout
           first={
             <First>
-              <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center mt-[3rem] mb-[3rem] dark:text-[#ececec]">
+              <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
                 {singlePostData?.post?.title}
               </PostTitle>
 
@@ -85,7 +83,7 @@ function Post({ id }: PostProps) {
           second={
             <Second>
               <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
-                <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden ">
+                <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden">
                   <div className="sticky top-[20%]">
                     <PawButton id={id} isdark={isdark} />
                   </div>
@@ -111,7 +109,8 @@ function Post({ id }: PostProps) {
                   commentCount={singlePostData?.post?.subs_count}
                   comments={singlePostData?.post?.subs}
                   postId={singlePostData?.post?.id}
-                  isMine={singlePostData?.post?.user?.id == auth.id}
+                  isMine={singlePostData?.post?.user?.id == auth?.id}
+                  currentId={auth?.id}
                 />
               </div>
             </Third>
@@ -171,6 +170,11 @@ const PostTitle = styled.section`
 const Content = styled.div<{ isdark: string }>`
   white-space: initial;
   word-wrap: break-word;
+
+  a {
+    white-space: initial;
+    word-wrap: break-word;
+  }
 
   img {
     height: 100%;
@@ -250,17 +254,21 @@ const Content = styled.div<{ isdark: string }>`
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
+
+      position: relative;
+
+      margin-bottom: 20px;
+      color: #ffc800;
     }
     li:before {
       content: counter(my-awesome-counter);
-      width: 2rem;
-      height: 2rem;
+      width: 1.6rem;
+      height: 1.6rem;
       min-width: 24px;
+      font: bold italic 32px Helvetica, Verdana, sans-serif;
       min-height: 20px;
       float: left;
-      margin: 0 1rem 0rem 0;
-      color: #212529;
-      background: #fcd545;
+      margin: 0 1.4rem 0rem 0;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
@@ -274,23 +282,34 @@ const Content = styled.div<{ isdark: string }>`
     list-style: none;
     counter-reset: my-awesome-counter;
     counter-increment: list;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      background: #fdb813;
+      position: absolute;
+      left: 5px;
+      height: calc(100% - 10px);
+    }
 
     li {
-      align-items: center;
-      display: flex;
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 15px;
     }
     li:before {
-      content: '•';
-      margin: 0 1rem 0rem 0;
-      display: block;
-      clear: both;
-      font-size: 1.8rem;
-      line-height: 1.8;
-      position: relative;
-      counter-increment: my-awesome-counter;
-      display: flex;
-      color: #fdb813;
-      align-items: center;
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: #ffb300;
+      position: absolute;
+      left: 0;
+      top: 11px;
+      border-radius: 10px;
     }
   }
 

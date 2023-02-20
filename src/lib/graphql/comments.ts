@@ -34,9 +34,15 @@ export const GET_SubComment = gql`
       replies {
         id
         text
+        level
         user {
           id
           username
+          profile {
+            id
+            bio
+            profile_name
+          }
         }
       }
     }

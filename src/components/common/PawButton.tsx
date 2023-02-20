@@ -13,8 +13,6 @@ export default function PawButton({ id, isdark }: PostProps) {
   let confettiAmount = 60;
   const { data, onLikeToggle } = usePostLike({ id });
 
-  console.log(data?.post?.liked);
-
   const confettiColors = [
     '#7d32f5',
     '#f6e434',

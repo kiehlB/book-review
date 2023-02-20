@@ -33,12 +33,6 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import styled from 'styled-components';
 import { Tooltip, IconButton, EditIcon, Position } from 'evergreen-ui';
 
-{
-  /* <button onClick={() => editor.chain().focus().unsetColor().run()}>
-unsetColor
-</button> */
-}
-
 const ProjectCreateContentToolbar = ({
   editor,
   children,
@@ -228,16 +222,15 @@ const ProjectCreateContentToolbar = ({
               value={editor.getAttributes('textStyle').color}
             />
           </div>
-
-          <Tooltip content="색깔을 초기화 시킵니다" position={Position.TOP}>
-            <ToggleButton
-              onClick={() => editor.chain().focus().unsetColor().run()}
-              value="unset color"
-              aria-label="unset color">
-              <RestartAltIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-            </ToggleButton>
-          </Tooltip>
         </StyledToggleButtonGroup>
+        <Tooltip content="색깔을 초기화 시킵니다" position={Position.TOP}>
+          <ToggleButton
+            onClick={() => editor.chain().focus().unsetColor().run()}
+            value="unset color"
+            aria-label="unset color">
+            <RestartAltIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
+          </ToggleButton>
+        </Tooltip>
       </Paper>
     </>
   );

@@ -24,7 +24,6 @@ export default function usePostLike({ id }) {
     },
   });
 
-  console.log(data);
   const onLikeToggle = async () => {
     if (loadingLike || loadingUnlike) return;
 

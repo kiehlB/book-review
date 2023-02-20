@@ -63,10 +63,10 @@ export default function useLogin() {
   }, [inputs.username]) as any;
 
   const [signIn, { error: LoginError }] = useMutation(loginMutation, {
-    onCompleted({ signUp }) {
+    onCompleted(signIn) {
       SetIsClose(false);
       loading();
-      dispatch(initAuth(user));
+      dispatch(initAuth(signIn.login));
       toast.success('로그인 완료!', {
         position: 'bottom-right',
         autoClose: 5000,

@@ -156,9 +156,7 @@ function Tap({}: TapProps) {
     content:
       body?.length > 10
         ? body
-        : `
-         <div>
-    <toc></toc> 
+        : `<div><toc></toc> 
     </div>반갑습니다
  
   `,
@@ -318,17 +316,21 @@ const Content = styled.div<{ isdark: string }>`
         display: flex;
         align-items: center;
         margin-bottom: 0.5rem;
+
+        position: relative;
+
+        margin-bottom: 20px;
+        color: #ffc800;
       }
       li:before {
         content: counter(my-awesome-counter);
         width: 1.6rem;
         height: 1.6rem;
         min-width: 24px;
+        font: bold italic 32px Helvetica, Verdana, sans-serif;
         min-height: 20px;
         float: left;
-        margin: 0 1rem 0rem 0;
-        color: #212529;
-        background: #fcd545;
+        margin: 0 1.4rem 0rem 0;
         border-radius: 50%;
         display: inline-flex;
         align-items: center;
@@ -342,23 +344,36 @@ const Content = styled.div<{ isdark: string }>`
       list-style: none;
       counter-reset: my-awesome-counter;
       counter-increment: list;
+      margin: 0;
+      padding: 0;
+      position: relative;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        background: #fdb813;
+
+        position: absolute;
+        left: 5px;
+        height: calc(100% - 10px);
+      }
 
       li {
-        align-items: center;
-        display: flex;
+        position: relative;
+        padding-left: 24px;
+        margin-bottom: 15px;
       }
       li:before {
-        content: '•';
-        margin: 0 1rem 0rem 0;
-        display: block;
-        clear: both;
-        font-size: 1.8rem;
-        line-height: 1.8;
-        position: relative;
-        counter-increment: my-awesome-counter;
-        display: flex;
-        color: #fdb813;
-        align-items: center;
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: #ffb300;
+        position: absolute;
+        left: 0;
+        top: 11px;
+        border-radius: 10px;
       }
     }
 
@@ -376,7 +391,6 @@ const Content = styled.div<{ isdark: string }>`
         white-space: initial;
         word-wrap: break-word;
         list-style: none;
-
         overflow: hidden;
 
         .toc__list {

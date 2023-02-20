@@ -33,6 +33,7 @@ export const GET_Post = gql`
         likes
         has_replies
         deleted
+        level
         reply
         created_at
         updated_at
@@ -44,6 +45,11 @@ export const GET_Post = gql`
         user {
           id
           username
+          profile {
+            id
+            bio
+            profile_name
+          }
         }
       }
     }

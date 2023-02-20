@@ -11,6 +11,7 @@ import useGetSearchPosts from '../../components/post/hooks/useGetSearchPosts';
 import PostCard from '../../components/post/PostCard';
 import { getNextSeo } from '../../lib/nextSeo';
 import { motion, useReducedMotion } from 'framer-motion';
+import { BackLink } from '../../components/common/ArrowButton';
 
 export default function Search({ id }) {
   const { data, loading } = useGetSearchPosts(id);
@@ -59,9 +60,11 @@ export default function Search({ id }) {
             first={
               <First>
                 <div className="flex justify-between items-center">
-                  <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
-                    포스트
-                  </div>
+                  <BackLink href="/">
+                    <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3 dark:text-[#D3D3D3]">
+                      메인으로
+                    </div>
+                  </BackLink>
                 </div>
               </First>
             }

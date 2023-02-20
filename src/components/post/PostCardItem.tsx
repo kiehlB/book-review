@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import media from '../../lib/media';
 import { Post } from '../../types/apolloComponent';
 import RatioImage from '../common/RatioImage';
+import 'moment/locale/ko';
 
 interface GridProps {
   post: Post;

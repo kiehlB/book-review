@@ -11,12 +11,14 @@ export type CommentsWriteProps = {
 };
 
 function CommentsWrite({ postId, comment, onChange, onWrite }: CommentsWriteProps) {
+  console.log(comment);
   return (
     <div className="flex items-end flex-col">
       <StyledTextarea
         value={comment}
         onChange={e => onChange(e)}
         placeholder="댓글을 작성하세요"
+        className="border border-[#f1f3f5] dark:border-none bg-[#0000000d] dark:bg-[#2b2d31] dark:text-[#ececec]"
       />
 
       <div className="flex">
@@ -39,12 +41,10 @@ const StyledTextarea = styled(TextareaAutosize)`
   padding: 1rem;
   padding-bottom: 1.5rem;
   outline: none;
-  border: 1px solid #f1f3f5;
   margin-bottom: 1.5rem;
   width: 100%;
   border-radius: 4px;
   min-height: 6.125rem;
   font-size: 1rem;
   line-height: 1.75;
-  background-color: #0000000d;
 `;

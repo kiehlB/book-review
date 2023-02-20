@@ -5,6 +5,7 @@ import { Create_Post, Edit_Post } from '../../../lib/graphql/posts';
 import { useDispatch } from 'react-redux';
 import { getIsOpenSuccess } from '../../../store/book';
 import { toast } from 'react-toastify';
+import { checkEmpty } from '../../../lib/utils';
 
 export default function useCreatePost() {
   const router = useRouter();
@@ -35,6 +36,13 @@ export default function useCreatePost() {
     book,
   ) => {
     e.preventDefault();
+
+    if (checkEmpty(title)) {
+      toast.error('제목 또는 내용이 비어있습니다.', {
+        position: 'bottom-right',
+      });
+      return;
+    }
 
     if (id) {
       try {
