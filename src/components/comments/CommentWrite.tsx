@@ -8,27 +8,45 @@ export type CommentsWriteProps = {
   comment?: any;
   onChange?: any;
   onWrite?: any;
+  onCancel?: any;
+  edit?: any;
 };
 
-function CommentsWrite({ postId, comment, onChange, onWrite }: CommentsWriteProps) {
-  console.log(comment);
+function CommentsWrite({
+  postId,
+  comment,
+  onChange,
+  onWrite,
+  onCancel,
+  edit,
+}: CommentsWriteProps) {
   return (
     <div className="flex items-end flex-col">
       <StyledTextarea
         value={comment}
         onChange={e => onChange(e)}
         placeholder="댓글을 작성하세요"
-        className="border border-[#f1f3f5] dark:border-none bg-[#0000000d] dark:bg-[#2b2d31] dark:text-[#ececec]"
+        className="border border-[#f1f3f5] dark:border-none bg-[#0000000d] dark:bg-[#2b2d31] dark:text-[#ececec] w-full"
       />
 
       <div className="flex">
-        <button className="mr-4 text-sm py-[10px] rounded-3xl text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">
-          취소
-        </button>
+        {onCancel && (
+          <button
+            onClick={onCancel}
+            className="mr-4 text-sm py-[10px] rounded-3xl text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">
+            취소
+          </button>
+        )}
+
         <button
-          onClick={onWrite}
+          onClick={() => {
+            {
+              onCancel ? onCancel() : '';
+            }
+            onWrite();
+          }}
           className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">
-          완료
+          {edit ? '수정' : '작성'}
         </button>
       </div>
     </div>

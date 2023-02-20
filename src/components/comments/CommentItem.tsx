@@ -8,6 +8,7 @@ import { CiCirclePlus } from 'react-icons/ci';
 import { HiPlus } from 'react-icons/hi';
 import { BiUpvote } from 'react-icons/bi';
 import ProfileIcon from '../../svg/profile';
+import CommentEdit from './CommentEdit';
 
 export type CommentItemProps = {
   comment: Sub | any;
@@ -25,6 +26,7 @@ const PostCommentItem = styled.div`
 
 function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
+  const [editing, onToggleEditing] = useBoolean(false);
 
   return (
     <PostCommentItem className="py-1 mt-1">
@@ -39,20 +41,49 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
         )}
 
         <div className="flex items-center justify-between w-full">
-          <div className="flex items-center">
-            <div>
-              <div className="flex items-center mxs:flex-col mxs:items-baseline">
-                <div className="font-bold text-[#212529] ml-2 mxs:text-sm dark:text-[#ececec]">
-                  {comment.deleted ? '알 수 없음' : comment?.user?.username}
+          <div className="flex items-center w-full">
+            <div className="w-full">
+              <div className="flex items-center mxs:flex-col mxs:items-baseline justify-between w-full">
+                <div className="flex items-center">
+                  <div className="font-bold text-[#212529] ml-2 mxs:text-sm dark:text-[#ececec]">
+                    {comment.deleted ? '알 수 없음' : comment?.user?.username}
+                  </div>
+                  <div className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
+                    {moment(comment?.created_at).fromNow()}
+                  </div>
                 </div>
-                <div className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
-                  {moment(comment?.created_at).fromNow()}
+
+                <div className="flex text-[#868e96] text-sm h-full dark:text-[#acacac]">
+                  {ownComment == comment?.user?.id ? (
+                    <>
+                      <div onClick={onToggleEditing} className="mr-2 cursor-pointer">
+                        수정
+                      </div>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => onRemove(comment.id)}>
+                        삭제
+                      </div>{' '}
+                    </>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
 
-              <div className="ml-2">
+              <div className="ml-2 w-[100%]">
                 <div className="mt-1 mxs:text-sm dark:text-[#ececec]">
-                  {comment.deleted ? '삭제 되었습니다' : comment.text}
+                  {editing ? (
+                    <CommentEdit
+                      id={comment.id}
+                      defaultText={comment.text || ''}
+                      onCancel={onToggleEditing}
+                    />
+                  ) : comment.deleted ? (
+                    '삭제 되었습니다'
+                  ) : (
+                    comment.text
+                  )}
                 </div>
                 <div className="text-[#212529] text-sm mt-2 w-fit dark:text-[#ececec]">
                   <div className="flex items-center">
@@ -71,27 +102,14 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
               </div>
             </div>
           </div>
-
-          <div className="flex text-[#868e96] text-sm h-full dark:text-[#acacac]">
-            {ownComment == comment?.user?.id ? (
-              <>
-                <div className="mr-2 cursor-pointer">수정</div>
-                <div className="cursor-pointer" onClick={() => onRemove(comment.id)}>
-                  삭제
-                </div>{' '}
-              </>
-            ) : (
-              ''
-            )}
-          </div>
         </div>
       </div>
 
       <CommentReplies
         id={comment.id}
         onToggleOpen={onToggleOpen}
-        open={open}
         isMine={isMine}
+        open={open}
       />
     </PostCommentItem>
   );

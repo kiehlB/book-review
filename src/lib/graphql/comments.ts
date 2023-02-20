@@ -14,6 +14,18 @@ export const RemoveSub = gql`
   }
 `;
 
+export const EditSub = gql`
+  mutation EditSub($id: String!, $text: String!) {
+    editSub(id: $id, text: $text) {
+      id
+      text
+      level
+      created_at
+      updated_at
+    }
+  }
+`;
+
 export const GET_SubComment = gql`
   query GetSub($comment_id: String!) {
     getSub(comment_id: $comment_id) {

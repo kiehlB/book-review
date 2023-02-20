@@ -5,13 +5,23 @@ import { Create_Post, Edit_Post, RELOAD_COMMENTS } from '../../../lib/graphql/po
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { CreateComment, GET_SubComment } from '../../../lib/graphql/comments';
+import useBoolean from '../../../hooks/useBoolean';
 
 export default function useCommentRepliesWrite(postId, commendId) {
   const { auth } = useSelector((state: any) => state.auth);
+  const [writing, onToggle] = useBoolean(false);
   const [writeComment] = useMutation(CreateComment);
   const replies = useQuery(GET_SubComment, {
     variables: {
       comment_id: commendId,
+    },
+  });
+
+  const reloadComments = useQuery(RELOAD_COMMENTS, {
+    skip: true,
+    fetchPolicy: 'network-only',
+    variables: {
+      id: postId,
     },
   });
 
@@ -36,8 +46,10 @@ export default function useCommentRepliesWrite(postId, commendId) {
           comment_id: commendId,
         },
       });
+
       setComment('');
       await replies.refetch();
+      await reloadComments.refetch();
 
       const comments = document.querySelectorAll('.comment');
       if (comments.length === 0) return;
@@ -48,5 +60,5 @@ export default function useCommentRepliesWrite(postId, commendId) {
     }
   };
 
-  return { onWrite, comment, onChange, replies };
+  return { onWrite, comment, onChange, replies, writing, onToggle };
 }

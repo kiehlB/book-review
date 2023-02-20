@@ -113,6 +113,7 @@ function Post({ id }: PostProps) {
                   currentId={auth?.id}
                 />
               </div>
+              <div className="h-[100vh]"></div>
             </Third>
           }
         />
