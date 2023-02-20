@@ -2,6 +2,7 @@ import useCreateCommentWrite from './hooks/useCommentWrite';
 import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
+import { useSelector } from 'react-redux';
 
 export type CommentsWriteProps = {
   postId?: any;
@@ -20,6 +21,7 @@ function CommentsWrite({
   onCancel,
   edit,
 }: CommentsWriteProps) {
+  const { auth } = useSelector((state: any) => state.auth);
   return (
     <div className="flex items-end flex-col">
       <StyledTextarea
@@ -41,7 +43,7 @@ function CommentsWrite({
         <button
           onClick={() => {
             {
-              onCancel ? onCancel() : '';
+              onCancel && auth ? onCancel() : '';
             }
             onWrite();
           }}

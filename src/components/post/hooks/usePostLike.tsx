@@ -40,7 +40,6 @@ export default function usePostLike({ id }) {
 
     try {
       if (!auth.username) {
-        toast.error('로그인 후 이용해주세요.');
         return;
       }
       if (data?.post?.liked) {

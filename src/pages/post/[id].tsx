@@ -43,18 +43,21 @@ import {
   Third,
 } from '../../components/layout/AppLayout';
 import media from '../../lib/media';
+import { useRouter } from 'next/router';
 
 export type PostProps = {
   id: string;
 };
 
-function Post({ id }: PostProps) {
+function Post() {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
+  const router = useRouter();
   const dispatch = useDispatch();
   const insertID = setHeadingId(singlePostData?.post?.body);
   const { isdark } = useSelector((state: RootState) => state.core);
   const { auth } = useSelector((state: any) => state.auth);
 
+  const id = router?.query?.id;
   const BodyResult = insertID.replace('<toc></toc>', '');
 
   return (
@@ -85,7 +88,7 @@ function Post({ id }: PostProps) {
               <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
                 <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden">
                   <div className="sticky top-[20%]">
-                    <PawButton id={id} isdark={isdark} />
+                    <PawButton id={id} isdark={isdark} auth={auth} />
                   </div>
                 </div>
 
@@ -147,14 +150,6 @@ export default Post;
               </div>
             </div> */
 }
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  if (context.query.id && typeof context.query.id === 'string') {
-    const { id } = context.query;
-
-    return { props: { id } };
-  }
-};
 
 const PostTitle = styled.section`
   display: -webkit-box;

@@ -3,15 +3,18 @@ import { useDebounce, useDebouncedCallback } from 'use-debounce';
 import usePostLike from '../post/hooks/usePostLike';
 import styled, { keyframes, css } from 'styled-components';
 import clsx from 'clsx';
+import { toast } from 'react-toastify';
 
 export type PostProps = {
-  id: string;
+  id: string | any;
   isdark: string;
+  auth: any;
 };
 
-export default function PawButton({ id, isdark }: PostProps) {
+export default function PawButton({ id, isdark, auth }: PostProps) {
   let confettiAmount = 60;
   const { data, onLikeToggle } = usePostLike({ id });
+  console.log(auth);
 
   const confettiColors = [
     '#7d32f5',
@@ -48,7 +51,14 @@ export default function PawButton({ id, isdark }: PostProps) {
       }
     });
   }, [data?.post?.liked]);
+
   const a = e => {
+    if (!auth) {
+      toast.error('로그인 후 이용해주세요.', {
+        position: 'bottom-right',
+      });
+      return;
+    }
     document.querySelectorAll('.paw-button').forEach((elem: any) => {
       if (!data?.post?.liked) {
         elem.classList.add('animation');
@@ -71,10 +81,12 @@ export default function PawButton({ id, isdark }: PostProps) {
     });
   };
 
+  const isLogin = auth ? 500 : 0;
+
   const debounced = useDebouncedCallback(e => {
     a(e);
     onLikeToggle();
-  }, 500);
+  }, isLogin);
 
   return (
     <>
