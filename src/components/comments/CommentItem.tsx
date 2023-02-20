@@ -28,7 +28,6 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
 
-  console.log(comment);
   return (
     <PostCommentItem className="py-1 mt-1">
       <div className="flex">
@@ -64,7 +63,7 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
                         className="cursor-pointer"
                         onClick={() => onRemove(comment.id)}>
                         삭제
-                      </div>{' '}
+                      </div>
                     </>
                   ) : (
                     ''

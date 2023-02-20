@@ -19,6 +19,7 @@ function CommentsWrite({
   onChange,
   onWrite,
   onCancel,
+
   edit,
 }: CommentsWriteProps) {
   const { auth } = useSelector((state: any) => state.auth);
@@ -42,9 +43,6 @@ function CommentsWrite({
 
         <button
           onClick={() => {
-            {
-              onCancel && auth ? onCancel() : '';
-            }
             onWrite();
           }}
           className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">

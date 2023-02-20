@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import React from 'react';
+import React, { useState } from 'react';
 import useInput from '../../hooks/useIntput';
 import { EditSub } from '../../lib/graphql/comments';
 import CommentsWrite from './CommentWrite';
@@ -12,7 +12,12 @@ export interface CommentEditProps {
 
 const CommentEdit: React.FC<CommentEditProps> = ({ id, defaultText, onCancel }) => {
   const [comment, onChange] = useInput(defaultText);
-  const [editComment] = useMutation(EditSub);
+  const [editComment] = useMutation(EditSub, {
+    onCompleted({}) {
+      onCancel();
+    },
+  });
+  const [wait, setWait] = useState(false);
 
   const onWrite = async () => {
     await editComment({
