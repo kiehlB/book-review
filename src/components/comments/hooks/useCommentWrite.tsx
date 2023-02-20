@@ -29,7 +29,7 @@ export default function useCreateCommentWrite(postId) {
 
   const onWrite = async () => {
     if (comment === '') return;
-    if (!auth.id) {
+    if (!auth?.id) {
       toast.error('로그인이 필요합니다', {
         position: 'bottom-right',
       });

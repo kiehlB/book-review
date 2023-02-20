@@ -12,7 +12,7 @@ export default function useEditPost() {
 
   const { data, loading, fetchMore } = useQuery(GET_Posts, {
     variables: {
-      username: auth.username,
+      username: auth?.username,
       temp_only: true,
     },
     skip: !auth,
@@ -32,7 +32,7 @@ export default function useEditPost() {
         client.writeQuery({
           query: GET_Posts,
           variables: {
-            username: auth.username,
+            username: auth?.username,
             temp_only: true,
           },
           data: {

@@ -21,7 +21,7 @@ export default function useCreateSavePost() {
 
   const { data, loading, fetchMore } = useQuery(GET_Posts, {
     variables: {
-      username: auth.username,
+      username: auth?.username,
       istemp: true,
     },
     skip: !auth,
@@ -59,7 +59,7 @@ export default function useCreateSavePost() {
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
-                username: auth.username,
+                username: auth?.username,
                 istemp: true,
               },
               data: {
@@ -99,7 +99,7 @@ export default function useCreateSavePost() {
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
-                username: auth.username,
+                username: auth?.username,
                 temp_only: true,
               },
               data: {
@@ -139,7 +139,7 @@ export default function useCreateSavePost() {
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
-                username: auth.username,
+                username: auth?.username,
                 istemp: true,
               },
               data: {
@@ -170,7 +170,7 @@ export default function useCreateSavePost() {
       client.writeQuery({
         query: GET_Posts,
         variables: {
-          username: auth.username,
+          username: auth?.username,
           istemp: true,
         },
         data: {

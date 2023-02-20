@@ -32,7 +32,7 @@ export default function useSavedPosts() {
       client.writeQuery({
         query: GET_Posts,
         variables: {
-          username: auth.username,
+          username: auth?.username,
           temp_only: true,
         },
         data: {
