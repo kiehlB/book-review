@@ -21,7 +21,6 @@ const CommentEdit: React.FC<CommentEditProps> = ({ id, defaultText, onCancel }) 
         text: comment,
       },
     });
-    onCancel();
   };
 
   return (

@@ -28,6 +28,7 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
 
+  console.log(comment);
   return (
     <PostCommentItem className="py-1 mt-1">
       <div className="flex">
@@ -54,7 +55,7 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
                 </div>
 
                 <div className="flex text-[#868e96] text-sm h-full dark:text-[#acacac]">
-                  {ownComment == comment?.user?.id ? (
+                  {ownComment == comment?.user?.id && !comment.deleted ? (
                     <>
                       <div onClick={onToggleEditing} className="mr-2 cursor-pointer">
                         수정
