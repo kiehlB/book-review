@@ -316,17 +316,17 @@ const Content = styled.div<{ isdark: string }>`
         display: flex;
         align-items: center;
         margin-bottom: 0.5rem;
-
         position: relative;
-
+        left: -0.3rem;
         margin-bottom: 20px;
-        color: #ffc800;
+        color: #ffb300;
       }
       li:before {
         content: counter(my-awesome-counter);
-        width: 1.6rem;
+        width: 0rem;
         height: 1.6rem;
         min-width: 24px;
+
         font: bold italic 32px Helvetica, Verdana, sans-serif;
         min-height: 20px;
         float: left;

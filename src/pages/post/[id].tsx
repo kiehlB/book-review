@@ -2,24 +2,6 @@ import PostTableOfContents from '../../components/common/PostTableOfContent';
 import { PageLayout } from '../../components/layout/PageLayout';
 
 import { parseHeadings2, setHeadingId } from '../../lib/heading';
-import { EditorContent, useEditor } from '@tiptap/react';
-import Subscript from '@tiptap/extension-subscript';
-import Superscript from '@tiptap/extension-superscript';
-import Highlight from '@tiptap/extension-highlight';
-import TypographyExtension from '@tiptap/extension-typography';
-import UnderlineExtension from '@tiptap/extension-underline';
-import Document from '@tiptap/extension-document';
-import Paragraph from '@tiptap/extension-paragraph';
-import Text from '@tiptap/extension-text';
-import Dropcursor from '@tiptap/extension-dropcursor';
-import Code from '@tiptap/extension-code';
-import Link from '@tiptap/extension-link';
-import TextAlign from '@tiptap/extension-text-align';
-import Focus from '@tiptap/extension-focus';
-import StarterKit from '@tiptap/starter-kit';
-import { ColorHighlighter } from '../../components/write/ColourHighlighter';
-import TableOfContents from '../../components/write/TableOfContents';
-import UniqueID from '../../components/write/UniqueID';
 import { useEffect, useState } from 'react';
 import useGetPost from '../../components/write/hooks/useGetSinglePost';
 import { GetServerSideProps } from 'next';
@@ -30,8 +12,6 @@ import PawButton from '../../components/common/PawButton';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
-import { getcoreIsLoading } from '../../store/core';
-import TextStyle from '@tiptap/extension-text-style';
 import 'moment/locale/ko';
 import moment from 'moment';
 import Comments from '../../components/comments/Comments';
@@ -44,6 +24,11 @@ import {
 } from '../../components/layout/AppLayout';
 import media from '../../lib/media';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { getPostBody, getPostId, getPostTags, getPostTitle } from '../../store/book';
+import { Remove_Post } from '../../lib/graphql/posts';
+import { useApolloClient, useMutation } from '@apollo/client';
+import { toast } from 'react-toastify';
 
 export type PostProps = {
   id: string;
@@ -59,6 +44,38 @@ function Post() {
 
   const id = router?.query?.id;
   const BodyResult = insertID.replace('<toc></toc>', '');
+
+  const getPostData = () => {
+    dispatch(getPostTitle(singlePostData?.post?.title));
+    dispatch(getPostBody(singlePostData?.post?.body));
+    // dispatch(getPostTags(singlePostData?.post?.tags));
+    dispatch(getPostId(singlePostData?.post?.id));
+  };
+
+  const [removePost] = useMutation(Remove_Post, {
+    onCompleted({}) {
+      router.push('/');
+    },
+  });
+
+  const client = useApolloClient();
+
+  const handleSubmit = async id => {
+    if (id) {
+      try {
+        await removePost({
+          variables: {
+            id: id,
+          },
+        });
+        await client.resetStore();
+      } catch (e) {
+        toast.error('포스트 삭제 실패', {
+          position: 'bottom-right',
+        });
+      }
+    }
+  };
 
   return (
     <>
@@ -81,6 +98,54 @@ function Post() {
                   {moment(singlePostData?.post?.released_at).format('YYYY년 MMMM Do')}
                 </div>
               </div>
+
+              {singlePostData?.post?.user?.id == auth?.id ? (
+                <div className="flex justify-end max-w-[912px] mx-auto text-[#868E96] text-sm">
+                  <Link href={`/write`} passHref>
+                    <div onClick={getPostData} className="mr-4 cursor-pointer">
+                      수정
+                    </div>
+                  </Link>
+
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleSubmit(router?.query?.id)}>
+                    삭제
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
+
+              {singlePostData?.post?.bookInfo?.bookTitle ? (
+                <div className="flex max-w-[912.5px] mx-auto bg-[#F8F9FA] py-8 px-8 mt-4 rounded shadow">
+                  <div className="card">
+                    <div className="imgBox">
+                      <div className="bark"></div>
+                      <img
+                        src={singlePostData?.post?.bookInfo?.bookUrl}
+                        width="120px"
+                        height="174px"
+                      />
+                    </div>
+                    <div className="details">
+                      <h4 className="text-[10px]">
+                        {singlePostData?.post?.bookInfo?.bookContent}
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="flex flex-col ml-8">
+                    <div className="text-[#495057] text-xl font-bold">
+                      도서: {singlePostData?.post?.bookInfo?.bookTitle}
+                    </div>
+                    <div className="text-[#495057] text-base font-semibold mt-2">
+                      저자: {singlePostData?.post?.bookInfo?.bookAuthors?.map(e => e)}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
             </First>
           }
           second={
@@ -126,30 +191,6 @@ function Post() {
 }
 
 export default Post;
-
-{
-  /* <div className="flex">
-              <div className="card">
-                <div className="imgBox">
-                  <div className="bark"></div>
-                  <img
-                    src="https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1165488%3Ftimestamp%3D20221227143803"
-                    width="120px"
-                    height="174px"
-                  />
-                </div>
-                <div className="details">
-                  <h4 className="text-[10px]">
-                    {singlePostData.post?.bookInfo.bookContent}
-                  </h4>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div>{singlePostData.post?.bookInfo?.bookTitle}</div>
-                <div>{singlePostData.post?.bookInfo?.bookAuthors?.map(e => e)}</div>
-              </div>
-            </div> */
-}
 
 const PostTitle = styled.section`
   display: -webkit-box;
@@ -250,17 +291,17 @@ const Content = styled.div<{ isdark: string }>`
       display: flex;
       align-items: center;
       margin-bottom: 0.5rem;
-
       position: relative;
-
+      left: -0.3rem;
       margin-bottom: 20px;
-      color: #ffc800;
+      color: #ffb300;
     }
     li:before {
       content: counter(my-awesome-counter);
-      width: 1.6rem;
+      width: 0rem;
       height: 1.6rem;
       min-width: 24px;
+
       font: bold italic 32px Helvetica, Verdana, sans-serif;
       min-height: 20px;
       float: left;
