@@ -372,7 +372,7 @@ const Content = styled.div<{ isdark: string }>`
         background: #ffb300;
         position: absolute;
         left: 0;
-        top: 11px;
+        top: 7.5px;
         border-radius: 10px;
       }
     }
@@ -467,8 +467,15 @@ const Content = styled.div<{ isdark: string }>`
     font-size: 1.125rem;
     line-height: 1.7;
     letter-spacing: -0.004em;
-    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#333')};
     display: block;
+
+    font-family: 'Noto Sans KR', 'Nanum Gothic', 'Roboto', 'Helvetica Neue', Arial,
+      sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+
+    word-break: break-all;
   }
 
   u {

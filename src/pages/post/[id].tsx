@@ -120,10 +120,10 @@ function Post() {
               )}
 
               {singlePostData?.post?.bookInfo?.bookTitle ? (
-                <div className="flex max-w-[912.5px] mx-auto bg-[#F8F9FA] py-8 px-8 mt-4 rounded shadow">
+                <div className="flex max-w-[912.5px] mx-auto bg-[#F8F9FA] py-8 px-8 mt-4 rounded shadow dark:bg-[#2b2d31] ssm:flex-col">
                   <div className="card">
                     <div className="imgBox">
-                      <div className="bark"></div>
+                      <div className="bark "></div>
                       <img
                         src={singlePostData?.post?.bookInfo?.bookUrl}
                         width="120px"
@@ -136,11 +136,11 @@ function Post() {
                       </h4>
                     </div>
                   </div>
-                  <div className="flex flex-col ml-8">
-                    <div className="text-[#495057] text-xl font-bold">
+                  <div className="flex flex-col ml-8 ssm:ml-0 ssm:mt-2">
+                    <div className="text-[#495057] text-xl font-bold dark:text-[#ececec] mxs:text-base">
                       도서: {singlePostData?.post?.bookInfo?.bookTitle}
                     </div>
-                    <div className="text-[#495057] text-base font-semibold mt-2">
+                    <div className="text-[#495057] text-base font-semibold mt-2 dark:text-[#ececec]">
                       저자: {singlePostData?.post?.bookInfo?.bookAuthors?.map(e => e)}
                     </div>
                   </div>
@@ -324,11 +324,13 @@ const Content = styled.div<{ isdark: string }>`
     margin: 0;
     padding: 0;
     position: relative;
+
     &:before {
       content: '';
       display: inline-block;
       width: 2px;
       background: #fdb813;
+
       position: absolute;
       left: 5px;
       height: calc(100% - 10px);
@@ -347,7 +349,7 @@ const Content = styled.div<{ isdark: string }>`
       background: #ffb300;
       position: absolute;
       left: 0;
-      top: 11px;
+      top: 7.5px;
       border-radius: 10px;
     }
   }
@@ -376,6 +378,7 @@ const Content = styled.div<{ isdark: string }>`
     font-family: 'JetBrainsMono', monospace;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
+    margin: 0.75rem 1rem;
 
     code {
       color: inherit;
@@ -417,8 +420,15 @@ const Content = styled.div<{ isdark: string }>`
     font-size: 1.125rem;
     line-height: 1.7;
     letter-spacing: -0.004em;
-    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+
     display: block;
+    font-family: 'Noto Sans KR', 'Nanum Gothic', 'Roboto', 'Helvetica Neue', Arial,
+      sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#333')};
+
+    word-break: break-all;
   }
 
   u {
