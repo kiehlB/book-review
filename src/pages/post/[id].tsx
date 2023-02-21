@@ -181,7 +181,6 @@ function Post() {
                   currentId={auth?.id}
                 />
               </div>
-              <div className="h-[100vh]"></div>
             </Third>
           }
         />
