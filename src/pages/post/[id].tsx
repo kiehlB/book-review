@@ -77,6 +77,8 @@ function Post() {
     }
   };
 
+  if (!singlePostData) return;
+
   return (
     <>
       <NextSeo {...getNextSeo({ title: 'Book Review Write', description: '책리뷰' })} />
@@ -181,6 +183,7 @@ function Post() {
                   currentId={auth?.id}
                 />
               </div>
+              <div className="h-[20vh]"></div>
             </Third>
           }
         />
