@@ -13,7 +13,6 @@ export default function useGetPost() {
     variables: { id: router?.query?.id?.toString() },
     skip: !router?.query?.id,
   });
-  console.log(singlePostData);
 
   return {
     singlePostLoding,

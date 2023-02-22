@@ -14,7 +14,6 @@ export type PostProps = {
 export default function PawButton({ id, isdark, auth }: PostProps) {
   let confettiAmount = 60;
   const { data, onLikeToggle } = usePostLike({ id });
-  console.log(auth);
 
   const confettiColors = [
     '#7d32f5',

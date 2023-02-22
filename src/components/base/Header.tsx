@@ -59,7 +59,6 @@ function Header() {
   const { auth } = useSelector((state: any) => state.auth);
   const { handleSubmitLogout } = useLogout();
 
-  console.log(auth);
   const handleSubmit = e => {
     e.preventDefault();
     router.push('search/' + input);
