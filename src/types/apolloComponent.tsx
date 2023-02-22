@@ -58,6 +58,7 @@ export type Mutation = {
   removeSub?: Maybe<Scalars['Boolean']>;
   editSub?: Maybe<Sub>;
   createSub?: Maybe<Sub>;
+  mergeTag?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -156,6 +157,12 @@ export type MutationCreateSubArgs = {
   comment_id?: Maybe<Scalars['String']>;
 };
 
+
+export type MutationMergeTagArgs = {
+  selected?: Maybe<Scalars['String']>;
+  merge_to?: Maybe<Scalars['String']>;
+};
+
 export type Post = {
   __typename?: 'Post';
   id?: Maybe<Scalars['String']>;
@@ -222,6 +229,9 @@ export type Query = {
   getSub?: Maybe<Sub>;
   subcomments?: Maybe<Array<Maybe<Sub>>>;
   sub?: Maybe<Array<Maybe<Sub>>>;
+  tags?: Maybe<Array<Maybe<Tag>>>;
+  tag?: Maybe<Tag>;
+  userTags?: Maybe<UserTags>;
 };
 
 
@@ -282,6 +292,23 @@ export type QuerySubcommentsArgs = {
   comment_id?: Maybe<Scalars['String']>;
 };
 
+
+export type QueryTagsArgs = {
+  sort: Scalars['String'];
+  cursor?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryTagArgs = {
+  name: Scalars['String'];
+};
+
+
+export type QueryUserTagsArgs = {
+  username?: Maybe<Scalars['String']>;
+};
+
 export type Sub = {
   __typename?: 'Sub';
   id: Scalars['String'];
@@ -290,9 +317,13 @@ export type Sub = {
   has_replies?: Maybe<Scalars['Boolean']>;
   deleted?: Maybe<Scalars['Boolean']>;
   user?: Maybe<User>;
+  level?: Maybe<Scalars['Int']>;
   post_id?: Maybe<Scalars['String']>;
   reply?: Maybe<Scalars['String']>;
   replies?: Maybe<Array<Maybe<Sub>>>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  users?: Maybe<User>;
   replies_count?: Maybe<Scalars['Int']>;
 };
 
@@ -300,6 +331,12 @@ export type Tag = {
   __typename?: 'Tag';
   post_id?: Maybe<Scalars['String']>;
   tag?: Maybe<PostTag>;
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['String']>;
+  posts_count?: Maybe<Scalars['Int']>;
 };
 
 export type TagInput = {
@@ -379,6 +416,79 @@ export type UserProfile = {
   updated_at?: Maybe<Scalars['Date']>;
 };
 
+export type UserTags = {
+  __typename?: 'UserTags';
+  tags?: Maybe<Array<Maybe<Tag>>>;
+  posts_count?: Maybe<Scalars['Int']>;
+};
+
+export type CreateSubMutationVariables = Exact<{
+  post_id: Scalars['String'];
+  text: Scalars['String'];
+  comment_id?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateSubMutation = (
+  { __typename?: 'Mutation' }
+  & { createSub?: Maybe<(
+    { __typename?: 'Sub' }
+    & Pick<Sub, 'id'>
+  )> }
+);
+
+export type RemoveSubMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type RemoveSubMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeSub'>
+);
+
+export type EditSubMutationVariables = Exact<{
+  id: Scalars['String'];
+  text: Scalars['String'];
+}>;
+
+
+export type EditSubMutation = (
+  { __typename?: 'Mutation' }
+  & { editSub?: Maybe<(
+    { __typename?: 'Sub' }
+    & Pick<Sub, 'id' | 'text' | 'level' | 'created_at' | 'updated_at'>
+  )> }
+);
+
+export type GetSubQueryVariables = Exact<{
+  comment_id: Scalars['String'];
+}>;
+
+
+export type GetSubQuery = (
+  { __typename?: 'Query' }
+  & { getSub?: Maybe<(
+    { __typename?: 'Sub' }
+    & Pick<Sub, 'id' | 'text' | 'likes' | 'has_replies' | 'deleted' | 'level' | 'reply' | 'created_at' | 'updated_at' | 'replies_count'>
+    & { users?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, replies?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text' | 'level'>
+      & { user?: Maybe<(
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'username'>
+        & { profile?: Maybe<(
+          { __typename?: 'UserProfile' }
+          & Pick<UserProfile, 'id' | 'bio' | 'profile_name'>
+        )> }
+      )> }
+    )>>> }
+  )> }
+);
+
 export type GetPostQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -388,7 +498,7 @@ export type GetPostQuery = (
   { __typename?: 'Query' }
   & { post?: Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'subs_count' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
     & { bookInfo?: Maybe<(
       { __typename?: 'PostBookInfo' }
       & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
@@ -397,7 +507,18 @@ export type GetPostQuery = (
       & Pick<User, 'id' | 'username'>
     )>, subs?: Maybe<Array<Maybe<(
       { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
+      & Pick<Sub, 'id' | 'text' | 'likes' | 'has_replies' | 'deleted' | 'level' | 'reply' | 'created_at' | 'updated_at' | 'replies_count'>
+      & { replies?: Maybe<Array<Maybe<(
+        { __typename?: 'Sub' }
+        & Pick<Sub, 'id' | 'text'>
+      )>>>, user?: Maybe<(
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'username'>
+        & { profile?: Maybe<(
+          { __typename?: 'UserProfile' }
+          & Pick<UserProfile, 'id' | 'bio' | 'profile_name'>
+        )> }
+      )> }
     )>>> }
   )> }
 );
@@ -405,6 +526,7 @@ export type GetPostQuery = (
 export type GetPostsQueryVariables = Exact<{
   cursor?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
+  istemp?: Maybe<Scalars['Boolean']>;
 }>;
 
 
@@ -428,6 +550,7 @@ export type GetPostsQuery = (
 
 export type RecentPostsQueryVariables = Exact<{
   cursor?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
 }>;
 
 
@@ -501,6 +624,29 @@ export type CreatePostMutation = (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
     )> }
+  )> }
+);
+
+export type ReloadCommentsQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type ReloadCommentsQuery = (
+  { __typename?: 'Query' }
+  & { post?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'subs_count' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
+    & { bookInfo?: Maybe<(
+      { __typename?: 'PostBookInfo' }
+      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
+    )>, user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    )>, subs?: Maybe<Array<Maybe<(
+      { __typename?: 'Sub' }
+      & Pick<Sub, 'id' | 'text'>
+    )>>> }
   )> }
 );
 
@@ -697,6 +843,172 @@ export type LogoutMutation = (
 );
 
 
+export const CreateSubDocument = gql`
+    mutation CreateSub($post_id: String!, $text: String!, $comment_id: String) {
+  createSub(post_id: $post_id, text: $text, comment_id: $comment_id) {
+    id
+  }
+}
+    `;
+export type CreateSubMutationFn = Apollo.MutationFunction<CreateSubMutation, CreateSubMutationVariables>;
+
+/**
+ * __useCreateSubMutation__
+ *
+ * To run a mutation, you first call `useCreateSubMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSubMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSubMutation, { data, loading, error }] = useCreateSubMutation({
+ *   variables: {
+ *      post_id: // value for 'post_id'
+ *      text: // value for 'text'
+ *      comment_id: // value for 'comment_id'
+ *   },
+ * });
+ */
+export function useCreateSubMutation(baseOptions?: Apollo.MutationHookOptions<CreateSubMutation, CreateSubMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSubMutation, CreateSubMutationVariables>(CreateSubDocument, options);
+      }
+export type CreateSubMutationHookResult = ReturnType<typeof useCreateSubMutation>;
+export type CreateSubMutationResult = Apollo.MutationResult<CreateSubMutation>;
+export type CreateSubMutationOptions = Apollo.BaseMutationOptions<CreateSubMutation, CreateSubMutationVariables>;
+export const RemoveSubDocument = gql`
+    mutation RemoveSub($id: String!) {
+  removeSub(id: $id)
+}
+    `;
+export type RemoveSubMutationFn = Apollo.MutationFunction<RemoveSubMutation, RemoveSubMutationVariables>;
+
+/**
+ * __useRemoveSubMutation__
+ *
+ * To run a mutation, you first call `useRemoveSubMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveSubMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeSubMutation, { data, loading, error }] = useRemoveSubMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemoveSubMutation(baseOptions?: Apollo.MutationHookOptions<RemoveSubMutation, RemoveSubMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveSubMutation, RemoveSubMutationVariables>(RemoveSubDocument, options);
+      }
+export type RemoveSubMutationHookResult = ReturnType<typeof useRemoveSubMutation>;
+export type RemoveSubMutationResult = Apollo.MutationResult<RemoveSubMutation>;
+export type RemoveSubMutationOptions = Apollo.BaseMutationOptions<RemoveSubMutation, RemoveSubMutationVariables>;
+export const EditSubDocument = gql`
+    mutation EditSub($id: String!, $text: String!) {
+  editSub(id: $id, text: $text) {
+    id
+    text
+    level
+    created_at
+    updated_at
+  }
+}
+    `;
+export type EditSubMutationFn = Apollo.MutationFunction<EditSubMutation, EditSubMutationVariables>;
+
+/**
+ * __useEditSubMutation__
+ *
+ * To run a mutation, you first call `useEditSubMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditSubMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editSubMutation, { data, loading, error }] = useEditSubMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useEditSubMutation(baseOptions?: Apollo.MutationHookOptions<EditSubMutation, EditSubMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditSubMutation, EditSubMutationVariables>(EditSubDocument, options);
+      }
+export type EditSubMutationHookResult = ReturnType<typeof useEditSubMutation>;
+export type EditSubMutationResult = Apollo.MutationResult<EditSubMutation>;
+export type EditSubMutationOptions = Apollo.BaseMutationOptions<EditSubMutation, EditSubMutationVariables>;
+export const GetSubDocument = gql`
+    query GetSub($comment_id: String!) {
+  getSub(comment_id: $comment_id) {
+    id
+    text
+    likes
+    has_replies
+    deleted
+    users {
+      id
+      username
+    }
+    level
+    reply
+    created_at
+    updated_at
+    replies_count
+    replies {
+      id
+      text
+      level
+      user {
+        id
+        username
+        profile {
+          id
+          bio
+          profile_name
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSubQuery__
+ *
+ * To run a query within a React component, call `useGetSubQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSubQuery({
+ *   variables: {
+ *      comment_id: // value for 'comment_id'
+ *   },
+ * });
+ */
+export function useGetSubQuery(baseOptions: Apollo.QueryHookOptions<GetSubQuery, GetSubQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSubQuery, GetSubQueryVariables>(GetSubDocument, options);
+      }
+export function useGetSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubQuery, GetSubQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSubQuery, GetSubQueryVariables>(GetSubDocument, options);
+        }
+export type GetSubQueryHookResult = ReturnType<typeof useGetSubQuery>;
+export type GetSubLazyQueryHookResult = ReturnType<typeof useGetSubLazyQuery>;
+export type GetSubQueryResult = Apollo.QueryResult<GetSubQuery, GetSubQueryVariables>;
 export const GetPostDocument = gql`
     query GetPost($id: String!) {
   post(id: $id) {
@@ -708,6 +1020,7 @@ export const GetPostDocument = gql`
     views
     is_temp
     is_private
+    subs_count
     released_at
     created_at
     updated_at
@@ -726,6 +1039,27 @@ export const GetPostDocument = gql`
     subs {
       id
       text
+      likes
+      has_replies
+      deleted
+      level
+      reply
+      created_at
+      updated_at
+      replies {
+        id
+        text
+      }
+      replies_count
+      user {
+        id
+        username
+        profile {
+          id
+          bio
+          profile_name
+        }
+      }
     }
   }
 }
@@ -759,8 +1093,8 @@ export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsDocument = gql`
-    query GetPosts($cursor: String, $username: String) {
-  posts(cursor: $cursor, username: $username) {
+    query GetPosts($cursor: String, $username: String, $istemp: Boolean) {
+  posts(cursor: $cursor, username: $username, istemp: $istemp) {
     id
     title
     body
@@ -807,6 +1141,7 @@ export const GetPostsDocument = gql`
  *   variables: {
  *      cursor: // value for 'cursor'
  *      username: // value for 'username'
+ *      istemp: // value for 'istemp'
  *   },
  * });
  */
@@ -822,8 +1157,8 @@ export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const RecentPostsDocument = gql`
-    query RecentPosts($cursor: String) {
-  recentPosts(cursor: $cursor) {
+    query RecentPosts($cursor: String, $limit: Int) {
+  recentPosts(cursor: $cursor, limit: $limit) {
     id
     title
     body
@@ -869,6 +1204,7 @@ export const RecentPostsDocument = gql`
  * const { data, loading, error } = useRecentPostsQuery({
  *   variables: {
  *      cursor: // value for 'cursor'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
@@ -1024,6 +1360,68 @@ export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export const ReloadCommentsDocument = gql`
+    query ReloadComments($id: String!) {
+  post(id: $id) {
+    id
+    title
+    body
+    thumbnail
+    likes
+    views
+    is_temp
+    is_private
+    subs_count
+    released_at
+    created_at
+    updated_at
+    liked
+    bookInfo {
+      bookTitle
+      bookContent
+      bookUrl
+      bookIsbn
+      bookAuthors
+    }
+    user {
+      id
+      username
+    }
+    subs {
+      id
+      text
+    }
+  }
+}
+    `;
+
+/**
+ * __useReloadCommentsQuery__
+ *
+ * To run a query within a React component, call `useReloadCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReloadCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReloadCommentsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useReloadCommentsQuery(baseOptions: Apollo.QueryHookOptions<ReloadCommentsQuery, ReloadCommentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ReloadCommentsQuery, ReloadCommentsQueryVariables>(ReloadCommentsDocument, options);
+      }
+export function useReloadCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReloadCommentsQuery, ReloadCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ReloadCommentsQuery, ReloadCommentsQueryVariables>(ReloadCommentsDocument, options);
+        }
+export type ReloadCommentsQueryHookResult = ReturnType<typeof useReloadCommentsQuery>;
+export type ReloadCommentsLazyQueryHookResult = ReturnType<typeof useReloadCommentsLazyQuery>;
+export type ReloadCommentsQueryResult = Apollo.QueryResult<ReloadCommentsQuery, ReloadCommentsQueryVariables>;
 export const SearchPostsDocument = gql`
     query SearchPosts($searchInput: String) {
   searchPosts(searchInput: $searchInput) {

@@ -9,6 +9,7 @@ import { HiPlus } from 'react-icons/hi';
 import { BiUpvote } from 'react-icons/bi';
 import ProfileIcon from '../../svg/profile';
 import CommentEdit from './CommentEdit';
+import useCommentUpvote from './hooks/useCommentUpvote';
 
 export type CommentItemProps = {
   comment: Sub | any;
@@ -27,6 +28,8 @@ const PostCommentItem = styled.div`
 function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
+
+  const { onLikeToggle } = useCommentUpvote(comment?.id);
 
   return (
     <PostCommentItem className="py-1 mt-1">
@@ -88,9 +91,11 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
                 <div className="text-[#212529] text-sm mt-2 w-fit dark:text-[#ececec]">
                   <div className="flex items-center">
                     <div className="flex items-center mr-2 cursor-pointer">
-                      <BiUpvote className="mr-[2px]" />
+                      <div className="flex items-center" onClick={onLikeToggle}>
+                        <BiUpvote className="mr-[3px]" />
 
-                      <div>0</div>
+                        <div>{comment?.upvotes}</div>
+                      </div>
                     </div>
                     {!comment.deleted && comment?.level < 2 ? (
                       <div onClick={onToggleOpen}>답글</div>

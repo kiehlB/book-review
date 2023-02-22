@@ -8,18 +8,22 @@ export type CommentListProps = {
 };
 
 function CommentList({ comments, onRemove, isMine, currentId }: CommentListProps) {
+  const numDescending = [...comments].sort((a, b) => b.upvotes - a.upvotes);
+
   return (
     <>
       {comments &&
-        comments?.map(comment => (
-          <CommentItem
-            comment={comment}
-            key={comment.id}
-            ownComment={currentId}
-            onRemove={onRemove}
-            isMine={isMine}
-          />
-        ))}
+        [...comments]
+          .sort((a, b) => b.upvotes - a.upvotes)
+          ?.map(comment => (
+            <CommentItem
+              comment={comment}
+              key={comment.id}
+              ownComment={currentId}
+              onRemove={onRemove}
+              isMine={isMine}
+            />
+          ))}
     </>
   );
 }

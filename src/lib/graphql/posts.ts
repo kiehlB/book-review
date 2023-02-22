@@ -37,6 +37,7 @@ export const GET_Post = gql`
         reply
         created_at
         updated_at
+        upvotes
         replies {
           id
           text
@@ -71,6 +72,7 @@ export const GET_Posts = gql`
       created_at
       updated_at
       liked
+
       bookInfo {
         bookTitle
         bookContent

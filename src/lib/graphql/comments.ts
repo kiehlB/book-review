@@ -34,6 +34,8 @@ export const GET_SubComment = gql`
       likes
       has_replies
       deleted
+      upvotes
+      likedSub
       users {
         id
         username
@@ -47,6 +49,7 @@ export const GET_SubComment = gql`
         id
         text
         level
+        upvotes
         user {
           id
           username
@@ -58,5 +61,17 @@ export const GET_SubComment = gql`
         }
       }
     }
+  }
+`;
+
+export const CommentUpvotes = gql`
+  mutation commentUpvotes($id: String!) {
+    commentUpvotes(id: $id)
+  }
+`;
+
+export const DeleteCommentUpvote = gql`
+  mutation DeleteCommentUpvote($id: String!) {
+    deleteCommentUpvote(id: $id)
   }
 `;
