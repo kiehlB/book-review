@@ -183,7 +183,7 @@ function Post() {
                   currentId={auth?.id}
                 />
               </div>
-              <div className="h-[20vh]"></div>
+              <div className="h-[40vh]"></div>
             </Third>
           }
         />

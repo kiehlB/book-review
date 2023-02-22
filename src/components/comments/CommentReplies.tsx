@@ -86,7 +86,7 @@ function CommentReplies({ id, onToggleOpen, isMine, open }: CommentRepliesProps)
     onToggleOpen();
   };
 
-  if (replies.loading || !replies.data) {
+  if (replies.loading && !replies.data && reloadComments.loading) {
     return null;
   }
 

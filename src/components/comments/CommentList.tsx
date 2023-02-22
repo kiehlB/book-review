@@ -8,8 +8,6 @@ export type CommentListProps = {
 };
 
 function CommentList({ comments, onRemove, isMine, currentId }: CommentListProps) {
-  const numDescending = [...comments].sort((a, b) => b.upvotes - a.upvotes);
-
   return (
     <>
       {comments &&
