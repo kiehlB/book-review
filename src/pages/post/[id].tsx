@@ -102,7 +102,7 @@ function Post() {
               </div>
 
               {singlePostData?.post?.user?.id == auth?.id ? (
-                <div className="flex justify-end max-w-[912px] mx-auto text-[#868E96] text-sm">
+                <div className="flex justify-end max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2">
                   <Link href={`/write`} passHref>
                     <div onClick={getPostData} className="mr-4 cursor-pointer">
                       수정
@@ -120,7 +120,7 @@ function Post() {
               )}
 
               {singlePostData?.post?.bookInfo?.bookTitle ? (
-                <div className="flex max-w-[912.5px] mx-auto bg-[#F8F9FA] py-8 px-8 mt-4 rounded shadow dark:bg-[#2b2d31] ssm:flex-col">
+                <div className="flex max-w-[812.5px] mx-auto bg-[#F8F9FA] py-8 px-8 mt-4 rounded shadow dark:bg-[#2b2d31] ssm:flex-col">
                   <div className="card">
                     <div className="imgBox">
                       <div className="bark "></div>

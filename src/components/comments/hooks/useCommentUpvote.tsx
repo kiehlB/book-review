@@ -28,6 +28,13 @@ export default function useCommentUpvote(id) {
   });
 
   const onLikeToggle = async () => {
+    if (!auth.id) {
+      toast.error('로그인이 필요합니다', {
+        position: 'bottom-right',
+      });
+
+      return;
+    }
     if (loadingLike || loadingUnlike) return;
 
     const variables = {
