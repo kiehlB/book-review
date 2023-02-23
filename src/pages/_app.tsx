@@ -21,6 +21,13 @@ import { useEffect } from 'react';
 
 export const persistor = persistStore(store);
 
+declare global {
+  interface Window {
+    Kakao: any;
+    naver: any;
+  }
+}
+
 export const theme = createTheme({
   palette: {
     primary: {
@@ -34,6 +41,16 @@ export const theme = createTheme({
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const apolloClient = useApollo(pageProps);
+
+  useEffect(() => {
+    try {
+      if (!window?.Kakao?.isInitialized() && window.Kakao) {
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   useEffect(() => {
     const handleRouteChange = (url, { shallow }) => {
@@ -53,6 +70,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
       </Head>
       <Script src="/theme.js" strategy="beforeInteractive" />
       <ThemeProvider theme={theme}>

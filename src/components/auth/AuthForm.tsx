@@ -196,8 +196,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
       </div>
 
       <div className="flex justify-between w-[50%] mx-auto pt-3">
-        {/* <Google />
-        <FaceBook /> */}
+        <Google />
+        <FaceBook />
       </div>
     </>
   );
