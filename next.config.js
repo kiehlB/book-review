@@ -2,7 +2,14 @@
 
 const nextConfig = {
   reactStrictMode: false,
-
+  async rewrites() {
+    return [
+      {
+        source: '/api/v2/auth/register',
+        destination: 'https://api.woongblog.xyz/api/v2/auth/register',
+      },
+    ];
+  },
   env: {
     API_URL: process.env.API_URL,
     KAKAO: process.env.KAKAO,
