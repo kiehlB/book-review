@@ -5,8 +5,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/v2/auth/register',
-        destination: 'https://api.bookreview.pro/api/v2/auth/register',
+        source: '/api/:path*',
+        destination: 'https://api.bookreview.pro/:path*',
       },
     ];
   },
