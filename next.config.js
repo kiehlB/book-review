@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://api.bookreview.pro/:path*',
+        destination: 'http://localhost:4000/:path*',
       },
     ];
   },
