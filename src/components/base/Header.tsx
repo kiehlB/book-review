@@ -5,7 +5,6 @@ import { CiLight } from 'react-icons/ci';
 import clsx from 'clsx';
 import { useContext, useEffect, useState } from 'react';
 import ModalContext from '../../context/modalContext';
-import useWhoAmI from '../auth/hooks/useWhoami';
 import Link from 'next/link';
 import useLogout from '../auth/hooks/useLogout';
 import { myFont } from '../../font/font';
@@ -15,6 +14,7 @@ import { RootState } from '../../store/rootReducer';
 import styled from 'styled-components';
 import Sidebar from '../side/Sidebar';
 import { useRouter } from 'next/router';
+import useWhoAmI from '../auth/hooks/useWhoami';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -51,12 +51,16 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 
 function Header() {
   const [input, setInput] = useState('');
+
   const router = useRouter();
   const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBookIsClose } =
     useContext(ModalContext);
   const { isdark } = useSelector((state: RootState) => state.core);
   const dispatch = useDispatch();
-  const { auth } = useSelector((state: any) => state.auth);
+  const { auth } = useSelector((state: RootState) => state.auth);
+
+  const {} = useWhoAmI();
+
   const { handleSubmitLogout } = useLogout();
 
   const handleSubmit = e => {
@@ -102,7 +106,7 @@ function Header() {
           <DarkModeToggle />
         </div>
 
-        {auth ? (
+        {auth?.id ? (
           <div className="flex items-center">
             <div
               onClick={() => SetBookIsClose(!BookIsClose)}

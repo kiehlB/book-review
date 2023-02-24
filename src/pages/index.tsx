@@ -14,6 +14,7 @@ import useGetPosts from '../components/post/hooks/useGetPosts';
 import Tags from '../components/tags/Tags';
 import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
+import useWhoAmI from '../components/auth/hooks/useWhoami';
 
 export default function Home() {
   const { data, loading } = useGetPosts();

@@ -9,7 +9,7 @@ import useForms from '../../../hooks/useForm';
 import { loginMutation, registerMutation } from '../../../lib/graphql/users';
 import { initAuth } from '../../../store/auth';
 import { inputProps } from '../AuthForm';
-import useWhoAmI from './useWhoami';
+
 import { toast } from 'react-toastify';
 
 export default function useLogin() {
@@ -19,7 +19,7 @@ export default function useLogin() {
     password: '',
   } as inputProps);
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
-  const { loading, user } = useWhoAmI();
+
   const dispatch = useDispatch();
 
   const validateUsername = value => {
@@ -65,7 +65,7 @@ export default function useLogin() {
   const [signIn, { error: LoginError }] = useMutation(loginMutation, {
     onCompleted(signIn) {
       SetIsClose(false);
-      loading();
+
       dispatch(initAuth(signIn.login));
       toast.success('로그인 완료!', {
         position: 'bottom-right',

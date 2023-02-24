@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import LabelInput from '../common/LabelInput';
 import clsx from 'clsx';
+import Link from 'next/link';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -196,8 +197,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
       </div>
 
       <div className="flex justify-between w-[50%] mx-auto pt-3">
-        <Google />
-        <FaceBook />
+        <Link href="http://localhost:4000/api/v2/auth/redirect/google" passHref={true}>
+          <Google />
+        </Link>
       </div>
     </>
   );

@@ -4,7 +4,10 @@ import Script from 'next/script';
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
+      </Head>
       <body className="transition duration-500 h-full dark:bg-[#1a1b1e]">
         <Main />
         <NextScript />

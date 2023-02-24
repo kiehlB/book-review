@@ -7,7 +7,6 @@ import {
   Like_Post,
   UnLike_Post,
 } from '../../../lib/graphql/posts';
-import useWhoAmI from '../../auth/hooks/useWhoami';
 import { toast } from 'react-toastify';
 import gql from 'graphql-tag';
 import { useSelector } from 'react-redux';
@@ -39,7 +38,7 @@ export default function usePostLike({ id }) {
     `;
 
     try {
-      if (!auth.username) {
+      if (!auth?.id) {
         return;
       }
       if (data?.post?.liked) {

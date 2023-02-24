@@ -4,24 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { whoAmIQuery } from '../../../lib/graphql/users';
 import { getAuthInfoSuccess, initAuth } from '../../../store/auth';
 import { RootState } from '../../../store/rootReducer';
+import { useWhoAmIQuery } from '../../../types/apolloComponent';
 
 export default function useWhoAmI() {
   const dispatch = useDispatch();
 
-  const [loading, { data: getUser, error }] = useLazyQuery(whoAmIQuery, {});
+  // const [loading, { data: getUser, error }] = useLazyQuery(whoAmIQuery, {});
+  const { data: getUser } = useQuery(whoAmIQuery);
 
-  const user = getUser?.whoami.id ? getUser?.whoami : undefined;
-
-  // useEffect(() => {
-  //   if (user == undefined) return;
-
-  //   dispatch(initAuth(user));
-  // }, [user, dispatch]);
+  console.log(getUser);
+  useEffect(() => {
+    if (getUser?.whoami?.id) {
+      dispatch(initAuth(getUser?.whoami));
+    }
+  }, [dispatch, getUser]);
 
   return {
-    loading,
-    error,
     getUser,
-    user,
   };
 }

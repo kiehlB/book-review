@@ -28,7 +28,7 @@ export default function useCommentUpvote(id) {
   });
 
   const onLikeToggle = async () => {
-    if (!auth.id) {
+    if (!auth?.id) {
       toast.error('로그인이 필요합니다', {
         position: 'bottom-right',
       });
