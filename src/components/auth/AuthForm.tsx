@@ -197,7 +197,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
       </div>
 
       <div className="flex justify-between w-[50%] mx-auto pt-3">
-        <Link href="http://localhost:4000/api/v2/auth/redirect/google" passHref={true}>
+        <Link
+          href="https://api.bookreview.pro/api/v2/auth/redirect/google"
+          passHref={true}>
           <Google />
         </Link>
       </div>
