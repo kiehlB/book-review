@@ -1,4 +1,4 @@
-This is bookreview website for users
+This website is for users to write book reviews
 you can only find Korean books and supports Korean only.
 
 Website link: https://www.bookreview.pro/
