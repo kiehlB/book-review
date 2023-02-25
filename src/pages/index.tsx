@@ -15,11 +15,15 @@ import Tags from '../components/tags/Tags';
 import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
 import useWhoAmI from '../components/auth/hooks/useWhoami';
+import { useQuery } from '@apollo/client';
+import { whoAmIQuery } from '../lib/graphql/users';
+import { useDispatch } from 'react-redux';
+import { initAuth } from '../store/auth';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
+  const dispatch = useDispatch();
 
-  const {} = useWhoAmI();
   return (
     <>
       <NextSeo
@@ -34,9 +38,9 @@ export default function Home() {
           },
         ]}
       />
-      <FloatingHeader>
+      {/* <FloatingHeader>
         <Header />
-      </FloatingHeader>
+      </FloatingHeader> */}
       <PageLayout>
         <PageGrid as="div" className="pt-[2rem] pb-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">

@@ -5,7 +5,7 @@ import React, { useContext, useState } from 'react';
 import ModalContext from '../../../context/modalContext';
 import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
-
+import useWhoAmI from './useWhoami';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { initAuth } from '../../../store/auth';
@@ -65,6 +65,7 @@ export default function useRegister() {
   const [signUp, { error: registerError }] = useMutation(registerMutation, {
     onCompleted(signUp) {
       SetIsClose(false);
+
       dispatch(initAuth(signUp?.register));
       toast.success('회원가입 완료!', {
         position: 'bottom-right',

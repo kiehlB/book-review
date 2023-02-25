@@ -14,6 +14,7 @@ import { RootState } from '../../store/rootReducer';
 import styled from 'styled-components';
 import Sidebar from '../side/Sidebar';
 import { useRouter } from 'next/router';
+import useWhoAmI from '../auth/hooks/useWhoami';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -50,7 +51,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
 
 function Header() {
   const [input, setInput] = useState('');
-
+  const { getUser } = useWhoAmI();
   const router = useRouter();
   const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBookIsClose } =
     useContext(ModalContext);
