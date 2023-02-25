@@ -19,6 +19,7 @@ import useWhoAmI from '../components/auth/hooks/useWhoami';
 export default function Home() {
   const { data, loading } = useGetPosts();
 
+  const {} = useWhoAmI();
   return (
     <>
       <NextSeo

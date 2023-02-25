@@ -18,7 +18,6 @@ import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
-import useWhoAmI from '../components/auth/hooks/useWhoami';
 
 export const persistor = persistStore(store);
 

@@ -14,7 +14,6 @@ import { RootState } from '../../store/rootReducer';
 import styled from 'styled-components';
 import Sidebar from '../side/Sidebar';
 import { useRouter } from 'next/router';
-import useWhoAmI from '../auth/hooks/useWhoami';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -58,8 +57,6 @@ function Header() {
   const { isdark } = useSelector((state: RootState) => state.core);
   const dispatch = useDispatch();
   const { auth } = useSelector((state: RootState) => state.auth);
-
-  const {} = useWhoAmI();
 
   const { handleSubmitLogout } = useLogout();
 

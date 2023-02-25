@@ -12,12 +12,12 @@ export default function useWhoAmI() {
   // const [loading, { data: getUser, error }] = useLazyQuery(whoAmIQuery, {});
   const { data: getUser } = useQuery(whoAmIQuery);
 
-  console.log(getUser);
-  useEffect(() => {
-    if (getUser?.whoami?.id) {
-      dispatch(initAuth(getUser?.whoami));
-    }
-  }, [dispatch, getUser]);
+  // useEffect(() => {
+  //   if (getUser?.whoami?.id) {
+  //     console.log('dasdas');
+  //     dispatch(initAuth(getUser?.whoami));
+  //   }
+  // }, [dispatch, getUser]);
 
   return {
     getUser,
