@@ -22,11 +22,11 @@ export default function useLogout() {
 
   const handleSubmitLogout = async e => {
     e.preventDefault();
-    dispatch(getAuthInfoSuccess(null));
 
     await client.clearStore().then(() => {
       client.resetStore();
       persistor.purge();
+      dispatch(getAuthInfoSuccess(null));
       // dispatch(userLogout());
       router.push('/');
     });

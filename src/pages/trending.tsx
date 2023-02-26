@@ -20,6 +20,8 @@ import Tags from '../components/tags/Tags';
 import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
 import useGetTrendingPosts from '../components/post/hooks/useGetTrending';
+import { BsTagFill } from 'react-icons/bs';
+import { AiFillNotification } from 'react-icons/ai';
 
 export default function Recent() {
   const { data, loading } = useGetTrendingPosts();
@@ -46,12 +48,17 @@ export default function Recent() {
                     icon: <RiBookOpenLine />,
                     text: '포스트',
                     to: '/',
-                    sub: '/trending',
+                    sub: '/search',
                   },
                   {
-                    icon: <RiDashboard3Line />,
+                    icon: <AiFillNotification />,
                     text: '게시판',
                     to: '/post',
+                  },
+                  {
+                    icon: <BsTagFill />,
+                    text: '태그',
+                    to: '/tags',
                   },
                 ]}
                 secondaryItems={[

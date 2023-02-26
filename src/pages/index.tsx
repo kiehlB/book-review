@@ -57,7 +57,7 @@ export default function Home() {
                   {
                     icon: <BsTagFill />,
                     text: '태그',
-                    to: '/post',
+                    to: '/tags',
                   },
                 ]}
                 secondaryItems={[
