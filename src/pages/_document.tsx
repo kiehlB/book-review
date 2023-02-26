@@ -5,6 +5,13 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-yI46tvvCxXkEd6g3Nev3/iym48KxJMcTIg7zdw/j1q3p7C0/Rt9XO7gjOzZ2V7cHvz/HuV7O8L/P5YHTueEYKQ=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
       </Head>

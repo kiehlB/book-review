@@ -29,6 +29,7 @@ import { getPostBody, getPostId, getPostTags, getPostTitle } from '../../store/b
 import { Remove_Post } from '../../lib/graphql/posts';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
+import ProfileIcon from '../../svg/profile';
 
 export type PostProps = {
   id: string;
@@ -91,9 +92,12 @@ function Post() {
                 {singlePostData?.post?.title}
               </PostTitle>
 
-              <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec]">
-                <div className="text-lg font-semibold">
-                  {singlePostData?.post?.user?.username}
+              <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
+                <div className="text-lg font-medium">
+                  <div className="flex items-center">
+                    <ProfileIcon className="w-[42px] h-[42px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]" />
+                    <div className="ml-2"> {singlePostData?.post?.user?.username}</div>
+                  </div>
                 </div>
                 <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
                 <div className="text-lg text-[#344155] dark:text-[#ececec]">
@@ -102,7 +106,7 @@ function Post() {
               </div>
 
               {singlePostData?.post?.user?.id == auth?.id ? (
-                <div className="flex justify-end max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2">
+                <div className="flex justify-end max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
                   <Link href={`/write`} passHref>
                     <div onClick={getPostData} className="mr-4 cursor-pointer">
                       수정
@@ -119,40 +123,18 @@ function Post() {
                 ''
               )}
 
-              {singlePostData?.post?.bookInfo?.bookTitle ? (
-                <div className="flex max-w-[812.5px] mx-auto bg-[#F8F9FA] py-8 px-8 mt-4 rounded shadow dark:bg-[#2b2d31] ssm:flex-col">
-                  <div className="card">
-                    <div className="imgBox">
-                      <div className="bark "></div>
-                      <img
-                        src={singlePostData?.post?.bookInfo?.bookUrl}
-                        width="120px"
-                        height="174px"
-                      />
-                    </div>
-                    <div className="details">
-                      <h4 className="text-[10px]">
-                        {singlePostData?.post?.bookInfo?.bookContent}
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="flex flex-col ml-8 ssm:ml-0 ssm:mt-2">
-                    <div className="text-[#495057] text-xl font-bold dark:text-[#ececec] mxs:text-base">
-                      도서: {singlePostData?.post?.bookInfo?.bookTitle}
-                    </div>
-                    <div className="text-[#495057] text-base font-semibold mt-2 dark:text-[#ececec]">
-                      저자: {singlePostData?.post?.bookInfo?.bookAuthors?.map(e => e)}
-                    </div>
-                  </div>
+              <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
+                <div className="flex">
+                  {singlePostData?.post?.tags.map(tag => (
+                    <Tag className="mr-2 flex">{tag?.tag?.name}</Tag>
+                  ))}
                 </div>
-              ) : (
-                ''
-              )}
+              </div>
             </First>
           }
           second={
             <Second>
-              <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mt-[5.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
+              <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
                 <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden">
                   <div className="sticky top-[20%]">
                     <PawButton id={id} isdark={isdark} auth={auth} />
@@ -160,6 +142,36 @@ function Post() {
                 </div>
 
                 <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
+                  {singlePostData?.post?.bookInfo?.bookTitle ? (
+                    <div className="flex max-w-[812.5px] mx-auto bg-[#F8F9FA] py-8 px-8 rounded shadow dark:bg-[#2b2d31] ssm:flex-col mb-[2rem]">
+                      <div className="card">
+                        <div className="imgBox">
+                          <div className="bark "></div>
+                          <img
+                            src={singlePostData?.post?.bookInfo?.bookUrl}
+                            width="120px"
+                            height="174px"
+                          />
+                        </div>
+                        <div className="details">
+                          <h4 className="text-[10px]">
+                            {singlePostData?.post?.bookInfo?.bookContent}
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="flex flex-col ml-8 ssm:ml-0 ssm:mt-2">
+                        <div className="text-[#495057] text-xl font-bold dark:text-[#ececec] mxs:text-base">
+                          도서: {singlePostData?.post?.bookInfo?.bookTitle}
+                        </div>
+                        <div className="text-[#495057] text-base font-semibold mt-2 dark:text-[#ececec]">
+                          저자: {singlePostData?.post?.bookInfo?.bookAuthors?.map(e => e)}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+
                   <Content isdark={isdark}>
                     <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
                   </Content>
@@ -272,85 +284,44 @@ const Content = styled.div<{ isdark: string }>`
   min-height: 100%;
   max-height: 100%;
   width: 100%;
-
   ol {
-    white-space: initial;
-    word-wrap: break-word;
-    list-style: none;
-    counter-reset: my-awesome-counter;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    counter-increment: list;
-    height: 100%;
+    list-style-type: decimal;
+    position: relative;
+    color: #ffb300;
+    font-weight: 600;
+    padding-left: 20px;
+    font-size: 1.125rem;
+    margin: 18px 0;
 
     li {
-      display: block;
-      clear: both;
-      font-size: 0.8rem;
-      line-height: 1.375;
-      position: relative;
-      counter-increment: my-awesome-counter;
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.5rem;
-      position: relative;
-      left: -0.3rem;
-      margin-bottom: 20px;
-      color: #ffb300;
+      line-height: 1.5;
+      vertical-align: middle;
     }
-    li:before {
-      content: counter(my-awesome-counter);
-      width: 0rem;
-      height: 1.6rem;
-      min-width: 24px;
 
-      font: bold italic 32px Helvetica, Verdana, sans-serif;
-      min-height: 20px;
-      float: left;
-      margin: 0 1.4rem 0rem 0;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      shape-outside: ellipse();
-      z-index: 1;
+    li p {
+      vertical-align: middle;
+      padding-bottom: 5px;
     }
   }
 
   ul {
-    list-style: none;
-    counter-reset: my-awesome-counter;
-    counter-increment: list;
-    margin: 0;
-    padding: 0;
+    list-style-type: disc;
     position: relative;
+    color: #ffb300;
+    margin: 18px 0;
+    padding-left: 20px;
+    font-size: 1.125rem;
 
-    &:before {
-      content: '';
-      display: inline-block;
-      width: 2px;
-      background: #fdb813;
-
-      position: absolute;
-      left: 5px;
-      height: calc(100% - 10px);
-    }
+    vertical-align: middle;
 
     li {
-      position: relative;
-      padding-left: 24px;
-      margin-bottom: 15px;
+      line-height: 1.5;
+      vertical-align: middle;
     }
-    li:before {
-      content: '';
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      background: #ffb300;
-      position: absolute;
-      left: 0;
-      top: 7.5px;
-      border-radius: 10px;
+
+    li p {
+      vertical-align: middle;
+      padding-bottom: 5px;
     }
   }
 
@@ -445,4 +416,20 @@ const Content = styled.div<{ isdark: string }>`
       background-size: 100% 0.1em, 100% 0.1em;
     }
   }
+`;
+
+const Tag = styled.div`
+  color: #121212;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  height: 2rem;
+  border-radius: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background: #fcd545;
+  margin-right: 0.75rem;
+  transition: ease-in 0.125s;
+
+  margin-bottom: 0.75rem;
 `;

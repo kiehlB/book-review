@@ -91,6 +91,22 @@ function PostCardItem({ post }: GridProps) {
             </PostBody>
           </div>
 
+          {/* 
+          <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
+            <div className="flex font-semibold text-xs items-center">
+              <div className="mr-2">
+                <div className="flex items-center">
+                  <AiFillHeart />
+                  <div className="ml-1">{post?.likes}개</div>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <AiOutlineComment size="20" />
+
+                <div className="ml-1">{post?.subs_count}개</div>
+              </div>
+            </div> */}
+
           <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
             <div className="flex font-semibold text-xs">
               <div className="mr-2">좋아요 {post?.likes}개</div>

@@ -296,28 +296,41 @@ const Content = styled.div<{ isdark: string }>`
     ol {
       list-style-type: decimal;
       position: relative;
+      color: #ffb300;
+      font-weight: 600;
       padding-left: 20px;
+      font-size: 1.125rem;
+      margin: 18px 0;
 
       li {
-        position: relative;
-        line-height: 2;
+        line-height: 1.5;
+        vertical-align: middle;
+      }
+
+      li p {
+        vertical-align: middle;
+        padding-bottom: 5px;
       }
     }
 
     ul {
       list-style-type: disc;
       position: relative;
+      color: #ffb300;
+      margin: 18px 0;
       padding-left: 20px;
-      li {
-        position: relative;
-      }
-      li:before {
-        display: inline-block;
+      font-size: 1.125rem;
 
-        position: absolute;
-        left: 0;
-        top: 2px;
-        border-radius: 10px;
+      vertical-align: middle;
+
+      li {
+        line-height: 1.5;
+        vertical-align: middle;
+      }
+
+      li p {
+        vertical-align: middle;
+        padding-bottom: 5px;
       }
     }
 
@@ -341,6 +354,9 @@ const Content = styled.div<{ isdark: string }>`
           list-style: none;
           margin-left: 0;
           margin-right: 0;
+          color: black;
+          padding: 0;
+          margin: 0;
         }
         ul {
           list-style: none;

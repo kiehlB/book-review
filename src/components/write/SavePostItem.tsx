@@ -53,6 +53,7 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
                   color="red"
                   onClick={() => {
                     onConfirmRemove(post.id);
+                    dispatch(getPostId(null));
                   }}>
                   삭제
                 </Button>

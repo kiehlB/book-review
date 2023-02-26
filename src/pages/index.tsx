@@ -14,11 +14,8 @@ import useGetPosts from '../components/post/hooks/useGetPosts';
 import Tags from '../components/tags/Tags';
 import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
-import useWhoAmI from '../components/auth/hooks/useWhoami';
-import { useQuery } from '@apollo/client';
-import { whoAmIQuery } from '../lib/graphql/users';
-import { useDispatch } from 'react-redux';
-import { initAuth } from '../store/auth';
+import { BsTagFill } from 'react-icons/bs';
+import { AiFillNotification } from 'react-icons/ai';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
@@ -53,8 +50,13 @@ export default function Home() {
                     sub: '/search',
                   },
                   {
-                    icon: <RiDashboard3Line />,
+                    icon: <AiFillNotification />,
                     text: '게시판',
+                    to: '/post',
+                  },
+                  {
+                    icon: <BsTagFill />,
+                    text: '태그',
                     to: '/post',
                   },
                 ]}

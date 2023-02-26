@@ -16,6 +16,11 @@ export const GET_Post = gql`
       created_at
       updated_at
       liked
+      tags {
+        tag {
+          name
+        }
+      }
       bookInfo {
         bookTitle
         bookContent
