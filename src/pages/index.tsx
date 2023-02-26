@@ -22,7 +22,6 @@ import { initAuth } from '../store/auth';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
-  const dispatch = useDispatch();
 
   return (
     <>
@@ -38,9 +37,9 @@ export default function Home() {
           },
         ]}
       />
-      {/* <FloatingHeader>
+      <FloatingHeader>
         <Header />
-      </FloatingHeader> */}
+      </FloatingHeader>
       <PageLayout>
         <PageGrid as="div" className="pt-[2rem] pb-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">

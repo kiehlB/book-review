@@ -177,12 +177,14 @@ const AuthForm: React.FC<AuthFormProps> = ({
       </div>
       <div className="px-[6.46875rem] text-base flex justify-end mmd:px-[2rem] ssm:px-[1rem]">
         {mode == 'register' ? (
-          <div className="text-[#C99400] font-semibold" onClick={() => SetMode('login')}>
+          <div
+            className="text-[#C99400] font-semibold cursor-pointer"
+            onClick={() => SetMode('login')}>
             로그인
           </div>
         ) : (
           <div
-            className="text-[#C99400] font-semibold"
+            className="text-[#C99400] font-semibold cursor-pointer"
             onClick={() => SetMode('register')}>
             회원가입
           </div>
@@ -190,18 +192,42 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <div className="dark:text-[#e4e5e7]"> 으로 이동</div>
       </div>
 
-      <div className="flex my-4 items-center justify-between px-1">
+      <div className="flex mt-4  my-8 items-center justify-between px-1">
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
         <div className="text-[#707a8a] dark:text-[#e4e5e7]">Or</div>
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
       </div>
 
-      <div className="flex justify-between w-[50%] mx-auto pt-3">
-        <Link
-          href="https://api.bookreview.pro/api/v2/auth/redirect/google"
-          passHref={true}>
-          <Google />
-        </Link>
+      <div className="flex justify-between w-[60%] mx-auto pt-3">
+        <div>
+          <div className="rounded-full border-[#DEE2E6] border w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
+            <Link
+              href="https://api.bookreview.pro/api/v2/auth/redirect/google"
+              passHref={true}>
+              <Google />
+            </Link>
+          </div>
+        </div>
+
+        <div>
+          <div className="rounded-full w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
+            <Link
+              href="https://api.bookreview.pro/api/v2/auth/redirect/google"
+              passHref={true}>
+              <img src="/naver.png" />
+            </Link>
+          </div>
+        </div>
+
+        <div>
+          <div className="rounded-full bg-[#fee500] border border-[#DEE2E6] w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
+            <Link
+              href="https://api.bookreview.pro/api/v2/auth/redirect/google"
+              passHref={true}>
+              <img src="/kakao.png" className="w-[24px] h-[24px]" />
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );

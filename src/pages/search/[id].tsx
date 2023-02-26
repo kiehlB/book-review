@@ -12,8 +12,11 @@ import PostCard from '../../components/post/PostCard';
 import { getNextSeo } from '../../lib/nextSeo';
 import { motion, useReducedMotion } from 'framer-motion';
 import { BackLink } from '../../components/common/ArrowButton';
+import { useRouter } from 'next/router';
 
-export default function Search({ id }) {
+export default function Search() {
+  const router = useRouter();
+  const { id } = router.query;
   const { data, loading } = useGetSearchPosts(id);
 
   return (
@@ -61,7 +64,7 @@ export default function Search({ id }) {
               <First>
                 <div className="flex justify-between items-center">
                   <BackLink href="/">
-                    <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-3 dark:text-[#D3D3D3]">
+                    <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-2 dark:text-[#D3D3D3]">
                       메인으로
                     </div>
                   </BackLink>
@@ -81,9 +84,3 @@ export default function Search({ id }) {
     </motion.div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { id } = context.query;
-
-  return { props: { id } };
-};

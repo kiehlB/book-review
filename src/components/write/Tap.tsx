@@ -147,14 +147,11 @@ function Tap({}: TapProps) {
         types: ['textStyle'],
       }),
       TableOfContents,
-      UniqueID.configure({
-        types: ['block'],
-      }),
     ],
 
     autofocus: true,
     content:
-      body?.length > 10
+      body?.length > 100
         ? body
         : `<div><toc></toc> 
     </div>반갑습니다
@@ -297,82 +294,29 @@ const Content = styled.div<{ isdark: string }>`
     width: 100%;
 
     ol {
-      white-space: initial;
-      word-wrap: break-word;
-      list-style: none;
-      counter-reset: my-awesome-counter;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      counter-increment: list;
-      height: 100%;
+      list-style-type: decimal;
+      position: relative;
+      padding-left: 20px;
 
       li {
-        display: block;
-        clear: both;
-        font-size: 0.8rem;
-        line-height: 1.375;
         position: relative;
-        counter-increment: my-awesome-counter;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5rem;
-        position: relative;
-        left: -0.3rem;
-        margin-bottom: 20px;
-        color: #ffb300;
-      }
-      li:before {
-        content: counter(my-awesome-counter);
-        width: 0rem;
-        height: 1.6rem;
-        min-width: 24px;
-
-        font: bold italic 32px Helvetica, Verdana, sans-serif;
-        min-height: 20px;
-        float: left;
-        margin: 0 1.4rem 0rem 0;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        shape-outside: ellipse();
-        z-index: 1;
+        line-height: 2;
       }
     }
 
     ul {
-      list-style: none;
-      counter-reset: my-awesome-counter;
-      counter-increment: list;
-      margin: 0;
-      padding: 0;
+      list-style-type: disc;
       position: relative;
-
-      &:before {
-        content: '';
-        display: inline-block;
-        width: 2px;
-        background: #fdb813;
-
-        position: absolute;
-        left: 5px;
-        height: calc(100% - 10px);
-      }
-
+      padding-left: 20px;
       li {
         position: relative;
-        padding-left: 24px;
-        margin-bottom: 15px;
       }
       li:before {
-        content: '';
         display: inline-block;
-        width: 12px;
-        height: 12px;
-        background: #ffb300;
+
         position: absolute;
         left: 0;
-        top: 7.5px;
+        top: 2px;
         border-radius: 10px;
       }
     }
