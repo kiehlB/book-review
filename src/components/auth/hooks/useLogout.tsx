@@ -22,6 +22,7 @@ export default function useLogout() {
 
   const handleSubmitLogout = async e => {
     e.preventDefault();
+    await logout();
 
     await client.clearStore().then(() => {
       client.resetStore();
@@ -30,8 +31,6 @@ export default function useLogout() {
       // dispatch(userLogout());
       router.push('/');
     });
-
-    await logout();
   };
 
   return {

@@ -17,7 +17,6 @@ export default function useWhoAmI() {
   useEffect(() => {
     if (auth?.id) return;
     if (loading) return;
-    console.log('tyirs');
 
     dispatch(initAuth(getUser?.whoami));
   }, [loading]);
