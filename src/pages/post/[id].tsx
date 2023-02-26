@@ -126,7 +126,9 @@ function Post() {
               <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
                 <div className="flex">
                   {singlePostData?.post?.tags.map(tag => (
-                    <Tag className="mr-2 flex">{tag?.tag?.name}</Tag>
+                    <Tag className="mr-2 flex" key={tag.name}>
+                      {tag?.tag?.name}
+                    </Tag>
                   ))}
                 </div>
               </div>
