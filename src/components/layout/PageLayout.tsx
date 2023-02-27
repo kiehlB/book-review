@@ -15,7 +15,7 @@ function PageLayout({ children }: PageLayoutProps) {
   const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
 
   return (
-    <div className="h-full mxl:px-3">
+    <div className="h-full mxl:px-4">
       <AuthContainer />
       <BookModal visible={BookIsClose} onClose={SetBookIsClose} className="">
         <BookTalble />

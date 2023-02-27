@@ -223,7 +223,10 @@ const PostTitle = styled.section`
 const Content = styled.div<{ isdark: string }>`
   white-space: initial;
   word-wrap: break-word;
-
+  color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+  span {
+    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+  }
   a {
     white-space: initial;
     word-wrap: break-word;
@@ -247,6 +250,9 @@ const Content = styled.div<{ isdark: string }>`
     margin-top: 2.5rem;
     letter-spacing: -0.004em;
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    ${media.custom(1024)} {
+      font-size: 2.2rem;
+    }
     ${media.custom(768)} {
       font-size: 2rem;
     }
@@ -259,8 +265,8 @@ const Content = styled.div<{ isdark: string }>`
     margin-top: 2.5rem;
     letter-spacing: -0.004em;
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
-    ${media.custom(768)} {
-      font-size: 1.5rem;
+    ${media.custom(1024)} {
+      font-size: 1.75rem;
     }
   }
   h3 {
@@ -270,8 +276,8 @@ const Content = styled.div<{ isdark: string }>`
     margin-top: 1.5rem;
     letter-spacing: -0.004em;
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
-    ${media.custom(768)} {
-      font-size: 1.15rem;
+    ${media.custom(1024)} {
+      font-size: 1.25rem;
     }
   }
   h4 {
@@ -281,6 +287,9 @@ const Content = styled.div<{ isdark: string }>`
     letter-spacing: -0.004em;
     margin-top: 1.5rem;
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+    ${media.custom(1024)} {
+      font-size: 1rem;
+    }
   }
 
   min-height: 100%;
@@ -333,6 +342,8 @@ const Content = styled.div<{ isdark: string }>`
     padding: 0.2em 0.4em;
     border-radius: 3px;
     font-size: 90%;
+
+    letter-spacing: 0px;
   }
   div {
     .toc {
@@ -351,7 +362,8 @@ const Content = styled.div<{ isdark: string }>`
     font-family: 'JetBrainsMono', monospace;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
-    margin: 0.75rem 1rem;
+    margin: 0.75rem 0rem;
+    overflow-x: auto;
 
     code {
       color: inherit;
@@ -366,6 +378,13 @@ const Content = styled.div<{ isdark: string }>`
     position: relative;
     padding-left: 55px;
     margin: 72px 0;
+
+    ${media.custom(1024)} {
+      margin: 32px 0;
+    }
+    ${media.custom(768)} {
+      margin: 24px 0;
+    }
 
     &:before {
       color: #fcd545;
