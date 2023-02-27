@@ -13,10 +13,15 @@ export interface NavbarItemProps extends Pick<any, 'to'> {
 export const NavbarItem = (props: NavbarItemProps) => {
   const router = useRouter();
 
+  const subPaths = props.sub ?? [];
+
   const isSelected =
     props.to === router.pathname ||
     router.pathname.startsWith(`${props.to}/`) ||
-    (props.sub && props?.sub?.indexOf(router.pathname) > -1);
+    (props.sub &&
+      props.sub.some(
+        path => router.pathname === path || router.pathname.startsWith(`${path}/`),
+      ));
 
   return (
     <Link

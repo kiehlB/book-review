@@ -13,6 +13,8 @@ import { getNextSeo } from '../../lib/nextSeo';
 import { motion, useReducedMotion } from 'framer-motion';
 import { BackLink } from '../../components/common/ArrowButton';
 import { useRouter } from 'next/router';
+import { AiFillNotification } from 'react-icons/ai';
+import { BsTagFill } from 'react-icons/bs';
 
 export default function Search() {
   const router = useRouter();
@@ -41,12 +43,17 @@ export default function Search() {
                   icon: <RiBookOpenLine />,
                   text: '포스트',
                   to: '/',
-                  sub: '/search',
+                  sub: ['/search', '/search/[query]', '/trending'],
                 },
                 {
-                  icon: <RiDashboard3Line />,
+                  icon: <AiFillNotification />,
                   text: '게시판',
                   to: '/post',
+                },
+                {
+                  icon: <BsTagFill />,
+                  text: '태그',
+                  to: '/tags',
                 },
               ]}
               secondaryItems={[
@@ -55,7 +62,8 @@ export default function Search() {
                   text: 'Trending tags',
                   to: '/Trending tags',
                 },
-              ]}></Navbar>
+              ]}
+            />
           </MainNav>
 
           <AppLayout

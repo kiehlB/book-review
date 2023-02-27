@@ -47,7 +47,7 @@ export default function Home() {
                     icon: <RiBookOpenLine />,
                     text: '포스트',
                     to: '/',
-                    sub: '/search',
+                    sub: ['/search', '/search/[query]', '/trending'],
                   },
                   {
                     icon: <AiFillNotification />,
@@ -80,7 +80,6 @@ export default function Home() {
                   <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
                     태그
                   </div>
-                  <HomeTab />
                 </div>
               </First>
             }

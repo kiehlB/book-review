@@ -78,7 +78,7 @@ export default function Home() {
               <First>
                 <div className="flex justify-between items-center my-4">
                   <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
-                    자유게시판
+                    검색
                   </div>
                 </div>
               </First>
