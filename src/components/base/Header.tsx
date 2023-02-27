@@ -63,7 +63,7 @@ function Header() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    router.push('search/' + input);
+    router.push(`/search/${input}`);
   };
 
   return (

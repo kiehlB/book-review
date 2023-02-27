@@ -47,7 +47,7 @@ export default function Home() {
                     icon: <RiBookOpenLine />,
                     text: '포스트',
                     to: '/',
-                    sub: '/search',
+                    sub: ['/search', '/trending'],
                   },
                   {
                     icon: <AiFillNotification />,

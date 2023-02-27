@@ -7,7 +7,7 @@ export interface NavbarItemProps extends Pick<any, 'to'> {
   icon: React.ReactNode;
   text: string;
   to: string;
-  sub?: string;
+  sub?: any;
 }
 
 export const NavbarItem = (props: NavbarItemProps) => {
@@ -16,8 +16,7 @@ export const NavbarItem = (props: NavbarItemProps) => {
   const isSelected =
     props.to === router.pathname ||
     router.pathname.startsWith(`${props.to}/`) ||
-    props.sub === router.pathname ||
-    router.pathname.startsWith(`${props.sub}/`);
+    (props.sub && props?.sub?.indexOf(router.pathname) > -1);
 
   return (
     <Link
