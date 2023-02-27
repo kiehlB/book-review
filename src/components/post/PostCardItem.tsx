@@ -2,11 +2,13 @@ import clsx from 'clsx';
 import moment from 'moment';
 import Link from 'next/link';
 import * as React from 'react';
-import styled from 'styled-components';
+
 import media from '../../lib/media';
 import { Post } from '../../types/apolloComponent';
 import RatioImage from '../common/RatioImage';
 import 'moment/locale/ko';
+import { Skeleton, SkeletonTexts } from '../common/Skeleton';
+import styled, { keyframes, css } from 'styled-components';
 
 interface GridProps {
   post: Post;
@@ -110,7 +112,7 @@ function PostCardItem({ post }: GridProps) {
           <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
             <div className="flex font-semibold text-xs">
               <div className="mr-2">좋아요 {post?.likes}개</div>
-              <div>댓글 {post?.subs_count}개</div>
+              <div> {post?.subs_count}개</div>
             </div>
 
             <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF]">
@@ -126,46 +128,35 @@ function PostCardItem({ post }: GridProps) {
 }
 
 export function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
+  const paddingTop = `${(1 / 1.644444444444444) * 100}%`;
+
   return (
-    <></>
-    // <SkeletonBlock>
-    //   {!hideUser && (
-    //     <div className="user-info">
-    //       <Skeleton className="user-thumbnail-skeleton" circle marginRight="1rem" />
-    //       <div className="username">
-    //         <Skeleton width="5rem" />
-    //       </div>
-    //     </div>
-    //   )}
-    //   <div className="post-thumbnail">
-    //     <div className="thumbnail-skeleton-wrapper">
-    //       <Skeleton className="skeleton" />
-    //     </div>
-    //   </div>
-    //   <h2>
-    //     <SkeletonTexts wordLengths={[4, 3, 2, 5, 3, 6]} useFlex />
-    //   </h2>
-    //   <div className="short-description">
-    //     <div className="line">
-    //       <SkeletonTexts wordLengths={[2, 4, 3, 6, 2, 7]} useFlex />
-    //     </div>
-    //     <div className="line">
-    //       <SkeletonTexts wordLengths={[3, 2, 3, 4, 7, 3]} useFlex />
-    //     </div>
-    //     <div className="line">
-    //       <SkeletonTexts wordLengths={[4, 3, 3]} />
-    //     </div>
-    //   </div>
-    //   <div className="tags-skeleton">
-    //     <Skeleton width="6rem" marginRight="0.875rem" />
-    //     <Skeleton width="4rem" marginRight="0.875rem" />
-    //     <Skeleton width="5rem" noSpacing />
-    //   </div>
-    //   <div className="subinfo">
-    //     <Skeleton width="3em" marginRight="1rem" />
-    //     <Skeleton width="6em" noSpacing />
-    //   </div>
-    // </SkeletonBlock>
+    <>
+      <div className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#212227]">
+        <div className="post-thumbnail">
+          <Block
+            style={{
+              paddingTop,
+            }}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="ml-2">
+          <SkeletonTexts wordLengths={[2, 12]} />
+        </div>
+
+        <div className="ml-2">
+          <SkeletonTexts wordLengths={[2, 5, 2, 5]} />
+          <SkeletonTexts wordLengths={[2, 4, 6, 6, 2, 4]} />
+        </div>
+
+        <div className="mt-3"></div>
+        <div className="flex justify-between p-3">
+          <Skeleton width="6em" marginRight="1rem" />
+          <Skeleton width="3em" noSpacing />
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -288,6 +279,9 @@ const AuthorText = styled.section`
 `;
 
 const PostCardBlock = styled.div`
+  border: 1px solid red;
+  display: grid;
+
   padding-top: 4rem;
   padding-bottom: 4rem;
   ${media.custom(768)} {
@@ -431,4 +425,35 @@ const SkeletonBlock = styled(PostCardBlock)`
       font-size: 1.25rem;
     }
   }
+`;
+const shining = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+`;
+
+const Block = styled.span<{ noSpacing?: boolean; circle?: boolean }>`
+  background: #f1f3f5;
+  animation: ${shining} 1s ease-in-out infinite;
+  display: inline-block;
+  border-radius: 4px;
+  height: 1em;
+  ${props =>
+    !props.noSpacing &&
+    css`
+      & + & {
+        margin-left: 0.5rem;
+      }
+    `}
+  ${props =>
+    props.circle &&
+    css`
+      border-radius: 50%;
+    `}
 `;

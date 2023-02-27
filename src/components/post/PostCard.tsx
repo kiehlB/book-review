@@ -1,5 +1,4 @@
 import * as React from 'react';
-import clsx from 'clsx';
 import PostCardItem, { PostCardSkeleton } from './PostCardItem';
 import { Post } from '../../types/apolloComponent';
 
