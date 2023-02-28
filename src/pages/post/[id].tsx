@@ -254,9 +254,8 @@ function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
                 <Skeleton noSpacing width="100%" height="20vh" />
 
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div className="h-[2.2rem]">
+                  <div className="h-[2.2rem]" key={i}>
                     <SkeletonTexts
-                      key={i}
                       wordLengths={[
                         Math.floor(Math.random() * 10),
                         Math.floor(Math.random() * 10),
