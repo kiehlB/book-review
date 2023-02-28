@@ -104,7 +104,7 @@ export const GET_recentPosts = gql`
     recentPosts(cursor: $cursor, limit: $limit) {
       id
       title
-      body
+
       thumbnail
       likes
       views
@@ -140,7 +140,7 @@ export const GET_trendingPosts = gql`
     trendingPosts(offset: $offset, limit: $limit, timeframe: $timeframe) {
       id
       title
-      body
+
       thumbnail
       likes
       postbody

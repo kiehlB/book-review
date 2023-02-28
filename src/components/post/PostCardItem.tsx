@@ -16,8 +16,6 @@ export type PostCardSkeletonProps = {
 };
 
 function PostCardItem({ post }: GridProps) {
-  const body = post?.body.replace(/<[^>]+>/g, ' ');
-
   const withoutThumbnail = (
     <Link
       href={`/post/${post.id}`}
@@ -87,7 +85,7 @@ function PostCardItem({ post }: GridProps) {
             </PostTitle>
 
             <PostBody className="text-sm mt-1 text-[#495057] dark:text-[#CFCFCF]">
-              <div>{body}</div>
+              <div>{(post as any)?.postbody}</div>
             </PostBody>
           </div>
 
