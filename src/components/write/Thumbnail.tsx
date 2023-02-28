@@ -128,7 +128,7 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
 
     const reader = new FileReader();
 
-    reader.readAsDataURL(output);
+    reader.readAsDataURL(file);
     reader.onloadend = async () => {
       const { addImage, setreadyForFile, readyForFile } = this.props;
       this.props.setPreviewSource(1);

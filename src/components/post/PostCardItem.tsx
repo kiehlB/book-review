@@ -37,7 +37,7 @@ function PostCardItem({ post }: GridProps) {
             </WithoutPostTitle>
 
             <WithoutPostBody className="text-sm mt-2 text-[#495057] dark:text-[#CFCFCF]">
-              <div>{body}</div>
+              <div>{(post as any)?.postbody}</div>
             </WithoutPostBody>
           </div>
 

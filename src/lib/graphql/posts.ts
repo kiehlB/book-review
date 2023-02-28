@@ -109,6 +109,7 @@ export const GET_recentPosts = gql`
       likes
       views
       is_temp
+      postbody
       is_private
       released_at
       created_at
@@ -142,6 +143,7 @@ export const GET_trendingPosts = gql`
       body
       thumbnail
       likes
+      postbody
       views
       is_temp
       is_private
@@ -174,6 +176,7 @@ export const Create_Post = gql`
     $body: String!
     $title: String!
     $thumbnail: String
+    $postbody: String
     $tags: [String]
     $is_temp: Boolean
     $is_private: Boolean
@@ -188,6 +191,7 @@ export const Create_Post = gql`
       title: $title
       tags: $tags
       thumbnail: $thumbnail
+      postbody: $postbody
       is_temp: $is_temp
       is_private: $is_private
       bookTitle: $bookTitle
@@ -203,6 +207,7 @@ export const Create_Post = gql`
       likes
       views
       is_temp
+      postbody
       is_private
       released_at
       created_at

@@ -31,8 +31,6 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
 
   const { onLikeToggle } = useCommentUpvote(comment?.id);
 
-  console.log(comment);
-
   return (
     <PostCommentItem className="py-1 mt-1">
       <div className="flex">

@@ -37,6 +37,10 @@ export default function useCreatePost() {
   ) => {
     e.preventDefault();
 
+    const postBodyReplace = body?.replace(/<[^>]+>/g, ' ')?.slice(0, 400);
+
+    console.log(postBodyReplace);
+
     if (checkEmpty(title)) {
       toast.error('제목 또는 내용이 비어있습니다.', {
         position: 'bottom-right',
@@ -53,7 +57,7 @@ export default function useCreatePost() {
             body,
             tags: tags,
             is_temp: false,
-
+            postbody: postBodyReplace,
             bookTitle: book?.title,
             bookContent: book?.contents,
             bookUrl: book?.thumbnail,
@@ -77,7 +81,7 @@ export default function useCreatePost() {
             is_temp: false,
             thumbnail: fileInputState,
             is_private: isPrivate,
-
+            postbody: postBodyReplace,
             bookTitle: book?.title,
             bookContent: book?.contents,
             bookUrl: book?.thumbnail,
