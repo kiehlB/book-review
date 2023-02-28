@@ -31,6 +31,8 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
 
   const { onLikeToggle } = useCommentUpvote(comment?.id);
 
+  console.log(comment);
+
   return (
     <PostCommentItem className="py-1 mt-1">
       <div className="flex">
@@ -52,7 +54,7 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
                     {comment.deleted ? '알 수 없음' : comment?.user?.username}
                   </div>
                   <div className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
-                    {formatDate(comment?.created_at)}
+                    {formatDate(comment?.updated_at)}
                   </div>
                 </div>
 

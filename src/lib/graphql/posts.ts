@@ -46,6 +46,7 @@ export const GET_Post = gql`
         replies {
           id
           text
+          updated_at
         }
         replies_count
         user {
@@ -252,6 +253,7 @@ export const RELOAD_COMMENTS = gql`
       subs {
         id
         text
+        updated_at
       }
     }
   }
@@ -394,6 +396,15 @@ export const UnLike_Post = gql`
         text
       }
       subs_count
+    }
+  }
+`;
+
+export const UPLOAD_IMAGE_TO_CLOUDINARY = gql`
+  mutation UploadImageToCloudinary($body: String!) {
+    uploadImage(body: $body) {
+      public_id
+      url
     }
   }
 `;

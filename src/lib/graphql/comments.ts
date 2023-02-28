@@ -20,6 +20,7 @@ export const EditSub = gql`
       id
       text
       level
+      updated_at
       created_at
       updated_at
     }
@@ -49,6 +50,7 @@ export const GET_SubComment = gql`
         id
         text
         level
+        updated_at
         upvotes
         user {
           id

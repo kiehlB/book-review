@@ -110,7 +110,7 @@ function PostCardItem({ post }: GridProps) {
           <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
             <div className="flex font-semibold text-xs">
               <div className="mr-2">좋아요 {post?.likes}개</div>
-              <div> {post?.subs_count}개</div>
+              <div>댓글 {post?.subs_count}개</div>
             </div>
 
             <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF]">

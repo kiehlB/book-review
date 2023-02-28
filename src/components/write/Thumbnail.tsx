@@ -2,10 +2,14 @@ import React, { PureComponent } from 'react';
 import imageCompression from 'browser-image-compression';
 import styled from 'styled-components';
 import { Spinner } from 'evergreen-ui';
-import { Pane, Badge, Text } from 'evergreen-ui';
 
 type ImageProps = {
   addImage: (e) => void;
+  readyForFile: any;
+  uploadThumbnail: any;
+  previewSource: any;
+  setreadyForFile: any;
+  setPreviewSource: any;
 };
 
 export default class PostThumbnail extends PureComponent<ImageProps> {
@@ -15,6 +19,7 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       open: false,
+      previewSource: '',
       maxSizeMB: 1,
       maxWidthOrHeight: 1024,
       webWorker: {
@@ -59,6 +64,7 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
   };
 
   cleardata = () => {
+    this.props.setPreviewSource(0);
     this.setState({
       webWorker: {
         progress: null,
@@ -102,7 +108,6 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
   async compressImage(event, useWebWorker) {
     const file = event.target.files[0];
 
-    console.log('ExifOrientation', await imageCompression.getExifOrientation(file));
     const targetName = useWebWorker ? 'webWorker' : 'mainThread';
     this.setState(prevState => ({
       ...prevState,
@@ -124,9 +129,14 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
     const reader = new FileReader();
 
     reader.readAsDataURL(output);
-    reader.onloadend = () => {
-      const { addImage } = this.props;
+    reader.onloadend = async () => {
+      const { addImage, setreadyForFile, readyForFile } = this.props;
+      this.props.setPreviewSource(1);
       addImage(reader.result);
+
+      if (reader.result) {
+        setreadyForFile(reader.result);
+      }
     };
 
     this.setState(prevState => ({
@@ -147,9 +157,9 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
         <div className="flex justify-between items-center">
           <div className="text-[1.3rem] text-[#212529] font-semibold mb-1">
             썸네일 등록
-          </div>{' '}
+          </div>
           <div className="flex">
-            {mainThread.inputUrl || webWorker.inputUrl ? (
+            {this.props.readyForFile && this.props.previewSource == 2 ? (
               <>
                 <div
                   onClick={() => this.cleardata()}
@@ -164,9 +174,13 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
         </div>
         <div className="w-full pt-[55.11%] relative">
           <div className="w-full h-full absolute left-0 top-0 shadow">
-            {webWorker.inputUrl ? (
+            {this.props.previewSource == 1 ? (
+              <div className="w-full h-full flex justify-center items-center">
+                <Spinner size={48} />
+              </div>
+            ) : this.props.readyForFile && this.props.previewSource == 2 ? (
               <img
-                src={webWorker.inputUrl}
+                src={this.props.readyForFile}
                 className="w-full h-full flex items-center flex-col justify-center object-cover"
               />
             ) : (

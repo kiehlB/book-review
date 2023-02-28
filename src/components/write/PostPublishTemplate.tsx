@@ -11,6 +11,8 @@ import { getIsOpenSuccess } from '../../store/book';
 import { AppLayout, First, Second, Third } from '../layout/AppLayout';
 import PublishCoreButton from './PublishCoreButton';
 import PostThumbnail from './Thumbnail';
+import { useMutation } from '@apollo/client';
+import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
 export type PostPublishTemplateProps = {
   children?: React.ReactNode;
 };
@@ -34,13 +36,24 @@ const liVariants = {
 
 function PostPublishTemplate({}: PostPublishTemplateProps) {
   const isopen = useSelector((state: RootState) => state?.book.isopen);
-  const [readyForFile, setreadyForFile] = useState(0);
-  const [previewSource, setPreviewSource] = useState('');
+  const [readyForFile, setreadyForFile] = useState('');
+  const [previewSource, setPreviewSource] = useState(0);
   const [fileInputState, setFileInputState] = useState<any>();
   const [isPrivate, setIsPrivate] = useState(false);
   const book = useSelector((state: RootState) => state?.book.book);
+  const [url, setUrl] = useState('');
+  const [uploadThumbnail] = useMutation(UPLOAD_IMAGE_TO_CLOUDINARY);
 
-  const addImage = useCallback(url => {
+  const addImage = useCallback(async url => {
+    await uploadThumbnail({
+      variables: {
+        body: url,
+      },
+      update: (_proxy, { data: newData }) => {
+        setUrl(newData.uploadImage.url);
+        setPreviewSource(2);
+      },
+    });
     if (url) {
       setFileInputState(url);
     }
@@ -56,7 +69,6 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
 
   const setFileValue = () => {
     setFileInputState('');
-    setPreviewSource('');
   };
   return (
     <AnimatePresence mode="wait" initial={false}>
@@ -72,7 +84,14 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
           first={
             <First>
               <div className="flex-1 min-w-[0]">
-                <PostThumbnail addImage={addImage} />
+                <PostThumbnail
+                  addImage={addImage}
+                  readyForFile={readyForFile}
+                  setPreviewSource={setPreviewSource}
+                  uploadThumbnail={uploadThumbnail}
+                  previewSource={previewSource}
+                  setreadyForFile={setreadyForFile}
+                />
 
                 <div className="text-[1.3rem] text-[#212529] font-semibold mt-4 mxs:py-2">
                   등록될 책
@@ -135,7 +154,7 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
 
                 <div className="mxs:mt-4">
                   <PublishCoreButton
-                    fileInputState={fileInputState}
+                    fileInputState={url}
                     isPrivate={isPrivate}
                     book={book}
                   />
