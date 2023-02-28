@@ -4,10 +4,11 @@ import React from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { BASE_SIZE, ICON_SIZE_MD } from '../../lib/constants';
 import Table from './Table';
-import moment from 'moment';
+
 import { RootState } from '../../store/rootReducer';
 import { initBook } from '../../store/book';
 import clsx from 'clsx';
+import { formatDate } from '../../lib/utils';
 
 interface BookInfo {
   authors: string[];
@@ -122,7 +123,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
               {datum.title || TITLE_PLACEHOLDER}
             </strong>
             <div className="mr-2 dark:text-[#e4e5e7] mxs:hidden">
-              {moment(datum.datetime).format('YYYY-MM-DD')}
+              {formatDate(datum.datetime)}
             </div>
           </div>
           <div className="py-[0.5rem] dark:text-[#e4e5e7]">

@@ -1,14 +1,12 @@
 import clsx from 'clsx';
-import moment from 'moment';
 import Link from 'next/link';
 import * as React from 'react';
-
 import media from '../../lib/media';
 import { Post } from '../../types/apolloComponent';
 import RatioImage from '../common/RatioImage';
-import 'moment/locale/ko';
 import { Skeleton, SkeletonTexts } from '../common/Skeleton';
 import styled, { keyframes, css } from 'styled-components';
+import { formatDate } from '../../lib/utils';
 
 interface GridProps {
   post: Post;
@@ -50,7 +48,7 @@ function PostCardItem({ post }: GridProps) {
             </div>
 
             <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF] ">
-              {moment(post?.released_at).fromNow()}
+              {formatDate(post?.released_at)}
             </div>
           </div>
         </div>
@@ -116,7 +114,7 @@ function PostCardItem({ post }: GridProps) {
             </div>
 
             <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF]">
-              {moment(post?.released_at).fromNow()}
+              {formatDate(post?.released_at)}
             </div>
           </div>
         </div>

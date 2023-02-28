@@ -1,4 +1,3 @@
-import moment from 'moment';
 import React from 'react';
 import useBoolean from '../../hooks/useBoolean';
 import { Sub } from '../../types/apolloComponent';
@@ -10,6 +9,7 @@ import { BiUpvote } from 'react-icons/bi';
 import ProfileIcon from '../../svg/profile';
 import CommentEdit from './CommentEdit';
 import useCommentUpvote from './hooks/useCommentUpvote';
+import { formatDate } from '../../lib/utils';
 
 export type CommentItemProps = {
   comment: Sub | any;
@@ -52,7 +52,7 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
                     {comment.deleted ? '알 수 없음' : comment?.user?.username}
                   </div>
                   <div className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
-                    {moment(comment?.created_at).fromNow()}
+                    {formatDate(comment?.created_at)}
                   </div>
                 </div>
 

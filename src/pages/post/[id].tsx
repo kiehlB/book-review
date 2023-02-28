@@ -8,8 +8,6 @@ import PawButton from '../../components/common/PawButton';
 import styled, { keyframes, css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
-import 'moment/locale/ko';
-import moment from 'moment';
 import Comments from '../../components/comments/Comments';
 import {
   AppLayout,
@@ -29,6 +27,7 @@ import ProfileIcon from '../../svg/profile';
 import { PostCardSkeletonProps } from '../../components/post/PostCardItem';
 import { Skeleton, SkeletonTexts } from '../../components/common/Skeleton';
 import Header from '../../components/base/Header';
+import { formatDate } from '../../lib/utils';
 
 export type PostProps = {
   id: string;
@@ -100,7 +99,7 @@ function Post() {
                   </div>
                   <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
                   <div className="text-lg text-[#344155] dark:text-[#ececec]">
-                    {moment(singlePostData?.post?.released_at).format('YYYY년 MMMM Do')}
+                    {formatDate(singlePostData?.post?.released_at)}
                   </div>
                 </div>
 

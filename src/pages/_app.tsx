@@ -12,7 +12,6 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from '../store/store';
 import { BooksContextProvider } from '../context/booksContext';
-import Head from 'next/head';
 import Script from 'next/script';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
