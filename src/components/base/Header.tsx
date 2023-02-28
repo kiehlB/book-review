@@ -74,7 +74,9 @@ function Header() {
           <div className="md:hidden mr-2">
             <Sidebar />
           </div>
-          <Link href="/" className={`font-Peace mxs:text-lg ssm:text-base`}>
+          <Link
+            href="/"
+            className={`${myFont.className} mxs:text-lg ssm:text-base font-bold`}>
             BookReview
           </Link>
         </div>

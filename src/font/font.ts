@@ -4,7 +4,7 @@ export const myFont = localFont({
   src: [
     {
       path: './Peace.otf',
-      weight: '800',
+      weight: '900',
     },
   ],
 });
