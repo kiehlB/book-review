@@ -1,15 +1,11 @@
 import PostTableOfContents from '../../components/common/PostTableOfContent';
 import { PageLayout } from '../../components/layout/PageLayout';
-
 import { parseHeadings2, setHeadingId } from '../../lib/heading';
-import { useEffect, useState } from 'react';
 import useGetPost from '../../components/write/hooks/useGetSinglePost';
-import { GetServerSideProps } from 'next';
-import { initializeApollo } from '../../lib/apolloClient';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../../lib/nextSeo';
 import PawButton from '../../components/common/PawButton';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import 'moment/locale/ko';
@@ -30,6 +26,9 @@ import { Remove_Post } from '../../lib/graphql/posts';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import ProfileIcon from '../../svg/profile';
+import { PostCardSkeletonProps } from '../../components/post/PostCardItem';
+import { Skeleton, SkeletonTexts } from '../../components/common/Skeleton';
+import Header from '../../components/base/Header';
 
 export type PostProps = {
   id: string;
@@ -78,135 +77,207 @@ function Post() {
     }
   };
 
-  if (!singlePostData) return;
-
   return (
     <>
       <NextSeo {...getNextSeo({ title: 'Book Review Write', description: '책리뷰' })} />
 
       <PageLayout>
-        <AppLayout
-          first={
-            <First>
-              <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
-                {singlePostData?.post?.title}
-              </PostTitle>
+        {singlePostLoding && <PostCardSkeleton />}
+        {singlePostData && !singlePostLoding ? (
+          <AppLayout
+            first={
+              <First>
+                <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
+                  {singlePostData?.post?.title}
+                </PostTitle>
 
-              <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
-                <div className="text-lg font-medium">
-                  <div className="flex items-center">
-                    <ProfileIcon className="w-[42px] h-[42px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]" />
-                    <div className="ml-2"> {singlePostData?.post?.user?.username}</div>
-                  </div>
-                </div>
-                <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
-                <div className="text-lg text-[#344155] dark:text-[#ececec]">
-                  {moment(singlePostData?.post?.released_at).format('YYYY년 MMMM Do')}
-                </div>
-              </div>
-
-              {singlePostData?.post?.user?.id == auth?.id ? (
-                <div className="flex justify-end max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
-                  <Link href={`/write`} passHref>
-                    <div onClick={getPostData} className="mr-4 cursor-pointer">
-                      수정
+                <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
+                  <div className="text-lg font-medium">
+                    <div className="flex items-center">
+                      <ProfileIcon className="w-[42px] h-[42px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]" />
+                      <div className="ml-2"> {singlePostData?.post?.user?.username}</div>
                     </div>
-                  </Link>
-
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => handleSubmit(router?.query?.id)}>
-                    삭제
                   </div>
-                </div>
-              ) : (
-                ''
-              )}
-
-              <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
-                <div className="flex">
-                  {singlePostData?.post?.tags.map(tag => (
-                    <Tag className="mr-2 flex" key={tag.name}>
-                      {tag?.tag?.name}
-                    </Tag>
-                  ))}
-                </div>
-              </div>
-            </First>
-          }
-          second={
-            <Second>
-              <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
-                <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden">
-                  <div className="sticky top-[20%]">
-                    <PawButton id={id} isdark={isdark} auth={auth} />
+                  <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
+                  <div className="text-lg text-[#344155] dark:text-[#ececec]">
+                    {moment(singlePostData?.post?.released_at).format('YYYY년 MMMM Do')}
                   </div>
                 </div>
 
-                <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
-                  {singlePostData?.post?.bookInfo?.bookTitle ? (
-                    <div className="flex max-w-[812.5px] mx-auto bg-[#F8F9FA] py-8 px-8 rounded shadow dark:bg-[#2b2d31] ssm:flex-col mb-[2rem]">
-                      <div className="card">
-                        <div className="imgBox">
-                          <div className="bark "></div>
-                          <img
-                            src={singlePostData?.post?.bookInfo?.bookUrl}
-                            width="120px"
-                            height="174px"
-                          />
+                {singlePostData?.post?.user?.id == auth?.id ? (
+                  <div className="flex justify-end max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
+                    <Link href={`/write`} passHref>
+                      <div onClick={getPostData} className="mr-4 cursor-pointer">
+                        수정
+                      </div>
+                    </Link>
+
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => handleSubmit(router?.query?.id)}>
+                      삭제
+                    </div>
+                  </div>
+                ) : (
+                  ''
+                )}
+
+                <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
+                  <div className="flex">
+                    {singlePostData?.post?.tags.map(tag => (
+                      <Tag className="mr-2 flex" key={tag.name}>
+                        {tag?.tag?.name}
+                      </Tag>
+                    ))}
+                  </div>
+                </div>
+              </First>
+            }
+            second={
+              <Second>
+                <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
+                  <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden">
+                    <div className="sticky top-[20%]">
+                      <PawButton id={id} isdark={isdark} auth={auth} />
+                    </div>
+                  </div>
+
+                  <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
+                    {singlePostData?.post?.bookInfo?.bookTitle ? (
+                      <div className="flex max-w-[812.5px] mx-auto bg-[#F8F9FA] py-8 px-8 rounded shadow dark:bg-[#2b2d31] ssm:flex-col mb-[2rem]">
+                        <div className="card">
+                          <div className="imgBox">
+                            <div className="bark "></div>
+                            <img
+                              src={singlePostData?.post?.bookInfo?.bookUrl}
+                              width="120px"
+                              height="174px"
+                            />
+                          </div>
+                          <div className="details">
+                            <h4 className="text-[10px]">
+                              {singlePostData?.post?.bookInfo?.bookContent}
+                            </h4>
+                          </div>
                         </div>
-                        <div className="details">
-                          <h4 className="text-[10px]">
-                            {singlePostData?.post?.bookInfo?.bookContent}
-                          </h4>
+                        <div className="flex flex-col ml-8 ssm:ml-0 ssm:mt-2">
+                          <div className="text-[#495057] text-xl font-bold dark:text-[#ececec] mxs:text-base">
+                            도서: {singlePostData?.post?.bookInfo?.bookTitle}
+                          </div>
+                          <div className="text-[#495057] text-base font-semibold mt-2 dark:text-[#ececec]">
+                            저자:{' '}
+                            {singlePostData?.post?.bookInfo?.bookAuthors?.map(e => e)}
+                          </div>
                         </div>
                       </div>
-                      <div className="flex flex-col ml-8 ssm:ml-0 ssm:mt-2">
-                        <div className="text-[#495057] text-xl font-bold dark:text-[#ececec] mxs:text-base">
-                          도서: {singlePostData?.post?.bookInfo?.bookTitle}
-                        </div>
-                        <div className="text-[#495057] text-base font-semibold mt-2 dark:text-[#ececec]">
-                          저자: {singlePostData?.post?.bookInfo?.bookAuthors?.map(e => e)}
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    ''
-                  )}
+                    ) : (
+                      ''
+                    )}
 
-                  <Content isdark={isdark}>
-                    <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
-                  </Content>
-                </div>
-                <div className="col-span-2 mp:hidden">
-                  <div className="sticky top-[20%]">
-                    <PostTableOfContents isdark={isdark} />
+                    <Content isdark={isdark}>
+                      <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
+                    </Content>
+                  </div>
+                  <div className="col-span-2 mp:hidden">
+                    <div className="sticky top-[20%]">
+                      <PostTableOfContents isdark={isdark} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Second>
-          }
-          third={
-            <Third>
-              <div className="max-w-[812.5px] mx-auto">
-                <Comments
-                  commentCount={singlePostData?.post?.subs_count}
-                  comments={singlePostData?.post?.subs}
-                  postId={singlePostData?.post?.id}
-                  isMine={singlePostData?.post?.user?.id == auth?.id}
-                  currentId={auth?.id}
-                />
-              </div>
-              <div className="h-[40vh]"></div>
-            </Third>
-          }
-        />
+              </Second>
+            }
+            third={
+              <Third>
+                <div className="max-w-[812.5px] mx-auto">
+                  <Comments
+                    commentCount={singlePostData?.post?.subs_count}
+                    comments={singlePostData?.post?.subs}
+                    postId={singlePostData?.post?.id}
+                    isMine={singlePostData?.post?.user?.id == auth?.id}
+                    currentId={auth?.id}
+                  />
+                </div>
+                <div className="h-[40vh]"></div>
+              </Third>
+            }
+          />
+        ) : (
+          ''
+        )}
       </PageLayout>
     </>
   );
 }
 
 export default Post;
+
+function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
+  const paddingTop = `${(1 / 1.644444444444444) * 100}%`;
+
+  return (
+    <>
+      <AppLayout
+        first={
+          <First>
+            <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
+              <SkeletonTexts wordLengths={[10, 12, 4]} />
+            </PostTitle>
+
+            <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
+              <div className="text-lg font-medium">
+                <div className="flex items-center">
+                  <Skeleton width="6em" marginRight="1rem" />
+                  <Skeleton width="6em" marginRight="1rem" />
+                </div>
+              </div>
+              <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
+              <div className="text-lg text-[#344155] dark:text-[#ececec]">
+                <Skeleton width="6em" marginRight="1rem" />
+              </div>
+            </div>
+
+            <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
+              <div className="flex">
+                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} />
+              </div>
+            </div>
+          </First>
+        }
+        second={
+          <Second>
+            <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
+              <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden"></div>
+
+              <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
+                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} />
+
+                <Skeleton noSpacing width="100%" height="20vh" />
+
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div className="h-[2.2rem]">
+                    <SkeletonTexts
+                      key={i}
+                      wordLengths={[
+                        Math.floor(Math.random() * 10),
+                        Math.floor(Math.random() * 10),
+                        Math.floor(Math.random() * 10),
+                        Math.floor(Math.random() * 10),
+                        Math.floor(Math.random() * 10),
+                        Math.floor(Math.random() * 10),
+                        Math.floor(Math.random() * 10),
+                        Math.floor(Math.random() * 10),
+                      ]}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Second>
+        }
+      />
+    </>
+  );
+}
 
 const PostTitle = styled.section`
   display: -webkit-box;
@@ -453,4 +524,36 @@ const Tag = styled.div`
   transition: ease-in 0.125s;
 
   margin-bottom: 0.75rem;
+`;
+
+const shining = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+`;
+
+const Block = styled.span<{ noSpacing?: boolean; circle?: boolean }>`
+  background: #f1f3f5;
+  animation: ${shining} 1s ease-in-out infinite;
+  display: inline-block;
+  border-radius: 4px;
+  height: 1em;
+  ${props =>
+    !props.noSpacing &&
+    css`
+      & + & {
+        margin-left: 0.5rem;
+      }
+    `}
+  ${props =>
+    props.circle &&
+    css`
+      border-radius: 50%;
+    `}
 `;

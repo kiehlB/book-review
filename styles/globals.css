@@ -5,6 +5,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family:'Peace';
+  src: url('./Peace.otf');
+  font-weight: 800;
+}
+
+
 
 body{
 box-sizing: border-box;
@@ -12,6 +19,7 @@ font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Goth
 }
  
  
+
 h1,h2,h3,h4{
   font-weight: 700;
   color:#212529;

@@ -69,12 +69,12 @@ function Header() {
   return (
     <PageGrid as="header" className={`items-center py-[1rem]`}>
       <div
-        className={`${myFont.className} col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
         <div className="flex items-center">
           <div className="md:hidden mr-2">
             <Sidebar />
           </div>
-          <Link href="/" className="mxs:text-lg ssm:text-base">
+          <Link href="/" className={`font-Peace mxs:text-lg ssm:text-base`}>
             BookReview
           </Link>
         </div>

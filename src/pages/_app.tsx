@@ -52,20 +52,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
     }
   }, []);
 
-  useEffect(() => {
-    const handleRouteChange = (url, { shallow }) => {
-      ReactGA.send({ hitType: 'pageview', page: '/my-path' });
-      console.log(
-        `App is changing to ${url} ${shallow ? 'with' : 'without'} shallow routing`,
-      );
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, []);
   return (
     <>
       <Script src="/theme.js" strategy="beforeInteractive" />
