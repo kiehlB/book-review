@@ -227,22 +227,18 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </div>
         </Link>
 
-        <div>
+        <div onClick={handleClick}>
           <div ref={naverRef} id="naverIdLogin" className="hidden" />
-          <div
-            onClick={handleClick}
-            className="rounded-full w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
+          <div className="rounded-full w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
             <img src="/naver.png " />
           </div>
         </div>
 
-        <div>
+        <Link href={`${process.env.KAKAO_CALLBACK}`} passHref={true}>
           <div className="rounded-full bg-[#fee500] border border-[#DEE2E6] w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
-            <Link href={`${process.env.KAKAO_CALLBACK}`} passHref={true}>
-              <img src="/kakao.png" className="w-[24px] h-[24px]" />
-            </Link>
+            <img src="/kakao.png" className="w-[24px] h-[24px]" />
           </div>
-        </div>
+        </Link>
       </div>
     </>
   );
