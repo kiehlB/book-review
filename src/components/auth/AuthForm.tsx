@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import LabelInput from '../common/LabelInput';
 import clsx from 'clsx';
 import Link from 'next/link';
+import Router from 'next/router';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -52,6 +53,8 @@ const AuthForm: React.FC<AuthFormProps> = ({
   Usernamehelper,
   SetMode,
 }) => {
+  const naverRef: any = React.useRef(null);
+
   const onClick = e => {
     e.preventDefault();
     toast.error('아이디나 비밀번호가 비었습니다!', {
@@ -106,6 +109,25 @@ const AuthForm: React.FC<AuthFormProps> = ({
       );
     }
   }, [error]);
+
+  React.useEffect(() => {
+    const { naver } = window as any;
+    if (naver) {
+      const naverLogin = new window.naver.LoginWithNaverId({
+        clientId: process.env.NAVER_ID,
+        callbackUrl: process.env.NAVER_CALLBACK,
+        isPopup: false,
+        loginButton: {},
+      });
+
+      naverLogin.init();
+    }
+  }, []);
+
+  const handleClick = () => {
+    naverRef.current.children[0].click();
+  };
+
   // dark:bg-[#300313] dark:text-[#f31260]
   // dark:text-[#41ec8b] dark:bg-[#042f14]
   return (
@@ -210,12 +232,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
         </div>
 
         <div>
-          <div className="rounded-full w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
-            <Link
-              href="https://api.bookreview.pro/api/v2/auth/redirect/google"
-              passHref={true}>
-              <img src="/naver.png" />
-            </Link>
+          <div ref={naverRef} id="naverIdLogin" className="hidden" />
+          <div
+            onClick={handleClick}
+            className="rounded-full w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
+            <img src="/naver.png " />
           </div>
         </div>
 

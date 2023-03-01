@@ -9,10 +9,7 @@ export default function Document() {
 
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
-      </Head>
-      <body className="transition duration-500 h-full dark:bg-[#1a1b1e]">
-        <Main />
-        <NextScript />
+        <Script src="https://developers.kakao.com/sdk/js/kakao.js"></Script>
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-R64H1TLKCP"
@@ -27,6 +24,10 @@ export default function Document() {
          gtag('config', 'G-R64H1TLKCP');
         `}
         </Script>
+      </Head>
+      <body className="transition duration-500 h-full dark:bg-[#1a1b1e]">
+        <Main />
+        <NextScript />
       </body>
     </Html>
   );

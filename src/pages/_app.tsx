@@ -17,6 +17,7 @@ import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 export const persistor = persistStore(store);
 
@@ -53,6 +54,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
   return (
     <>
+      <Head>
+        <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+      </Head>
+
       <Script src="/theme.js" strategy="beforeInteractive" />
       <ThemeProvider theme={theme}>
         <Provider store={store}>
