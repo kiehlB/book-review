@@ -10,8 +10,8 @@ export default function Document() {
           defer
           src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        <script defer src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
-        <Script src="https://developers.kakao.com/sdk/js/kakao.js"></Script>
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-R64H1TLKCP"

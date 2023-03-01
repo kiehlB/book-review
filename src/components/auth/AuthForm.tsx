@@ -221,15 +221,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
       </div>
 
       <div className="flex justify-between w-[60%] mx-auto pt-3">
-        <div>
+        <Link href={`${process.env.GOOGLE_CALLBACK}`} passHref={true}>
           <div className="rounded-full border-[#DEE2E6] border w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
-            <Link
-              href="https://api.bookreview.pro/api/v2/auth/redirect/google"
-              passHref={true}>
-              <Google />
-            </Link>
+            <Google />
           </div>
-        </div>
+        </Link>
 
         <div>
           <div ref={naverRef} id="naverIdLogin" className="hidden" />
@@ -242,9 +238,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
         <div>
           <div className="rounded-full bg-[#fee500] border border-[#DEE2E6] w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
-            <Link
-              href="https://api.bookreview.pro/api/v2/auth/redirect/google"
-              passHref={true}>
+            <Link href={`${process.env.KAKAO_CALLBACK}`} passHref={true}>
               <img src="/kakao.png" className="w-[24px] h-[24px]" />
             </Link>
           </div>
