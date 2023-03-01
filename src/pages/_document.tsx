@@ -6,9 +6,9 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link rel="icon" href="/logo10.png" />
-
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
         <Script src="https://developers.kakao.com/sdk/js/kakao.js"></Script>
         <Script
           async
