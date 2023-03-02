@@ -19,7 +19,7 @@ export default function useCreateSavePost() {
   const client = useApolloClient();
   const dispatch = useDispatch();
 
-  const { data, loading, fetchMore } = useQuery(GET_Posts, {
+  const { data, loading, fetchMore, refetch } = useQuery(GET_Posts, {
     variables: {
       username: auth?.username,
       istemp: true,
@@ -29,7 +29,7 @@ export default function useCreateSavePost() {
 
   const posts = data?.posts;
 
-  const ConfirmSave = async (id, title, body, tags = [], book) => {
+  const ConfirmSave = async (id, title, body, tags, book) => {
     if (!title) {
       toast.error('제목 또는 내용이 비어있습니다.', {
         position: 'bottom-right',
@@ -94,18 +94,7 @@ export default function useCreateSavePost() {
           },
 
           update: async (proxy, { data: editPost }) => {
-            const findData = posts.find(el => el.id == id);
-
-            proxy?.writeQuery({
-              query: GET_Posts,
-              variables: {
-                username: auth?.username,
-                temp_only: true,
-              },
-              data: {
-                posts: [findData == editPost.editPost],
-              },
-            });
+            await refetch();
           },
         });
         toast.success('포스트 저장 성공', {

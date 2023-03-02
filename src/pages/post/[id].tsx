@@ -19,7 +19,13 @@ import {
 import media from '../../lib/media';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { getPostBody, getPostId, getPostTags, getPostTitle } from '../../store/book';
+import {
+  getPostBody,
+  getPostId,
+  getPostTags,
+  getPostTitle,
+  getThumbnail,
+} from '../../store/book';
 import { Remove_Post } from '../../lib/graphql/posts';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -47,8 +53,9 @@ function Post() {
   const getPostData = () => {
     dispatch(getPostTitle(singlePostData?.post?.title));
     dispatch(getPostBody(singlePostData?.post?.body));
-    // dispatch(getPostTags(singlePostData?.post?.tags));
+    dispatch(getPostTags(singlePostData?.post?.tags?.map(e => e?.tag?.name)));
     dispatch(getPostId(singlePostData?.post?.id));
+    dispatch(getThumbnail(singlePostData?.post?.thumbnail));
   };
 
   const [removePost] = useMutation(Remove_Post, {
@@ -121,10 +128,10 @@ function Post() {
                   ''
                 )}
 
-                <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
-                  <div className="flex">
+                <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-8 mb-[0.5rem] flex-wrap">
+                  <div className="flex flex-wrap">
                     {singlePostData?.post?.tags.map(tag => (
-                      <Tag className="mr-2 flex" key={tag.name}>
+                      <Tag className="mr-2 flex flex-wrap" key={tag.name}>
                         {tag?.tag?.name}
                       </Tag>
                     ))}
@@ -173,6 +180,9 @@ function Post() {
                       ''
                     )}
 
+                    <div>
+                      <img src={singlePostData?.post?.thumbnail} />
+                    </div>
                     <Content isdark={isdark}>
                       <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
                     </Content>
@@ -292,6 +302,7 @@ const PostTitle = styled.section`
 const Content = styled.div<{ isdark: string }>`
   white-space: initial;
   word-wrap: break-word;
+  margin-top: 1rem;
   color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
   span {
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
@@ -510,6 +521,7 @@ const Content = styled.div<{ isdark: string }>`
 
 const Tag = styled.div`
   color: #121212;
+
   font-size: 1rem;
   display: inline-flex;
   align-items: center;

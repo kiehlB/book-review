@@ -41,7 +41,10 @@ import { BackgroundColorMark } from './BackgroundColorMark';
 import media from '../../lib/media';
 import { toast } from 'react-toastify';
 
-export type TapProps = {};
+export type TapProps = {
+  postId: any;
+  posts: any;
+};
 
 type Levels = 1 | 2 | 3;
 
@@ -51,19 +54,17 @@ const classes: Record<Levels, string> = {
   3: 'text-2xl',
 };
 
-function Tap({}: TapProps) {
+function Tap({ postId, posts }: TapProps) {
   const dispatch = useDispatch();
   const isdark = useSelector((state: RootState) => state.core.isdark);
   const body = useSelector((state: RootState) => state.book.body);
   const isopen = useSelector((state: RootState) => state.book.isopen);
-  const postId = useSelector((state: RootState) => state.book.postId);
+
   const [state, setState] = useState(false);
 
   const loadDataOnlyOnce = useCallback(() => {
     setState(true);
   }, [state]);
-
-  const { posts } = useCreateSavePost();
 
   const findPost = posts?.filter(e => e.id == postId);
 
@@ -194,7 +195,7 @@ function Tap({}: TapProps) {
     if (findPost) {
       dispatch(getPostTitle(findPost[0]?.title));
       dispatch(getPostBody(findPost[0]?.body));
-      dispatch(getPostTags(findPost[0]?.tags));
+      // dispatch(getPostTags(findPost[0]?.tags?.map(e => e?.tag?.name)));
     }
   }, [postId]);
 

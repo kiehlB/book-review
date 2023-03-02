@@ -14,22 +14,14 @@ export type PublishCoreButtonProps = {
 };
 
 function PublishCoreButton({ fileInputState, isPrivate, book }: PublishCoreButtonProps) {
-  const { onConfirmSave, posts, loading } = useCreateSavePost();
   const body = useSelector((state: RootState) => state.book.body);
   const tags = useSelector((state: RootState) => state.book.tags);
   const postId = useSelector((state: RootState) => state.book.postId);
   const title = useSelector((state: RootState) => state.book.title);
+
   const { handleSubmit } = useCreatePost();
 
   const dispatch = useDispatch();
-
-  const handleChange = useCallback(
-    e => {
-      const { value } = e.target;
-      dispatch(getPostTitle(value));
-    },
-    [dispatch],
-  );
 
   return (
     <div className="flex justify-end ">

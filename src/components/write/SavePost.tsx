@@ -8,8 +8,6 @@ import useCreateSavePost from './hooks/usecreateSavePost';
 export type TapProps = { value: string };
 
 function SavePost({ value }: TapProps) {
-  const dispatch = useDispatch();
-
   const { posts, loading, onConfirmRemove } = useCreateSavePost();
   const [isCollapse, setIsCollapse] = useState(true);
 

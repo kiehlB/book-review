@@ -3,7 +3,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Create_Post, Edit_Post } from '../../../lib/graphql/posts';
 import { useDispatch } from 'react-redux';
-import { getIsOpenSuccess } from '../../../store/book';
+import {
+  getIsOpenSuccess,
+  getPostBody,
+  getPostId,
+  getPostTags,
+  getPostTitle,
+  getThumbnail,
+} from '../../../store/book';
 import { toast } from 'react-toastify';
 import { checkEmpty } from '../../../lib/utils';
 
@@ -13,12 +20,23 @@ export default function useCreatePost() {
   const [editPost] = useMutation(Edit_Post, {
     onCompleted({}) {
       dispatch(getIsOpenSuccess());
+      dispatch(getPostTitle(''));
+      dispatch(getPostBody(''));
+      dispatch(getPostTags([]));
+      dispatch(getPostId(''));
+      dispatch(getThumbnail(''));
       router.push('/');
     },
   });
   const [createPost] = useMutation(Create_Post, {
-    onCompleted({ signUp }) {
+    onCompleted({}) {
       dispatch(getIsOpenSuccess());
+
+      dispatch(getPostTitle(''));
+      dispatch(getPostBody(''));
+      dispatch(getPostTags([]));
+      dispatch(getPostId(''));
+      dispatch(getThumbnail(''));
       router.push('/');
     },
   });
@@ -39,8 +57,6 @@ export default function useCreatePost() {
 
     const postBodyReplace = body?.replace(/<[^>]+>/g, ' ')?.slice(0, 400);
 
-    console.log(postBodyReplace);
-
     if (checkEmpty(title)) {
       toast.error('제목 또는 내용이 비어있습니다.', {
         position: 'bottom-right',
@@ -52,17 +68,14 @@ export default function useCreatePost() {
       try {
         await editPost({
           variables: {
-            id: id,
-            title,
-            body,
+            id,
+            title: title,
+            body: body,
             tags: tags,
             is_temp: false,
+            thumbnail: fileInputState,
+            is_private: isPrivate,
             postbody: postBodyReplace,
-            bookTitle: book?.title,
-            bookContent: book?.contents,
-            bookUrl: book?.thumbnail,
-            bookIsbn: book?.isbn,
-            bookAuthors: book?.authors,
           },
         });
         await client.resetStore();

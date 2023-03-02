@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/rootReducer';
 import { BackLink } from '../common/ArrowButton';
 import { AppLayout, First, MainNav, Second } from '../layout/AppLayout';
 import { PageGrid } from '../layout/GridLayout';
 import TagsForm from '../tags/TagsForm';
 import CoreButton from './CoreButton';
+import useCreateSavePost from './hooks/usecreateSavePost';
 import ImageAdd from './ImageAdd';
 import Tap from './Tap';
 import TapSide from './TapSide';
@@ -12,6 +15,11 @@ import WriterHead from './WriterHeader';
 export type TapProps = {};
 
 function WriteTemplate({}: TapProps) {
+  const StoreTag = useSelector((state: any) => state.book.tags);
+  const postId = useSelector((state: RootState) => state.book.postId);
+
+  const { posts } = useCreateSavePost();
+
   return (
     <PageGrid as="main">
       <MainNav className="col-span-2 sticky top-0 h-[100vh] min-h-[0] overflow-hidden border-r mxl:hidden">
@@ -32,16 +40,16 @@ function WriteTemplate({}: TapProps) {
           <First>
             <div className="flex items-center justify-between">
               <WriterHead />
-              <CoreButton />
+              <CoreButton StoreTag={StoreTag} />
             </div>
             <div className="px-4 py-4">
-              <TagsForm />
+              <TagsForm StoreTag={StoreTag} postId={postId} posts={posts} />
             </div>
           </First>
         }
         second={
           <Second>
-            <Tap />
+            <Tap postId={postId} posts={posts} />
           </Second>
         }
       />

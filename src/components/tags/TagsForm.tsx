@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import transitions from '../../lib/transitions';
 import { Tooltip, IconButton, EditIcon } from 'evergreen-ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPostTags } from '../../store/book';
+import { getPostSaveSuccess, getPostTags } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
+  StoreTag: any;
+  postId: any;
+  posts: any;
 };
 
 const Tag = styled.div`
@@ -31,12 +34,16 @@ const Tag = styled.div`
   animation: ${transitions.popIn} 0.125s forwards ease-in-out;
 `;
 
-const TagItem = ({ onClick, children }: any) => {
+const TagItem = ({ onClick, children, posts }: any) => {
   return <Tag onClick={onClick}>{children}</Tag>;
 };
 
 function TagsForm(props: TagsFormProps) {
   const isopen = useSelector((state: RootState) => state.book.isopen);
+  const postSave = useSelector((state: RootState) => state.book.postSave);
+  const temporaryClick = useSelector((state: RootState) => state.book.temporaryClick);
+
+  const findPost = props.posts?.filter(e => e.id == props.postId);
 
   const [value, setValue] = useState('');
   const [tags, setTags] = useState([]);
@@ -46,7 +53,21 @@ function TagsForm(props: TagsFormProps) {
 
   useEffect(() => {
     dispatch(getPostTags(tags));
-  }, [isopen]);
+  }, [isopen, postSave]);
+
+  useEffect(() => {
+    if (props.StoreTag.length >= 1) {
+      console.log('ddd');
+      setTags([...props.StoreTag]);
+    }
+  }, [props.postId]);
+
+  useEffect(() => {
+    if (findPost?.length >= 1) {
+      console.log(findPost[0]);
+      setTags([...findPost[0]?.tags?.map(e => e?.tag?.name)]);
+    }
+  }, [props.postId]);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -113,7 +134,7 @@ function TagsForm(props: TagsFormProps) {
           tabIndex={2}
           onKeyDown={onKeyDown}
           onChange={onChangeInput}
-          className="dark:bg-[#1a1b1e] dark:text-[#D3D3D3] dark:placeholder-[#D3D3D3]"
+          className="dark:bg-[#1a1b1e] dark:text-[#D3D3D3] dark:placeholder-[#D3D3D3] outline-none"
           value={value}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}

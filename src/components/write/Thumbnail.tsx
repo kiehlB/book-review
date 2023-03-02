@@ -10,6 +10,7 @@ type ImageProps = {
   previewSource: any;
   setreadyForFile: any;
   setPreviewSource: any;
+  thumbnail: any;
 };
 
 export default class PostThumbnail extends PureComponent<ImageProps> {

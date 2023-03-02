@@ -13,13 +13,15 @@ export interface BookState {
   error: string;
   title: string;
   body: string;
-  tags: string[] | string;
+  tags: any;
   publish: boolean;
   isPrivate: boolean;
   thumbnail: string | null;
   postId: null | string;
   isTemp: boolean;
   isopen: boolean;
+  postSave: boolean;
+  temporaryClick: boolean;
 }
 
 export const initialState = {
@@ -35,6 +37,8 @@ export const initialState = {
   postId: null,
   isTemp: false,
   isopen: false,
+  postSave: false,
+  temporaryClick: false,
 };
 
 const BookSlice = createSlice({
@@ -50,17 +54,27 @@ const BookSlice = createSlice({
     getPostBody(state: BookState, action: PayloadAction<string>) {
       state.body = action.payload;
     },
-    getPostTags(state: BookState, action: PayloadAction<string[] | string>) {
+    getPostTags(state: BookState, action: PayloadAction<any>) {
       state.tags = action.payload;
     },
     getPostId(state: BookState, action: PayloadAction<string>) {
       state.postId = action.payload;
     },
 
+    getThumbnail(state: BookState, action: PayloadAction<string>) {
+      state.thumbnail = action.payload;
+    },
+
     getIsOpenSuccess(state: BookState) {
       state.isopen = !state.isopen;
     },
 
+    getPostSaveSuccess(state: BookState) {
+      state.postSave = !state.postSave;
+    },
+    getTemporaryClickSuccess(state: BookState) {
+      state.temporaryClick = true;
+    },
     getBookFailure(state, { payload }: PayloadAction<BookState>) {
       state.error = payload.error;
     },
@@ -75,6 +89,8 @@ export const {
   getPostTags,
   getPostId,
   getIsOpenSuccess,
+  getPostSaveSuccess,
+  getThumbnail,
 } = BookSlice.actions;
 
 export const initBook =

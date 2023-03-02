@@ -36,6 +36,7 @@ const liVariants = {
 
 function PostPublishTemplate({}: PostPublishTemplateProps) {
   const isopen = useSelector((state: RootState) => state?.book.isopen);
+  const thumbnail = useSelector((state: RootState) => state?.book.thumbnail);
   const [readyForFile, setreadyForFile] = useState('');
   const [previewSource, setPreviewSource] = useState(0);
   const [fileInputState, setFileInputState] = useState<any>();
@@ -44,10 +45,17 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
   const [url, setUrl] = useState('');
   const [uploadThumbnail] = useMutation(UPLOAD_IMAGE_TO_CLOUDINARY);
 
+  useEffect(() => {
+    if (thumbnail) {
+      setreadyForFile(thumbnail);
+      setPreviewSource(2);
+    }
+  }, []);
+
   const addImage = useCallback(async url => {
     await uploadThumbnail({
       variables: {
-        body: url,
+        body: url ? url : thumbnail,
       },
       update: (_proxy, { data: newData }) => {
         setUrl(newData.uploadImage.url);
@@ -67,9 +75,6 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
     setIsPrivate(false);
   }, [isPrivate]);
 
-  const setFileValue = () => {
-    setFileInputState('');
-  };
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
@@ -91,6 +96,7 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                   uploadThumbnail={uploadThumbnail}
                   previewSource={previewSource}
                   setreadyForFile={setreadyForFile}
+                  thumbnail={thumbnail}
                 />
 
                 <div className="text-[1.3rem] text-[#212529] font-semibold mt-4 mxs:py-2">
@@ -123,10 +129,11 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                     <div
                       onClick={onClickPublic}
                       className={clsx(
-                        'w-full flex-1 h-[3rem] outline-none border inline-flex justify-start bg-[#fff] font-bold items-center p-0 rounded shadow-sm pl-[1rem]',
+                        'w-full flex-1 h-[3rem] outline-none border inline-flex justify-start font-bold items-center p-0 rounded shadow-sm pl-[1rem]',
                         {
                           'border-[#FCd545] text-[#191919] bg-[#FCd545] border':
                             isPrivate == false,
+                          'bg-[#fff]': isPrivate == true,
                         },
                       )}>
                       <HiOutlineLockOpen size={24} />
@@ -138,10 +145,11 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                     <div
                       onClick={onClickPrivate}
                       className={clsx(
-                        'w-full outline-none flex-1 h-[3rem] border inline-flex justify-start font-bold ml-[1rem]  bg-[#fff] items-center p-0 rounded shadow-sm pl-[1rem]',
+                        'w-full outline-none flex-1 h-[3rem] border inline-flex justify-start font-bold ml-[1rem] items-center p-0 rounded shadow-sm pl-[1rem]',
                         {
                           'border-[#FCd545] text-[#191919] border bg-[#FCd545]':
                             isPrivate == true,
+                          'bg-[#fff]': isPrivate == false,
                         },
                       )}>
                       <HiOutlineLockClosed size={24} />

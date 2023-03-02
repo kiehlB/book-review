@@ -13,6 +13,7 @@ import {
   getPostId,
   getPostTags,
   getPostTitle,
+  getThumbnail,
 } from '../../store/book';
 import { toast } from 'react-toastify';
 import { IoSearchOutline } from 'react-icons/io5';
@@ -276,8 +277,9 @@ const BookTalble = ({}) => {
               onClick={() => {
                 dispatch(getPostTitle(''));
                 dispatch(getPostBody(''));
-                dispatch(getPostTags(''));
+                dispatch(getPostTags([]));
                 dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
                 SetBookIsClose(!BookIsClose);
               }}>
               <ArrowLink
@@ -293,8 +295,9 @@ const BookTalble = ({}) => {
               onClick={() => {
                 dispatch(getPostTitle(''));
                 dispatch(getPostBody(''));
-                dispatch(getPostTags(''));
+                dispatch(getPostTags([]));
                 dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
                 book?.title ? SetBookIsClose(!BookIsClose) : '';
                 book?.title ? '' : withoutBookInfo();
               }}>
@@ -344,8 +347,9 @@ const BookTalble = ({}) => {
               click={() => {
                 dispatch(getPostTitle(''));
                 dispatch(getPostBody(''));
-                dispatch(getPostTags(''));
+                dispatch(getPostTags([]));
                 dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
                 SetBookIsClose(!BookIsClose);
               }}
               href="/write">
@@ -358,8 +362,9 @@ const BookTalble = ({}) => {
               click={() => {
                 dispatch(getPostTitle(''));
                 dispatch(getPostBody(''));
-                dispatch(getPostTags(''));
+                dispatch(getPostTags([]));
                 dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
                 book?.title ? SetBookIsClose(!BookIsClose) : '';
                 book?.title ? '' : withoutBookInfo();
               }}
