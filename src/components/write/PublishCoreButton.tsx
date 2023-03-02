@@ -18,6 +18,7 @@ function PublishCoreButton({ fileInputState, isPrivate, book }: PublishCoreButto
   const tags = useSelector((state: RootState) => state.book.tags);
   const postId = useSelector((state: RootState) => state.book.postId);
   const title = useSelector((state: RootState) => state.book.title);
+  const thumbnail = useSelector((state: RootState) => state.book.thumbnail);
 
   const { handleSubmit } = useCreatePost();
 
@@ -35,7 +36,17 @@ function PublishCoreButton({ fileInputState, isPrivate, book }: PublishCoreButto
         size="medium"
         className="text-[#191919] font-bold border bg-[#FCd545] rounded border-[#FCd545]  shadow-sm"
         onClick={e => {
-          handleSubmit(e, postId, title, body, tags, fileInputState, isPrivate, book);
+          handleSubmit(
+            e,
+            postId,
+            title,
+            body,
+            tags,
+            fileInputState,
+            isPrivate,
+            book,
+            thumbnail,
+          );
         }}>
         작성 완료
       </Button>

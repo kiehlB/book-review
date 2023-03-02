@@ -52,8 +52,12 @@ export default function useCreatePost() {
     fileInputState,
     isPrivate,
     book,
+    thumbnail,
   ) => {
     e.preventDefault();
+
+    console.log(thumbnail);
+    console.log(Boolean(fileInputState));
 
     const postBodyReplace = body?.replace(/<[^>]+>/g, ' ')?.slice(0, 400);
 
@@ -73,7 +77,7 @@ export default function useCreatePost() {
             body: body,
             tags: tags,
             is_temp: false,
-            thumbnail: fileInputState,
+            thumbnail: fileInputState ? fileInputState : thumbnail,
             is_private: isPrivate,
             postbody: postBodyReplace,
           },
@@ -92,7 +96,7 @@ export default function useCreatePost() {
             body: body,
             tags: tags,
             is_temp: false,
-            thumbnail: fileInputState,
+            thumbnail: fileInputState ? fileInputState : thumbnail,
             is_private: isPrivate,
             postbody: postBodyReplace,
             bookTitle: book?.title,
