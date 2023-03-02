@@ -193,8 +193,11 @@ function Tap({ postId, posts }: TapProps) {
   useEffect(() => {
     if (findPost?.length == 0) return;
     if (findPost) {
+      const BodyResult = findPost[0]?.body.replace('<toc></toc>', '');
+
       dispatch(getPostTitle(findPost[0]?.title));
-      dispatch(getPostBody(findPost[0]?.body));
+      // dispatch(getPostBody(findPost[0]?.body));
+      editor.commands.setContent(BodyResult);
       // dispatch(getPostTags(findPost[0]?.tags?.map(e => e?.tag?.name)));
     }
   }, [postId]);
