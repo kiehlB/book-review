@@ -5,7 +5,7 @@ Website link: https://www.bookreview.pro/
 
 # Project Stack
  
- * Next Js
+ * Next.js 
  * Typescript
  * Tailwind css
  * Redux Toolkit
