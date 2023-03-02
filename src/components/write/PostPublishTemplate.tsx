@@ -53,7 +53,6 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
   }, []);
 
   const addImage = useCallback(async url => {
-    console.log();
     await uploadThumbnail({
       variables: {
         body: url,

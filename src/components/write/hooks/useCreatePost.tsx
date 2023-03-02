@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Create_Post, Edit_Post } from '../../../lib/graphql/posts';
 import { useDispatch } from 'react-redux';
 import {
+  getBookInfoSuccess,
   getIsOpenSuccess,
   getPostBody,
   getPostId,
@@ -25,13 +26,15 @@ export default function useCreatePost() {
       dispatch(getPostTags([]));
       dispatch(getPostId(''));
       dispatch(getThumbnail(''));
+      dispatch(getBookInfoSuccess(null));
+
       router.push('/');
     },
   });
   const [createPost] = useMutation(Create_Post, {
     onCompleted({}) {
       dispatch(getIsOpenSuccess());
-
+      dispatch(getBookInfoSuccess(null));
       dispatch(getPostTitle(''));
       dispatch(getPostBody(''));
       dispatch(getPostTags([]));
@@ -55,9 +58,6 @@ export default function useCreatePost() {
     thumbnail,
   ) => {
     e.preventDefault();
-
-    console.log(thumbnail);
-    console.log(Boolean(fileInputState));
 
     const postBodyReplace = body?.replace(/<[^>]+>/g, ' ')?.slice(0, 400);
 

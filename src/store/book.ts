@@ -25,7 +25,14 @@ export interface BookState {
 }
 
 export const initialState = {
-  book: null,
+  book: {
+    authors: [],
+    contents: '',
+    datetime: '',
+    isbn: '',
+    thumbnail: '',
+    title: '',
+  },
   error: '',
   markdown: '',
   title: '',

@@ -183,19 +183,21 @@ const AuthForm: React.FC<AuthFormProps> = ({
           {PasswordState()}
         </div>
 
-        <motion.button
+        <div
           onClick={(e: any) => {
             Usernamehelper.color == 'success' && Passwordhelper.color == 'success'
               ? handleSubmit(e)
               : '';
 
             !username || !password ? onClick(e) : '';
-          }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.8 }}
-          className="flex bg-[#fcd435] text-[#212529] mt-8 h-12 justify-center items-center tracking-widest w-full rounded-xl">
-          {auth}
-        </motion.button>
+          }}>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.8 }}
+            className="flex bg-[#fcd435] text-[#212529] mt-8 h-12 justify-center items-center tracking-widest w-full rounded-xl">
+            {auth}
+          </motion.button>
+        </div>
       </div>
       <div className="px-[6.46875rem] text-base flex justify-end mmd:px-[2rem] ssm:px-[1rem]">
         {mode == 'register' ? (

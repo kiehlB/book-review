@@ -57,14 +57,12 @@ function TagsForm(props: TagsFormProps) {
 
   useEffect(() => {
     if (props.StoreTag.length >= 1) {
-      console.log('ddd');
       setTags([...props.StoreTag]);
     }
   }, [props.postId]);
 
   useEffect(() => {
     if (findPost?.length >= 1) {
-      console.log(findPost[0]);
       setTags([...findPost[0]?.tags?.map(e => e?.tag?.name)]);
     }
   }, [props.postId]);

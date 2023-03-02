@@ -20,6 +20,7 @@ import media from '../../lib/media';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
+  getBookInfoSuccess,
   getPostBody,
   getPostId,
   getPostTags,
@@ -49,6 +50,7 @@ function Post() {
 
   const id = router?.query?.id;
   const BodyResult = insertID.replace('<toc></toc>', '');
+  singlePostData?.post?.bookInfo;
 
   const getPostData = () => {
     dispatch(getPostTitle(singlePostData?.post?.title));
@@ -56,6 +58,16 @@ function Post() {
     dispatch(getPostTags(singlePostData?.post?.tags?.map(e => e?.tag?.name)));
     dispatch(getPostId(singlePostData?.post?.id));
     dispatch(getThumbnail(singlePostData?.post?.thumbnail));
+    dispatch(
+      getBookInfoSuccess({
+        authors: singlePostData?.post?.bookInfo.bookAuthors,
+        contents: singlePostData?.post?.bookInfo.bookContent,
+        datetime: singlePostData?.post?.bookInfo.bookAuthors,
+        isbn: singlePostData?.post?.bookInfo.bookIsbn,
+        thumbnail: singlePostData?.post?.bookInfo.bookUrl,
+        title: singlePostData?.post?.bookInfo.bookTitle,
+      }),
+    );
   };
 
   const [removePost] = useMutation(Remove_Post, {
