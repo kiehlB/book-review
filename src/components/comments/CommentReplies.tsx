@@ -39,13 +39,13 @@ function CommentReplies({ id, onToggleOpen, isMine, open }: CommentRepliesProps)
     },
   });
 
-  const reloadComments = useQuery(RELOAD_COMMENTS, {
-    skip: true,
-    fetchPolicy: 'network-only',
-    variables: {
-      id: router?.query?.id,
-    },
-  });
+  // const reloadComments = useQuery(RELOAD_COMMENTS, {
+  //   skip: true,
+  //   fetchPolicy: 'network-only',
+  //   variables: {
+  //     id: router?.query?.id,
+  //   },
+  // });
 
   const [comment, setComment] = useState('');
 
@@ -71,7 +71,7 @@ function CommentReplies({ id, onToggleOpen, isMine, open }: CommentRepliesProps)
 
       setComment('');
       await replies.refetch();
-      await reloadComments.refetch();
+      // await reloadComments.refetch();
 
       const comments = document.querySelectorAll('.comment');
       if (comments.length === 0) return;
@@ -86,7 +86,7 @@ function CommentReplies({ id, onToggleOpen, isMine, open }: CommentRepliesProps)
     onToggleOpen();
   };
 
-  if (replies.loading && !replies.data && reloadComments.loading) {
+  if (replies.loading && !replies.data) {
     return null;
   }
 
