@@ -60,12 +60,12 @@ function Post() {
     dispatch(getThumbnail(singlePostData?.post?.thumbnail));
     dispatch(
       getBookInfoSuccess({
-        authors: singlePostData?.post?.bookInfo.bookAuthors,
-        contents: singlePostData?.post?.bookInfo.bookContent,
-        datetime: singlePostData?.post?.bookInfo.bookAuthors,
-        isbn: singlePostData?.post?.bookInfo.bookIsbn,
-        thumbnail: singlePostData?.post?.bookInfo.bookUrl,
-        title: singlePostData?.post?.bookInfo.bookTitle,
+        authors: singlePostData?.post?.bookInfo?.bookAuthors,
+        contents: singlePostData?.post?.bookInfo?.bookContent,
+        datetime: singlePostData?.post?.bookInfo?.bookAuthors,
+        isbn: singlePostData?.post?.bookInfo?.bookIsbn,
+        thumbnail: singlePostData?.post?.bookInfo?.bookUrl,
+        title: singlePostData?.post?.bookInfo?.bookTitle,
       }),
     );
   };
@@ -234,6 +234,7 @@ export default Post;
 
 function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
   const paddingTop = `${(1 / 1.644444444444444) * 100}%`;
+  const { isdark } = useSelector((state: RootState) => state.core);
 
   return (
     <>
@@ -241,25 +242,25 @@ function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
         first={
           <First>
             <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
-              <SkeletonTexts wordLengths={[10, 12, 4]} />
+              <SkeletonTexts wordLengths={[10, 12, 4]} isdark={isdark} />
             </PostTitle>
 
             <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
               <div className="text-lg font-medium">
                 <div className="flex items-center">
-                  <Skeleton width="6em" marginRight="1rem" />
-                  <Skeleton width="6em" marginRight="1rem" />
+                  <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
+                  <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
                 </div>
               </div>
               <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
               <div className="text-lg text-[#344155] dark:text-[#ececec]">
-                <Skeleton width="6em" marginRight="1rem" />
+                <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
               </div>
             </div>
 
             <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
               <div className="flex">
-                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} />
+                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} isdark={isdark} />
               </div>
             </div>
           </First>
@@ -270,13 +271,14 @@ function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
               <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden"></div>
 
               <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
-                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} />
+                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} isdark={isdark} />
 
-                <Skeleton noSpacing width="100%" height="20vh" />
+                <Skeleton noSpacing width="100%" height="20vh" isdark={isdark} />
 
                 {Array.from({ length: 8 }).map((_, i) => (
                   <div className="h-[2.2rem]" key={i}>
                     <SkeletonTexts
+                      isdark={isdark}
                       wordLengths={[
                         Math.floor(Math.random() * 10),
                         Math.floor(Math.random() * 10),

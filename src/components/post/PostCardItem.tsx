@@ -7,6 +7,8 @@ import RatioImage from '../common/RatioImage';
 import { Skeleton, SkeletonTexts } from '../common/Skeleton';
 import styled, { keyframes, css } from 'styled-components';
 import { formatDate } from '../../lib/utils';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/rootReducer';
 
 interface GridProps {
   post: Post;
@@ -124,6 +126,7 @@ function PostCardItem({ post }: GridProps) {
 }
 
 export function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
+  const { isdark } = useSelector((state: RootState) => state.core);
   const paddingTop = `${(1 / 1.644444444444444) * 100}%`;
 
   return (
@@ -131,25 +134,26 @@ export function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
       <div className="col-span-2 mxl:col-span-4 mmx:col-span-6 mxs:col-span-12 h-full relative w-full border border-stone-100 rounded-xl cursor-pointer transform  hover:translate-y-[-15px] transition duration-500 ease-in-out shadow-md hover:shadow-lg dark:border-none dark:bg-[#212227]">
         <div className="post-thumbnail">
           <Block
+            isdark={isdark}
             style={{
               paddingTop,
             }}
-            className="w-full h-full"
+            className="w-full h-full dark:bg-[#2b2d31]"
           />
         </div>
-        <div className="ml-2">
-          <SkeletonTexts wordLengths={[2, 12]} />
+        <div className="ml-2 dark:text-[#1e293b]">
+          <SkeletonTexts wordLengths={[2, 12]} isdark={isdark} />
         </div>
 
-        <div className="ml-2">
-          <SkeletonTexts wordLengths={[2, 5, 2, 5]} />
-          <SkeletonTexts wordLengths={[2, 4, 6, 6, 2, 4]} />
+        <div className="ml-2 dark:text-[#1e293b]">
+          <SkeletonTexts wordLengths={[2, 5, 2, 5]} isdark={isdark} />
+          <SkeletonTexts wordLengths={[2, 4, 6, 6, 2, 4]} isdark={isdark} />
         </div>
 
         <div className="mt-3"></div>
         <div className="flex justify-between p-3">
-          <Skeleton width="6em" marginRight="1rem" />
-          <Skeleton width="3em" noSpacing />
+          <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
+          <Skeleton width="3em" noSpacing isdark={isdark} />
         </div>
       </div>
     </>
@@ -187,38 +191,6 @@ const PostBody = styled.section`
   overflow: hidden;
 `;
 
-const TagB = styled.section`
-  position: absolute;
-  margin: -3.2rem -0px;
-  height: 1.375rem;
-  background-color: #1fb6ff;
-  line-height: 22px;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 0px 5px 0px 5px;
-  color: white;
-  border-radius: 3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const TagBlock = styled.section`
-  margin-top: 1rem;
-  position: absolute;
-  height: 1.375rem;
-  background-color: #1fb6ff;
-  line-height: 22px;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 0px 5px 0px 5px;
-  color: white;
-  border-radius: 3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const PostTitle = styled.section`
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -227,51 +199,6 @@ const PostTitle = styled.section`
   white-space: initial;
   word-wrap: break-word;
   overflow: hidden;
-`;
-
-const ByWho = styled.section`
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: #3c4858;
-  margin-top: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-`;
-
-const PostButtonWrapper = styled.section`
-  margin-bottom: 2rem;
-  padding: 0rem 1.5rem;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: flex-end;
-`;
-const WithoutPostButtonWrapper = styled.section`
-  padding: 0 1.5rem;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  margin-bottom: 2rem;
-  justify-content: flex-end;
-`;
-
-const Author = styled.section`
-  display: flex;
-  color: #3c4858;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  white-space: initial;
-  word-wrap: break-word;
-  overflow: hidden;
-`;
-
-const AuthorText = styled.section`
-  margin-left: 0.8rem;
 `;
 
 const PostCardBlock = styled.div`
@@ -434,8 +361,9 @@ const shining = keyframes`
   }
 `;
 
-const Block = styled.span<{ noSpacing?: boolean; circle?: boolean }>`
-  background: #f1f3f5;
+const Block = styled.span<{ noSpacing?: boolean; circle?: boolean; isdark: boolean }>`
+  background: ${props => (props.isdark == 'dark' ? '#212227' : '#f1f3f5')};
+
   animation: ${shining} 1s ease-in-out infinite;
   display: inline-block;
   border-radius: 4px;

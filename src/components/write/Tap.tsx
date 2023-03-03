@@ -358,7 +358,7 @@ const Content = styled.div<{ isdark: string }>`
           list-style: none;
           margin-left: 0;
           margin-right: 0;
-          color: black;
+          color: ${props => (props.isdark == 'dark' ? 'white' : '#212529')};
           padding: 0;
           margin: 0;
         }
@@ -373,10 +373,10 @@ const Content = styled.div<{ isdark: string }>`
         }
       }
       color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
-      background: ${props => (props.isdark == 'dark' ? '#283139' : '')};
+      background: ${props => (props.isdark == 'dark' ? '#212529' : '')};
 
       .toc__list::before {
-        color: ${props => (props.isdark == 'dark' ? 'white' : '')};
+        color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
       }
     }
 

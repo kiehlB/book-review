@@ -10,21 +10,23 @@ export type SkeletonProps = {
   circle?: boolean;
   className?: string;
   borderRadius?: string;
+  isdark?: string;
 };
 
 type SkeletonTextsProps = {
   wordLengths: number[];
   useFlex?: boolean;
+  isdark?: string;
 };
 
-export function SkeletonTexts({ wordLengths, useFlex }: SkeletonTextsProps) {
+export function SkeletonTexts({ wordLengths, useFlex, isdark }: SkeletonTextsProps) {
   return (
     <>
       {wordLengths.map((length, index) => {
         const props = {
           [useFlex ? 'flex' : 'width']: useFlex ? length : `${length}rem`,
         };
-        return <Skeleton key={index} {...props} />;
+        return <Skeleton key={index} {...props} isdark={isdark} />;
       })}
     </>
   );
@@ -39,9 +41,11 @@ export function Skeleton({
   circle,
   className,
   borderRadius,
+  isdark,
 }: SkeletonProps) {
   return (
     <Block
+      isdark={isdark}
       style={{ width, height, flex, marginRight, borderRadius }}
       noSpacing={noSpacing || !!marginRight}
       circle={circle}
@@ -62,8 +66,9 @@ const shining = keyframes`
   }
 `;
 
-const Block = styled.span<{ noSpacing?: boolean; circle?: boolean }>`
-  background: #f1f3f5;
+const Block = styled.span<{ noSpacing?: boolean; circle?: boolean; isdark: boolean }>`
+  background: ${props => (props.isdark == 'dark' ? '#2b2d31' : '#f1f3f5')};
+
   animation: ${shining} 1s ease-in-out infinite;
   display: inline-block;
   border-radius: 4px;

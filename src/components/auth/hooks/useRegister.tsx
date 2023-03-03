@@ -78,6 +78,7 @@ export default function useRegister() {
       });
       inputs.username = '';
       inputs.password = '';
+      router.push('/');
     },
   });
 
