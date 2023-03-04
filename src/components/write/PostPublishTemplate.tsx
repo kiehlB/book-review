@@ -86,7 +86,7 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
         animate={isopen ? 'open' : 'closed'}
         variants={liVariants}>
         <AppLayout
-          className="w-[768px] flex px-4 mxs:flex-col mxs:overflow-auto mxs:h-[100vh] mxs:py-4"
+          className="w-[768px] flex px-4 mxs:flex-col mxs:overflow-auto mxs:h-[100%] mxs:py-4"
           first={
             <First>
               <div className="flex-1 min-w-[0]">
