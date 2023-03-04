@@ -21,6 +21,7 @@ const liVariants = {
   open: {
     y: 0,
     opacity: 1,
+
     transition: {
       x: { stiffness: 1500, velocity: -100 },
     },
