@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MenuItem } from './NavMenuItem';
 import { useSelector } from 'react-redux';
 import useLogout from '../auth/hooks/useLogout';
+import ModalContext from '../../context/modalContext';
 
 const variants = {
   open: {
@@ -13,7 +14,12 @@ const variants = {
   },
 };
 
-export const Navigation = () => {
+export type SidebarProps = {
+  SetBookIsClose: any;
+  BookIsClose: any;
+};
+
+export function Navigation({ SetBookIsClose, BookIsClose }: SidebarProps) {
   const { auth } = useSelector((state: any) => state.auth);
   const { handleSubmitLogout } = useLogout();
 
@@ -38,11 +44,16 @@ export const Navigation = () => {
     },
     {
       id: 2,
+      text: 'Write',
+      onClick: () => SetBookIsClose(!BookIsClose),
+    },
+    {
+      id: 3,
       text: 'Search',
       link: '/search',
     },
     {
-      id: 3,
+      id: 4,
       text: 'Logout',
       link: '/',
       onClick: handleSubmitLogout,
@@ -52,8 +63,12 @@ export const Navigation = () => {
   return (
     <motion.ul variants={variants} className="absolute top-24 z-[600] px-4">
       {auth?.username
-        ? MobileitemIds.map(i => <MenuItem i={i} key={i.id} />)
-        : itemIds.map(i => <MenuItem i={i} key={i.id} />)}
+        ? MobileitemIds.map(({ id, text, link, onClick }) => (
+            <MenuItem id={id} text={text} link={link} onClick={onClick} key={id} />
+          ))
+        : itemIds.map(({ id, text, link }) => (
+            <MenuItem id={id} text={text} link={link} key={id} />
+          ))}
     </motion.ul>
   );
-};
+}

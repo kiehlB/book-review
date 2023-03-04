@@ -248,7 +248,7 @@ function NextLink({
       href={href}
       className={clsx('text-black flex focus:outline-none items-center', className)}
       ref={ref}
-      onClick={click}
+      onClick={() => click()}
       animate={state}
       transition={shouldReduceMotion ? { duration: 0 } : {}}>
       <H6 as="span">{children}</H6>

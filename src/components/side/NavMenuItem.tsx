@@ -21,19 +21,34 @@ const variants = {
 
 const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF', '#4422AA'];
 
-export const MenuItem = ({ i }) => {
-  const style = { border: `2px solid ${colors[i.id]}` };
+export function MenuItem({ id, text, link, onClick }: any) {
+  const style = { border: `2px solid ${colors[id]}` };
+
   return (
-    <Link href={i.link}>
-      <motion.li
-        onClick={i?.onClick ? i?.onClick : ''}
-        variants={variants}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        className="se">
-        <div className="icon-placeholder" style={style} />
-        <div className="text-white">{i.text}</div>
-      </motion.li>
-    </Link>
+    <div>
+      {link ? (
+        <Link href={link}>
+          <motion.li
+            onClick={onClick ? onClick : ''}
+            variants={variants}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="se">
+            <div className="icon-placeholder" style={style} />
+            <div className="text-white">{text}</div>
+          </motion.li>
+        </Link>
+      ) : (
+        <motion.li
+          onClick={onClick ? onClick : ''}
+          variants={variants}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="se">
+          <div className="icon-placeholder" style={style} />
+          <div className="text-white">{text}</div>
+        </motion.li>
+      )}
+    </div>
   );
-};
+}

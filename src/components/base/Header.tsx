@@ -72,7 +72,7 @@ function Header() {
         className={`col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7] mmx:col-span-none`}>
         <div className="flex items-center">
           <div className="md:hidden mr-2">
-            <Sidebar />
+            <Sidebar BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} />
           </div>
           <Link
             href="/"

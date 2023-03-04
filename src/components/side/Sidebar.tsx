@@ -4,7 +4,10 @@ import React, { useEffect, useRef } from 'react';
 import MenuToggle from '../common/FramerMenuToggle';
 import { Navigation } from './Nav';
 
-export type SidebarProps = {};
+export type SidebarProps = {
+  SetBookIsClose: any;
+  BookIsClose: any;
+};
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -26,7 +29,7 @@ const sidebar = {
   },
 };
 
-function Sidebar({}: SidebarProps) {
+function Sidebar({ SetBookIsClose, BookIsClose }: SidebarProps) {
   const [isOpen, toggleOpen] = useCycle(false, true);
 
   React.useEffect(() => {
@@ -38,7 +41,7 @@ function Sidebar({}: SidebarProps) {
       initial={false}
       animate={isOpen ? 'open' : 'closed'}
       className={clsx('flex flex-1 top-0 left-0 bottom-0', {
-        'fixed flex z-[1]': isOpen == true,
+        'fixed flex z-[11]': isOpen == true,
         'flex z[-1]': isOpen == false,
       })}>
       <div className={isOpen ? '' : 'hidden'}>
@@ -46,7 +49,7 @@ function Sidebar({}: SidebarProps) {
           variants={sidebar}
           className="absolute top-0 left-0 w-[320px] mxs:w-[100vw]  bg-black z-[400] bottom-0"
         />
-        <Navigation />
+        <Navigation BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} />
       </div>
       <MenuToggle isOpen={isOpen} toggle={() => toggleOpen()} />
     </motion.nav>
