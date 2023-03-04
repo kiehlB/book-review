@@ -242,25 +242,18 @@ function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
         first={
           <First>
             <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
-              <SkeletonTexts wordLengths={[10, 12, 4]} isdark={isdark} />
+              <SkeletonTexts wordLengths={[10, 12]} isdark={isdark} />
             </PostTitle>
 
             <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
               <div className="text-lg font-medium">
-                <div className="flex items-center">
-                  <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
+                <div className="flex items-center flex-wrap">
                   <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
                 </div>
               </div>
               <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
               <div className="text-lg text-[#344155] dark:text-[#ececec]">
                 <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
-              </div>
-            </div>
-
-            <div className="flex justify-start max-w-[812.5px] mx-auto text-[#868E96] text-sm mt-2 mb-[1rem]">
-              <div className="flex">
-                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} isdark={isdark} />
               </div>
             </div>
           </First>
@@ -273,25 +266,83 @@ function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
               <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
                 <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} isdark={isdark} />
 
-                <Skeleton noSpacing width="100%" height="20vh" isdark={isdark} />
+                <Skeleton noSpacing={true} width="100%" height="20vh" isdark={isdark} />
 
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <div className="h-[2.2rem]" key={i}>
-                    <SkeletonTexts
-                      isdark={isdark}
-                      wordLengths={[
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                      ]}
-                    />
-                  </div>
-                ))}
+                <div className="py-1">
+                  <SkeletonTexts
+                    isdark={isdark}
+                    wordLengths={[4, 4, 4, 4, 4, 7, 5, 2, 4, 5]}
+                  />
+                </div>
+                <div className="py-1">
+                  <SkeletonTexts
+                    isdark={isdark}
+                    wordLengths={[
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                    ]}
+                  />
+                </div>
+                <div className="py-1">
+                  <SkeletonTexts
+                    isdark={isdark}
+                    wordLengths={[
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                    ]}
+                  />
+                </div>
+                <div className="py-1">
+                  <SkeletonTexts
+                    isdark={isdark}
+                    wordLengths={[
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                      Math.floor(Math.random() * 10),
+                    ]}
+                  />
+                </div>
               </div>
             </div>
           </Second>
@@ -572,7 +623,6 @@ const Block = styled.span<{ noSpacing?: boolean; circle?: boolean }>`
     !props.noSpacing &&
     css`
       & + & {
-        margin-left: 0.5rem;
       }
     `}
   ${props =>

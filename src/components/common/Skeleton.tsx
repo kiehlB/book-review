@@ -47,7 +47,7 @@ export function Skeleton({
     <Block
       isdark={isdark}
       style={{ width, height, flex, marginRight, borderRadius }}
-      noSpacing={noSpacing || !!marginRight}
+      noSpacing={noSpacing}
       circle={circle}
       className={className}
     />
@@ -73,6 +73,7 @@ const Block = styled.span<{ noSpacing?: boolean; circle?: boolean; isdark: boole
   display: inline-block;
   border-radius: 4px;
   height: 1em;
+
   ${props =>
     !props.noSpacing &&
     css`

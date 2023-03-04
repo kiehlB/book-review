@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import Sidebar from '../side/Sidebar';
 import { useRouter } from 'next/router';
 import useWhoAmI from '../auth/hooks/useWhoami';
+import PopMenu from '../common/PopMenu';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -27,9 +28,9 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
         dispatch(getcoreInfoSuccess());
       }}
       className={clsx(
-        'border-gray-200 hover:border-[#FCD535] inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
+        'border-gray-200 hover:border-[#FCD535] inline-flex h-14 mmx:h-12 items-center justify-center overflow-hidden rounded-full border-2 p-1 transition focus:outline-none',
         {
-          'w-14': variant === 'icon',
+          'w-14 mmx:w-12': variant === 'icon',
           'px-8': variant === 'labelled',
         },
       )}>
@@ -59,17 +60,16 @@ function Header() {
   const dispatch = useDispatch();
   const { auth } = useSelector((state: RootState) => state.auth);
 
-  const { handleSubmitLogout } = useLogout();
-
   const handleSubmit = e => {
     e.preventDefault();
     router.push(`/search/${input}`);
   };
 
   return (
-    <PageGrid as="header" className={`items-center py-[1rem]`}>
+    <div
+      className={`grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto mxl:max-w-[75rem] mmd:grid-cols-10 mmx:grid-cols-none items-center py-[1rem] mmx:w-full mmx:flex`}>
       <div
-        className={`col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7]`}>
+        className={`col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7] mmx:col-span-none`}>
         <div className="flex items-center">
           <div className="md:hidden mr-2">
             <Sidebar />
@@ -101,7 +101,7 @@ function Header() {
         </div>
       </form>
 
-      <div className="flex col-span-2 ml-auto items-center justify-end mxl:col-span-3 w-full mmx:col-span-8">
+      <div className="flex col-span-2 ml-auto items-center justify-end mxl:col-span-3">
         <div className="pr-6 mxs:pr-2">
           <DarkModeToggle />
         </div>
@@ -110,14 +110,10 @@ function Header() {
           <div className="flex items-center">
             <div
               onClick={() => SetBookIsClose(!BookIsClose)}
-              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:border-none dark:hover:text-white mxs:mr-0">
+              className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:border-none dark:hover:text-white mxs:hidden">
               Write
             </div>
-            <div
-              className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold mxs:hidden"
-              onClick={handleSubmitLogout}>
-              Logout
-            </div>
+            <PopMenu />
           </div>
         ) : (
           <>
@@ -140,7 +136,7 @@ function Header() {
           </>
         )}
       </div>
-    </PageGrid>
+    </div>
   );
 }
 

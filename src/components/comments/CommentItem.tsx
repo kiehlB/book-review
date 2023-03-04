@@ -3,8 +3,6 @@ import useBoolean from '../../hooks/useBoolean';
 import { Sub } from '../../types/apolloComponent';
 import CommentReplies from './CommentReplies';
 import styled, { css } from 'styled-components';
-import { CiCirclePlus } from 'react-icons/ci';
-import { HiPlus } from 'react-icons/hi';
 import { BiUpvote } from 'react-icons/bi';
 import ProfileIcon from '../../svg/profile';
 import CommentEdit from './CommentEdit';
