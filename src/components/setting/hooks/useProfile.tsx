@@ -6,12 +6,16 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { checkEmpty } from '../../../lib/utils';
 import { createProfileMutation } from '../../../lib/graphql/profile';
+import { getAuthImgSuccess, getAuthNameSuccess } from '../../../store/auth';
 
 export default function useProfile() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [profile] = useMutation(createProfileMutation, {
-    onCompleted({}) {},
+    onCompleted(profile) {
+      dispatch(getAuthImgSuccess(profile?.createProfile?.thumbnail));
+      dispatch(getAuthNameSuccess(profile?.createProfile?.profile_name));
+    },
   });
 
   const client = useApolloClient();

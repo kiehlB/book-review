@@ -58,7 +58,9 @@ function Header() {
     useContext(ModalContext);
   const { isdark } = useSelector((state: RootState) => state.core);
   const dispatch = useDispatch();
-  const { auth } = useSelector((state: RootState) => state.auth);
+  const { auth, profileThumbnail, displayName } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -113,7 +115,7 @@ function Header() {
               className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:border-none dark:hover:text-white mxs:hidden">
               Write
             </div>
-            <PopMenu />
+            <PopMenu profileThumbnail={profileThumbnail} />
           </div>
         ) : (
           <>

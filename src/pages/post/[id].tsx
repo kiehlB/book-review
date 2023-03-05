@@ -46,7 +46,7 @@ function Post() {
   const dispatch = useDispatch();
   const insertID = setHeadingId(singlePostData?.post?.body);
   const { isdark } = useSelector((state: RootState) => state.core);
-  const { auth } = useSelector((state: any) => state.auth);
+  const { auth, profileThumbnail, displayName } = useSelector((state: any) => state.auth);
 
   const id = router?.query?.id;
   const BodyResult = insertID.replace('<toc></toc>', '');
@@ -112,8 +112,18 @@ function Post() {
                 <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
                   <div className="text-lg font-medium">
                     <div className="flex items-center">
-                      <ProfileIcon className="w-[42px] h-[42px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]" />
-                      <div className="ml-2"> {singlePostData?.post?.user?.username}</div>
+                      {profileThumbnail ? (
+                        <Img
+                          profileThumbnail={profileThumbnail}
+                          className="w-[48px] h-[48px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]"
+                        />
+                      ) : (
+                        <ProfileIcon className="w-[42px] h-[42px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]" />
+                      )}
+
+                      <div className="ml-2">
+                        {displayName ? displayName : singlePostData?.post?.user?.username}
+                      </div>
                     </div>
                   </div>
                   <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
@@ -613,21 +623,12 @@ const shining = keyframes`
   }
 `;
 
-const Block = styled.span<{ noSpacing?: boolean; circle?: boolean }>`
-  background: #f1f3f5;
-  animation: ${shining} 1s ease-in-out infinite;
-  display: inline-block;
-  border-radius: 4px;
-  height: 1em;
-  ${props =>
-    !props.noSpacing &&
-    css`
-      & + & {
-      }
-    `}
-  ${props =>
-    props.circle &&
-    css`
-      border-radius: 50%;
-    `}
+const Img = styled.img<{ profileThumbnail: string }>`
+  background-image: url(${props => props.profileThumbnail});
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  background-position: center;
 `;

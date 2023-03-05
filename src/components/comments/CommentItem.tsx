@@ -8,6 +8,7 @@ import ProfileIcon from '../../svg/profile';
 import CommentEdit from './CommentEdit';
 import useCommentUpvote from './hooks/useCommentUpvote';
 import { formatDate } from '../../lib/utils';
+import { useSelector } from 'react-redux';
 
 export type CommentItemProps = {
   comment: Sub | any;
@@ -26,7 +27,7 @@ const PostCommentItem = styled.div`
 function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
-
+  const { auth, profileThumbnail, displayName } = useSelector((state: any) => state.auth);
   const { onLikeToggle } = useCommentUpvote(comment?.id);
 
   return (
@@ -34,7 +35,7 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
       <div className="flex">
         {comment?.user?.profile?.id ? (
           <img
-            src="/noImg.jpg"
+            src={profileThumbnail}
             className="w-[48px] h-[48px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]"
           />
         ) : (
@@ -47,7 +48,11 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
               <div className="flex items-center mxs:flex-col mxs:items-baseline justify-between w-full">
                 <div className="flex items-center">
                   <div className="font-bold text-[#212529] ml-2 mxs:text-sm dark:text-[#ececec]">
-                    {comment.deleted ? '알 수 없음' : comment?.user?.username}
+                    {comment.deleted
+                      ? '알 수 없음'
+                      : displayName
+                      ? displayName
+                      : comment?.user?.username}
                   </div>
                   <div className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
                     {formatDate(comment?.updated_at)}
