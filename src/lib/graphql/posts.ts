@@ -31,6 +31,12 @@ export const GET_Post = gql`
       user {
         id
         username
+        profile {
+          id
+          bio
+          profile_name
+          thumbnail
+        }
       }
       subs {
         id
@@ -56,6 +62,7 @@ export const GET_Post = gql`
             id
             bio
             profile_name
+            thumbnail
           }
         }
       }

@@ -46,7 +46,7 @@ function Post() {
   const dispatch = useDispatch();
   const insertID = setHeadingId(singlePostData?.post?.body);
   const { isdark } = useSelector((state: RootState) => state.core);
-  const { auth, profileThumbnail, displayName } = useSelector((state: any) => state.auth);
+  const { auth } = useSelector((state: any) => state.auth);
 
   const id = router?.query?.id;
   const BodyResult = insertID.replace('<toc></toc>', '');
@@ -112,9 +112,11 @@ function Post() {
                 <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
                   <div className="text-lg font-medium">
                     <div className="flex items-center">
-                      {profileThumbnail ? (
+                      {singlePostData?.post?.user?.profile?.thumbnail ? (
                         <Img
-                          profileThumbnail={profileThumbnail}
+                          profileThumbnail={
+                            singlePostData?.post?.user?.profile?.thumbnail
+                          }
                           className="w-[48px] h-[48px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]"
                         />
                       ) : (
@@ -122,7 +124,9 @@ function Post() {
                       )}
 
                       <div className="ml-2">
-                        {displayName ? displayName : singlePostData?.post?.user?.username}
+                        {singlePostData?.post?.user?.profile?.profile_name
+                          ? singlePostData?.post?.user?.profile?.profile_name
+                          : singlePostData?.post?.user?.username}
                       </div>
                     </div>
                   </div>

@@ -59,6 +59,7 @@ export const GET_SubComment = gql`
             id
             bio
             profile_name
+            thumbnail
           }
         }
       }

@@ -66,6 +66,7 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
   };
 
   cleardata = () => {
+    this.props.setreadyForFile(null);
     this.props.setPreviewSource(0);
     this.setState({
       webWorker: {

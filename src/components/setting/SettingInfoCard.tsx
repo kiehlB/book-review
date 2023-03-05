@@ -26,6 +26,7 @@ function SettingCard({}: SettingCardProps) {
     bio: Bio,
   } = useSelector((state: any) => state.auth);
 
+  console.log(readyForFile);
   const [name, setName] = useState(displayName ? displayName : '');
 
   const [bio, setBio] = useState(Bio ? Bio : '');
@@ -46,6 +47,7 @@ function SettingCard({}: SettingCardProps) {
       },
       update: (_proxy, { data: newData }) => {
         setUrl(newData.uploadImage.url);
+        setreadyForFile(newData.uploadImage.url);
         setPreviewSource(2);
       },
     });
@@ -98,7 +100,7 @@ function SettingCard({}: SettingCardProps) {
       </div>
       <div className="w-[calc(50%+260px)] flex justify-end">
         <div
-          onClick={() => handleSubmit(bio, name, url)}
+          onClick={() => handleSubmit(bio, name, readyForFile ? readyForFile : url)}
           className="text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057]  bg-[#fcd535] px-[20px]  py-[12px] rounded-3xl">
           저장
         </div>
