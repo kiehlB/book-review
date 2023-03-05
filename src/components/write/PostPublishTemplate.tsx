@@ -57,6 +57,8 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
     await uploadThumbnail({
       variables: {
         body: url,
+        width: 733,
+        height: 455,
       },
       update: (_proxy, { data: newData }) => {
         setUrl(newData.uploadImage.url);

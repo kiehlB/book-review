@@ -27,6 +27,7 @@ export default function useLogout() {
     await client.clearStore().then(() => {
       client.resetStore();
       persistor.purge();
+
       dispatch(getAuthInfoSuccess(null));
       // dispatch(userLogout());
       router.push('/');

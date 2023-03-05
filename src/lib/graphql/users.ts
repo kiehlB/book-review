@@ -7,6 +7,12 @@ export const loginMutation = gql`
       username
       accessToken
       refreshToken
+      profile {
+        id
+        bio
+        profile_name
+        thumbnail
+      }
     }
   }
 `;
@@ -18,6 +24,12 @@ export const registerMutation = gql`
       username
       accessToken
       refreshToken
+      profile {
+        id
+        bio
+        profile_name
+        thumbnail
+      }
     }
   }
 `;

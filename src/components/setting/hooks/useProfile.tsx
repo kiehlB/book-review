@@ -6,7 +6,11 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { checkEmpty } from '../../../lib/utils';
 import { createProfileMutation } from '../../../lib/graphql/profile';
-import { getAuthImgSuccess, getAuthNameSuccess } from '../../../store/auth';
+import {
+  getAuthBioSuccess,
+  getAuthImgSuccess,
+  getAuthNameSuccess,
+} from '../../../store/auth';
 
 export default function useProfile() {
   const router = useRouter();
@@ -15,6 +19,9 @@ export default function useProfile() {
     onCompleted(profile) {
       dispatch(getAuthImgSuccess(profile?.createProfile?.thumbnail));
       dispatch(getAuthNameSuccess(profile?.createProfile?.profile_name));
+      dispatch(
+        getAuthBioSuccess(profile?.createProfile?.bio ? profile?.createProfile?.bio : ''),
+      );
     },
   });
 

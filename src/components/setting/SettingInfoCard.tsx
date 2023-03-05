@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 import useInput from '../../hooks/useIntput';
@@ -18,27 +19,30 @@ function SettingCard({}: SettingCardProps) {
   const [fileInputState, setFileInputState] = useState<any>();
   const [isPrivate, setIsPrivate] = useState(false);
   const [url, setUrl] = useState('');
-  const [name, setName] = useState(
-    getUser?.whoami?.profile?.profile_name ? getUser?.whoami?.profile?.profile_name : '',
-  );
+  const {
+    auth,
+    profileThumbnail,
+    displayName,
+    bio: Bio,
+  } = useSelector((state: any) => state.auth);
 
-  const [bio, setBio] = useState(
-    getUser?.whoami?.profile?.bio ? getUser?.whoami?.profile?.bio : '',
-  );
+  const [name, setName] = useState(displayName ? displayName : '');
+
+  const [bio, setBio] = useState(Bio ? Bio : '');
 
   const [uploadThumbnail] = useMutation(UPLOAD_IMAGE_TO_CLOUDINARY);
 
   useEffect(() => {
-    setreadyForFile(getUser?.whoami?.profile?.thumbnail);
+    setreadyForFile(profileThumbnail);
     setPreviewSource(2);
-    setName(getUser?.whoami?.profile?.profile_name);
-    setBio(getUser?.whoami?.profile?.bio);
   }, [loading]);
 
   const addImage = useCallback(async url => {
     await uploadThumbnail({
       variables: {
         body: url,
+        width: 128,
+        height: 128,
       },
       update: (_proxy, { data: newData }) => {
         setUrl(newData.uploadImage.url);
@@ -64,7 +68,7 @@ function SettingCard({}: SettingCardProps) {
             uploadThumbnail={uploadThumbnail}
             previewSource={previewSource}
             setreadyForFile={setreadyForFile}
-            thumbnail={getUser?.whoami?.profile.thumbnail}
+            thumbnail={profileThumbnail}
           />
         </div>
       </div>

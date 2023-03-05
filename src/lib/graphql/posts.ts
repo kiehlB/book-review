@@ -410,8 +410,8 @@ export const UnLike_Post = gql`
 `;
 
 export const UPLOAD_IMAGE_TO_CLOUDINARY = gql`
-  mutation UploadImageToCloudinary($body: String!) {
-    uploadImage(body: $body) {
+  mutation UploadImageToCloudinary($body: String!, $width: Int!, $height: Int!) {
+    uploadImage(body: $body, width: $width, height: $height) {
       public_id
       url
     }

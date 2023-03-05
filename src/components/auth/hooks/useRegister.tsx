@@ -7,7 +7,12 @@ import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { initAuth } from '../../../store/auth';
+import {
+  getAuthBioSuccess,
+  getAuthImgSuccess,
+  getAuthNameSuccess,
+  initAuth,
+} from '../../../store/auth';
 import { inputProps } from '../AuthForm';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -65,6 +70,19 @@ export default function useRegister() {
     onCompleted(signUp) {
       SetIsClose(false);
 
+      dispatch(
+        getAuthImgSuccess(
+          signUp?.login?.profile?.thumbnail ? signUp?.login?.profile?.thumbnail : '',
+        ),
+      );
+      dispatch(
+        getAuthNameSuccess(
+          signUp?.login?.profile?.profile_name ? signUp.login?.profile?.profile_name : '',
+        ),
+      );
+      dispatch(
+        getAuthBioSuccess(signUp?.login?.profile?.bio ? signUp?.login?.profile?.bio : ''),
+      );
       dispatch(initAuth(signUp?.register));
       toast.success('회원가입 완료!', {
         position: 'bottom-right',

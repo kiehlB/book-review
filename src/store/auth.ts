@@ -15,6 +15,7 @@ export interface authState {
   error: string;
   profileThumbnail: string;
   displayName: string;
+  bio: string;
 }
 
 export const initialState = {
@@ -22,6 +23,7 @@ export const initialState = {
   error: '',
   profileThumbnail: '',
   displayName: '',
+  bio: '',
 };
 
 const authSlice = createSlice({
@@ -37,6 +39,9 @@ const authSlice = createSlice({
 
     getAuthNameSuccess(state: authState, action: PayloadAction<string | null>) {
       state.displayName = action.payload;
+    },
+    getAuthBioSuccess(state: authState, action: PayloadAction<string | null>) {
+      state.bio = action.payload;
     },
 
     getauthFailure(state: authState, { payload }: PayloadAction<authState>) {
@@ -55,6 +60,7 @@ export const {
   getAuthInfoSuccess,
   getAuthImgSuccess,
   getAuthNameSuccess,
+  getAuthBioSuccess,
 } = authSlice.actions;
 
 export const initAuth =

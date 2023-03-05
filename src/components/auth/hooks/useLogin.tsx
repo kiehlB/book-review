@@ -7,7 +7,12 @@ import { useDebouncedCallback } from 'use-debounce';
 import ModalContext from '../../../context/modalContext';
 import useForms from '../../../hooks/useForm';
 import { loginMutation, registerMutation } from '../../../lib/graphql/users';
-import { initAuth } from '../../../store/auth';
+import {
+  getAuthBioSuccess,
+  getAuthImgSuccess,
+  getAuthNameSuccess,
+  initAuth,
+} from '../../../store/auth';
 import { inputProps } from '../AuthForm';
 import { toast } from 'react-toastify';
 
@@ -64,6 +69,20 @@ export default function useLogin() {
   const [signIn, { error: LoginError }] = useMutation(loginMutation, {
     onCompleted(signIn) {
       SetIsClose(false);
+
+      dispatch(
+        getAuthImgSuccess(
+          signIn?.login?.profile?.thumbnail ? signIn?.login?.profile?.thumbnail : '',
+        ),
+      );
+      dispatch(
+        getAuthNameSuccess(
+          signIn?.login?.profile?.profile_name ? signIn.login?.profile?.profile_name : '',
+        ),
+      );
+      dispatch(
+        getAuthBioSuccess(signIn?.login?.profile?.bio ? signIn?.login?.profile?.bio : ''),
+      );
 
       dispatch(initAuth(signIn.login));
       toast.success('로그인 완료!', {
