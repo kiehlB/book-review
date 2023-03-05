@@ -18,8 +18,6 @@ import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
 
 export default function Home() {
-  const { data, loading } = useGetPosts();
-
   return (
     <>
       <NextSeo

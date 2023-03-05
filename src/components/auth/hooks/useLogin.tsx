@@ -9,7 +9,6 @@ import useForms from '../../../hooks/useForm';
 import { loginMutation, registerMutation } from '../../../lib/graphql/users';
 import { initAuth } from '../../../store/auth';
 import { inputProps } from '../AuthForm';
-import useWhoAmI from './useWhoami';
 import { toast } from 'react-toastify';
 
 export default function useLogin() {

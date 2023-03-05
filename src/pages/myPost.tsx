@@ -16,12 +16,12 @@ import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
 import { BsTagFill } from 'react-icons/bs';
 import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
-import usegetPostsByUser from '../components/post/hooks/usegetPostsByUser';
 import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
+import useGetPostsBy from '../components/post/hooks/useGetPostsBy';
 
 export default function Home() {
-  const { data, loading } = usegetPostsByUser();
+  const { data, loading } = useGetPostsBy({ isTemp: false });
 
   return (
     <>

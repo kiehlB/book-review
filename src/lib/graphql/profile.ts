@@ -1,11 +1,12 @@
 import gql from 'graphql-tag';
 
 export const createProfileMutation = gql`
-  mutation CreateProfile($bio: String, $profile_name: String) {
-    createProfile(bio: $bio, profile_name: $profile_name) {
+  mutation CreateProfile($bio: String, $profile_name: String, $thumbnail: String) {
+    createProfile(bio: $bio, profile_name: $profile_name, thumbnail: $thumbnail) {
       id
       bio
       profile_name
+      thumbnail
       created_at
       updated_at
     }
@@ -18,6 +19,7 @@ export const getProfileQuery = gql`
       id
       bio
       profile_name
+      thumbnail
       created_at
       updated_at
     }

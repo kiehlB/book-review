@@ -5,7 +5,6 @@ import React, { useContext, useState } from 'react';
 import ModalContext from '../../../context/modalContext';
 import useForms from '../../../hooks/useForm';
 import { registerMutation } from '../../../lib/graphql/users';
-import useWhoAmI from './useWhoami';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { initAuth } from '../../../store/auth';

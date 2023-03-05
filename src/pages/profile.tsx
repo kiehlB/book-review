@@ -16,9 +16,9 @@ import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
 import { BsTagFill } from 'react-icons/bs';
 import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
-import SettingCard from '../components/setting/settingCard';
 import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
+import SettingCard from '../components/setting/SettingInfoCard';
 
 export default function Home() {
   const { data, loading } = useGetPosts();

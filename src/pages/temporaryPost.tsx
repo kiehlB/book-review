@@ -18,9 +18,10 @@ import { BsTagFill } from 'react-icons/bs';
 import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
 import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
+import useGetPostsBy from '../components/post/hooks/useGetPostsBy';
 
 export default function Home() {
-  const { data, loading } = useGetPosts();
+  const { data, loading } = useGetPostsBy({ isTemp: true });
 
   return (
     <>
@@ -92,7 +93,7 @@ export default function Home() {
             second={
               <Second>
                 <PostGrid className="mt-[1rem]">
-                  {/* <PostCard posts={data?.recentPosts || []} loading={!data || loading} /> */}
+                  <PostCard posts={data?.posts || []} loading={!data || loading} />
                 </PostGrid>
               </Second>
             }

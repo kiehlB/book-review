@@ -49,6 +49,7 @@ export const whoAmIQuery = gql`
         bio
         profile_name
         user_id
+        thumbnail
         created_at
         updated_at
       }
