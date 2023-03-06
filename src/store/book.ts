@@ -30,7 +30,8 @@ export interface BookState {
   isTemp: boolean;
   isopen: boolean;
   postSave: boolean;
-  temporaryClick: boolean;
+  Istemporary: boolean;
+  commentId: string;
 }
 
 export const initialState = {
@@ -54,7 +55,8 @@ export const initialState = {
   isTemp: false,
   isopen: false,
   postSave: false,
-  temporaryClick: false,
+  Istemporary: false,
+  commentId: '',
 };
 
 const BookSlice = createSlice({
@@ -89,8 +91,12 @@ const BookSlice = createSlice({
       state.postSave = !state.postSave;
     },
     getTemporaryClickSuccess(state: BookState) {
-      state.temporaryClick = true;
+      state.Istemporary = true;
     },
+    getCommentIdSuccess(state: BookState, action) {
+      state.commentId = action.payload;
+    },
+
     getBookFailure(state, { payload }: PayloadAction<BookState>) {
       state.error = payload.error;
     },
@@ -107,6 +113,7 @@ export const {
   getIsOpenSuccess,
   getPostSaveSuccess,
   getThumbnail,
+  getCommentIdSuccess,
 } = BookSlice.actions;
 
 export const initBook =

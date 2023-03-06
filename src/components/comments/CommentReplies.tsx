@@ -35,18 +35,19 @@ function CommentReplies({
     hasChild,
   );
 
+  const replies = useQuery(GET_SubComment, {
+    variables: {
+      comment_id: id,
+    },
+    skip: hasChild ? false : true,
+  });
+
   const { auth } = useSelector((state: RootState) => state.auth);
 
   const [writeComment] = useMutation(CreateComment, {
     onCompleted({}) {
       onToggleOpen();
     },
-  });
-  const replies = useQuery(GET_SubComment, {
-    variables: {
-      comment_id: id,
-    },
-    skip: hasChild ? false : true,
   });
 
   // const reloadComments = useQuery(RELOAD_COMMENTS, {
@@ -80,8 +81,9 @@ function CommentReplies({
       });
 
       setComment('');
-      await replies.refetch();
+
       // await reloadComments.refetch();
+      await replies.refetch();
 
       const comments = document.querySelectorAll('.comment');
       if (comments.length === 0) return;
@@ -95,10 +97,6 @@ function CommentReplies({
   const onCancel = () => {
     onToggleOpen();
   };
-
-  if (replies.loading && !replies.data) {
-    return null;
-  }
 
   return (
     <div>

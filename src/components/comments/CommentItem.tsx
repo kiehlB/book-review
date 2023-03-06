@@ -8,7 +8,8 @@ import ProfileIcon from '../../svg/profile';
 import CommentEdit from './CommentEdit';
 import useCommentUpvote from './hooks/useCommentUpvote';
 import { formatDate } from '../../lib/utils';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCommentIdSuccess } from '../../store/book';
 
 export type CommentItemProps = {
   comment: Sub | null;
@@ -34,6 +35,7 @@ function CommentItem({
 }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
+  const dispatch = useDispatch();
 
   return (
     <PostCommentItem className="py-1 mt-1">
@@ -99,7 +101,12 @@ function CommentItem({
                 <div className="text-[#212529] text-sm mt-2 w-fit dark:text-[#ececec]">
                   <div className="flex items-center">
                     <div className="flex items-center mr-2 cursor-pointer">
-                      <div className="flex items-center" onClick={onLikeToggle}>
+                      <div
+                        className="flex items-center"
+                        onClick={async () => {
+                          await dispatch(getCommentIdSuccess(comment.id));
+                          onLikeToggle(comment.id);
+                        }}>
                         <BiUpvote className="mr-[3px]" />
 
                         <div>{comment?.upvotes}</div>

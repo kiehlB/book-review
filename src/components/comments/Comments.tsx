@@ -2,6 +2,7 @@ import { Sub } from '../../types/apolloComponent';
 import PopUpContainer from '../common/PopupContainer';
 import CommentList from './CommentList';
 import CommentsWrite from './CommentWrite';
+import useCommentUpvote from './hooks/useCommentUpvote';
 import useCreateCommentWrite from './hooks/useCommentWrite';
 
 export type CommentsProps = {

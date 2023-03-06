@@ -21,6 +21,7 @@ import {
 
 export default function useCommentUpvote() {
   const { auth } = useSelector((state: RootState) => state.auth);
+  const commentId = useSelector((state: RootState) => state.book.commentId);
 
   const client = useApolloClient();
 
@@ -30,6 +31,12 @@ export default function useCommentUpvote() {
   const [unupvoteComment, { loading: loadingUnlike }] =
     useMutation<DeleteCommentUpvoteMutation>(DeleteCommentUpvote);
 
+  const replies = useQuery(GET_SubComment, {
+    variables: {
+      comment_id: commentId,
+    },
+    skip: commentId ? false : true,
+  });
   const onLikeToggle = async id => {
     if (!auth?.id) {
       toast.error('로그인이 필요합니다', {
@@ -38,12 +45,6 @@ export default function useCommentUpvote() {
 
       return;
     }
-
-    const replies = useQuery(GET_SubComment, {
-      variables: {
-        comment_id: id,
-      },
-    });
 
     if (loadingLike || loadingUnlike) return;
 

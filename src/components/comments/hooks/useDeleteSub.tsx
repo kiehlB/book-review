@@ -13,12 +13,6 @@ export default function useDeleteComment(id, hasChild) {
   const [askRemove, onToggleAskRemove] = useBoolean(false);
   const [comment, setComment] = useState('');
   const [removeId, setRemoveId] = useState('');
-  const replies = useQuery<GetSubQuery>(GET_SubComment, {
-    variables: {
-      comment_id: id,
-    },
-    skip: hasChild ? false : true,
-  });
 
   const onChange = e => {
     setComment(e.target.value);
@@ -28,8 +22,8 @@ export default function useDeleteComment(id, hasChild) {
     onToggleAskRemove();
 
     await removeComment({ variables: { id: removeId } });
-    replies.refetch();
-  }, [onToggleAskRemove, replies, removeComment, removeId]);
+    // replies.refetch();
+  }, [onToggleAskRemove, removeComment, removeId]);
 
   const onRemove = useCallback(
     (id: string) => {
