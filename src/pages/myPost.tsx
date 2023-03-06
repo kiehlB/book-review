@@ -20,12 +20,12 @@ import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
 import useGetPostsBy from '../components/post/hooks/useGetPostsBy';
 
-export default function Home() {
+export default function MyPost() {
   const { data, loading } = useGetPostsBy({ isTemp: false });
 
   return (
     <>
-      <NextSeo {...getNextSeo({ title: 'Book Review', description: '책 리뷰 셋팅' })} />
+      <NextSeo {...getNextSeo({ title: '내 포스트', description: '내가 쓴 포스트' })} />
 
       <FloatingHeader>
         <Header />

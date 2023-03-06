@@ -8,12 +8,21 @@ import { PostBookInfo } from '../types/apolloComponent';
 import { RootState } from './rootReducer';
 import { AppThunk, AppDispatch } from './store';
 
+export interface BookInfo {
+  authors: string[];
+  contents: string;
+  datetime: string;
+  isbn: string;
+  thumbnail: string;
+  title: string;
+}
+
 export interface BookState {
-  book: any;
+  book: BookInfo;
   error: string;
   title: string;
   body: string;
-  tags: any;
+  tags: string[];
   publish: boolean;
   isPrivate: boolean;
   thumbnail: string | null;

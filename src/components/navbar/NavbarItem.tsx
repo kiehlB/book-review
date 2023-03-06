@@ -7,7 +7,7 @@ export interface NavbarItemProps extends Pick<any, 'to'> {
   icon: React.ReactNode;
   text: string;
   to: string;
-  sub?: any;
+  sub?: string[];
 }
 
 export const NavbarItem = (props: NavbarItemProps) => {

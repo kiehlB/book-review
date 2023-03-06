@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { CreateComment, GET_SubComment, RemoveSub } from '../../../lib/graphql/comments';
 import useBoolean from '../../../hooks/useBoolean';
+import { GetSubQuery, RemoveSubMutation } from '../../../types/apolloComponent';
 
 export default function useDeleteComment(id) {
-  const [removeComment] = useMutation(RemoveSub);
+  const [removeComment] = useMutation<RemoveSubMutation>(RemoveSub);
   const [askRemove, onToggleAskRemove] = useBoolean(false);
   const [comment, setComment] = useState('');
   const [removeId, setRemoveId] = useState('');
-  const replies = useQuery(GET_SubComment, {
+  const replies = useQuery<GetSubQuery>(GET_SubComment, {
     variables: {
       comment_id: id,
     },

@@ -46,7 +46,7 @@ function Post() {
   const dispatch = useDispatch();
   const insertID = setHeadingId(singlePostData?.post?.body);
   const { isdark } = useSelector((state: RootState) => state.core);
-  const { auth } = useSelector((state: any) => state.auth);
+  const { auth } = useSelector((state: RootState) => state.auth);
 
   const id = router?.query?.id;
   const BodyResult = insertID.replace('<toc></toc>', '');

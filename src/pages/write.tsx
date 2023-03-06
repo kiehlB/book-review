@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo';
-import { useSelector } from 'react-redux';
 import PostPublishTemplate from '../components/write/PostPublishTemplate';
 import WriteTemplate from '../components/write/WriteTemplate';
 import { getNextSeo } from '../lib/nextSeo';

@@ -14,12 +14,18 @@ import {
 import useBoolean from '../../../hooks/useBoolean';
 import gql from 'graphql-tag';
 import { RootState } from '../../../store/rootReducer';
+import {
+  CommentUpvotesMutation,
+  DeleteCommentUpvoteMutation,
+} from '../../../types/apolloComponent';
 
 export default function useCommentUpvote(id) {
   const { auth } = useSelector((state: RootState) => state.auth);
   const client = useApolloClient();
-  const [UpvoteComment, { loading: loadingLike }] = useMutation(CommentUpvotes);
-  const [unupvoteComment, { loading: loadingUnlike }] = useMutation(DeleteCommentUpvote);
+  const [UpvoteComment, { loading: loadingLike }] =
+    useMutation<CommentUpvotesMutation>(CommentUpvotes);
+  const [unupvoteComment, { loading: loadingUnlike }] =
+    useMutation<DeleteCommentUpvoteMutation>(DeleteCommentUpvote);
 
   const replies = useQuery(GET_SubComment, {
     variables: {

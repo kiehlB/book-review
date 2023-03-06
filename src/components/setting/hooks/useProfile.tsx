@@ -11,11 +11,12 @@ import {
   getAuthImgSuccess,
   getAuthNameSuccess,
 } from '../../../store/auth';
+import { CreateProfileMutation } from '../../../types/apolloComponent';
 
 export default function useProfile() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [profile] = useMutation(createProfileMutation, {
+  const [profile] = useMutation<CreateProfileMutation>(createProfileMutation, {
     onCompleted(profile) {
       dispatch(getAuthImgSuccess(profile?.createProfile?.thumbnail));
       dispatch(getAuthNameSuccess(profile?.createProfile?.profile_name));

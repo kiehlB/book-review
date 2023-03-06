@@ -15,7 +15,7 @@ import WriterHead from './WriterHeader';
 export type TapProps = {};
 
 function WriteTemplate({}: TapProps) {
-  const StoreTag = useSelector((state: any) => state.book.tags);
+  const StoreTag = useSelector((state: RootState) => state.book.tags);
   const postId = useSelector((state: RootState) => state.book.postId);
 
   const { posts } = useCreateSavePost();

@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import useLogout from '../auth/hooks/useLogout';
 import ModalContext from '../../context/modalContext';
 
+type Dispatch<A> = (value: A) => void;
+
 const variants = {
   open: {
     transition: { staggerChildren: 0.07, delayChildren: 0.2 },
@@ -15,8 +17,8 @@ const variants = {
 };
 
 export type SidebarProps = {
-  SetBookIsClose: any;
-  BookIsClose: any;
+  SetBookIsClose: Dispatch<React.SetStateAction<boolean>>;
+  BookIsClose: boolean;
 };
 
 export function Navigation({ SetBookIsClose, BookIsClose }: SidebarProps) {

@@ -11,10 +11,10 @@ import { formatDate } from '../../lib/utils';
 import { useSelector } from 'react-redux';
 
 export type CommentItemProps = {
-  comment: Sub | any;
-  onRemove: any;
+  comment: Sub | null;
+  onRemove: (id: string) => void;
   isMine: boolean;
-  ownComment: any;
+  ownComment: string;
 };
 
 const PostCommentItem = styled.div`

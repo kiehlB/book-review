@@ -6,7 +6,7 @@ import { logoutMutation } from '../../../lib/graphql/users';
 import { persistor } from '../../../pages/_app';
 import { getAuthInfoSuccess, initAuth } from '../../../store/auth';
 import { RootState } from '../../../store/rootReducer';
-import { useLogoutMutation } from '../../../types/apolloComponent';
+import { LogoutMutation, useLogoutMutation } from '../../../types/apolloComponent';
 
 export default function useLogout() {
   const router = useRouter();

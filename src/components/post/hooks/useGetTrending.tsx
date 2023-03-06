@@ -2,9 +2,10 @@ import { useQuery } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import useScrollPagination from '../../../hooks/useScrollPagination';
 import { GET_Posts, GET_trendingPosts } from '../../../lib/graphql/posts';
+import { TrendingPostsQuery } from '../../../types/apolloComponent';
 
 export default function useGetTrendingPosts() {
-  const { data, loading, fetchMore } = useQuery(GET_trendingPosts, {
+  const { data, loading, fetchMore } = useQuery<TrendingPostsQuery>(GET_trendingPosts, {
     variables: {
       limit: 24,
     },

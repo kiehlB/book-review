@@ -17,13 +17,11 @@ import Header from '../components/base/Header';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
 
-export default function Home() {
-  const { data, loading } = useGetPosts();
-
+export default function Search() {
   return (
     <>
       <NextSeo
-        {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
+        {...getNextSeo({ title: '검색 페이지', description: '책 리뷰 검색 페이지' })}
       />
       <SiteLinksSearchBoxJsonLd
         url="https://www.bookreview.pro"

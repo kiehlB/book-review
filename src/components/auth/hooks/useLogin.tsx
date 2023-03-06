@@ -15,6 +15,7 @@ import {
 } from '../../../store/auth';
 import { inputProps } from '../AuthForm';
 import { toast } from 'react-toastify';
+import { LoginMutation, LoginMutationVariables } from '../../../types/apolloComponent';
 
 export default function useLogin() {
   const router = useRouter();
@@ -64,9 +65,9 @@ export default function useLogin() {
       color: isValid ? 'success' : 'error',
       state: inputs.username ? 'on' : 'idle',
     };
-  }, [inputs.username]) as any;
+  }, [inputs.username]);
 
-  const [signIn, { error: LoginError }] = useMutation(loginMutation, {
+  const [signIn, { error: LoginError }] = useMutation<LoginMutation>(loginMutation, {
     onCompleted(signIn) {
       SetIsClose(false);
 

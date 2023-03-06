@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
-import { RiDashboard3Line } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
 import HomeTab from '../components/home/HomeTab';
 import { PageLayout } from '../components/layout/PageLayout';
@@ -16,6 +15,8 @@ import FloatingHeader from '../components/common/Floating';
 import Header from '../components/base/Header';
 import { BsTagFill } from 'react-icons/bs';
 import { AiFillNotification } from 'react-icons/ai';
+import { IoMdTime } from 'react-icons/io';
+import { MdOutlineLocalFireDepartment } from 'react-icons/md';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
@@ -80,7 +81,20 @@ export default function Home() {
                   <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
                     포스트
                   </div>
-                  <HomeTab />
+                  <HomeTab
+                    primaryItems={[
+                      {
+                        svg: <IoMdTime />,
+                        name: '최신',
+                        href: '/',
+                      },
+                      {
+                        svg: <MdOutlineLocalFireDepartment />,
+                        name: '트렌딩',
+                        href: '/trending',
+                      },
+                    ]}
+                  />
                 </div>
               </First>
             }

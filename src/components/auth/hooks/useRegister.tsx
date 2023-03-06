@@ -15,6 +15,7 @@ import {
 } from '../../../store/auth';
 import { inputProps } from '../AuthForm';
 import { useDebouncedCallback } from 'use-debounce';
+import { RegisterMutation } from '../../../types/apolloComponent';
 
 export default function useRegister() {
   const router = useRouter();
@@ -66,38 +67,48 @@ export default function useRegister() {
     };
   }, [inputs.username]) as any;
 
-  const [signUp, { error: registerError }] = useMutation(registerMutation, {
-    onCompleted(signUp) {
-      SetIsClose(false);
+  const [signUp, { error: registerError }] = useMutation<RegisterMutation>(
+    registerMutation,
+    {
+      onCompleted(signUp) {
+        SetIsClose(false);
 
-      dispatch(
-        getAuthImgSuccess(
-          signUp?.login?.profile?.thumbnail ? signUp?.login?.profile?.thumbnail : '',
-        ),
-      );
-      dispatch(
-        getAuthNameSuccess(
-          signUp?.login?.profile?.profile_name ? signUp.login?.profile?.profile_name : '',
-        ),
-      );
-      dispatch(
-        getAuthBioSuccess(signUp?.login?.profile?.bio ? signUp?.login?.profile?.bio : ''),
-      );
-      dispatch(initAuth(signUp?.register));
-      toast.success('회원가입 완료!', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      inputs.username = '';
-      inputs.password = '';
-      router.push('/');
+        console.log(signUp);
+        dispatch(
+          getAuthImgSuccess(
+            signUp?.register?.profile?.thumbnail
+              ? signUp?.register?.profile?.thumbnail
+              : '',
+          ),
+        );
+        dispatch(
+          getAuthNameSuccess(
+            signUp?.register?.profile?.profile_name
+              ? signUp.register?.profile?.profile_name
+              : '',
+          ),
+        );
+        dispatch(
+          getAuthBioSuccess(
+            signUp?.register?.profile?.bio ? signUp?.register?.profile?.bio : '',
+          ),
+        );
+        dispatch(initAuth(signUp?.register));
+        toast.success('회원가입 완료!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        inputs.username = '';
+        inputs.password = '';
+        router.push('/');
+      },
     },
-  });
+  );
 
   const Submit = async e => {
     e.preventDefault();

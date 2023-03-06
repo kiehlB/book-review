@@ -10,14 +10,25 @@ import {
 import { toast } from 'react-toastify';
 import gql from 'graphql-tag';
 import { useSelector } from 'react-redux';
+import {
+  GetPostQuery,
+  LikePostMutation,
+  UnlikePostMutation,
+} from '../../../types/apolloComponent';
 
 export default function usePostLike({ id }) {
   const client = useApolloClient();
-  const [likePost, { loading: loadingLike }] = useMutation(Like_Post, {});
-  const [unlikePost, { loading: loadingUnlike }] = useMutation(UnLike_Post, {});
+  const [likePost, { loading: loadingLike }] = useMutation<LikePostMutation>(
+    Like_Post,
+    {},
+  );
+  const [unlikePost, { loading: loadingUnlike }] = useMutation<UnlikePostMutation>(
+    UnLike_Post,
+    {},
+  );
   const { auth } = useSelector((state: any) => state.auth);
 
-  const { data, loading } = useQuery(GET_Post, {
+  const { data, loading } = useQuery<GetPostQuery>(GET_Post, {
     variables: {
       id,
     },

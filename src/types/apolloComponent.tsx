@@ -96,6 +96,7 @@ export type MutationCreatePostHistoryArgs = {
 export type MutationCreateProfileArgs = {
   bio?: Maybe<Scalars['String']>;
   profile_name?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
 };
 
 
@@ -116,6 +117,7 @@ export type MutationEditPostArgs = {
   id?: Maybe<Scalars['String']>;
   is_private?: Maybe<Scalars['Boolean']>;
   is_temp?: Maybe<Scalars['Boolean']>;
+  postbody?: Maybe<Scalars['String']>;
   series_id?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   thumbnail?: Maybe<Scalars['String']>;
@@ -174,6 +176,8 @@ export type MutationUnlikePostArgs = {
 
 export type MutationUploadImageArgs = {
   body?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Int']>;
 };
 
 export type Post = {
@@ -199,7 +203,6 @@ export type Post = {
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['Date']>;
   upvotes?: Maybe<Scalars['Int']>;
-  url: Scalars['String'];
   user?: Maybe<User>;
   views?: Maybe<Scalars['Int']>;
 };
@@ -224,6 +227,7 @@ export type Profile = {
   created_at?: Maybe<Scalars['Date']>;
   id?: Maybe<Scalars['String']>;
   profile_name?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['Date']>;
   user_id?: Maybe<Scalars['String']>;
 };
@@ -430,6 +434,7 @@ export type UserProfile = {
   created_at?: Maybe<Scalars['Date']>;
   id?: Maybe<Scalars['String']>;
   profile_name?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['Date']>;
   user_id?: Maybe<Scalars['String']>;
 };
@@ -500,7 +505,7 @@ export type GetSubQuery = (
         & Pick<User, 'id' | 'username'>
         & { profile?: Maybe<(
           { __typename?: 'UserProfile' }
-          & Pick<UserProfile, 'id' | 'bio' | 'profile_name'>
+          & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
         )> }
       )> }
     )>>> }
@@ -549,6 +554,10 @@ export type GetPostQuery = (
     )>, user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
+      & { profile?: Maybe<(
+        { __typename?: 'UserProfile' }
+        & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
+      )> }
     )>, subs?: Maybe<Array<Maybe<(
       { __typename?: 'Sub' }
       & Pick<Sub, 'id' | 'text' | 'likes' | 'has_replies' | 'deleted' | 'level' | 'reply' | 'created_at' | 'updated_at' | 'upvotes' | 'replies_count'>
@@ -560,7 +569,7 @@ export type GetPostQuery = (
         & Pick<User, 'id' | 'username'>
         & { profile?: Maybe<(
           { __typename?: 'UserProfile' }
-          & Pick<UserProfile, 'id' | 'bio' | 'profile_name'>
+          & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
         )> }
       )> }
     )>>> }
@@ -579,7 +588,13 @@ export type GetPostsQuery = (
   & { posts?: Maybe<Array<Maybe<(
     { __typename?: 'Post' }
     & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { bookInfo?: Maybe<(
+    & { tags?: Maybe<Array<Maybe<(
+      { __typename?: 'Tag' }
+      & { tag?: Maybe<(
+        { __typename?: 'PostTag' }
+        & Pick<PostTag, 'name'>
+      )> }
+    )>>>, bookInfo?: Maybe<(
       { __typename?: 'PostBookInfo' }
       & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
     )>, user?: Maybe<(
@@ -796,6 +811,8 @@ export type UnlikePostMutation = (
 
 export type UploadImageToCloudinaryMutationVariables = Exact<{
   body: Scalars['String'];
+  width: Scalars['Int'];
+  height: Scalars['Int'];
 }>;
 
 
@@ -810,6 +827,7 @@ export type UploadImageToCloudinaryMutation = (
 export type CreateProfileMutationVariables = Exact<{
   bio?: Maybe<Scalars['String']>;
   profile_name?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -817,7 +835,7 @@ export type CreateProfileMutation = (
   { __typename?: 'Mutation' }
   & { createProfile: (
     { __typename?: 'UserProfile' }
-    & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'created_at' | 'updated_at'>
+    & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail' | 'created_at' | 'updated_at'>
   ) }
 );
 
@@ -830,7 +848,7 @@ export type GetProfileQuery = (
   { __typename?: 'Query' }
   & { getProfile?: Maybe<(
     { __typename?: 'Profile' }
-    & Pick<Profile, 'id' | 'bio' | 'profile_name' | 'created_at' | 'updated_at'>
+    & Pick<Profile, 'id' | 'bio' | 'profile_name' | 'thumbnail' | 'created_at' | 'updated_at'>
   )> }
 );
 
@@ -858,6 +876,10 @@ export type LoginMutation = (
   & { login?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username' | 'accessToken' | 'refreshToken'>
+    & { profile?: Maybe<(
+      { __typename?: 'UserProfile' }
+      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
+    )> }
   )> }
 );
 
@@ -872,6 +894,10 @@ export type RegisterMutation = (
   & { register?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username' | 'accessToken' | 'refreshToken'>
+    & { profile?: Maybe<(
+      { __typename?: 'UserProfile' }
+      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
+    )> }
   )> }
 );
 
@@ -900,7 +926,7 @@ export type WhoAmIQuery = (
     & Pick<User, 'id' | 'username'>
     & { profile?: Maybe<(
       { __typename?: 'UserProfile' }
-      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'user_id' | 'created_at' | 'updated_at'>
+      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'user_id' | 'thumbnail' | 'created_at' | 'updated_at'>
     )> }
   )> }
 );
@@ -1051,6 +1077,7 @@ export const GetSubDocument = gql`
           id
           bio
           profile_name
+          thumbnail
         }
       }
     }
@@ -1178,6 +1205,12 @@ export const GetPostDocument = gql`
     user {
       id
       username
+      profile {
+        id
+        bio
+        profile_name
+        thumbnail
+      }
     }
     subs {
       id
@@ -1203,6 +1236,7 @@ export const GetPostDocument = gql`
           id
           bio
           profile_name
+          thumbnail
         }
       }
     }
@@ -1252,6 +1286,11 @@ export const GetPostsDocument = gql`
     created_at
     updated_at
     liked
+    tags {
+      tag {
+        name
+      }
+    }
     bookInfo {
       bookTitle
       bookContent
@@ -1838,8 +1877,8 @@ export type UnlikePostMutationHookResult = ReturnType<typeof useUnlikePostMutati
 export type UnlikePostMutationResult = Apollo.MutationResult<UnlikePostMutation>;
 export type UnlikePostMutationOptions = Apollo.BaseMutationOptions<UnlikePostMutation, UnlikePostMutationVariables>;
 export const UploadImageToCloudinaryDocument = gql`
-    mutation UploadImageToCloudinary($body: String!) {
-  uploadImage(body: $body) {
+    mutation UploadImageToCloudinary($body: String!, $width: Int!, $height: Int!) {
+  uploadImage(body: $body, width: $width, height: $height) {
     public_id
     url
   }
@@ -1861,6 +1900,8 @@ export type UploadImageToCloudinaryMutationFn = Apollo.MutationFunction<UploadIm
  * const [uploadImageToCloudinaryMutation, { data, loading, error }] = useUploadImageToCloudinaryMutation({
  *   variables: {
  *      body: // value for 'body'
+ *      width: // value for 'width'
+ *      height: // value for 'height'
  *   },
  * });
  */
@@ -1872,11 +1913,12 @@ export type UploadImageToCloudinaryMutationHookResult = ReturnType<typeof useUpl
 export type UploadImageToCloudinaryMutationResult = Apollo.MutationResult<UploadImageToCloudinaryMutation>;
 export type UploadImageToCloudinaryMutationOptions = Apollo.BaseMutationOptions<UploadImageToCloudinaryMutation, UploadImageToCloudinaryMutationVariables>;
 export const CreateProfileDocument = gql`
-    mutation CreateProfile($bio: String, $profile_name: String) {
-  createProfile(bio: $bio, profile_name: $profile_name) {
+    mutation CreateProfile($bio: String, $profile_name: String, $thumbnail: String) {
+  createProfile(bio: $bio, profile_name: $profile_name, thumbnail: $thumbnail) {
     id
     bio
     profile_name
+    thumbnail
     created_at
     updated_at
   }
@@ -1899,6 +1941,7 @@ export type CreateProfileMutationFn = Apollo.MutationFunction<CreateProfileMutat
  *   variables: {
  *      bio: // value for 'bio'
  *      profile_name: // value for 'profile_name'
+ *      thumbnail: // value for 'thumbnail'
  *   },
  * });
  */
@@ -1915,6 +1958,7 @@ export const GetProfileDocument = gql`
     id
     bio
     profile_name
+    thumbnail
     created_at
     updated_at
   }
@@ -1992,6 +2036,12 @@ export const LoginDocument = gql`
     username
     accessToken
     refreshToken
+    profile {
+      id
+      bio
+      profile_name
+      thumbnail
+    }
   }
 }
     `;
@@ -2029,6 +2079,12 @@ export const RegisterDocument = gql`
     username
     accessToken
     refreshToken
+    profile {
+      id
+      bio
+      profile_name
+      thumbnail
+    }
   }
 }
     `;
@@ -2112,6 +2168,7 @@ export const WhoAmIDocument = gql`
       bio
       profile_name
       user_id
+      thumbnail
       created_at
       updated_at
     }

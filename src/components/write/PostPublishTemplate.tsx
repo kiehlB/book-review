@@ -13,6 +13,7 @@ import PublishCoreButton from './PublishCoreButton';
 import PostThumbnail from './Thumbnail';
 import { useMutation } from '@apollo/client';
 import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
+import { UploadImageToCloudinaryMutation } from '../../types/apolloComponent';
 export type PostPublishTemplateProps = {
   children?: React.ReactNode;
 };
@@ -44,7 +45,9 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
   const [isPrivate, setIsPrivate] = useState(false);
   const book = useSelector((state: RootState) => state?.book.book);
   const [url, setUrl] = useState('');
-  const [uploadThumbnail] = useMutation(UPLOAD_IMAGE_TO_CLOUDINARY);
+  const [uploadThumbnail] = useMutation<UploadImageToCloudinaryMutation>(
+    UPLOAD_IMAGE_TO_CLOUDINARY,
+  );
 
   useEffect(() => {
     if (thumbnail) {

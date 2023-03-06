@@ -20,12 +20,10 @@ import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
 import SettingCard from '../components/setting/SettingInfoCard';
 
-export default function Home() {
-  const { data, loading } = useGetPosts();
-
+export default function Profile() {
   return (
     <>
-      <NextSeo {...getNextSeo({ title: 'Book Review', description: '책 리뷰 셋팅' })} />
+      <NextSeo {...getNextSeo({ title: '프로필 수정', description: '프로필 수정' })} />
 
       <FloatingHeader>
         <Header />

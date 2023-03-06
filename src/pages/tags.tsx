@@ -17,23 +17,13 @@ import Header from '../components/base/Header';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
 
-export default function Home() {
-  const { data, loading } = useGetPosts();
-
+export default function Tag() {
   return (
     <>
       <NextSeo
-        {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
+        {...getNextSeo({ title: '책 태그', description: '책 리뷰 태그 페이지' })}
       />
-      <SiteLinksSearchBoxJsonLd
-        url="https://www.bookreview.pro"
-        potentialActions={[
-          {
-            target: 'https://www.bookreview.pro/search?q',
-            queryInput: 'search_term_string',
-          },
-        ]}
-      />
+
       <FloatingHeader>
         <Header />
       </FloatingHeader>

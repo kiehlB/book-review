@@ -1,13 +1,19 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { MdTrendingUp, MdAccessTime, MdOutlineLocalFireDepartment } from 'react-icons/md';
-import { useSpring, animated } from 'react-spring';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import { IoCalendarNumberOutline } from 'react-icons/io5';
 import { IoMdTime } from 'react-icons/io';
 
-export type HomeTabProps = {};
+export type TabProps = {
+  svg: React.ReactNode;
+  name: string;
+  href: string;
+};
+
+export type HomeTabProps = {
+  primaryItems: TabProps[];
+};
 
 export const isActiveLink = (href: string, currentPathname: string): boolean => {
   if (href === '/') {
@@ -17,20 +23,7 @@ export const isActiveLink = (href: string, currentPathname: string): boolean => 
   return currentPathname.startsWith(href);
 };
 
-const links: { name: string; href: string; svg: any }[] = [
-  {
-    svg: <IoMdTime />,
-    name: '최신',
-    href: '/',
-  },
-  {
-    svg: <MdOutlineLocalFireDepartment />,
-    name: '트렌딩',
-    href: '/trending',
-  },
-];
-
-function HomeTab(props: HomeTabProps) {
+function HomeTab({ primaryItems }: HomeTabProps) {
   const router = useRouter();
 
   const stopPropagation = e => {
@@ -41,7 +34,7 @@ function HomeTab(props: HomeTabProps) {
 
   return (
     <div className="flex">
-      {links.map(({ name, href, svg }) => (
+      {primaryItems.map(({ name, href, svg }) => (
         <Link
           key={name}
           href={href}
@@ -58,7 +51,7 @@ function HomeTab(props: HomeTabProps) {
                     ? 'text-[#FFA500]'
                     : 'text-[#4b4b4b] dark:text-[#CFCFCF]'
                 } mr-2`}>
-                {svg}{' '}
+                {svg}
               </div>
               <div
                 className={`${

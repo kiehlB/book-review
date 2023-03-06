@@ -2,8 +2,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
-import { RiDashboard3Line } from 'react-icons/ri';
-import { RiFileChartFill } from 'react-icons/ri';
 import HomeTab from '../components/home/HomeTab';
 import { PageLayout } from '../components/layout/PageLayout';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
@@ -20,7 +18,7 @@ import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
 import useGetPostsBy from '../components/post/hooks/useGetPostsBy';
 
-export default function Home() {
+export default function TemporaryPost() {
   const { data, loading } = useGetPostsBy({ isTemp: true });
 
   return (
@@ -28,15 +26,7 @@ export default function Home() {
       <NextSeo
         {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
       />
-      <SiteLinksSearchBoxJsonLd
-        url="https://www.bookreview.pro"
-        potentialActions={[
-          {
-            target: 'https://www.bookreview.pro/search?q',
-            queryInput: 'search_term_string',
-          },
-        ]}
-      />
+
       <FloatingHeader>
         <Header />
       </FloatingHeader>

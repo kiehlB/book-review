@@ -2,15 +2,19 @@ import { useQuery } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import useScrollPagination from '../../../hooks/useScrollPagination';
 import { GET_Posts, GET_recentPosts } from '../../../lib/graphql/posts';
+import { Post, RecentPostsQuery } from '../../../types/apolloComponent';
 
 export default function useGetPosts() {
-  const { data, loading, fetchMore } = useQuery(GET_recentPosts, {
-    variables: {
-      limit: 24,
-    },
+  const { data, loading, fetchMore } = useQuery<{ recentPosts: Post[] }>(
+    GET_recentPosts,
+    {
+      variables: {
+        limit: 24,
+      },
 
-    notifyOnNetworkStatusChange: true,
-  });
+      notifyOnNetworkStatusChange: true,
+    },
+  );
   const [isFinished, setIsFinished] = useState(false);
 
   const onLoadMore = useCallback(

@@ -10,12 +10,18 @@ import {
   Remove_Post,
 } from '../../../lib/graphql/posts';
 import { getPostBody, getPostId, getPostTitle } from '../../../store/book';
+import { RootState } from '../../../store/rootReducer';
+import {
+  CreatePostMutation,
+  EditPostMutation,
+  RemovePostMutation,
+} from '../../../types/apolloComponent';
 
 export default function useCreateSavePost() {
-  const { auth } = useSelector((state: any) => state.auth);
-  const [writePost] = useMutation(Create_Post, {});
-  const [removePost] = useMutation(Remove_Post);
-  const [editPost] = useMutation(Edit_Post, {});
+  const { auth } = useSelector((state: RootState) => state.auth);
+  const [writePost] = useMutation<CreatePostMutation>(Create_Post, {});
+  const [removePost] = useMutation<RemovePostMutation>(Remove_Post);
+  const [editPost] = useMutation<EditPostMutation>(Edit_Post, {});
   const client = useApolloClient();
   const dispatch = useDispatch();
 

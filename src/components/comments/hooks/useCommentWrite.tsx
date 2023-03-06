@@ -6,15 +6,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { CreateComment, RemoveSub } from '../../../lib/graphql/comments';
 import useBoolean from '../../../hooks/useBoolean';
+import { RootState } from '../../../store/rootReducer';
+import {
+  CreateSubMutation,
+  ReloadCommentsQuery,
+  RemoveSubMutation,
+} from '../../../types/apolloComponent';
 
 export default function useCreateCommentWrite(postId) {
-  const { auth } = useSelector((state: any) => state.auth);
-  const [writeComment] = useMutation(CreateComment);
-  const [removeComment] = useMutation(RemoveSub);
+  const { auth } = useSelector((state: RootState) => state.auth);
+  const [writeComment] = useMutation<CreateSubMutation>(CreateComment);
+  const [removeComment] = useMutation<RemoveSubMutation>(RemoveSub);
   const [askRemove, onToggleAskRemove] = useBoolean(false);
   const [removeId, setRemoveId] = useState('');
 
-  const reloadComments = useQuery(RELOAD_COMMENTS, {
+  const reloadComments = useQuery<ReloadCommentsQuery>(RELOAD_COMMENTS, {
     skip: true,
     fetchPolicy: 'network-only',
     variables: {

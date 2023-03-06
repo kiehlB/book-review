@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { CreateComment, GET_SubComment } from '../../../lib/graphql/comments';
 import useBoolean from '../../../hooks/useBoolean';
+import { RootState } from '../../../store/rootReducer';
+import { CreateSubMutation, GetSubQuery } from '../../../types/apolloComponent';
 
 export default function useCommentRepliesWrite(postId, commendId) {
-  const { auth } = useSelector((state: any) => state.auth);
+  const { auth } = useSelector((state: RootState) => state.auth);
   const [writing, onToggle] = useBoolean(false);
-  const [writeComment] = useMutation(CreateComment);
-  const replies = useQuery(GET_SubComment, {
+  const [writeComment] = useMutation<CreateSubMutation>(CreateComment);
+  const replies = useQuery<GetSubQuery>(GET_SubComment, {
     variables: {
       comment_id: commendId,
     },

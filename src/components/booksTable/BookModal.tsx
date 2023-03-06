@@ -7,7 +7,7 @@ interface BookModalProps {
   visible?: boolean;
   onClose?: (visible) => void;
   children?: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 const ulVariants = {
@@ -46,12 +46,7 @@ const liVariants = {
   },
 };
 
-const BookModal: React.FC<BookModalProps> = ({
-  visible,
-  children,
-  onClose,
-  className,
-}) => {
+const BookModal: React.FC<BookModalProps> = ({ visible, children, onClose }) => {
   React.useEffect(() => {
     // scrollbar
     document.body.style.overflowY = visible ? 'hidden' : 'initial';

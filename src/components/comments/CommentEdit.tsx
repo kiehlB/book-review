@@ -7,7 +7,7 @@ import CommentsWrite from './CommentWrite';
 export interface CommentEditProps {
   id: string;
   defaultText: string;
-  onCancel: () => any;
+  onCancel: () => void;
 }
 
 const CommentEdit: React.FC<CommentEditProps> = ({ id, defaultText, onCancel }) => {

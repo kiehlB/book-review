@@ -12,11 +12,12 @@ interface PageLayoutProps {
 }
 
 function PageLayout({ children }: PageLayoutProps) {
-  const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
+  const { BookIsClose, SetBookIsClose, IsClose, SetIsClose, mode } =
+    React.useContext(ModalContext);
 
   return (
     <div className="h-full mxl:px-4">
-      <AuthContainer />
+      <AuthContainer IsClose={IsClose} SetIsClose={SetIsClose} mode={mode} />
       <BookModal visible={BookIsClose} onClose={SetBookIsClose} className="">
         <BookTalble />
       </BookModal>

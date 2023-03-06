@@ -2,9 +2,10 @@ import { useQuery } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import useScrollPagination from '../../../hooks/useScrollPagination';
 import { GET_Posts, GET_Search_Posts } from '../../../lib/graphql/posts';
+import { SearchPostsQuery } from '../../../types/apolloComponent';
 
 export default function useGetSearchPosts(id) {
-  const { data, loading, fetchMore } = useQuery(GET_Search_Posts, {
+  const { data, loading, fetchMore } = useQuery<SearchPostsQuery>(GET_Search_Posts, {
     variables: {
       limit: 24,
       searchInput: id,

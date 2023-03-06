@@ -10,7 +10,7 @@ export default function useWhoAmI() {
   const dispatch = useDispatch();
   const { auth } = useSelector((state: RootState) => state.auth);
 
-  const { data: getUser, loading } = useQuery(whoAmIQuery, {
+  const { data: getUser, loading } = useQuery<WhoAmIQuery>(whoAmIQuery, {
     skip: auth?.id ? true : false,
   });
 

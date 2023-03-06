@@ -2,8 +2,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
-import { RiDashboard3Line } from 'react-icons/ri';
-import { RiFileChartFill } from 'react-icons/ri';
 import HomeTab from '../components/home/HomeTab';
 import { PageLayout } from '../components/layout/PageLayout';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
@@ -19,14 +17,19 @@ import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
 import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
 
-export default function Home() {
+export default function LikedPost() {
   const { data, loading } = useGetPosts();
 
   const getPostLiked = data?.recentPosts?.filter(e => e.liked == true);
 
   return (
     <>
-      <NextSeo {...getNextSeo({ title: 'Book Review', description: '책 리뷰 셋팅' })} />
+      <NextSeo
+        {...getNextSeo({
+          title: '좋아요 포스트',
+          description: '내가 좋아요 누른 포스트',
+        })}
+      />
 
       <FloatingHeader>
         <Header />

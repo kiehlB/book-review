@@ -3,14 +3,15 @@ import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
 import { useSelector } from 'react-redux';
+import { Sub } from '../../types/apolloComponent';
 
 export type CommentsWriteProps = {
-  postId?: any;
-  comment?: any;
-  onChange?: any;
-  onWrite?: any;
-  onCancel?: any;
-  edit?: any;
+  postId?: string;
+  comment?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onWrite?: () => void;
+  onCancel?: () => void;
+  edit?: boolean;
 };
 
 function CommentsWrite({

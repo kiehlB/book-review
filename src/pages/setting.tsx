@@ -18,12 +18,10 @@ import { BsTagFill } from 'react-icons/bs';
 import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
 import SettingCard from '../components/setting/SettingInfoCard';
 
-export default function Home() {
-  const { data, loading } = useGetPosts();
-
+export default function Setting() {
   return (
     <>
-      <NextSeo {...getNextSeo({ title: 'Book Review', description: '책 리뷰 셋팅' })} />
+      <NextSeo {...getNextSeo({ title: '셋팅', description: '책 리뷰 셋팅' })} />
 
       <FloatingHeader>
         <Header />

@@ -2,15 +2,19 @@ import React, { PureComponent } from 'react';
 import imageCompression from 'browser-image-compression';
 import styled from 'styled-components';
 import { Spinner } from 'evergreen-ui';
+import {
+  UploadedImage,
+  UploadImageToCloudinaryMutationFn,
+} from '../../types/apolloComponent';
 
 type ImageProps = {
   addImage: (e) => void;
-  readyForFile: any;
-  uploadThumbnail: any;
-  previewSource: any;
-  setreadyForFile: any;
-  setPreviewSource: any;
-  thumbnail: any;
+  readyForFile: string;
+  uploadThumbnail: UploadImageToCloudinaryMutationFn;
+  previewSource: number;
+  setreadyForFile: (e) => void;
+  setPreviewSource: (e: number) => void;
+  thumbnail: string;
 };
 
 export default class PostThumbnail extends PureComponent<ImageProps> {

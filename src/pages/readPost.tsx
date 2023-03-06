@@ -25,17 +25,9 @@ export default function Home() {
   return (
     <>
       <NextSeo
-        {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
+        {...getNextSeo({ title: '내가 읽은 목록', description: '내가 읽은 포스트 목록' })}
       />
-      <SiteLinksSearchBoxJsonLd
-        url="https://www.bookreview.pro"
-        potentialActions={[
-          {
-            target: 'https://www.bookreview.pro/search?q',
-            queryInput: 'search_term_string',
-          },
-        ]}
-      />
+
       <FloatingHeader>
         <Header />
       </FloatingHeader>

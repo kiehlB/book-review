@@ -14,11 +14,12 @@ import {
 } from '../../../store/book';
 import { toast } from 'react-toastify';
 import { checkEmpty } from '../../../lib/utils';
+import { CreatePostMutation, EditPostMutation } from '../../../types/apolloComponent';
 
 export default function useCreatePost() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [editPost] = useMutation(Edit_Post, {
+  const [editPost] = useMutation<EditPostMutation>(Edit_Post, {
     onCompleted({}) {
       dispatch(getIsOpenSuccess());
       dispatch(getPostTitle(''));
@@ -31,7 +32,7 @@ export default function useCreatePost() {
       router.push('/');
     },
   });
-  const [createPost] = useMutation(Create_Post, {
+  const [createPost] = useMutation<CreatePostMutation>(Create_Post, {
     onCompleted({}) {
       dispatch(getIsOpenSuccess());
       dispatch(getBookInfoSuccess(null));

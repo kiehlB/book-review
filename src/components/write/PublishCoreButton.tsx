@@ -1,16 +1,16 @@
 import { bindActionCreators, createDraftSafeSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsOpenSuccess, getPostTitle } from '../../store/book';
+import { BookInfo, getIsOpenSuccess, getPostTitle } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
 import useCreateSavePost from './hooks/usecreateSavePost';
 import { Button } from '../common/Button';
 import useCreatePost from './hooks/useCreatePost';
 
 export type PublishCoreButtonProps = {
-  fileInputState;
-  isPrivate;
-  book;
+  fileInputState: string;
+  isPrivate: boolean;
+  book: BookInfo;
 };
 
 function PublishCoreButton({ fileInputState, isPrivate, book }: PublishCoreButtonProps) {

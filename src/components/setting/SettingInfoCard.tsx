@@ -5,6 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 import useInput from '../../hooks/useIntput';
 import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
+import { RootState } from '../../store/rootReducer';
 import useGetUser from './hooks/useGetUser';
 import useProfile from './hooks/useProfile';
 import ProfileThumbnail from './ProfileThumbnail';
@@ -16,7 +17,7 @@ function SettingCard({}: SettingCardProps) {
   const { handleSubmit } = useProfile();
   const [readyForFile, setreadyForFile] = useState('');
   const [previewSource, setPreviewSource] = useState(0);
-  const [fileInputState, setFileInputState] = useState<any>();
+  const [fileInputState, setFileInputState] = useState();
   const [isPrivate, setIsPrivate] = useState(false);
   const [url, setUrl] = useState('');
   const {
@@ -24,7 +25,7 @@ function SettingCard({}: SettingCardProps) {
     profileThumbnail,
     displayName,
     bio: Bio,
-  } = useSelector((state: any) => state.auth);
+  } = useSelector((state: RootState) => state.auth);
 
   console.log(readyForFile);
   const [name, setName] = useState(displayName ? displayName : '');

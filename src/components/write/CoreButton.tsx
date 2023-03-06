@@ -11,7 +11,7 @@ import { RootState } from '../../store/rootReducer';
 import useCreateSavePost from './hooks/usecreateSavePost';
 
 export type TapProps = {
-  StoreTag: any;
+  StoreTag: string[];
 };
 
 function CoreButton({ StoreTag }: TapProps) {

@@ -1,12 +1,14 @@
 import clsx from 'clsx';
 import { motion, useCycle } from 'framer-motion';
-import React, { useEffect, useRef } from 'react';
+import React, { SetStateAction, useEffect, useRef } from 'react';
 import MenuToggle from '../common/FramerMenuToggle';
 import { Navigation } from './Nav';
 
+type Dispatch<A> = (value: A) => void;
+
 export type SidebarProps = {
-  SetBookIsClose: any;
-  BookIsClose: any;
+  SetBookIsClose: Dispatch<SetStateAction<boolean>>;
+  BookIsClose: boolean;
 };
 
 const sidebar = {

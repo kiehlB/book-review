@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { GET_Posts, Remove_Post } from '../../../lib/graphql/posts';
 import { RootState } from '../../../store/rootReducer';
+import { GetPostsQuery, RemovePostMutation } from '../../../types/apolloComponent';
 
 export default function useSavedPosts() {
-  const { auth } = useSelector((state: any) => state.auth);
-  const [removePost] = useMutation(Remove_Post);
+  const { auth } = useSelector((state: RootState) => state.auth);
+  const [removePost] = useMutation<RemovePostMutation>(Remove_Post);
   const client = useApolloClient();
 
-  const { data, loading, fetchMore } = useQuery(GET_Posts, {
+  const { data, loading, fetchMore } = useQuery<GetPostsQuery>(GET_Posts, {
     variables: {
       username: auth?.username,
       istemp: true,

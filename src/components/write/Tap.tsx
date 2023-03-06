@@ -40,10 +40,11 @@ import { BackgroundColorExtension } from './BackgroundColorExtension';
 import { BackgroundColorMark } from './BackgroundColorMark';
 import media from '../../lib/media';
 import { toast } from 'react-toastify';
+import { Post } from '../../types/apolloComponent';
 
 export type TapProps = {
-  postId: any;
-  posts: any;
+  postId: string;
+  posts: Post[];
 };
 
 type Levels = 1 | 2 | 3;

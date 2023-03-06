@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import useScrollPagination from '../../../hooks/useScrollPagination';
 import { GET_Posts } from '../../../lib/graphql/posts';
 import { RootState } from '../../../store/rootReducer';
+import { GetPostsQuery, Post } from '../../../types/apolloComponent';
 
 interface useGetPostProps {
   isTemp: boolean;
@@ -13,7 +14,7 @@ export default function useGetPostsBy({ isTemp = false }: useGetPostProps) {
   const { auth } = useSelector((state: RootState) => state.auth);
 
   console.log(isTemp);
-  const { data, loading, fetchMore } = useQuery(GET_Posts, {
+  const { data, loading, fetchMore } = useQuery<{ posts: Post[] }>(GET_Posts, {
     variables: {
       limit: 24,
       username: auth?.username,

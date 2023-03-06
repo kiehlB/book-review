@@ -1,8 +1,9 @@
+import { Sub } from '../../types/apolloComponent';
 import CommentItem from './CommentItem';
 
 export type CommentListProps = {
-  comments: any;
-  onRemove: any;
+  comments: Sub[];
+  onRemove: (id: string) => void;
   isMine: boolean;
   currentId: string;
 };
