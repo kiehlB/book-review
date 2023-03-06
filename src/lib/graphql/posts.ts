@@ -48,10 +48,12 @@ export const GET_Post = gql`
         reply
         created_at
         updated_at
+
         upvotes
         replies {
           id
           text
+          has_replies
           updated_at
         }
         replies_count

@@ -41,7 +41,7 @@ const TagItem = ({ onClick, children, posts }: any) => {
 function TagsForm(props: TagsFormProps) {
   const isopen = useSelector((state: RootState) => state.book.isopen);
   const postSave = useSelector((state: RootState) => state.book.postSave);
-  const temporaryClick = useSelector((state: RootState) => state.book.temporaryClick);
+  // const temporaryClick = useSelector((state: RootState) => state.book.temporaryClick);
 
   const findPost = props.posts?.filter(e => e.id == props.postId);
 

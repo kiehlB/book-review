@@ -8,11 +8,6 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
-import useGetPosts from '../components/post/hooks/useGetPosts';
-import Tags from '../components/tags/Tags';
-import FloatingHeader from '../components/common/Floating';
-import Header from '../components/base/Header';
-import { BsTagFill } from 'react-icons/bs';
 import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
 import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
@@ -27,9 +22,6 @@ export default function TemporaryPost() {
         {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
       />
 
-      <FloatingHeader>
-        <Header />
-      </FloatingHeader>
       <PageLayout>
         <PageGrid as="div" className="pt-[2rem] pb-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">

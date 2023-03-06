@@ -17,8 +17,6 @@ import useGetPosts from '../components/post/hooks/useGetPosts';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
 import { motion, useReducedMotion } from 'framer-motion';
 import Tags from '../components/tags/Tags';
-import FloatingHeader from '../components/common/Floating';
-import Header from '../components/base/Header';
 import useGetTrendingPosts from '../components/post/hooks/useGetTrending';
 import { BsTagFill } from 'react-icons/bs';
 import { AiFillNotification } from 'react-icons/ai';
@@ -37,9 +35,6 @@ export default function Trending() {
         })}
       />
 
-      <FloatingHeader>
-        <Header />
-      </FloatingHeader>
       <PageLayout>
         <PageGrid as="div" className="pt-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">

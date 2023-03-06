@@ -223,6 +223,7 @@ function BackLink({
       animate={state}
       transition={shouldReduceMotion ? { duration: 0 } : {}}>
       <motion.span
+        className="flex items-center"
         variants={shouldReduceMotion ? {} : arrowVariants.left}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
         <ArrowIcon direction="left" className="dark:text-white" />

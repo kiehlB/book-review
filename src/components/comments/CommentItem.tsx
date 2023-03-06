@@ -15,6 +15,7 @@ export type CommentItemProps = {
   onRemove: (id: string) => void;
   isMine: boolean;
   ownComment: string;
+  onLikeToggle: any;
 };
 
 const PostCommentItem = styled.div`
@@ -24,10 +25,15 @@ const PostCommentItem = styled.div`
   }
 `;
 
-function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps) {
+function CommentItem({
+  comment,
+  onRemove,
+  isMine,
+  ownComment,
+  onLikeToggle,
+}: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
-  const { onLikeToggle } = useCommentUpvote(comment?.id);
 
   return (
     <PostCommentItem className="py-1 mt-1">
@@ -117,6 +123,7 @@ function CommentItem({ comment, onRemove, isMine, ownComment }: CommentItemProps
         onToggleOpen={onToggleOpen}
         isMine={isMine}
         open={open}
+        hasChild={comment?.has_replies}
       />
     </PostCommentItem>
   );

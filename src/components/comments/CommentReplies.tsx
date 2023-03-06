@@ -11,23 +11,32 @@ import CommentsWrite from './CommentWrite';
 import useCommentRepliesWrite from './hooks/useCommentRepliesWrite';
 import useDeleteComment from './hooks/useDeleteSub';
 import { toast } from 'react-toastify';
+import { RootState } from '../../store/rootReducer';
 
 export type CommentRepliesProps = {
   id: string;
   onToggleOpen: () => void;
   isMine: boolean;
   open: boolean;
+  hasChild: boolean;
 };
 
-function CommentReplies({ id, onToggleOpen, isMine, open }: CommentRepliesProps) {
+function CommentReplies({
+  id,
+  onToggleOpen,
+  isMine,
+  open,
+  hasChild,
+}: CommentRepliesProps) {
   const router = useRouter();
 
-  const { onRemove, askRemove, onConfirmRemove, onToggleAskRemove } =
-    useDeleteComment(id);
+  const { onRemove, askRemove, onConfirmRemove, onToggleAskRemove } = useDeleteComment(
+    id,
+    hasChild,
+  );
 
-  const { auth } = useSelector((state: any) => state.auth);
+  const { auth } = useSelector((state: RootState) => state.auth);
 
-  const [writing, onToggle] = useBoolean(false);
   const [writeComment] = useMutation(CreateComment, {
     onCompleted({}) {
       onToggleOpen();
@@ -37,6 +46,7 @@ function CommentReplies({ id, onToggleOpen, isMine, open }: CommentRepliesProps)
     variables: {
       comment_id: id,
     },
+    skip: hasChild ? false : true,
   });
 
   // const reloadComments = useQuery(RELOAD_COMMENTS, {
@@ -108,9 +118,9 @@ function CommentReplies({ id, onToggleOpen, isMine, open }: CommentRepliesProps)
       <div className="ml-10 mxs:ml-6">
         <CommentList
           comments={replies?.data?.getSub?.replies}
-          onRemove={onRemove}
           isMine={isMine}
           currentId={auth?.id}
+          onRemove={onRemove}
         />
       </div>
 

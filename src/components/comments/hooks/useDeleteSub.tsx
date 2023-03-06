@@ -8,7 +8,7 @@ import { CreateComment, GET_SubComment, RemoveSub } from '../../../lib/graphql/c
 import useBoolean from '../../../hooks/useBoolean';
 import { GetSubQuery, RemoveSubMutation } from '../../../types/apolloComponent';
 
-export default function useDeleteComment(id) {
+export default function useDeleteComment(id, hasChild) {
   const [removeComment] = useMutation<RemoveSubMutation>(RemoveSub);
   const [askRemove, onToggleAskRemove] = useBoolean(false);
   const [comment, setComment] = useState('');
@@ -17,6 +17,7 @@ export default function useDeleteComment(id) {
     variables: {
       comment_id: id,
     },
+    skip: hasChild ? false : true,
   });
 
   const onChange = e => {

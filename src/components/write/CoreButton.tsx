@@ -17,7 +17,6 @@ export type TapProps = {
 function CoreButton({ StoreTag }: TapProps) {
   const { onConfirmSave, posts, loading } = useCreateSavePost();
   const body = useSelector((state: RootState) => state.book.body);
-
   const postId = useSelector((state: RootState) => state.book.postId);
   const title = useSelector((state: RootState) => state.book.title);
   const book = useSelector((state: RootState) => state.book.book);

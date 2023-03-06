@@ -15,9 +15,7 @@ import { BooksContextProvider } from '../context/booksContext';
 import Script from 'next/script';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
-import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
-import Head from 'next/head';
 
 export const persistor = persistStore(store);
 

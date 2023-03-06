@@ -3,7 +3,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { CiDark } from 'react-icons/ci';
 import { CiLight } from 'react-icons/ci';
 import clsx from 'clsx';
-import { useContext, useEffect, useState } from 'react';
+import { SetStateAction, useContext, useEffect, useState } from 'react';
 import ModalContext from '../../context/modalContext';
 import Link from 'next/link';
 import useLogout from '../auth/hooks/useLogout';
@@ -50,12 +50,27 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
   );
 }
 
-function Header() {
+type Dispatch<A> = (value: A) => void;
+
+export type HeaderProps = {
+  IsClose: boolean;
+  SetIsClose: Dispatch<SetStateAction<boolean>>;
+  SetMode: Dispatch<SetStateAction<string>>;
+  BookIsClose: boolean;
+  SetBookIsClose: Dispatch<SetStateAction<boolean>>;
+};
+
+function Header({
+  IsClose,
+  SetIsClose,
+  SetMode,
+  BookIsClose,
+  SetBookIsClose,
+}: HeaderProps) {
   const [input, setInput] = useState('');
   const { getUser } = useWhoAmI();
   const router = useRouter();
-  const { IsClose, SetIsClose, mode, SetMode, BookIsClose, SetBookIsClose } =
-    useContext(ModalContext);
+
   const { isdark } = useSelector((state: RootState) => state.core);
   const dispatch = useDispatch();
   const { auth, profileThumbnail, displayName } = useSelector(

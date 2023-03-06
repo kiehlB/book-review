@@ -12,8 +12,6 @@ import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
 import useGetPosts from '../components/post/hooks/useGetPosts';
 import Tags from '../components/tags/Tags';
-import FloatingHeader from '../components/common/Floating';
-import Header from '../components/base/Header';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
 
@@ -32,9 +30,7 @@ export default function Search() {
           },
         ]}
       />
-      <FloatingHeader>
-        <Header />
-      </FloatingHeader>
+
       <PageLayout>
         <PageGrid as="div" className="pt-[2rem] pb-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">

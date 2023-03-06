@@ -1,11 +1,18 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 import { getScrollTop } from '../../lib/utils';
+import Header, { HeaderProps } from '../base/Header';
 
 export type FloatingHeaderProps = {
   children?: React.ReactNode;
 };
 
-function FloatingHeader({ children }: FloatingHeaderProps) {
+function FloatingHeader({
+  IsClose,
+  SetIsClose,
+  SetMode,
+  BookIsClose,
+  SetBookIsClose,
+}: HeaderProps) {
   const [visible, setVisible] = useState(false);
   const blockRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -73,7 +80,13 @@ function FloatingHeader({ children }: FloatingHeaderProps) {
             }
       }
       ref={blockRef}>
-      {children}
+      <Header
+        IsClose={IsClose}
+        SetIsClose={SetIsClose}
+        SetMode={SetMode}
+        BookIsClose={BookIsClose}
+        SetBookIsClose={SetBookIsClose}
+      />
     </div>
   );
 }

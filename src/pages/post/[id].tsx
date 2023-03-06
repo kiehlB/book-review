@@ -40,7 +40,7 @@ export type PostProps = {
   id: string;
 };
 
-function Post() {
+function PostDetail() {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -244,7 +244,7 @@ function Post() {
   );
 }
 
-export default Post;
+export default PostDetail;
 
 function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
   const paddingTop = `${(1 / 1.644444444444444) * 100}%`;

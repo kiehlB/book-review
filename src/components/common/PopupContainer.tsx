@@ -53,7 +53,7 @@ const PopupOKCancelBlock = styled.div`
 export interface PopUpContainerProps {
   visible: boolean;
   title?: string;
-  onConfirm?: () => any;
+  onConfirm?: any;
   onCancel?: () => any;
   children: React.ReactNode;
 }

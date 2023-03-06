@@ -13,11 +13,11 @@ export default function useCommentRepliesWrite(postId, commendId) {
   const { auth } = useSelector((state: RootState) => state.auth);
   const [writing, onToggle] = useBoolean(false);
   const [writeComment] = useMutation<CreateSubMutation>(CreateComment);
-  const replies = useQuery<GetSubQuery>(GET_SubComment, {
-    variables: {
-      comment_id: commendId,
-    },
-  });
+  // const replies = useQuery<GetSubQuery>(GET_SubComment, {
+  //   variables: {
+  //     comment_id: commendId,
+  //   },
+  // });
 
   const reloadComments = useQuery(RELOAD_COMMENTS, {
     skip: true,
@@ -50,7 +50,7 @@ export default function useCommentRepliesWrite(postId, commendId) {
       });
 
       setComment('');
-      await replies.refetch();
+      // await replies.refetch();
       await reloadComments.refetch();
 
       const comments = document.querySelectorAll('.comment');
@@ -62,5 +62,5 @@ export default function useCommentRepliesWrite(postId, commendId) {
     }
   };
 
-  return { onWrite, comment, onChange, replies, writing, onToggle };
+  return { onWrite, comment, onChange, writing, onToggle };
 }

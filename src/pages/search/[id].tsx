@@ -70,7 +70,7 @@ export default function Search() {
             className="col-span-8 mmd:col-span-12"
             first={
               <First>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center  pt-4 pb-0">
                   <BackLink href="/">
                     <div className="w-[240px] text-[#334155] text-base flex items-center justify-between font-semibold pl-2 dark:text-[#D3D3D3]">
                       메인으로

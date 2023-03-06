@@ -51,6 +51,8 @@ export const GET_SubComment = gql`
         text
         level
         updated_at
+        has_replies
+        replies_count
         upvotes
         user {
           id

@@ -2,16 +2,12 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
-import { RiDashboard3Line } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
-import HomeTab from '../components/home/HomeTab';
 import { PageLayout } from '../components/layout/PageLayout';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
 import Tags from '../components/tags/Tags';
-import FloatingHeader from '../components/common/Floating';
-import Header from '../components/base/Header';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
 
@@ -30,9 +26,7 @@ export default function Post() {
           },
         ]}
       />
-      <FloatingHeader>
-        <Header />
-      </FloatingHeader>
+
       <PageLayout>
         <PageGrid as="div" className="pt-[2rem] pb-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">

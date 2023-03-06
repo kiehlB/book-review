@@ -4,6 +4,7 @@ import { MenuItem } from './NavMenuItem';
 import { useSelector } from 'react-redux';
 import useLogout from '../auth/hooks/useLogout';
 import ModalContext from '../../context/modalContext';
+import { RootState } from '../../store/rootReducer';
 
 type Dispatch<A> = (value: A) => void;
 
@@ -22,7 +23,7 @@ export type SidebarProps = {
 };
 
 export function Navigation({ SetBookIsClose, BookIsClose }: SidebarProps) {
-  const { auth } = useSelector((state: any) => state.auth);
+  const { auth } = useSelector((state: RootState) => state.auth);
   const { handleSubmitLogout } = useLogout();
 
   const itemIds = [

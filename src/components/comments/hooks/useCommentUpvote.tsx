@@ -19,21 +19,18 @@ import {
   DeleteCommentUpvoteMutation,
 } from '../../../types/apolloComponent';
 
-export default function useCommentUpvote(id) {
+export default function useCommentUpvote() {
   const { auth } = useSelector((state: RootState) => state.auth);
+
   const client = useApolloClient();
+
   const [UpvoteComment, { loading: loadingLike }] =
     useMutation<CommentUpvotesMutation>(CommentUpvotes);
+
   const [unupvoteComment, { loading: loadingUnlike }] =
     useMutation<DeleteCommentUpvoteMutation>(DeleteCommentUpvote);
 
-  const replies = useQuery(GET_SubComment, {
-    variables: {
-      comment_id: id,
-    },
-  });
-
-  const onLikeToggle = async () => {
+  const onLikeToggle = async id => {
     if (!auth?.id) {
       toast.error('로그인이 필요합니다', {
         position: 'bottom-right',
@@ -41,6 +38,13 @@ export default function useCommentUpvote(id) {
 
       return;
     }
+
+    const replies = useQuery(GET_SubComment, {
+      variables: {
+        comment_id: id,
+      },
+    });
+
     if (loadingLike || loadingUnlike) return;
 
     const variables = {
