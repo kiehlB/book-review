@@ -98,7 +98,7 @@ function CommentReplies({
     onToggleOpen();
   };
 
-  if (replies.loading) return;
+  if (replies.loading) return null;
   return (
     <div>
       {open ? (

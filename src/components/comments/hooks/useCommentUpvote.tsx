@@ -48,7 +48,6 @@ export default function useCommentUpvote() {
   //   skip: !CommentId,
   // });
 
-  console.log('hlelo');
   const onLikeToggle = async id => {
     if (!auth?.id) {
       toast.error('로그인이 필요합니다', {
