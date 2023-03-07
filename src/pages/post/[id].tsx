@@ -197,7 +197,7 @@ function PostDetail() {
                             도서: {singlePostData?.post?.bookInfo?.bookTitle}
                           </div>
                           <div className="text-[#495057] text-base font-semibold mt-2 dark:text-[#ececec]">
-                            저자:{' '}
+                            저자:
                             {singlePostData?.post?.bookInfo?.bookAuthors?.map(e => e)}
                           </div>
                         </div>

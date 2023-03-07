@@ -4,6 +4,7 @@ export const CreateComment = gql`
   mutation CreateSub($post_id: String!, $text: String!, $comment_id: String) {
     createSub(post_id: $post_id, text: $text, comment_id: $comment_id) {
       id
+      level
     }
   }
 `;
@@ -23,6 +24,15 @@ export const EditSub = gql`
       updated_at
       created_at
       updated_at
+    }
+  }
+`;
+
+export const GET_COMMENTS_COUNT = gql`
+  query GetCommentsCount($id: String!) {
+    post(id: $id) {
+      id
+      subs_count
     }
   }
 `;
@@ -51,6 +61,7 @@ export const GET_SubComment = gql`
         text
         level
         updated_at
+        created_at
         has_replies
         replies_count
         upvotes

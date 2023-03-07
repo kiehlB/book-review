@@ -54,6 +54,7 @@ export const GET_Post = gql`
           id
           text
           has_replies
+          created_at
           updated_at
         }
         replies_count

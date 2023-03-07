@@ -40,7 +40,7 @@ function CommentItem({
   const dispatch = useDispatch();
 
   return (
-    <PostCommentItem className="py-1 mt-1">
+    <PostCommentItem className="comment py-1 mt-1">
       <div className="flex">
         {comment?.user?.profile?.thumbnail ? (
           <img
@@ -64,7 +64,7 @@ function CommentItem({
                       : comment?.user?.username}
                   </div>
                   <div className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
-                    {formatDate(comment?.updated_at)}
+                    {formatDate(comment?.created_at)}
                   </div>
                 </div>
 

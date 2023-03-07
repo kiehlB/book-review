@@ -15,7 +15,7 @@ import {
 
 export default function useCreateCommentWrite(postId) {
   const { auth } = useSelector((state: RootState) => state.auth);
-  const [writeComment] = useMutation<CreateSubMutation>(CreateComment);
+  const [writeComment] = useMutation<CreateSubMutation>(CreateComment, {});
   const [removeComment] = useMutation<RemoveSubMutation>(RemoveSub);
   const [askRemove, onToggleAskRemove] = useBoolean(false);
   const [removeId, setRemoveId] = useState('');
