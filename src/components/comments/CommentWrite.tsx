@@ -23,7 +23,6 @@ function CommentsWrite({
 
   edit,
 }: CommentsWriteProps) {
-  const { auth } = useSelector((state: any) => state.auth);
   return (
     <div className="flex items-end flex-col">
       <StyledTextarea

@@ -5,7 +5,6 @@ import { RootState } from '../../store/rootReducer';
 import { Sub } from '../../types/apolloComponent';
 import CommentItem from './CommentItem';
 import useCommentUpvote from './hooks/useCommentUpvote';
-import useDeleteComment from './hooks/useDeleteSub';
 
 export type CommentListProps = {
   comments: Sub[];
@@ -15,7 +14,7 @@ export type CommentListProps = {
 };
 
 function CommentList({ comments, onRemove, isMine, currentId }: CommentListProps) {
-  const { onLikeToggle } = useCommentUpvote();
+  const { getId, onLikeToggle } = useCommentUpvote();
 
   return (
     <>
@@ -24,12 +23,13 @@ function CommentList({ comments, onRemove, isMine, currentId }: CommentListProps
           .sort((a, b) => b.upvotes - a.upvotes)
           ?.map(comment => (
             <CommentItem
-              onLikeToggle={onLikeToggle}
               comment={comment}
               key={comment.id}
               ownComment={currentId}
               onRemove={onRemove}
               isMine={isMine}
+              getId={getId}
+              onLikeToggle={onLikeToggle}
             />
           ))}
     </>

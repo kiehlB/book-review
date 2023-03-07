@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Create_Post, Edit_Post, RELOAD_COMMENTS } from '../../../lib/graphql/posts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,12 +18,22 @@ import {
   CommentUpvotesMutation,
   DeleteCommentUpvoteMutation,
 } from '../../../types/apolloComponent';
+import { initializeApollo } from '../../../lib/apolloClient';
 
 export default function useCommentUpvote() {
   const { auth } = useSelector((state: RootState) => state.auth);
   const commentId = useSelector((state: RootState) => state.book.commentId);
 
-  const client = useApolloClient();
+  const [CommentId, setId] = useState('');
+
+  const getId = useCallback(
+    (id: string) => {
+      setId(id);
+    },
+    [CommentId],
+  );
+
+  const client = initializeApollo();
 
   const [UpvoteComment, { loading: loadingLike }] =
     useMutation<CommentUpvotesMutation>(CommentUpvotes);
@@ -31,18 +41,19 @@ export default function useCommentUpvote() {
   const [unupvoteComment, { loading: loadingUnlike }] =
     useMutation<DeleteCommentUpvoteMutation>(DeleteCommentUpvote);
 
-  const replies = useQuery(GET_SubComment, {
-    variables: {
-      comment_id: commentId,
-    },
-    skip: commentId ? false : true,
-  });
+  // const replies = useQuery(GET_SubComment, {
+  //   variables: {
+  //     comment_id: CommentId,
+  //   },
+  //   skip: !CommentId,
+  // });
+
+  console.log('hlelo');
   const onLikeToggle = async id => {
     if (!auth?.id) {
       toast.error('로그인이 필요합니다', {
         position: 'bottom-right',
       });
-
       return;
     }
 
@@ -59,37 +70,58 @@ export default function useCommentUpvote() {
     `;
 
     try {
-      if (replies?.data?.getSub?.likedSub) {
+      const { data: repliesData } = await client.query({
+        query: GET_SubComment,
+        variables: {
+          comment_id: id,
+        },
+      });
+
+      if (repliesData?.getSub?.likedSub) {
         client.writeFragment({
           id: `Sub:${id}`,
           fragment: UpVoteFragment,
           data: {
-            vpvotes: replies?.data?.getSub.upvotes - 1,
+            upvotes: repliesData?.getSub?.upvotes - 1,
             __typename: 'Sub',
           },
         });
         await unupvoteComment({
           variables,
+          refetchQueries: [
+            {
+              query: GET_SubComment,
+              variables: {
+                comment_id: id,
+              },
+            },
+          ],
         });
-      } else if (!replies?.data?.getSub?.likedSub) {
+      } else if (!repliesData?.getSub?.likedSub) {
         client.writeFragment({
           id: `Sub:${id}`,
           fragment: UpVoteFragment,
           data: {
-            vpvotes: replies?.data?.getSub.upvotes + 1,
+            upvotes: repliesData?.getSub?.upvotes + 1,
             __typename: 'Sub',
           },
         });
         await UpvoteComment({
           variables,
+          refetchQueries: [
+            {
+              query: GET_SubComment,
+              variables: {
+                comment_id: id,
+              },
+            },
+          ],
         });
       }
-
-      await replies.refetch();
     } catch (e) {
       console.log(e);
     }
   };
 
-  return { onLikeToggle };
+  return { onLikeToggle, getId };
 }

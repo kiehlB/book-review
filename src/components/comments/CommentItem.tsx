@@ -16,7 +16,8 @@ export type CommentItemProps = {
   onRemove: (id: string) => void;
   isMine: boolean;
   ownComment: string;
-  onLikeToggle: any;
+  getId;
+  onLikeToggle?;
 };
 
 const PostCommentItem = styled.div`
@@ -31,6 +32,7 @@ function CommentItem({
   onRemove,
   isMine,
   ownComment,
+  getId,
   onLikeToggle,
 }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
@@ -104,7 +106,7 @@ function CommentItem({
                       <div
                         className="flex items-center"
                         onClick={async () => {
-                          await dispatch(getCommentIdSuccess(comment.id));
+                          getId(comment.id);
                           onLikeToggle(comment.id);
                         }}>
                         <BiUpvote className="mr-[3px]" />
