@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
-import { IoCalendarNumberOutline } from 'react-icons/io5';
-import { IoMdTime } from 'react-icons/io';
+import ActivityDateRangePicker from '../datePicker/DateRange';
 
 export type TabProps = {
   svg: React.ReactNode;
@@ -73,7 +72,7 @@ function HomeTab({ primaryItems }: HomeTabProps) {
         </Link>
       ))}
 
-      <IoCalendarNumberOutline size={24} className="ml-6 dark:text-[#e4e5e7]" />
+      <ActivityDateRangePicker />
     </div>
   );
 }

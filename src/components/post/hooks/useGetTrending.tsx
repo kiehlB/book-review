@@ -1,13 +1,20 @@
 import { useQuery } from '@apollo/client';
+import { addDays, subDays } from 'date-fns';
 import { useCallback, useState } from 'react';
 import useScrollPagination from '../../../hooks/useScrollPagination';
+import { useTimeframe } from '../../../hooks/useTimeframe';
 import { GET_Posts, GET_trendingPosts } from '../../../lib/graphql/posts';
 import { TrendingPostsQuery } from '../../../types/apolloComponent';
 
 export default function useGetTrendingPosts() {
+  const [timeframe, actions]: any = useTimeframe();
+
   const { data, loading, fetchMore } = useQuery<TrendingPostsQuery>(GET_trendingPosts, {
     variables: {
       limit: 24,
+      timeframe: 'month',
+      startTime: timeframe?.start,
+      endTime: addDays(timeframe?.to, 1),
     },
 
     notifyOnNetworkStatusChange: true,

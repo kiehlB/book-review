@@ -16,7 +16,7 @@ import Script from 'next/script';
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
-
+import 'react-day-picker/dist/style.css';
 export const persistor = persistStore(store);
 
 declare global {

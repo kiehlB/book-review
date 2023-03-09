@@ -2,11 +2,16 @@ import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { AppThunk, AppDispatch } from './store';
 import { PURGE } from 'redux-persist';
 
+interface Time {
+  from: any;
+  to: any;
+}
 export interface coreState {
   isdark: string;
   error: string;
   isLoading: boolean;
   search: string;
+  timestamp: Time;
 }
 
 export const initialState = {
@@ -14,6 +19,7 @@ export const initialState = {
   isLoading: false,
   error: '',
   search: '',
+  timestamp: {},
 };
 
 const CoreSlice = createSlice({
@@ -31,13 +37,22 @@ const CoreSlice = createSlice({
       state.search = actions.payload;
     },
 
+    getTimestamp(state: coreState, actions) {
+      state.timestamp = actions.payload;
+    },
+
     getcoreFailure(state: coreState, { payload }: PayloadAction<coreState>) {
       state.error = payload.error;
     },
   },
 });
 
-export const { getcoreFailure, getcoreInfoSuccess, getcoreIsLoading, getSearchInput } =
-  CoreSlice.actions;
+export const {
+  getcoreFailure,
+  getcoreInfoSuccess,
+  getcoreIsLoading,
+  getSearchInput,
+  getTimestamp,
+} = CoreSlice.actions;
 
 export default CoreSlice.reducer;
