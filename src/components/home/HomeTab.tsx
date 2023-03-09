@@ -72,7 +72,7 @@ function HomeTab({ primaryItems }: HomeTabProps) {
         </Link>
       ))}
 
-      <ActivityDateRangePicker />
+      {/* <ActivityDateRangePicker /> */}
     </div>
   );
 }

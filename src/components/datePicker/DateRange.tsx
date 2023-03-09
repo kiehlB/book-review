@@ -12,24 +12,25 @@ const today = new Date();
 const ActivityDateRangePicker = () => {
   // Computed values
 
+  console.log('dasdasdas');
+
   const defaultSelected: DateRange = {
     from: today,
     to: subDays(today, 0),
   };
   const [range, setRange] = useState<DateRange | undefined>();
   const dispatch = useDispatch();
-  const [timeframe, actions] = useTimeframe();
 
-  useEffect(() => {
-    if (range?.from && range?.to) {
-      dispatch(
-        getTimestamp({
-          start: range.from,
-          to: range.to,
-        }),
-      );
-    }
-  }, [range, dispatch]);
+  // useEffect(() => {
+  //   if (range?.from && range?.to) {
+  //     dispatch(
+  //       getTimestamp({
+  //         start: range.from,
+  //         to: range.to,
+  //       }),
+  //     );
+  //   }
+  // }, []);
 
   const ranges = [
     {

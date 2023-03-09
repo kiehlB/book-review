@@ -154,8 +154,8 @@ export const GET_trendingPosts = gql`
     $offset: Int
     $limit: Int
     $timeframe: String
-    $startTime: String
-    $endTime: String
+    $startTime: Date
+    $endTime: Date
   ) {
     trendingPosts(
       offset: $offset

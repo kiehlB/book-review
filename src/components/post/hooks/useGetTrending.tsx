@@ -7,17 +7,15 @@ import { GET_Posts, GET_trendingPosts } from '../../../lib/graphql/posts';
 import { TrendingPostsQuery } from '../../../types/apolloComponent';
 
 export default function useGetTrendingPosts() {
-  const [timeframe, actions]: any = useTimeframe();
+  //  addDays(timeframe?.to, 1) ? addDays(timeframe?.to, 1) : new Date()
 
   const { data, loading, fetchMore } = useQuery<TrendingPostsQuery>(GET_trendingPosts, {
     variables: {
       limit: 24,
       timeframe: 'month',
-      startTime: timeframe?.start,
-      endTime: addDays(timeframe?.to, 1),
+      // startTime: new Date(),
+      // endTime: new Date(),
     },
-
-    notifyOnNetworkStatusChange: true,
   });
   const [isFinished, setIsFinished] = useState(false);
 
@@ -34,7 +32,7 @@ export default function useGetTrendingPosts() {
             setIsFinished(true);
           }
           return {
-            trendingPosts: [...prev.trendingPosts, ...fetchMoreResult.trendingPosts],
+            trendingPosts: [...prev?.trendingPosts, ...fetchMoreResult?.trendingPosts],
           };
         },
       });
@@ -42,7 +40,7 @@ export default function useGetTrendingPosts() {
     [fetchMore],
   );
 
-  const cursor = data?.trendingPosts[data?.trendingPosts.length - 1]?.id;
+  const cursor = data?.trendingPosts[data?.trendingPosts?.length - 1]?.id;
 
   useScrollPagination({
     cursor,
