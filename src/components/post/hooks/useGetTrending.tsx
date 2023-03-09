@@ -10,14 +10,11 @@ import { TrendingPostsQuery } from '../../../types/apolloComponent';
 export default function useGetTrendingPosts() {
   const timeframe = useSelector((state: RootState) => state.core.timestamp);
 
-  console.log(timeframe);
-
   const { data, loading, fetchMore } = useQuery<TrendingPostsQuery>(GET_trendingPosts, {
     variables: {
       limit: 24,
-      timeframe: 'month',
+      timeframe: timeframe,
     },
-    skip: Boolean(!timeframe),
 
     notifyOnNetworkStatusChange: true,
   });

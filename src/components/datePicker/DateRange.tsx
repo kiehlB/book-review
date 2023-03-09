@@ -46,7 +46,7 @@ const ActivityDateRangePicker = () => {
   const ranges = [
     {
       label: '오늘',
-      value: 'today',
+      value: 'day',
     },
     {
       label: '이번 주',
