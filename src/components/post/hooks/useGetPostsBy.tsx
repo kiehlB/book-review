@@ -13,7 +13,6 @@ interface useGetPostProps {
 export default function useGetPostsBy({ isTemp = false }: useGetPostProps) {
   const { auth } = useSelector((state: RootState) => state.auth);
 
-  console.log(isTemp);
   const { data, loading, fetchMore } = useQuery<{ posts: Post[] }>(GET_Posts, {
     variables: {
       limit: 24,

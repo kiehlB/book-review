@@ -150,20 +150,8 @@ export const GET_recentPosts = gql`
 `;
 
 export const GET_trendingPosts = gql`
-  query TrendingPosts(
-    $offset: Int
-    $limit: Int
-    $timeframe: String
-    $startTime: Date
-    $endTime: Date
-  ) {
-    trendingPosts(
-      offset: $offset
-      limit: $limit
-      timeframe: $timeframe
-      startTime: $startTime
-      endTime: $endTime
-    ) {
+  query TrendingPosts($offset: Int, $limit: Int, $timeframe: String) {
+    trendingPosts(offset: $offset, limit: $limit, timeframe: $timeframe) {
       id
       title
       thumbnail

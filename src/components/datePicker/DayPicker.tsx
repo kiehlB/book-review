@@ -120,14 +120,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
 
   const handleRangeClick = range => {
     if (range) {
-      setIsSelectingFirstDay(true);
-
-      dispatch(
-        getTimestamp({
-          start: range.from,
-          to: range.to,
-        }),
-      );
+      dispatch(getTimestamp(range));
       (buttonRef as any)?.current?.click();
     }
   };
@@ -157,7 +150,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
                 leave="transition ease-in duration-150"
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1">
-                <Popover.Panel className="absolute overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5  w-[300px] right-0">
+                <Popover.Panel className="absolute overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5  w-[280px] right-0">
                   <DayWrapper className="relative grid bg-white lg:grid-cols-1">
                     {ranges && (
                       <div className="flex flex-col border-b">
@@ -175,8 +168,8 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
                       </div>
                     )}
 
-                    <DayPicker
-                      // disabled={disabledDays}
+                    {/* <DayPicker
+                      disabled={disabledDays}
                       locale={ko}
                       onDayClick={(day: Date) => handleDayClick(day)}
                       onDayMouseEnter={handleDayMouseEnter}
@@ -185,7 +178,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
                       components={{
                         Caption: CustomCaption,
                       }}
-                    />
+                    /> */}
                   </DayWrapper>
                 </Popover.Panel>
               </Transition>

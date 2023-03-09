@@ -1,21 +1,25 @@
 import { useQuery } from '@apollo/client';
 import { addDays, subDays } from 'date-fns';
 import { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import useScrollPagination from '../../../hooks/useScrollPagination';
-import { useTimeframe } from '../../../hooks/useTimeframe';
 import { GET_Posts, GET_trendingPosts } from '../../../lib/graphql/posts';
+import { RootState } from '../../../store/rootReducer';
 import { TrendingPostsQuery } from '../../../types/apolloComponent';
 
 export default function useGetTrendingPosts() {
-  //  addDays(timeframe?.to, 1) ? addDays(timeframe?.to, 1) : new Date()
+  const timeframe = useSelector((state: RootState) => state.core.timestamp);
+
+  console.log(timeframe);
 
   const { data, loading, fetchMore } = useQuery<TrendingPostsQuery>(GET_trendingPosts, {
     variables: {
       limit: 24,
       timeframe: 'month',
-      // startTime: new Date(),
-      // endTime: new Date(),
     },
+    skip: Boolean(!timeframe),
+
+    notifyOnNetworkStatusChange: true,
   });
   const [isFinished, setIsFinished] = useState(false);
 
