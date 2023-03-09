@@ -4,6 +4,7 @@ import { getEndOfDay, getStartOfDay, minusDays } from '../../lib/dateFormat';
 import DateRangePicker from './DayPicker';
 import { DateRange, DayPicker } from 'react-day-picker';
 import { addDays, format, subDays } from 'date-fns';
+import { getTimestamp } from '../../store/core';
 
 const today = new Date();
 
@@ -17,48 +18,33 @@ const ActivityDateRangePicker = () => {
   const [range, setRange] = useState<DateRange | undefined>();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (range?.from && range?.to) {
-
-  //     dispatch(getTimestamp({ range }));
-  //   }
-  // }, [range, dispatch]);
-
-  // const ranges = [
-  //   {
-  //     label: '오늘',
-  //     value: { from: subDays(today, 0), to: today },
-  //   },
-  //   {
-  //     label: '이번 주',
-  //     value: { from: subDays(today, 7), to: today },
-  //   },
-  //   {
-  //     label: '이번 달',
-  //     value: { from: subDays(today, 28), to: today },
-  //   },
-  //   {
-  //     label: '올해',
-  //     value: { from: subDays(today, 365), to: today },
-  //   },
-  // ];
+  useEffect(() => {
+    if (range?.from && range?.to) {
+      dispatch(
+        getTimestamp({
+          from: range.from,
+          to: range.to,
+        }),
+      );
+    }
+  }, [range, dispatch]);
 
   const ranges = [
     {
       label: '오늘',
-      value: 'day',
+      value: { from: subDays(today, 0), to: today },
     },
     {
       label: '이번 주',
-      value: 'week',
+      value: { from: subDays(today, 7), to: today },
     },
     {
       label: '이번 달',
-      value: 'month',
+      value: { from: subDays(today, 28), to: today },
     },
     {
       label: '올해',
-      value: 'year',
+      value: { from: subDays(today, 365), to: today },
     },
   ];
 

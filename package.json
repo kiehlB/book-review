@@ -10,7 +10,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.4",
+    "@apollo/client":"3.3.21",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@graphql-codegen/introspection": "^1.18.2",
@@ -25,7 +25,6 @@
     "@mui/lab": "^5.0.0-alpha.53",
     "@mui/material": "^5.0.6",
     "@mui/styles": "^5.0.2",
-    "@next/font": "^13.1.6",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@react-spring/web": "^9.6.1",
     "@reduxjs/toolkit": "^1.9.1",

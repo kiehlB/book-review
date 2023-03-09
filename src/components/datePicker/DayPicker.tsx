@@ -80,7 +80,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
 
   const today = new Date();
   const disabledDays = [
-    { from: new Date(0, 0, 0), to: new Date(2023, 2, 9) },
+    { from: new Date(0, 0, 0), to: new Date(2023, 1, 8) },
     { from: addDays(today, 1), to: new Date(9999, 2, 9) },
   ];
 
@@ -95,12 +95,12 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
       if (from && to) {
         (buttonRef as any)?.current?.click();
 
-        // dispatch(
-        //   getTimestamp({
-        //     from: from,
-        //     to: to,
-        //   }),
-        // );
+        dispatch(
+          getTimestamp({
+            from: from,
+            to: to,
+          }),
+        );
       }
     }
   };
@@ -168,7 +168,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
                       </div>
                     )}
 
-                    {/* <DayPicker
+                    <DayPicker
                       disabled={disabledDays}
                       locale={ko}
                       onDayClick={(day: Date) => handleDayClick(day)}
@@ -178,7 +178,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
                       components={{
                         Caption: CustomCaption,
                       }}
-                    /> */}
+                    />
                   </DayWrapper>
                 </Popover.Panel>
               </Transition>

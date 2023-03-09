@@ -2,12 +2,17 @@ import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { AppThunk, AppDispatch } from './store';
 import { PURGE } from 'redux-persist';
 
+interface Time {
+  fr: Date;
+  to: Date;
+}
+
 export interface coreState {
   isdark: string;
   error: string;
   isLoading: boolean;
   search: string;
-  timestamp: string;
+  timestamp: Time | null;
 }
 
 export const initialState = {
@@ -15,7 +20,7 @@ export const initialState = {
   isLoading: false,
   error: '',
   search: '',
-  timestamp: 'month',
+  timestamp: null,
 };
 
 const CoreSlice = createSlice({

@@ -7,7 +7,6 @@ import { SetStateAction, useContext, useEffect, useState } from 'react';
 import ModalContext from '../../context/modalContext';
 import Link from 'next/link';
 import useLogout from '../auth/hooks/useLogout';
-import { myFont } from '../../font/font';
 import { useDispatch, useSelector } from 'react-redux';
 import { getcoreInfoSuccess, getSearchInput } from '../../store/core';
 import { RootState } from '../../store/rootReducer';
@@ -91,9 +90,7 @@ function Header({
           <div className="md:hidden mr-2">
             <Sidebar BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} />
           </div>
-          <Link
-            href="/"
-            className={`${myFont.className} mxs:text-lg ssm:text-base font-bold`}>
+          <Link href="/" className={`mxs:text-lg ssm:text-base font-bold`}>
             BookReview
           </Link>
         </div>

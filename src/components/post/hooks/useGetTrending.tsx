@@ -13,7 +13,9 @@ export default function useGetTrendingPosts() {
   const { data, loading, fetchMore } = useQuery<TrendingPostsQuery>(GET_trendingPosts, {
     variables: {
       limit: 24,
-      timeframe: timeframe,
+      timeframe: 'month',
+      from: timeframe.from,
+      to: timeframe.to,
     },
 
     notifyOnNetworkStatusChange: true,
