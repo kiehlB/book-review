@@ -14,8 +14,8 @@ export default function useGetTrendingPosts() {
     variables: {
       limit: 24,
       timeframe: 'month',
-      from: timeframe.from,
-      to: timeframe.to,
+      from: timeframe?.from ? timeframe?.from : '',
+      to: timeframe?.to ? timeframe?.to : '',
     },
 
     notifyOnNetworkStatusChange: true,
