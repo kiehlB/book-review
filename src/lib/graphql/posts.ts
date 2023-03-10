@@ -333,6 +333,7 @@ export const Edit_Post = gql`
     $tags: [String]
     $is_temp: Boolean
     $is_private: Boolean
+    $postbody: String
   ) {
     editPost(
       id: $id
@@ -342,6 +343,7 @@ export const Edit_Post = gql`
       is_temp: $is_temp
       thumbnail: $thumbnail
       is_private: $is_private
+      postbody: $postbody
     ) {
       id
       title

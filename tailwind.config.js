@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     fontFamily: {
       Oswald: ['Oswald', 'sans-serif'],
-      Peace: ['Peace'],
+      Peace: ['Peace', 'serif'],
     },
     extend: {
       flex: {

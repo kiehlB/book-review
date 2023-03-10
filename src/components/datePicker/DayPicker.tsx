@@ -18,6 +18,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
 import { getTimestamp } from '../../store/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 function CustomCaption(props: CaptionProps) {
   const { goToMonth, nextMonth, previousMonth } = useNavigation();
@@ -62,6 +63,7 @@ interface HandleClickOptions {
 const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) => {
   const buttonRef = useRef() as any;
   const dispatch = useDispatch();
+  const router = useRouter();
 
   let initialFrom: Date | null = null;
   let initialTo: Date | null = null;
@@ -120,6 +122,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
 
   const handleRangeClick = range => {
     if (range) {
+      router.push('/trending');
       dispatch(getTimestamp(range));
       (buttonRef as any)?.current?.click();
     }

@@ -5,6 +5,7 @@ import DateRangePicker from './DayPicker';
 import { DateRange, DayPicker } from 'react-day-picker';
 import { addDays, format, subDays } from 'date-fns';
 import { getTimestamp } from '../../store/core';
+import { useRouter } from 'next/router';
 
 const today = new Date();
 
@@ -17,9 +18,11 @@ const ActivityDateRangePicker = () => {
   };
   const [range, setRange] = useState<DateRange | undefined>();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     if (range?.from && range?.to) {
+      router.push('/trending');
       dispatch(
         getTimestamp({
           from: range.from,
