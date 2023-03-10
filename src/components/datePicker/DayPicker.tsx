@@ -141,7 +141,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
               <Popover.Button ref={buttonRef} className="outline-none">
                 <IoCalendarNumberOutline
                   size={24}
-                  className="dark:text-[#e4e5e7]"
+                  className="text-[#4b4b4b] dark:text-[#CFCFCF] hover:text-[#212529]"
                   onClick={() => resetTime()}
                 />
               </Popover.Button>

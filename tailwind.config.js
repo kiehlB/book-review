@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     fontFamily: {
       Oswald: ['Oswald', 'sans-serif'],
+      TiltWarp: ['Tilt Warp', 'cursive'],
       Peace: ['Peace', 'serif'],
     },
     extend: {

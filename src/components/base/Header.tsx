@@ -90,7 +90,7 @@ function Header({
           <div className="md:hidden mr-2">
             <Sidebar BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} />
           </div>
-          <Link href="/" className={`font-peace mxs:text-lg ssm:text-base font-bold`}>
+          <Link href="/" className={`font-TiltWarp mxs:text-lg ssm:text-base font-bold`}>
             BookReview
           </Link>
         </div>

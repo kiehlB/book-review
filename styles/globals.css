@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-family:'Peace';
   src: url('./Peace.otf') format("opentype");
   font-weight: 800;
@@ -14,7 +15,7 @@
 .font-peace {
   font-family: 'Peace', sans-serif;
   font-weight: 800;
-}
+} */
 
 
 body{
