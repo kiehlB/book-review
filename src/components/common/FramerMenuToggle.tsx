@@ -50,11 +50,11 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
 
   return (
     <button
-      className={`outline-none items-center cursor-pointer flex z-[999] ${
+      className={`flex outline-none items-center cursor-pointer flex z-[999] ${
         isOpen == false ? '' : 'pl-4 h-[56px] pt-[2.375rem]'
       } `}
       onClick={toggle}>
-      <svg width="23" height="23" viewBox="0 0 23 23">
+      <svg width="20" height="20" viewBox="0 0 23 23">
         <Path
           isdark={isdark}
           isOpen={isOpen}

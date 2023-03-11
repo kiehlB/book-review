@@ -5,9 +5,8 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      Oswald: ['Oswald', 'sans-serif'],
-      TiltWarp: ['Tilt Warp', 'cursive'],
-      Peace: ['Peace', 'serif'],
+      Fredoka: ['Fredoka One', 'cursive'],
+      Titan: ['Titan One', 'cursive'],
     },
     extend: {
       flex: {
