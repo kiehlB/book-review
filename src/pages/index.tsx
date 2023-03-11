@@ -15,6 +15,7 @@ import { BsTagFill } from 'react-icons/bs';
 import { AiFillNotification } from 'react-icons/ai';
 import { IoMdTime } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
+import HomeTitle from '../components/home/HomeTitle';
 
 export default function Home() {
   const { data, loading } = useGetPosts();
@@ -73,25 +74,21 @@ export default function Home() {
             className="col-span-8 mmd:col-span-12"
             first={
               <First>
-                <div className="flex justify-between items-center my-3.5">
-                  <div className="flex mb-auto text-lg text-[#18191b] font-semibold dark:text-[#e4e5e7]">
-                    포스트
-                  </div>
-                  <HomeTab
-                    primaryItems={[
-                      {
-                        svg: <IoMdTime />,
-                        name: '최신',
-                        href: '/',
-                      },
-                      {
-                        svg: <MdOutlineLocalFireDepartment />,
-                        name: '트렌딩',
-                        href: '/trending',
-                      },
-                    ]}
-                  />
-                </div>
+                <HomeTitle
+                  title="포스트"
+                  primaryItems={[
+                    {
+                      svg: <IoMdTime />,
+                      name: '최신',
+                      href: '/',
+                    },
+                    {
+                      svg: <MdOutlineLocalFireDepartment />,
+                      name: '트렌딩',
+                      href: '/trending',
+                    },
+                  ]}
+                />
               </First>
             }
             second={

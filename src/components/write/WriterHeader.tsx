@@ -21,7 +21,7 @@ function WriteHead({}: TapProps) {
 
   return (
     <div className="flex justify-between items-center px-[1rem] w-full">
-      <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[2rem] mxs:text-lg">
+      <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[1.5rem] mxs:text-lg">
         <input
           name="title"
           placeholder="제목을 입력하세요"

@@ -14,6 +14,7 @@ import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
 import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';
 import SettingCard from '../components/setting/SettingInfoCard';
+import HomeTitle from '../components/home/HomeTitle';
 
 export default function Profile() {
   return (
@@ -63,11 +64,7 @@ export default function Profile() {
             className="col-span-8 mmd:col-span-12"
             first={
               <First>
-                <div className="flex justify-between items-center my-4">
-                  <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
-                    내 정보 설정
-                  </div>
-                </div>
+                <HomeTitle title="내 정보 설정" />
               </First>
             }
             second={

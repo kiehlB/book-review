@@ -7,6 +7,8 @@ module.exports = {
     fontFamily: {
       Fredoka: ['Fredoka One', 'cursive'],
       Titan: ['Titan One', 'cursive'],
+      Rubik: ['Rubik', 'sans-serif'],
+      Roboto: ['Roboto', 'sans-serif'],
     },
     extend: {
       flex: {

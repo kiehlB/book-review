@@ -14,6 +14,7 @@ import useGetPosts from '../components/post/hooks/useGetPosts';
 import Tags from '../components/tags/Tags';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
+import HomeTitle from '../components/home/HomeTitle';
 
 export default function Tag() {
   return (
@@ -61,11 +62,7 @@ export default function Tag() {
             className="col-span-8 mmd:col-span-12"
             first={
               <First>
-                <div className="flex justify-between items-center my-4">
-                  <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
-                    태그
-                  </div>
-                </div>
+                <HomeTitle title="태그" />
               </First>
             }
             second={

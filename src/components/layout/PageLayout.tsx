@@ -2,8 +2,8 @@ import * as React from 'react';
 import ModalContext from '../../context/modalContext';
 import AuthContainer from '../auth/AuthContainer';
 import Header from '../base/Header';
-import BookTalble from '../booksTable';
-import BookModal from '../booksTable/BookModal';
+import BookTalble from '../bookTable';
+import BookModal from '../bookTable/BookModal';
 import FloatingHeader from '../common/Floating';
 
 interface PageLayoutProps {
