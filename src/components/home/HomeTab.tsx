@@ -32,7 +32,7 @@ function HomeTab({ primaryItems }: HomeTabProps) {
   };
 
   return (
-    <div className="flex">
+    <div className="flex items-center">
       {primaryItems.map(({ name, href, svg }) => (
         <Link
           key={name}
@@ -49,7 +49,7 @@ function HomeTab({ primaryItems }: HomeTabProps) {
                   router.pathname == href
                     ? 'text-[#FFA500]'
                     : 'text-[#4b4b4b] dark:text-[#CFCFCF]'
-                } mr-2`}>
+                } mr-1.5`}>
                 {svg}
               </div>
               <div

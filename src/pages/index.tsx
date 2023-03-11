@@ -73,8 +73,8 @@ export default function Home() {
             className="col-span-8 mmd:col-span-12"
             first={
               <First>
-                <div className="flex justify-between items-center my-4">
-                  <div className="text-lg text-[#18191b] font-semibold pb-[0.5rem] dark:text-[#e4e5e7]">
+                <div className="flex justify-between items-center my-3.5">
+                  <div className="flex mb-auto text-lg text-[#18191b] font-semibold dark:text-[#e4e5e7]">
                     포스트
                   </div>
                   <HomeTab

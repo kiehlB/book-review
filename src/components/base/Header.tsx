@@ -87,10 +87,10 @@ function Header({
       <div
         className={`col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7] mmx:col-span-none`}>
         <div className="flex items-center">
-          <div className="md:hidden mr-2">
+          <div className="md:hidden mr-2 mxs:mr-1">
             <Sidebar BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} />
           </div>
-          <Link href="/" className={`font-TiltWarp mxs:text-lg ssm:text-base font-bold`}>
+          <Link href="/" className={`font-Peace mxs:text-lg ssm:text-base font-bold`}>
             BookReview
           </Link>
         </div>
@@ -132,7 +132,7 @@ function Header({
         ) : (
           <>
             <div
-              className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057] dark:text-[#e4e5e7] dark:mxs:text-[#212529] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[20px] mxs:py-[12px] rounded-3xl"
+              className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057] dark:text-[#e4e5e7] dark:mxs:text-[#212529] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[16px] mxs:py-[12px] rounded-3xl"
               onClick={() => {
                 SetIsClose(!IsClose);
                 SetMode('login');

@@ -67,7 +67,7 @@ function FloatingHeader({
 
   return (
     <div
-      className="fixed top-0 bg-white w-full z-[999] dark:bg-[#1a1b1e] mxl:px-3"
+      className="fixed top-0 bg-white w-full z-[999] dark:bg-[#1a1b1e] right-0 px-4"
       style={
         visible
           ? {

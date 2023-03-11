@@ -24,7 +24,7 @@ const Navbar = ({ primaryItems, secondaryItems, className, isDisabled }: NavbarP
         <div className="flex items-center underlined whitespace-nowrap text-base font-bold py-[0.5rem] transition-all text-[#334155] pl-3 dark:text-[#e4e5e7]">
           Trending tags
         </div>
-        <Trending className="w-[20px] ml-2 " />
+        <Trending className="w-[20px] ml-2" />
       </ul>
     ) : (
       ''

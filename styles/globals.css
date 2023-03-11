@@ -6,16 +6,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
+@font-face {
   font-family:'Peace';
   src: url('./Peace.otf') format("opentype");
   font-weight: 800;
 }
 
-.font-peace {
-  font-family: 'Peace', sans-serif;
-  font-weight: 800;
-} */
 
 
 body{
@@ -23,7 +19,7 @@ box-sizing: border-box;
 font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
 }
  
-
+ 
 
 h1,h2,h3,h4{
   font-weight: 700;

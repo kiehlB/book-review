@@ -19,21 +19,23 @@ import styled from 'styled-components';
 import { getTimestamp } from '../../store/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { RootState } from '../../store/rootReducer';
 
 function CustomCaption(props: CaptionProps) {
   const { goToMonth, nextMonth, previousMonth } = useNavigation();
   return (
     <h2 className="flex justify-center items-center mb-4">
       <button
-        className="mr-4"
+        className="mr-4 dark:text-white"
         disabled={!previousMonth}
         onClick={() => previousMonth && goToMonth(previousMonth)}>
         <IoIosArrowBack />
       </button>
-      {format(props.displayMonth, 'yyy.MM')}
+
+      <div className="dark:text-white"> {format(props.displayMonth, 'yyy.MM')}</div>
 
       <button
-        className="ml-4"
+        className="ml-4 dark:text-white"
         disabled={!nextMonth}
         onClick={() => nextMonth && goToMonth(nextMonth)}>
         <IoIosArrowForward />
@@ -61,6 +63,8 @@ interface HandleClickOptions {
 }
 
 const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) => {
+  const { isdark } = useSelector((state: RootState) => state.core);
+
   const buttonRef = useRef() as any;
   const dispatch = useDispatch();
   const router = useRouter();
@@ -134,11 +138,11 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
 
   return (
     <>
-      <div className="max-w-sm z-[8] ml-6">
-        <Popover className="relative bg-white dark:rounded">
+      <div className="max-w-sm z-[8] ml-4">
+        <Popover className="relative">
           {({ open }) => (
             <>
-              <Popover.Button ref={buttonRef} className="outline-none">
+              <Popover.Button ref={buttonRef} className="outline-none flex items-end">
                 <IoCalendarNumberOutline
                   size={24}
                   className="text-[#4b4b4b] dark:text-[#CFCFCF] hover:text-[#212529]"
@@ -153,20 +157,21 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
                 leave="transition ease-in duration-150"
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1">
-                <Popover.Panel className="absolute overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5  w-[280px] right-0">
-                  <DayWrapper className="relative grid bg-white lg:grid-cols-1">
+                <Popover.Panel className="absolute overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 w-[300px] right-0">
+                  <DayWrapper
+                    isdark={isdark}
+                    className="relative grid bg-white dark:text-white dark:bg-[#212227] lg:grid-cols-1">
                     {ranges && (
-                      <div className="flex flex-col border-b">
+                      <div className="flex flex-col border-b dark:bg-[#212227]">
                         {ranges.map(range => (
-                          <Button
+                          <div
                             key={range.label}
-                            color="rgb(71 85 105)"
-                            appearance="minimal"
+                            className="dark:text-[#cfcfcf] dark:hover:text-[#cfcfcf] text-center text-[#475569] text-xs font-bold py-2 rounded hover:bg-slate-100 dark:hover:bg-[#32333a] "
                             onClick={() => {
                               handleRangeClick(range.value);
                             }}>
                             {range.label}
-                          </Button>
+                          </div>
                         ))}
                       </div>
                     )}
@@ -195,7 +200,17 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
 
 export default React.memo(DateRangePicker);
 
-const DayWrapper = styled.div`
+const DayWrapper = styled.div<{ isdark: string }>`
+  .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+    background-color: #fcd535;
+    color: ${props => (props.isdark == 'dark' ? '#212529' : '#212529')};
+    &:hover {
+      font-weight: 700;
+    }
+  }
+  .rdp-cell {
+    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+  }
   .react-datepicker__header {
     background-color: #fff;
   }
