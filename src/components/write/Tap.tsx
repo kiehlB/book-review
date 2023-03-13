@@ -40,7 +40,9 @@ import { BackgroundColorExtension } from './BackgroundColorExtension';
 import { BackgroundColorMark } from './BackgroundColorMark';
 import media from '../../lib/media';
 import { toast } from 'react-toastify';
-import { Post } from '../../types/apolloComponent';
+import { Post, UploadImageToCloudinaryMutation } from '../../types/apolloComponent';
+import { useMutation } from '@apollo/client';
+import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
 
 export type TapProps = {
   postId: string;
@@ -60,6 +62,13 @@ function Tap({ postId, posts }: TapProps) {
   const isdark = useSelector((state: RootState) => state.core.isdark);
   const body = useSelector((state: RootState) => state.book.body);
   const isopen = useSelector((state: RootState) => state.book.isopen);
+  const [previewSource, setPreviewSource] = useState(0);
+
+  const [url, setUrl] = useState('');
+
+  const [uploadThumbnail] = useMutation<UploadImageToCloudinaryMutation>(
+    UPLOAD_IMAGE_TO_CLOUDINARY,
+  );
 
   const [state, setState] = useState(false);
 
@@ -162,10 +171,20 @@ function Tap({ postId, posts }: TapProps) {
   });
 
   const addImage = useCallback(
-    url => {
-      if (url) {
-        editor.chain().focus().setImage({ src: url }).run();
-      }
+    async getUrl => {
+      setPreviewSource(1);
+      await uploadThumbnail({
+        variables: {
+          body: getUrl,
+          width: 813,
+          height: 477,
+        },
+        update: (_proxy, { data: newData }) => {
+          setUrl(newData.uploadImage.url);
+          editor.chain().focus().setImage({ src: newData.uploadImage.url }).run();
+          setPreviewSource(2);
+        },
+      });
     },
     [editor],
   );
@@ -210,7 +229,7 @@ function Tap({ postId, posts }: TapProps) {
   return (
     <>
       <ProjectCreateContentToolbar editor={editor} isdark={isdark}>
-        <ImageAdd addImage={addImage} />
+        <ImageAdd addImage={addImage} previewSource={previewSource} />
       </ProjectCreateContentToolbar>
 
       <Content

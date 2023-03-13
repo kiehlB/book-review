@@ -6,6 +6,7 @@ import { Pane, Badge, Text } from 'evergreen-ui';
 
 type ImageProps = {
   addImage: (e) => void;
+  previewSource: number;
 };
 
 export default class ImageAdd extends PureComponent<ImageProps> {
@@ -133,33 +134,35 @@ export default class ImageAdd extends PureComponent<ImageProps> {
     return (
       <div className="cursor-pointer">
         <ButtonStyles>
-          <div className="flex cursor-pointer">
-            <label htmlFor="fileInput">
-              <svg
-                className="cursor-pointer"
-                stroke="currentColor"
-                fill="currentColor"
-                strokeWidth="0"
-                viewBox="0 0 24 24"
-                height="1.5rem"
-                width="1.5rem"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path>
-              </svg>
-            </label>
+          {this.props.previewSource == 1 ? (
+            <Spinner size={18} />
+          ) : (
+            <div className="flex cursor-pointer">
+              <label htmlFor="fileInput">
+                <svg
+                  className="cursor-pointer"
+                  stroke="currentColor"
+                  fill="currentColor"
+                  strokeWidth="0"
+                  viewBox="0 0 24 24"
+                  height="1.5rem"
+                  width="1.5rem"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path>
+                </svg>
+              </label>
 
-            <input
-              id="fileInput"
-              name="image"
-              type="file"
-              accept="image/*"
-              style={{ display: 'none' }}
-              className="p-1.5 cursor-pointer hover:bg-neutral-100 transition-all cursor-pointer"
-              onChange={e => this.compressImage(e, true)}
-            />
-
-            {/* <div className="ml-2">{this.WaitingFotImg(this.state.waitForImg)}</div> */}
-          </div>
+              <input
+                id="fileInput"
+                name="image"
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                className="p-1.5 cursor-pointer hover:bg-neutral-100 transition-all"
+                onChange={e => this.compressImage(e, true)}
+              />
+            </div>
+          )}
         </ButtonStyles>
       </div>
     );
