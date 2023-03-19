@@ -113,6 +113,7 @@ export default class ImageAdd extends PureComponent<ImageProps> {
     const reader = new FileReader();
 
     reader.readAsDataURL(output);
+    // reader.readAsDataURL(file);
     reader.onloadend = () => {
       const { addImage } = this.props;
       addImage(reader.result);
