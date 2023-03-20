@@ -258,6 +258,37 @@ function Tap({ postId, posts }: TapProps) {
 export default Tap;
 
 const Content = styled.div<{ isdark: string }>`
+  iframe {
+    border-radius: 4px;
+    min-width: 280px;
+    min-height: 280px;
+
+    display: block;
+    outline: 0px solid transparent;
+  }
+
+  div[data-youtube-video] > iframe {
+    cursor: move;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
+
+  .ProseMirror-selectednode iframe {
+    transition: outline 0.15s;
+  }
+
+  @media only screen and (max-width: 480px) {
+    div[data-youtube-video] > iframe {
+      max-height: 50px;
+    }
+  }
+
+  @media only screen and (max-width: 720px) {
+    div[data-youtube-video] > iframe {
+      max-height: 100px;
+    }
+  }
+
   .ProseMirror {
     > * + * {
     }
