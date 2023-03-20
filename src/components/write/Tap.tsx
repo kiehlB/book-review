@@ -5,6 +5,7 @@ import { mergeAttributes } from '@tiptap/core';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
+import Youtube from '@tiptap/extension-youtube';
 import Highlight from '@tiptap/extension-highlight';
 import TypographyExtension from '@tiptap/extension-typography';
 import UnderlineExtension from '@tiptap/extension-underline';
@@ -103,6 +104,12 @@ function Tap({ postId, posts }: TapProps) {
       TextStyle,
       FontFamily,
       Link,
+      Youtube.configure({
+        controls: true,
+        width: 813,
+        height: 480,
+        allowFullscreen: true,
+      }),
       BulletList.configure({
         HTMLAttributes: {
           class: 'connected-line',

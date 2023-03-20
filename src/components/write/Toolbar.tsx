@@ -3,24 +3,16 @@ import React from 'react';
 import { Editor } from '@tiptap/react';
 
 import LinkIcon from '@mui/icons-material/Link';
-import ImageIcon from '@mui/icons-material/Image';
 import UndoIcon from '@mui/icons-material/Undo';
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import RedoIcon from '@mui/icons-material/Redo';
 import CodeIcon from '@mui/icons-material/Code';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatTextdirectionRToLIcon from '@mui/icons-material/FormatTextdirectionRToL';
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
-import SubscriptIcon from '@mui/icons-material/Subscript';
-import SuperscriptIcon from '@mui/icons-material/Superscript';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import Paper from '@mui/material/Paper';
@@ -28,10 +20,10 @@ import ToggleButton from '@mui/material/ToggleButton';
 import { Typography, Divider } from '@mui/material';
 import StyledToggleButtonGroup from './StyledToggleButtonGroup';
 import HeadingToolbarButtons from './HeadingToolbarButtons';
-import ImageAdd from './ImageAdd';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import styled from 'styled-components';
 import { Tooltip, IconButton, EditIcon, Position } from 'evergreen-ui';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 
 const ProjectCreateContentToolbar = ({
   editor,
@@ -45,6 +37,16 @@ const ProjectCreateContentToolbar = ({
   if (!editor) {
     return null;
   }
+
+  const addYoutubeVideo = () => {
+    const url = prompt('Enter YouTube URL');
+
+    if (url) {
+      editor?.commands?.setYoutubeVideo({
+        src: url,
+      });
+    }
+  };
 
   return (
     <>
@@ -177,6 +179,13 @@ const ProjectCreateContentToolbar = ({
             aria-label="link">
             <LinkIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
           </ToggleButton>
+
+          {/* <YouTubeTap editor={editor} /> */}
+
+          <ToggleButton value="youtube" aria-label="youtube" onClick={addYoutubeVideo}>
+            <YouTubeIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
+          </ToggleButton>
+
           <ToggleButton
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             value="bullettList"
