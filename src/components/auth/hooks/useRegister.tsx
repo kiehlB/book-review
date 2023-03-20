@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client';
-import { useInput } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import ModalContext from '../../../context/modalContext';
