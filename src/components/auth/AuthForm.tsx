@@ -2,13 +2,10 @@ import * as React from 'react';
 import { motion } from 'framer-motion';
 import { ApolloError } from '@apollo/client';
 import Google from '../../svg/google';
-import FaceBook from '../../svg/facebook';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 import LabelInput from '../common/LabelInput';
 import clsx from 'clsx';
 import Link from 'next/link';
-import Router from 'next/router';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -33,16 +30,15 @@ export interface AuthFormProps {
   auth?: string;
   isRegister?: string;
   linkTo?: string;
-  mode: string;
-  error: ApolloError;
-  Passwordhelper: helperProps;
-  Usernamehelper: helperProps;
-  SetMode: React.Dispatch<React.SetStateAction<string>>;
+  mode?: string;
+  error?: ApolloError;
+  Passwordhelper?: helperProps;
+  Usernamehelper?: helperProps;
+  SetMode?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
   handleSubmit,
-  authError,
   auth,
   mode,
   error,
@@ -53,7 +49,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   Usernamehelper,
   SetMode,
 }) => {
-  const naverRef: any = React.useRef(null);
+  const naverRef = React.useRef(null);
 
   const onClick = e => {
     e.preventDefault();
@@ -192,6 +188,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
             !username || !password ? onClick(e) : '';
           }}>
           <motion.button
+            data-testid="title"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.8 }}
             className="flex bg-[#fcd435] text-[#212529] mt-8 h-12 justify-center items-center tracking-widest w-full rounded-xl">
@@ -199,7 +196,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </motion.button>
         </div>
       </div>
-      <div className="px-[6.46875rem] text-base flex justify-end mmd:px-[2rem] ssm:px-[1rem]">
+      <div className="link px-[6.46875rem] text-base flex justify-end mmd:px-[2rem] ssm:px-[1rem]">
         {mode == 'register' ? (
           <div
             className="text-[#C99400] font-semibold cursor-pointer"

@@ -1,6 +1,5 @@
 export function getNextSeo({
-  title = '책 리뷰작성',
-  url = '',
+  title = 'Book Review',
   canonical = 'https://www.bookreview.pro',
   description = '책을 읽고 리뷰를 쓰는 곳입니다',
   origin = '',

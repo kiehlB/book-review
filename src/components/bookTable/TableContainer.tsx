@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import styled from 'styled-components';
-import React from 'react';
+import React, { useId } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { BASE_SIZE, ICON_SIZE_MD } from '../../lib/constants';
 import Table from './Table';
-
+import { v4 as uuidv4 } from 'uuid';
 import { RootState } from '../../store/rootReducer';
 import { initBook } from '../../store/book';
 import clsx from 'clsx';
@@ -86,7 +86,7 @@ function formatRecordString(count: number) {
   return `${count?.toLocaleString('en-US')} ${count > 1 ? 'records' : 'record'}`;
 }
 
-export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
+export const HistoryTableRow = ({ datum, clicked, handleClick, id }) => {
   const dispatch = useDispatch();
 
   return (
@@ -99,7 +99,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick }) => {
         },
       )}
       data-activity-id={datum.isbn}
-      key={datum.isbn}
+      key={uuidv4()}
       onClick={e => {
         dispatch(initBook(datum));
         handleClick(e, datum);

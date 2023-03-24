@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { PageGrid, PostGrid } from '../components/layout/GridLayout';
 import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
-import HomeTab from '../components/home/HomeTab';
 import { PageLayout } from '../components/layout/PageLayout';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';

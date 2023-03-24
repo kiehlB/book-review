@@ -19,15 +19,6 @@ import { toast } from 'react-toastify';
 import { IoSearchOutline } from 'react-icons/io5';
 import ModalContext from '../../context/modalContext';
 
-interface BookTalbleProps {}
-
-enum HistoryTableSortOrder {
-  DurationAscending = 'DURATION_ASCENDING',
-  DurationDescending = 'DURATION_DESCENDING',
-  TimeAscending = 'TIME_ASCENDING',
-  TimeDescending = 'TIME_DESCENDING',
-}
-
 function BooksTableForm({
   BookName: externalBookName,
   initialBookName = externalBookName || '',
@@ -196,6 +187,7 @@ function BookInfo({ bookName }): any {
       run(
         bookApi(bookName).then(BookData => {
           dispatch({ type: 'ADD_Book', BookName, BookData });
+          setData(BookData); // Update the state directly instead of the cache
           return BookData;
         }),
       );

@@ -72,7 +72,6 @@ export default function useRegister() {
       onCompleted(signUp) {
         SetIsClose(false);
 
-        console.log(signUp);
         dispatch(
           getAuthImgSuccess(
             signUp?.register?.profile?.thumbnail

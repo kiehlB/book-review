@@ -1,8 +1,6 @@
-import Link from 'next/link';
 import React, { FormEvent, SetStateAction, useContext, useState } from 'react';
 
 import Modal from '../common/Modal';
-import useRegister from './hooks/useRegister';
 import Login from './Login';
 import Register from './Register';
 

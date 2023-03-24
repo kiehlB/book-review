@@ -1,6 +1,6 @@
 import { Button, Spinner, Table as EvergreenTable, SearchIcon } from 'evergreen-ui';
 import _ from 'lodash';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useId, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { Heading, Menu, Pane, Popover } from 'evergreen-ui';
 import defaultRowRenderer, { DEFAULT_TABLE_ROW_HEIGHT } from './DefaultTableRow';
@@ -42,6 +42,8 @@ export function Table({
   const [sortOrder, setSortOrder] = useState(defaultSortOrder);
   const [debouncedFilter] = useDebounce(filter, 500);
   const [clicked, setClicked] = useState(null);
+
+  const id = useId();
 
   const handleClick = (e, datum) => {
     setClicked(datum);
@@ -124,6 +126,7 @@ export function Table({
               selectedIds,
               clicked,
               handleClick,
+              id,
             }),
           )}
         </div>
