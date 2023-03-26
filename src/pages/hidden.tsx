@@ -116,7 +116,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const postData = await apolloClient.query<{ recentPosts: Post[] }>({
     query: GET_recentPosts,
     variables: { limit: 24 },
-    notifyOnNetworkStatusChange: true,
   });
 
   return { props: { post: postData } };
