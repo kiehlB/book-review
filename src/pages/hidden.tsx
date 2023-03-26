@@ -118,5 +118,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
     variables: { limit: 24 },
   });
 
-  return { props: { post: postData }, revalidate: 60 };
+  return { props: { post: postData, revalidate: 60 } };
 };
