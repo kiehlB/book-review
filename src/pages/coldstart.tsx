@@ -21,7 +21,7 @@ import { Post } from '../types/apolloComponent';
 import { GET_recentPosts } from '../lib/graphql/posts';
 
 //test
-export function Hidden({ post }) {
+export function Coldstart({ post }) {
   return (
     <>
       <NextSeo
