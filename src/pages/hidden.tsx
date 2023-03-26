@@ -21,7 +21,7 @@ import { Post } from '../types/apolloComponent';
 import { GET_recentPosts } from '../lib/graphql/posts';
 
 //test
-export function Hidden({ post }) {
+export default function Hidden({ post }) {
   return (
     <>
       <NextSeo
@@ -118,5 +118,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
     variables: { limit: 24 },
   });
 
-  return { props: { post: postData } };
+  return { props: { post: postData }, revalidate: 60 };
 };
