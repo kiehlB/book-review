@@ -16,6 +16,7 @@ import { IoMdTime } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
 import HomeTitle from '../components/home/HomeTitle';
 
+//test
 export default function Home() {
   const { data, loading } = useGetPosts();
 

@@ -1,0 +1,20 @@
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/": "pages/index.html",
+  "/likedPost": "pages/likedPost.html",
+  "/myPost": "pages/myPost.html",
+  "/post": "pages/post.html",
+  "/post/[id]": "pages/post/[id].html",
+  "/readPost": "pages/readPost.html",
+  "/profile": "pages/profile.html",
+  "/search": "pages/search.html",
+  "/search/[id]": "pages/search/[id].html",
+  "/setting": "pages/setting.html",
+  "/tags": "pages/tags.html",
+  "/temporaryPost": "pages/temporaryPost.html",
+  "/trending": "pages/trending.html",
+  "/write": "pages/write.html",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
+}
