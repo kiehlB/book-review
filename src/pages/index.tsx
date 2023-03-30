@@ -43,7 +43,7 @@ export default function Home() {
                 primaryItems={[
                   {
                     icon: <RiBookOpenLine />,
-                    text: '포스트!',
+                    text: '포스트!!',
                     to: '/',
                     sub: ['/search', '/search/[query]', '/trending'],
                   },
