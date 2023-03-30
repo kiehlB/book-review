@@ -16,7 +16,7 @@ import { IoMdTime } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
 import HomeTitle from '../components/home/HomeTitle';
 
-//test
+//pipe test
 export default function Home() {
   const { data, loading } = useGetPosts();
 
@@ -43,7 +43,7 @@ export default function Home() {
                 primaryItems={[
                   {
                     icon: <RiBookOpenLine />,
-                    text: '포스트',
+                    text: '포스트!',
                     to: '/',
                     sub: ['/search', '/search/[query]', '/trending'],
                   },
