@@ -41,13 +41,13 @@ function Tags(props) {
                 length: 8
             }).map((_, i)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_TagsItem__WEBPACK_IMPORTED_MODULE_4__/* .TagsSkeleton */ .e, {}, i)),
             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                className: "flex items-center mt-4",
+                className: "flex items-center mt-2",
                 children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_common_ArrowButton__WEBPACK_IMPORTED_MODULE_2__/* .NextLink */ .pt, {
                     className: "text-[#475569] hover:text-[#212529]",
-                    href: "/",
+                    href: "/tags",
                     children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                         className: "font-bold py-1 pl-3 text-[#475569] mr-2 text-base hover:text-[#212529]",
-                        children: "See All"
+                        children: "See All Tags"
                     })
                 })
             })

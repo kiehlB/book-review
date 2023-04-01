@@ -105,7 +105,7 @@ function PostDetail() {
           <AppLayout
             first={
               <First>
-                <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
+                <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[0rem] mxs:text-[1.5rem]">
                   {singlePostData?.post?.title}
                 </PostTitle>
 
@@ -176,7 +176,7 @@ function PostDetail() {
 
                   <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
                     {singlePostData?.post?.bookInfo?.bookTitle ? (
-                      <div className="flex max-w-[812.5px] mx-auto bg-[#F8F9FA] py-8 px-8 rounded shadow dark:bg-[#2b2d31] ssm:flex-col mb-[2rem]">
+                      <div className="flex max-w-[812.5px] mx-auto bg-[#F8F9FA] py-8 px-8 rounded shadow dark:bg-[#2b2d31] ssm:flex-col mb-[1rem]">
                         <div className="card">
                           <div className="imgBox">
                             <div className="bark "></div>
@@ -571,6 +571,7 @@ const Content = styled.div<{ isdark: string }>`
 
     ${media.custom(1024)} {
       margin: 32px 0;
+      padding-left: 40px;
     }
     ${media.custom(768)} {
       margin: 24px 0;
@@ -579,6 +580,12 @@ const Content = styled.div<{ isdark: string }>`
     &:before {
       color: #fcd545;
       font-size: 100px;
+      ${media.custom(1024)} {
+        font-size: 80px;
+      }
+      ${media.custom(768)} {
+        font-size: 70px;
+      }
       font-family: 'Comic Sans MS', 'Comic Sans', cursive;
       line-height: 0.9;
       content: open-quote;
@@ -586,6 +593,9 @@ const Content = styled.div<{ isdark: string }>`
 
       position: absolute;
       left: -5px;
+      ${media.custom(768)} {
+        left: 0px;
+      }
     }
     &:after {
       visibility: hidden;
@@ -600,6 +610,9 @@ const Content = styled.div<{ isdark: string }>`
 
   .ptag {
     font-size: 1.125rem;
+    ${media.custom(768)} {
+      font-size: 1rem;
+    }
     line-height: 1.7;
     letter-spacing: -0.004em;
 

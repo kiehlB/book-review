@@ -19,7 +19,6 @@ import { GetServerSideProps } from 'next';
 import { initializeApollo } from '../lib/apolloClient';
 import { Post } from '../types/apolloComponent';
 import { GET_recentPosts } from '../lib/graphql/posts';
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
 //pipe test
 export default function Home({ post }) {
@@ -110,26 +109,6 @@ export default function Home({ post }) {
     </>
   );
 }
-
-//https://api.bookreview.pro/graphql
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const client = new ApolloClient({
-//     ssrMode: true,
-//     link: new HttpLink({
-//       uri: 'https://api.bookreview.pro/graphql',
-//       credentials: 'include',
-//     }),
-//     cache: new InMemoryCache(),
-//   });
-
-//   const postData = await client.query<{ recentPosts: Post[] }>({
-//     query: GET_recentPosts,
-//     variables: { limit: 24 },
-//   });
-
-//   return { props: { post: postData } };
-// };
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const client = initializeApollo();
