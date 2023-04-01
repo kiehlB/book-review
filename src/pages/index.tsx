@@ -15,11 +15,14 @@ import { AiFillNotification } from 'react-icons/ai';
 import { IoMdTime } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
 import HomeTitle from '../components/home/HomeTitle';
+import { GetServerSideProps } from 'next';
+import { initializeApollo } from '../lib/apolloClient';
+import { Post } from '../types/apolloComponent';
+import { GET_recentPosts } from '../lib/graphql/posts';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
- 
-export default function Home() {
-  const { data, loading } = useGetPosts();
-
+//test
+export default function Home({ post }) {
   return (
     <>
       <NextSeo
@@ -94,7 +97,10 @@ export default function Home() {
             second={
               <Second>
                 <PostGrid className="mt-[1rem]">
-                  <PostCard posts={data?.recentPosts || []} loading={!data || loading} />
+                  <PostCard
+                    posts={post?.data?.recentPosts || []}
+                    loading={!post?.data || post?.loading}
+                  />
                 </PostGrid>
               </Second>
             }
@@ -104,3 +110,21 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const client = new ApolloClient({
+    ssrMode: true,
+    link: new HttpLink({
+      uri: 'https://api.bookreview.pro/graphql',
+      credentials: 'include',
+    }),
+    cache: new InMemoryCache(),
+  });
+
+  const postData = await client.query<{ recentPosts: Post[] }>({
+    query: GET_recentPosts,
+    variables: { limit: 24 },
+  });
+
+  return { props: { post: postData } };
+};
