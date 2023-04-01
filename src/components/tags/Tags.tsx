@@ -26,11 +26,12 @@ function Tags(props: TagsProps) {
         />
       ))}
       {loading && Array.from({ length: 8 }).map((_, i) => <TagsSkeleton key={i} />)}
-      <div className='flex items-center'>
- 
-      <NextLink className="text-[#475569] hover:text-[#212529]" href={"/"}> 
-      <div className='font-bold py-1 pl-3 text-[#475569] mr-2 text-base hover:text-[#212529]'>See All</div> 
-      </NextLink>
+      <div className="flex items-center mt-4">
+        <NextLink className="text-[#475569] hover:text-[#212529]" href={'/'}>
+          <div className="font-bold py-1 pl-3 text-[#475569] mr-2 text-base hover:text-[#212529]">
+            See All
+          </div>
+        </NextLink>
       </div>
     </div>
   );

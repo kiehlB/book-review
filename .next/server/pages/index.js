@@ -62,7 +62,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_com
 
 
 
-//test
+//pipe test
 function Home({ post  }) {
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
         children: [
@@ -161,6 +161,7 @@ function Home({ post  }) {
         ]
     });
 }
+//https://api.bookreview.pro/graphql
 const getServerSideProps = async ()=>{
     const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_16__.ApolloClient({
         ssrMode: true,

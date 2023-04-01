@@ -111,6 +111,8 @@ export default function Home({ post }) {
   );
 }
 
+//https://api.bookreview.pro/graphql
+
 export const getServerSideProps: GetServerSideProps = async () => {
   const client = new ApolloClient({
     ssrMode: true,

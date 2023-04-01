@@ -137,9 +137,9 @@ const linkOnError = (0,_apollo_client_link_error__WEBPACK_IMPORTED_MODULE_5__.on
         response.errors = null;
     }
 });
-const prod = (/* unused pure expression or super */ null && ( false ? 0 : "https://api.bookreview.pro/graphql"));
+const prod =  false ? 0 : "https://api.bookreview.pro/graphql";
 const httpLink = new _apollo_client__WEBPACK_IMPORTED_MODULE_1__.HttpLink({
-    uri: "https://api.bookreview.pro/graphql",
+    uri: prod,
     credentials: "include"
 });
 function createApolloClient() {

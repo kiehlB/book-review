@@ -41,7 +41,7 @@ function Tags(props) {
                 length: 8
             }).map((_, i)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_TagsItem__WEBPACK_IMPORTED_MODULE_4__/* .TagsSkeleton */ .e, {}, i)),
             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                className: "flex items-center",
+                className: "flex items-center mt-4",
                 children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_common_ArrowButton__WEBPACK_IMPORTED_MODULE_2__/* .NextLink */ .pt, {
                     className: "text-[#475569] hover:text-[#212529]",
                     href: "/",
