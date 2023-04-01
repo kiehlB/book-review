@@ -31,9 +31,12 @@ const linkOnError = onError(
     }
   },
 );
-
+const prod =
+  process.env.NODE_ENV == 'development'
+    ? 'http://localhost:4000/graphql'
+    : 'https://api.bookreview.pro/graphql';
 const httpLink = new HttpLink({
-  uri: process.env.API_URL, // Server URL (must be absolute)
+  uri: prod, // Server URL (must be absolute)
   credentials: 'include', // Additional fetch() options like `credentials` or `headers`,
 });
 
