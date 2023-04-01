@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostTitle } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
-import styled from 'styled-components';
 
 export type TapProps = {};
 
@@ -20,8 +19,8 @@ function WriteHead({}: TapProps) {
   );
 
   return (
-    <div className="flex justify-between items-center px-[1rem] w-full">
-      <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[1.5rem] mxs:text-lg">
+    <div className="flex justify-between items-center px-[1rem] w-full mxs:px-2">
+      <div className="text-4xl font-bold focus:outline-none w-full mmd:text-[2rem] pt-[1.5rem] mxs:text-2xl">
         <input
           name="title"
           placeholder="제목을 입력하세요"
@@ -29,7 +28,7 @@ function WriteHead({}: TapProps) {
           value={title}
           onChange={handleChange}
         />
-        <hr className="border-2 w-6/12 mt-3.5 h-1 dark:border-[#D3D3D3]" />
+        <hr className="border-2 w-6/12 mt-3.5 h-1 dark:border-[#D3D3D3] mmd:mt-2 mxs:mt-1" />
       </div>
     </div>
   );

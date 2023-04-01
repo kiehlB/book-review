@@ -46,9 +46,9 @@ function CoreButton({ StoreTag }: TapProps) {
   };
 
   return (
-    <div className="flex mt-3">
+    <div className="flex mt-3 mr-3 mxs:mr-1">
       <div
-        className="md:hidden text-sm px-[20px] py-[10px] mxs:px-[14px]  rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] cursor-pointer mr-1"
+        className="md:hidden text-sm px-[20px] py-[10px] mxs:px-[10px]  rounded-3xl bg-[#FCD535] text-[#181A20] hover:text-[#545b6d] cursor-pointer mr-1"
         style={{ zIndex: 2 }}>
         <WriteMenu>
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -58,7 +58,7 @@ function CoreButton({ StoreTag }: TapProps) {
                   <Link href="/">
                     <button
                       className={`${
-                        active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                        active ? 'bg-[#FCD535] text-gray-900' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}>
                       {active ? (
                         <IoMdArrowBack className="mr-2 h-5 w-5" aria-hidden="true" />
@@ -80,7 +80,7 @@ function CoreButton({ StoreTag }: TapProps) {
                     onClick={handleClick}>
                     <button
                       className={`${
-                        active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                        active ? 'bg-[#FCD535] text-gray-900' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}>
                       {active ? (
                         <AiOutlineSave className="mr-2 h-5 w-5" aria-hidden="true" />
@@ -99,7 +99,7 @@ function CoreButton({ StoreTag }: TapProps) {
                   <div onClick={() => dispatch(getIsOpenSuccess())}>
                     <button
                       className={`${
-                        active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                        active ? 'bg-[#FCD535] text-gray-900' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}>
                       {active ? (
                         <MdDone className="mr-2 h-5 w-5" aria-hidden="true" />

@@ -92,7 +92,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick, id }) => {
   return (
     <div
       className={clsx(
-        'border-b border-[#BDC1C6] p-4   hover:bg-[#E9E9E9] transition-all   dark:border-[#4B4B4B] dark:hover:bg-[#18181B]',
+        'border-b border-[#BDC1C6] p-4 hover:bg-[#E9E9E9] transition-all dark:border-[#4B4B4B] dark:hover:bg-[#18181B]',
         {
           'bg-[#E9E9E8] dark:bg-[#18181B]': clicked?.isbn == datum?.isbn,
           'bg-[#fff] dark:bg-[#2b2d31]': clicked?.isbn !== datum?.isbn,
@@ -128,7 +128,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick, id }) => {
             </div>
           </div>
           <div className="py-[0.5rem] dark:text-[#e4e5e7]">
-            {datum.authors.map(e => e)}
+            저자: {datum.authors.map(e => e)}
           </div>
           <div className="">
             <WithoutPostBody className="dark:text-[#e4e5e7]">

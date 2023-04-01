@@ -26,7 +26,7 @@ function SavedPostItem({ post, onConfirmRemove }: SavedPostItemProps) {
           <PostIcon className="w-6 cursor-pointer" />
         </div>
         <div className="ml-1">
-          <SideTitle className="text-[#64748b] text-sm cursor-pointer w-[200px] dark:text-[#CFCFCF]">
+          <SideTitle className="text-[#64748b] text-sm cursor-pointer dark:text-[#CFCFCF]">
             {post.title}
           </SideTitle>
         </div>

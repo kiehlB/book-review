@@ -57,12 +57,11 @@ const ProjectCreateContentToolbar = ({
           alignItems: 'center',
           border: theme => `1px solid ${theme.palette.divider}`,
           flexWrap: 'wrap',
-          margin: '0 16px',
+
           position: 'sticky',
           top: 0,
           zIndex: 1,
           background: isdark == 'dark' ? '#2b2d31' : '#fff',
-          width: 'calc(100% - 2rem);',
         }}>
         <StyledToggleButtonGroup
           size="small"

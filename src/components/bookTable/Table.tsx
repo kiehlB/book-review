@@ -117,7 +117,7 @@ export function Table({
       const tableRowRenderer = rowRenderer ? rowRenderer : defaultRowRenderer;
       const isSelectable = !disabled && selectedIds !== undefined;
       tableContent = (
-        <div>
+        <div className="pb-24">
           {visibleActivities?.map(datum =>
             tableRowRenderer({
               datum,
@@ -156,7 +156,6 @@ export function Table({
   return (
     <div className="h-full">
       <div className="h-full">{tableContent}</div>
-      <div className="flex justify-end pr-4 font-semibold text-base"></div>
     </div>
   );
 }

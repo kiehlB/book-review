@@ -91,7 +91,7 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
         animate={isopen ? 'open' : 'closed'}
         variants={liVariants}>
         <AppLayout
-          className="w-[768px] flex px-4 mxs:flex-col mxs:overflow-auto mxs:h-[100%] mxs:py-4"
+          className="w-[768px] flex px-4 mxs:flex-col mxs:overflow-auto mxs:h-[100%] mxs:py-8"
           first={
             <First>
               <div className="flex-1 min-w-[0]">
@@ -126,7 +126,7 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
           }
           third={
             <Third>
-              <div className="flex flex-col justify-between flex-1 min-w-[0] mxs:mt-4">
+              <div className="flex flex-col justify-between flex-1 min-w-[0] mxs:mt-6 mxs:block ">
                 <div>
                   <div className="w-full text-[1.3rem] text-[#212529] font-semibold mb-2">
                     공개 설정
@@ -166,7 +166,7 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                   </div>
                 </div>
 
-                <div className="mxs:mt-4">
+                <div className="mxs:mt-8">
                   <PublishCoreButton
                     fileInputState={url}
                     isPrivate={isPrivate}

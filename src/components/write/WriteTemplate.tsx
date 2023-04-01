@@ -42,7 +42,7 @@ function WriteTemplate({}: TapProps) {
               <WriterHead />
               <CoreButton StoreTag={StoreTag} />
             </div>
-            <div className="px-4 py-4">
+            <div className="px-4 py-4 mxs:px-2">
               <TagsForm StoreTag={StoreTag} postId={postId} posts={posts} />
             </div>
           </First>

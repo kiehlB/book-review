@@ -247,13 +247,14 @@ function NextLink({
   return (
     <MotionLink
       href={href}
-      className={clsx('text-black flex focus:outline-none items-center', className)}
+      className={clsx('flex focus:outline-none items-center', className)}
       ref={ref}
       onClick={() => click()}
       animate={state}
       transition={shouldReduceMotion ? { duration: 0 } : {}}>
       <H6 as="span">{children}</H6>
       <motion.span
+     
         variants={shouldReduceMotion ? {} : arrowVariants.right}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
         <ArrowIcon direction="right" />

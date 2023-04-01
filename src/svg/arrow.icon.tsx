@@ -15,7 +15,7 @@ export const rotationMap = {
   'top-right': '-rotate-135',
 };
 
-function ArrowIcon({ direction, size = 32, className }: ArrowIconProps) {
+function ArrowIcon({ direction, size = 28, className }: ArrowIconProps) {
   return (
     <svg
       className={clsx(className, 'transform', rotationMap[direction])}
