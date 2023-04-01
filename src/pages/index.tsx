@@ -113,15 +113,26 @@ export default function Home({ post }) {
 
 //https://api.bookreview.pro/graphql
 
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const client = new ApolloClient({
+//     ssrMode: true,
+//     link: new HttpLink({
+//       uri: 'https://api.bookreview.pro/graphql',
+//       credentials: 'include',
+//     }),
+//     cache: new InMemoryCache(),
+//   });
+
+//   const postData = await client.query<{ recentPosts: Post[] }>({
+//     query: GET_recentPosts,
+//     variables: { limit: 24 },
+//   });
+
+//   return { props: { post: postData } };
+// };
+
 export const getServerSideProps: GetServerSideProps = async () => {
-  const client = new ApolloClient({
-    ssrMode: true,
-    link: new HttpLink({
-      uri: 'https://api.bookreview.pro/graphql',
-      credentials: 'include',
-    }),
-    cache: new InMemoryCache(),
-  });
+  const client = initializeApollo();
 
   const postData = await client.query<{ recentPosts: Post[] }>({
     query: GET_recentPosts,

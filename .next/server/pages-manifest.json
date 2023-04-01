@@ -1,7 +1,7 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
   "/likedPost": "pages/likedPost.html",
   "/myPost": "pages/myPost.html",
   "/post": "pages/post.html",
@@ -9,13 +9,13 @@
   "/profile": "pages/profile.html",
   "/readPost": "pages/readPost.html",
   "/search": "pages/search.html",
-  "/search/[id]": "pages/search/[id].html",
   "/setting": "pages/setting.html",
+  "/search/[id]": "pages/search/[id].html",
   "/tags": "pages/tags.html",
   "/temporaryPost": "pages/temporaryPost.html",
   "/trending": "pages/trending.html",
   "/write": "pages/write.html",
-  "/hidden": "pages/hidden.js",
   "/": "pages/index.js",
+  "/hidden": "pages/hidden.js",
   "/404": "pages/404.html"
 }

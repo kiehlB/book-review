@@ -38,9 +38,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_icons_md__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4041);
 /* harmony import */ var react_icons_md__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_icons_md__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _components_home_HomeTitle__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(7662);
-/* harmony import */ var _lib_graphql_posts__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(7426);
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(9114);
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_apollo_client__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _lib_apolloClient__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(653);
+/* harmony import */ var _lib_graphql_posts__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(7426);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_layout_PageLayout__WEBPACK_IMPORTED_MODULE_5__, _components_tags_Tags__WEBPACK_IMPORTED_MODULE_9__, _components_home_HomeTitle__WEBPACK_IMPORTED_MODULE_14__]);
 ([_components_layout_PageLayout__WEBPACK_IMPORTED_MODULE_5__, _components_tags_Tags__WEBPACK_IMPORTED_MODULE_9__, _components_home_HomeTitle__WEBPACK_IMPORTED_MODULE_14__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
@@ -162,17 +161,25 @@ function Home({ post  }) {
     });
 }
 //https://api.bookreview.pro/graphql
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const client = new ApolloClient({
+//     ssrMode: true,
+//     link: new HttpLink({
+//       uri: 'https://api.bookreview.pro/graphql',
+//       credentials: 'include',
+//     }),
+//     cache: new InMemoryCache(),
+//   });
+//   const postData = await client.query<{ recentPosts: Post[] }>({
+//     query: GET_recentPosts,
+//     variables: { limit: 24 },
+//   });
+//   return { props: { post: postData } };
+// };
 const getServerSideProps = async ()=>{
-    const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_16__.ApolloClient({
-        ssrMode: true,
-        link: new _apollo_client__WEBPACK_IMPORTED_MODULE_16__.HttpLink({
-            uri: "https://api.bookreview.pro/graphql",
-            credentials: "include"
-        }),
-        cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_16__.InMemoryCache()
-    });
+    const client = (0,_lib_apolloClient__WEBPACK_IMPORTED_MODULE_15__/* .initializeApollo */ ["in"])();
     const postData = await client.query({
-        query: _lib_graphql_posts__WEBPACK_IMPORTED_MODULE_15__/* .GET_recentPosts */ .l5,
+        query: _lib_graphql_posts__WEBPACK_IMPORTED_MODULE_16__/* .GET_recentPosts */ .l5,
         variables: {
             limit: 24
         }
