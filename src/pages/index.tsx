@@ -21,7 +21,7 @@ import { Post } from '../types/apolloComponent';
 import { GET_recentPosts } from '../lib/graphql/posts';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
-//test
+//pipe test
 export default function Home({ post }) {
   return (
     <>
