@@ -1,7 +1,6 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
   "/likedPost": "pages/likedPost.html",
   "/myPost": "pages/myPost.html",
   "/post": "pages/post.html",
@@ -15,6 +14,7 @@
   "/temporaryPost": "pages/temporaryPost.html",
   "/trending": "pages/trending.html",
   "/write": "pages/write.html",
+  "/_error": "pages/_error.js",
   "/": "pages/index.js",
   "/hidden": "pages/hidden.js",
   "/404": "pages/404.html"
