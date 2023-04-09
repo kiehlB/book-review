@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import ActivityDateRangePicker from '../datePicker/DateRange';
 
 export type TabProps = {

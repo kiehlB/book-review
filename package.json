@@ -9,7 +9,8 @@
     "lint": "next lint",
     "generate": "graphql-codegen --config codegen.yml",
     "test": "jest --watch",
-    "test:ci": "jest --ci --passWithNoTests"
+    "test:ci": "jest --ci --passWithNoTests",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@apollo/client": "3.3.21",
@@ -78,6 +79,7 @@
     "luxon": "^3.3.0",
     "next": "^13.1.6",
     "next-seo": "^5.15.0",
+    "next-sitemap": "^4.0.6",
     "nock": "^13.3.0",
     "postcss": "^8.4.20",
     "prosemirror-commands": "^1.5.0",

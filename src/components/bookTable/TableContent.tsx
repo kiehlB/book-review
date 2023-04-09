@@ -1,4 +1,3 @@
-import { Table } from 'evergreen-ui';
 import React from 'react';
 import { BASE_SIZE } from '../../lib/constants';
 

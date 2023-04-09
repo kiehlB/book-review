@@ -1,4 +1,3 @@
-import { SearchInput } from 'evergreen-ui';
 import React, { useEffect, useRef, useState } from 'react';
 import { IoSearchOutline } from 'react-icons/io5';
 import styled from 'styled-components';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MdClose } from 'react-icons/md';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
 interface BookModalProps {

@@ -3,7 +3,6 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import BooksTableContainer from './TableContainer';
 import BooksContext from '../../context/booksContext';
-import { SearchInput } from 'evergreen-ui';
 import { ArrowLink, BackLink, NextLink } from '../common/ArrowButton';
 import { RootState } from '../../store/rootReducer';
 import { MdClose } from 'react-icons/md';

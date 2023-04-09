@@ -1,7 +1,3 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { useSelector } from 'react-redux';
-import { CreateComment, GET_SubComment } from '../../lib/graphql/comments';
-import { RootState } from '../../store/rootReducer';
 import { Sub } from '../../types/apolloComponent';
 import CommentItem from './CommentItem';
 import useCommentUpvote from './hooks/useCommentUpvote';

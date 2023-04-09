@@ -8,7 +8,6 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
-import useGetPosts from '../components/post/hooks/useGetPosts';
 import Tags from '../components/tags/Tags';
 import { BsTagFill } from 'react-icons/bs';
 import { AiFillNotification } from 'react-icons/ai';
@@ -19,13 +18,17 @@ import { GetServerSideProps } from 'next';
 import { initializeApollo } from '../lib/apolloClient';
 import { Post } from '../types/apolloComponent';
 import { GET_recentPosts } from '../lib/graphql/posts';
+import Head from 'next/head';
 
-//pipe test
 export default function Home({ post }) {
   return (
     <>
       <NextSeo
-        {...getNextSeo({ title: 'Book Review', description: '책 리뷰 메인 페이지' })}
+        {...getNextSeo({
+          title: 'Book Review',
+          description: '책 리뷰 메인 페이지',
+          canonical: 'https://www.bookreview.pro',
+        })}
       />
       <SiteLinksSearchBoxJsonLd
         url="https://www.bookreview.pro"

@@ -1,6 +1,4 @@
-import _ from 'lodash';
 import React, { useRef, useState } from 'react';
-import { ClassNames, DayPickerProps } from 'react-day-picker';
 
 import {
   Button as EvergreenButton,

@@ -1,8 +1,5 @@
-import { Button, Spinner, Table as EvergreenTable, SearchIcon } from 'evergreen-ui';
-import _ from 'lodash';
 import React, { useCallback, useId, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
-import { Heading, Menu, Pane, Popover } from 'evergreen-ui';
 import defaultRowRenderer, { DEFAULT_TABLE_ROW_HEIGHT } from './DefaultTableRow';
 import { BASE_SIZE, SPINNER_SIZE } from '../../lib/constants';
 import FindBook from '../../svg/findBook';
@@ -56,10 +53,6 @@ export function Table({
       result = filterFn(data, debouncedFilter.trim().toLowerCase());
     }
 
-    const sortOption = _.find(sortOptions, o => sortOrder === o.value);
-    if (sortOption) {
-    }
-
     return result;
   }, [data, debouncedFilter, filterFn, sortOptions, sortOrder]);
   const visibleActivities = useMemo(() => {
@@ -88,7 +81,8 @@ export function Table({
         <div
           className="flex items-center justify-center"
           style={{ height: tableBodyHeight }}>
-          <Spinner size={SPINNER_SIZE * 3} />
+          {/* <Spinner size={SPINNER_SIZE * 3} /> */}
+          <div>로딩중</div>
         </div>
       );
       break;
@@ -164,52 +158,3 @@ export default React.memo(Table);
 
 const DEFAULT_BUTTON_TEXT = 'Sort';
 const DEFAULT_POPOVER_HEADER = 'Sort Order';
-
-function TableSortButton<U, V>({ disabled, onSelect, sortOptions, sortOrder }) {
-  let buttonText = DEFAULT_BUTTON_TEXT;
-  const sortOption = _.find(sortOptions, option => sortOrder === option.value);
-  if (sortOption) {
-    buttonText = sortOption.buttonLabel;
-  }
-
-  return (
-    <Popover
-      isShown={disabled ? false : undefined}
-      position="bottom-right"
-      content={({ close }) => {
-        return (
-          <Menu>
-            <Pane>
-              <Heading size={100} className="px-14 py-4">
-                {DEFAULT_POPOVER_HEADER}
-              </Heading>
-              <Pane>
-                {_.map(sortOptions, option => (
-                  <Menu.Option
-                    key={option.value}
-                    isSelected={option.value === sortOrder}
-                    onSelect={() => {
-                      close();
-                      onSelect(option.value);
-                    }}
-                    secondaryText={option.optionSublabel}>
-                    {option.optionLabel}
-                  </Menu.Option>
-                ))}
-              </Pane>
-            </Pane>
-          </Menu>
-        );
-      }}
-      statelessProps={{ className: 'table__sort-button--popover' }}>
-      <Button
-        appearance="minimal"
-        disabled={disabled}
-        iconBefore={SearchIcon}
-        isActive={true}
-        className="table__sort-button">
-        <div className="mmd:hidden">{buttonText}</div>
-      </Button>
-    </Popover>
-  );
-}

@@ -6,10 +6,8 @@ import styled, { css } from 'styled-components';
 import { BiUpvote } from 'react-icons/bi';
 import ProfileIcon from '../../svg/profile';
 import CommentEdit from './CommentEdit';
-import useCommentUpvote from './hooks/useCommentUpvote';
 import { formatDate } from '../../lib/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCommentIdSuccess } from '../../store/book';
 
 export type CommentItemProps = {
   comment: Sub | null;
