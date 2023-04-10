@@ -8,9 +8,12 @@ import { RootState } from '../../store/rootReducer';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
-  StoreTag: any;
-  postId: any;
-  posts: any;
+  StoreTag: string[];
+  postId: number;
+  posts: {
+    id: number;
+    tags: { tag: { name: string } }[];
+  }[];
 };
 
 const Tag = styled.div`

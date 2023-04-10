@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { MenuItem } from './NavMenuItem';
 import { useSelector } from 'react-redux';
 import useLogout from '../auth/hooks/useLogout';
-import ModalContext from '../../context/modalContext';
 import { RootState } from '../../store/rootReducer';
 
 type Dispatch<A> = (value: A) => void;

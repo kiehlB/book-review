@@ -18,7 +18,6 @@ import { GetServerSideProps } from 'next';
 import { initializeApollo } from '../lib/apolloClient';
 import { Post } from '../types/apolloComponent';
 import { GET_recentPosts } from '../lib/graphql/posts';
-import Head from 'next/head';
 
 export default function Home({ post }) {
   return (

@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
-import useInput from '../../hooks/useIntput';
 import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
 import { RootState } from '../../store/rootReducer';
 import useGetUser from './hooks/useGetUser';
@@ -27,7 +26,6 @@ function SettingCard({}: SettingCardProps) {
     bio: Bio,
   } = useSelector((state: RootState) => state.auth);
 
-  console.log(readyForFile);
   const [name, setName] = useState(displayName ? displayName : '');
 
   const [bio, setBio] = useState(Bio ? Bio : '');

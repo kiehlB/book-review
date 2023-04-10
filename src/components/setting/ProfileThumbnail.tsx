@@ -218,10 +218,3 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
     );
   }
 }
-
-const ButtonStyles = styled.div`
-  font-size: 1rem;
-  font-weight: bold;
-  color: rgb(134, 142, 150);
-  cursor: pointer;
-`;

@@ -50,7 +50,6 @@ export function getNextSeo({
     canonical,
     description,
     openGraph,
-
     origin,
     image,
     url,

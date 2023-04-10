@@ -10,8 +10,6 @@ import { useRouter } from 'next/router';
 const today = new Date();
 
 const ActivityDateRangePicker = () => {
-  // Computed values
-
   const defaultSelected: DateRange = {
     from: today,
     to: subDays(today, 0),

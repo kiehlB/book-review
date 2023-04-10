@@ -1,5 +1,5 @@
-import { useLazyQuery, useQuery } from '@apollo/client';
-import { useContext, useEffect, useLayoutEffect, useMemo } from 'react';
+import { useQuery } from '@apollo/client';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { whoAmIQuery } from '../../../lib/graphql/users';
 import { getAuthInfoSuccess, initAuth } from '../../../store/auth';
@@ -11,15 +11,15 @@ export default function useWhoAmI() {
   const { auth } = useSelector((state: RootState) => state.auth);
 
   const { data: getUser, loading } = useQuery<WhoAmIQuery>(whoAmIQuery, {
-    skip: auth?.id ? true : false,
+    skip: !!auth?.id,
   });
 
   useEffect(() => {
     if (auth?.id) return;
-    if (loading) return;
+    if (loading || !getUser) return;
 
-    dispatch(initAuth(getUser?.whoami));
-  }, [loading]);
+    dispatch(initAuth(getUser.whoami));
+  }, [getUser, auth?.id]);
 
   return {
     getUser,

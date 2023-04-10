@@ -1,8 +1,6 @@
 import React from 'react';
 import { IoIosClose } from 'react-icons/io';
 import { PostCardSkeletonProps } from '../post/PostCardItem';
-import useGetTags from './hooks/usegetTags';
-import styled, { keyframes, css } from 'styled-components';
 import { Skeleton, SkeletonTexts } from '../common/Skeleton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
@@ -45,35 +43,3 @@ export function TagsSkeleton({ hideUser }: PostCardSkeletonProps) {
 }
 
 export default TagItem;
-
-const shining = keyframes`
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-`;
-
-const Block = styled.span<{ noSpacing?: boolean; circle?: boolean }>`
-  background: #f1f3f5;
-  animation: ${shining} 1s ease-in-out infinite;
-  display: inline-block;
-  border-radius: 4px;
-  height: 1em;
-  ${props =>
-    !props.noSpacing &&
-    css`
-      & + & {
-        margin-left: 0.5rem;
-      }
-    `}
-  ${props =>
-    props.circle &&
-    css`
-      border-radius: 50%;
-    `}
-`;

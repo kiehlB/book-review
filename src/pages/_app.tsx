@@ -15,12 +15,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import store from '../store/store';
 import { BooksContextProvider } from '../context/booksContext';
 import Script from 'next/script';
-import { createTheme } from '@mui/material';
-import { ThemeProvider } from '@mui/material';
-import { useEffect } from 'react';
 import 'react-day-picker/dist/style.css';
 import { NextSeo } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
+
 export const persistor = persistStore(store);
 
 declare global {
@@ -30,29 +28,18 @@ declare global {
   }
 }
 
-export const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#D3D3D3',
-    },
-    secondary: {
-      main: '#0000008a',
-    },
-  },
-});
-
 export default function App({ Component, pageProps, router }: AppProps) {
   const apolloClient = useApollo(pageProps);
 
-  useEffect(() => {
-    try {
-      if (!window?.Kakao?.isInitialized() && window.Kakao) {
-        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     if (!window?.Kakao?.isInitialized() && window.Kakao) {
+  //       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
 
   return (
     <>
@@ -77,24 +64,19 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <meta name="og:type" content="website" />
       </Head>
       <Script src="/theme.js" strategy="beforeInteractive" />
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <BooksContextProvider>
-              <ModalContextProvider>
-                <ApolloProvider client={apolloClient}>
-                  <Component
-                    {...pageProps}
-                    canonical={router.asPath}
-                    key={router.asPath}
-                  />
-                  <ToastContainer />
-                </ApolloProvider>
-              </ModalContextProvider>
-            </BooksContextProvider>
-          </PersistGate>
-        </Provider>
-      </ThemeProvider>
+
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <BooksContextProvider>
+            <ModalContextProvider>
+              <ApolloProvider client={apolloClient}>
+                <Component {...pageProps} canonical={router.asPath} key={router.asPath} />
+                <ToastContainer />
+              </ApolloProvider>
+            </ModalContextProvider>
+          </BooksContextProvider>
+        </PersistGate>
+      </Provider>
     </>
   );
 }

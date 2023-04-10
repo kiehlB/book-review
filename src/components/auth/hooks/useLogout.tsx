@@ -10,12 +10,6 @@ export default function useLogout() {
 
   const [logout, { client }] = useLogoutMutation();
 
-  // const [logout] = useMutation(logoutMutation, {
-  //   onCompleted({ logout }) {
-  //     persistor.purge();
-  //   },
-  // });
-
   const handleSubmitLogout = async e => {
     e.preventDefault();
     await logout();
@@ -25,7 +19,7 @@ export default function useLogout() {
       persistor.purge();
 
       dispatch(getAuthInfoSuccess(null));
-      // dispatch(userLogout());
+
       router.push('/');
     });
   };
