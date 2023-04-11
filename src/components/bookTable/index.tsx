@@ -42,7 +42,7 @@ function BooksTableForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="relative">
+      <div className="relative border-2">
         <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7]">
           <IoSearchOutline />
         </div>
@@ -51,7 +51,7 @@ function BooksTableForm({
           value={BookName}
           placeholder="책을 검색해 보세요"
           name="BookName"
-          className=" text-xs border-[#d8dae5] text-[#474d66] w-[310px] rounded-full h-[50px] border-[1px] py-[0.5rem] px-[2.5rem] focus:outline-none dark:bg-[#2b2d31] dark:border-[#1a1b1e] dark:text-[#e4e5e7] dark:placeholder-gray-300"
+          className=" text-xs border-[#d8dae5] text-[#474d66] w-[320px] mmd:w-[280px] rounded-full h-[50px] border-[1px] py-[0.5rem] px-[2.5rem] focus:outline-none dark:bg-[#2b2d31] dark:border-[#1a1b1e] dark:text-[#e4e5e7] dark:placeholder-gray-300"
           style={{ borderRadius: '1.5rem', fontSize: '12px' }}
         />
       </div>
@@ -231,14 +231,34 @@ const BookTalble = ({}) => {
       type: 'error',
     });
   };
+  const handleSkipClick = () => {
+    dispatch(getPostTitle(''));
+    dispatch(getPostBody(''));
+    dispatch(getPostTags([]));
+    dispatch(getPostId(''));
+    dispatch(getThumbnail(''));
+    SetBookIsClose(!BookIsClose);
+  };
 
+  const handleNextClick = () => {
+    dispatch(getPostTitle(''));
+    dispatch(getPostBody(''));
+    dispatch(getPostTags([]));
+    dispatch(getPostId(''));
+    dispatch(getThumbnail(''));
+    if (book?.title) {
+      SetBookIsClose(!BookIsClose);
+    } else {
+      withoutBookInfo();
+    }
+  };
   return (
     <>
       <div className="grid grid-rows-12 px-[2rem] h-[calc(100vh-8rem)] mmd:h-[100vh] mmd:px-[1rem] w-full mxs:px-[0.5rem]">
         <div className="flex items-end row-span-1 pb-4 mxs:px-[0rem]">
           <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
         </div>
-        <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5] dark:border-none">
+        <div className="row-span-10 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-h-2 scrollbar-thumb-rounded-3xl border rounded-md border-[#EDEFF5] dark:border-none">
           <BookInfo bookName={bookName} />
         </div>
 
@@ -264,15 +284,7 @@ const BookTalble = ({}) => {
             )}
           </div>
           <div className="flex">
-            <div
-              onClick={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                SetBookIsClose(!BookIsClose);
-              }}>
+            <div onClick={handleSkipClick}>
               <ArrowLink
                 href={'/write'}
                 direction="right"
@@ -282,16 +294,7 @@ const BookTalble = ({}) => {
               </ArrowLink>
             </div>
 
-            <div
-              onClick={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                book?.title ? SetBookIsClose(!BookIsClose) : '';
-                book?.title ? '' : withoutBookInfo();
-              }}>
+            <div onClick={handleNextClick}>
               <ArrowLink
                 href={book?.title ? '/write' : ''}
                 direction="right"
@@ -333,33 +336,13 @@ const BookTalble = ({}) => {
           </div>
 
           <div className="flex items-center">
-            <NextLink
-              className="mr-2"
-              click={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                SetBookIsClose(!BookIsClose);
-              }}
-              href="/write">
+            <NextLink className="mr-2" click={handleSkipClick} href="/write">
               <div className="text-[#334155] text-base flex items-center justify-between font-semibold mr-2">
                 Skip
               </div>
             </NextLink>
 
-            <NextLink
-              click={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                book?.title ? SetBookIsClose(!BookIsClose) : '';
-                book?.title ? '' : withoutBookInfo();
-              }}
-              href={book?.title ? '/write' : ''}>
+            <NextLink click={handleNextClick} href={book?.title ? '/write' : ''}>
               <div className="text-[#334155] text-base flex items-center justify-between font-semibold pl-6 mxs:pl-2 mr-2">
                 다음
               </div>

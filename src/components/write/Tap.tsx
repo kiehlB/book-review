@@ -235,12 +235,14 @@ function Tap({ postId, posts }: TapProps) {
 
   return (
     <>
-      <ProjectCreateContentToolbar editor={editor} isdark={isdark}>
-        <ImageAdd addImage={addImage} previewSource={previewSource} />
-      </ProjectCreateContentToolbar>
+      <div className="px-[1rem] mxs:px-2">
+        <ProjectCreateContentToolbar editor={editor} isdark={isdark}>
+          <ImageAdd addImage={addImage} previewSource={previewSource} />
+        </ProjectCreateContentToolbar>
+      </div>
 
       <Content
-        className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem]"
+        className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem] mxs:px-2"
         isdark={isdark}>
         <EditorContent
           editor={editor}

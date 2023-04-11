@@ -48,23 +48,22 @@ const liVariants = {
 
 const BookModal: React.FC<BookModalProps> = ({ visible, children, onClose }) => {
   React.useEffect(() => {
-    // scrollbar
     document.body.style.overflowY = visible ? 'hidden' : 'initial';
   }, [visible]);
 
   return (
     <motion.div
       className={clsx(
-        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-[1000] bg-[#00000080] mxs:flex-1 mxs:w-full mxs:h-full',
+        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-[1000] bg-[#00000080] mxs:flex-1 mxs:w-full mxs:h-full ',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
       <motion.div
         variants={liVariants}
-        className={`bg-[#E9E9E9] h-full max-w-[80rem] w-full dark:bg-[#1a1b1e] mxs:flex-1 mxs:w-auto mxs:h-full`}>
+        className={`bg-[#E9E9E9] h-full max-w-[80rem] w-full dark:bg-[#1a1b1e] mxs:flex-1 mxs:w-auto mxs:h-full overflow-x-scroll overflow-y-scroll`}>
         <div className="flex-1 flex flex-col py-4 bg-[#E9E9E9] dark:bg-[#1a1b1e]">
-          <div className="flex justify-end p-[1.5rem] mxs:mb-0">
+          <div className="flex justify-end p-[1.5rem] px-[2.2rem] mmd:px-[1rem] mxs:mb-0">
             <MdClose
               onClick={() => onClose(!visible)}
               tabIndex={1}

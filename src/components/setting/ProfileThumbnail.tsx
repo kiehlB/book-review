@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 import imageCompression from 'browser-image-compression';
-import styled from 'styled-components';
-import { Spinner } from 'evergreen-ui';
 import { AiFillEdit } from 'react-icons/ai';
 
 type ImageProps = {
@@ -171,7 +169,7 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
 
         {this.props.previewSource == 1 ? (
           <div className="w-full h-full flex justify-center items-center ">
-            <Spinner size={48} />
+            {/* <Spinner size={48} /> */}
           </div>
         ) : this.props.readyForFile && this.props.previewSource == 2 ? (
           <>

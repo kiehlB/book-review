@@ -4,7 +4,6 @@ import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
 import { PageLayout } from '../components/layout/PageLayout';
-import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { getNextSeo } from '../lib/nextSeo';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
@@ -18,27 +17,23 @@ import { GetServerSideProps } from 'next';
 import { initializeApollo } from '../lib/apolloClient';
 import { Post } from '../types/apolloComponent';
 import { GET_recentPosts } from '../lib/graphql/posts';
+import Head from 'next/head';
 
 export default function Home({ post }) {
   return (
     <>
-      <NextSeo
-        {...getNextSeo({
-          title: 'Book Review',
-          description: '책 리뷰 메인 페이지',
-          canonical: 'https://www.bookreview.pro',
-        })}
-      />
-      <SiteLinksSearchBoxJsonLd
-        url="https://www.bookreview.pro"
-        potentialActions={[
-          {
-            target: 'https://www.bookreview.pro/search?q',
-            queryInput: 'search_term_string',
-          },
-        ]}
-      />
-
+      <Head>
+        <title>Book Reivew</title>
+        <meta
+          name="description"
+          content="책 리뷰를 작성해 보세요 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다."
+        />
+        <meta name="og:title" content="Book review Main" />
+        <meta
+          name="og:description"
+          content="책 리뷰를 작성해 보세요 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다."
+        />
+      </Head>
       <PageLayout>
         <PageGrid as="div" className="pt-[2rem] pb-[2rem]">
           <MainNav className="col-span-2 mmd:hidden">

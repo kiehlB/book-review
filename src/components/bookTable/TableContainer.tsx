@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import styled from 'styled-components';
 import React, { useId } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
@@ -167,19 +166,6 @@ const BooksTableContainer = ({
       sortOptions={SORT_OPTIONS}
       status={status}
     />
-  );
-};
-
-const ExternalLink = props => {
-  return (
-    <span className={classNames('external-link', props.className)} style={props.style}>
-      {props.iconSrc && (
-        <img className="external-link__icon" alt={props.iconAlt} src={props.iconSrc} />
-      )}
-      <a href={props.url} title={props.title || props.url} target="none">
-        {props.children || props.url}
-      </a>
-    </span>
   );
 };
 

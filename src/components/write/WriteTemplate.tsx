@@ -7,7 +7,6 @@ import { PageGrid } from '../layout/GridLayout';
 import TagsForm from '../tags/TagsForm';
 import CoreButton from './CoreButton';
 import useCreateSavePost from './hooks/usecreateSavePost';
-import ImageAdd from './ImageAdd';
 import Tap from './Tap';
 import TapSide from './TapSide';
 import WriterHead from './WriterHeader';

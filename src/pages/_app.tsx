@@ -31,38 +31,33 @@ declare global {
 export default function App({ Component, pageProps, router }: AppProps) {
   const apolloClient = useApollo(pageProps);
 
-  // useEffect(() => {
-  //   try {
-  //     if (!window?.Kakao?.isInitialized() && window.Kakao) {
-  //       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT);
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }, []);
-
   return (
     <>
-      <NextSeo
-        {...getNextSeo({
-          title: 'Book Review',
-          description: '책 리뷰',
-          canonical: 'https://www.bookreview.pro',
-        })}
-      />
       <Head>
+        <title>Book Review</title>
         <meta charSet="UTF-8" />
-        <meta
-          name="naver-site-verification"
-          content="1e63bd4813b44979357f7331f3d07483aecdc202"
-        />
         <meta
           name="viewport"
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,viewport-fit=cover"
         />
+
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="og:type" content="website" />
+        <meta
+          name="description"
+          content="책 리뷰를 작성하는 곳 입니다  여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다."
+        />
+        <meta name="og:title" content="Book Review" />
+        <meta
+          name="og:image"
+          content="http://res.cloudinary.com/doqurzmbt/image/upload/v1681166838/woong/duusewwde5vo8yi0rvjk.png"
+        />
+        <meta
+          name="og:description"
+          content="책 리뷰를 작성하는 곳 입니다  여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다."
+        />
+        <meta property="og:type" content="website" />
       </Head>
+
       <Script src="/theme.js" strategy="beforeInteractive" />
 
       <Provider store={store}>

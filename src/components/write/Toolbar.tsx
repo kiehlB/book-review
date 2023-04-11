@@ -1,29 +1,15 @@
 import React from 'react';
-
 import { Editor } from '@tiptap/react';
-
-import LinkIcon from '@mui/icons-material/Link';
-import UndoIcon from '@mui/icons-material/Undo';
-import RedoIcon from '@mui/icons-material/Redo';
-import CodeIcon from '@mui/icons-material/Code';
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import FormatTextdirectionRToLIcon from '@mui/icons-material/FormatTextdirectionRToL';
-import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
-import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
-import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import Paper from '@mui/material/Paper';
-import ToggleButton from '@mui/material/ToggleButton';
-import { Typography, Divider } from '@mui/material';
-import StyledToggleButtonGroup from './StyledToggleButtonGroup';
-import HeadingToolbarButtons from './HeadingToolbarButtons';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import styled from 'styled-components';
-import { Tooltip, IconButton, EditIcon, Position } from 'evergreen-ui';
-import YouTubeIcon from '@mui/icons-material/YouTube';
+import HeadingToolbarButtons from './HeadingToolbarButtons';
+import { BsParagraph, BsTypeBold, BsTypeUnderline, BsYoutube } from 'react-icons/bs';
+import { BiCodeAlt, BiItalic, BiStrikethrough } from 'react-icons/bi';
+import { GrBlockQuote, GrPowerReset } from 'react-icons/gr';
+import { VscHorizontalRule } from 'react-icons/vsc';
+import { AiOutlineLink, AiOutlineOrderedList } from 'react-icons/ai';
+import { MdFormatListBulleted } from 'react-icons/md';
+import { Tooltip } from 'react-tooltip';
+import { FaUndoAlt, FaRedoAlt } from 'react-icons/fa';
 
 const ProjectCreateContentToolbar = ({
   editor,
@@ -47,200 +33,204 @@ const ProjectCreateContentToolbar = ({
       });
     }
   };
-
+  // overflow-x-scroll
   return (
-    <>
-      <Paper
-        className="flex flex-wrap w-full mxl:overflow-x-scroll items-center"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          border: theme => `1px solid ${theme.palette.divider}`,
-          flexWrap: 'wrap',
+    <div className="flex flex-wrap w-full items-center sticky top-0 z-1 bg-white border border-gray-300 p-1 rounded shadow dark:bg-[#212529] dark:border-none mxs:overflow-x-scroll mxs:flex-nowrap">
+      <div className="flex items-center flex-wrap mxs:flex-nowrap">
+        <HeadingToolbarButtons editor={editor} isdark={isdark} />
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('bold') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          aria-label="bold">
+          <BsTypeBold size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
+        </button>
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('italic') ? 'bg-gray-100 dark:bg-slate-900 ' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          aria-label="italic">
+          <BiItalic size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
+        </button>
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('strike') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          aria-label="strike">
+          <BiStrikethrough
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('code') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleCode().run()}
+          aria-label="code">
+          <BiCodeAlt size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
+        </button>
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('blockquote') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleBlockquote().run()}
+          aria-label="blockQuote">
+          <GrBlockQuote
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
+        <button
+          className={`p-2 mx-1 active:scale-90 rounded-md ${
+            editor.isActive('HorizontalRule') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+          aria-label="HorizontalRule">
+          <VscHorizontalRule
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('paragraph') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().setParagraph().run()}
+          aria-label="paragraph">
+          <BsParagraph
+            size={20}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('underline') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          aria-label="underline">
+          <BsTypeUnderline
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
 
-          position: 'sticky',
-          top: 0,
-          zIndex: 1,
-          background: isdark == 'dark' ? '#2b2d31' : '#fff',
-        }}>
-        <StyledToggleButtonGroup
-          size="small"
-          exclusive
-          aria-label="vertical outlined primary button group">
-          <HeadingToolbarButtons editor={editor} isdark={isdark} />
+        <div className="flex items-center px-[8px] ">{children}</div>
 
-          {/* <ToggleButton
-            onClick={() => editor.chain().focus().setTextAlign('center').run()}
-            selected={editor.isActive({ textAlign: 'center' })}
-            value="center"
-            aria-label="Center aligned">
-            <FormatAlignCenterIcon
-              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
-            />
-          </ToggleButton> */}
+        <button
+          className={`p-2 mx-1 active:scale-90 rounded-md ${
+            editor.isActive('link') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => {
+            const previousUrl = editor.getAttributes('link').href;
+            const url = window.prompt('URL', previousUrl);
 
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleBold().run()}
-            selected={editor.isActive('bold')}
-            value="bold"
-            aria-label="bold">
-            <FormatBoldIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
+            // cancelled
+            if (url === null) {
+              return;
+            }
 
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleItalic().run()}
-            value="italic"
-            aria-label="italic"
-            selected={editor.isActive('italic')}>
-            <FormatItalicIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleStrike().run()}
-            value="strike"
-            aria-label="strike"
-            selected={editor.isActive('strike')}>
-            <FormatStrikethroughIcon
-              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
-            />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleCode().run()}
-            value="code"
-            aria-label="code"
-            selected={editor.isActive('code')}>
-            <CodeIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
+            // empty
+            if (url === '') {
+              editor.chain().focus().extendMarkRange('link').unsetLink().run();
 
-          {/* <ToggleButton
-            onClick={() => editor.chain().focus().toggleHighlight().run()}
-            value="highlight"
-            aria-label="highlight"
-            selected={editor.isActive('highlight')}>
-            <BorderColorIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton> */}
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            value="blockQuote"
-            aria-label="blockQuote"
-            selected={editor.isActive('blockQuote')}>
-            <FormatQuoteIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().setHorizontalRule().run()}
-            selected={editor.isActive('HorizontalRule')}
-            value="HorizontalRule"
-            aria-label="HorizontalRule">
-            <HorizontalRuleIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().setParagraph().run()}
-            selected={editor.isActive('paragraph')}
-            value="paragraph"
-            aria-label="paragraph">
-            <FormatTextdirectionRToLIcon
-              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
-            />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleUnderline().run()}
-            selected={editor.isActive('underline')}
-            value="underline"
-            aria-label="underline">
-            <FormatUnderlinedIcon
-              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
-            />
-          </ToggleButton>
+              return;
+            }
 
-          <div className="border-2 flex items-center px-[1px]">{children}</div>
+            // update link
+            editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+          }}
+          aria-label="link">
+          <AiOutlineLink
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
 
-          <ToggleButton
-            onClick={() => {
-              const previousUrl = editor.getAttributes('link').href;
-              const url = window.prompt('URL', previousUrl);
+        {/* <YouTubeTap editor={editor} /> */}
 
-              // cancelled
-              if (url === null) {
-                return;
-              }
+        <button
+          aria-label="youtube"
+          onClick={addYoutubeVideo}
+          className={`p-2 mx-1 active:scale-90 rounded-md ${
+            editor.isActive('youtube') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}>
+          <BsYoutube size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
+        </button>
 
-              // empty
-              if (url === '') {
-                editor.chain().focus().extendMarkRange('link').unsetLink().run();
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('bulletList') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          aria-label="bulletList">
+          <MdFormatListBulleted
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
+        <button
+          className={`p-2 mx-1 rounded-md ${
+            editor.isActive('orderedList') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          aria-label="orderedList">
+          <AiOutlineOrderedList
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
 
-                return;
-              }
+        {/* <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} /> */}
 
-              // update link
-              editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-            }}
-            selected={editor.isActive('link')}
-            value="link"
-            aria-label="link">
-            <LinkIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
+        <button
+          className={`p-2 mx-1 active:scale-90 rounded-md ${
+            editor.isActive('undo') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().undo().run()}
+          aria-label="undo">
+          <FaUndoAlt size={20} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
+        </button>
+        <button
+          className={`p-2 mx-1 active:scale-90 rounded-md ${
+            editor.isActive('redo') ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().redo().run()}
+          aria-label="redo">
+          <FaRedoAlt size={20} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
+        </button>
 
-          {/* <YouTubeTap editor={editor} /> */}
+        <div className="ml-2 mr-1 flex items-center">
+          <SetColor
+            type="color"
+            ad
+            className="border-none bg-none"
+            onInput={(event: any) =>
+              editor.chain().focus().setColor(event.target.value).run()
+            }
+            value={editor.getAttributes('textStyle').color}
+          />
+        </div>
 
-          <ToggleButton value="youtube" aria-label="youtube" onClick={addYoutubeVideo}>
-            <YouTubeIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
-
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-            value="bullettList"
-            aria-label="bullettList"
-            selected={editor.isActive('bulletList')}>
-            <FormatListBulletedIcon
-              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
-            />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            value="orderedList"
-            aria-label="orderedList"
-            selected={editor.isActive('orderedList')}>
-            <FormatListNumberedIcon
-              color={`${isdark == 'dark' ? 'primary' : 'secondary'}`}
-            />
-          </ToggleButton>
-
-          <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
-
-          <ToggleButton
-            onClick={() => editor.chain().focus().undo().run()}
-            value="undo"
-            aria-label="undo">
-            <UndoIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
-          <ToggleButton
-            onClick={() => editor.chain().focus().redo().run()}
-            value="redo"
-            aria-label="redo">
-            <RedoIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
-
-          <div className="ml-2 mr-1 flex items-center">
-            <SetColor
-              type="color"
-              ad
-              className="border-none bg-none"
-              onInput={(event: any) =>
-                editor.chain().focus().setColor(event.target.value).run()
-              }
-              value={editor.getAttributes('textStyle').color}
-            />
-          </div>
-        </StyledToggleButtonGroup>
-        <Tooltip content="색깔을 초기화 시킵니다" position={Position.TOP}>
-          <ToggleButton
+        <a data-tooltip-id="my-color" data-tooltip-content="색깔을 초기화 시킵니다">
+          <button
+            className={`p-2 mx-1 rounded-md active:scale-90 ${
+              editor.isActive('unset color') ? 'bg-gray-100 dark:bg-slate-900' : ''
+            }`}
             onClick={() => editor.chain().focus().unsetColor().run()}
-            value="unset color"
             aria-label="unset color">
-            <RestartAltIcon color={`${isdark == 'dark' ? 'primary' : 'secondary'}`} />
-          </ToggleButton>
-        </Tooltip>
-      </Paper>
-    </>
+            <GrPowerReset
+              size={20}
+              color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+            />
+          </button>
+        </a>
+        <Tooltip id="my-color" />
+      </div>
+    </div>
   );
 };
 

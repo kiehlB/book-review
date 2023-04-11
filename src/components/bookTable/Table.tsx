@@ -81,8 +81,17 @@ export function Table({
         <div
           className="flex items-center justify-center"
           style={{ height: tableBodyHeight }}>
-          {/* <Spinner size={SPINNER_SIZE * 3} /> */}
-          <div>로딩중</div>
+          <div className="bookshelf_wrapper">
+            <ul className="books_list">
+              <li className="book_item first"></li>
+              <li className="book_item second"></li>
+              <li className="book_item third"></li>
+              <li className="book_item fourth"></li>
+              <li className="book_item fifth"></li>
+              <li className="book_item sixth"></li>
+            </ul>
+            <div className="shelf"></div>
+          </div>
         </div>
       );
       break;
@@ -111,7 +120,7 @@ export function Table({
       const tableRowRenderer = rowRenderer ? rowRenderer : defaultRowRenderer;
       const isSelectable = !disabled && selectedIds !== undefined;
       tableContent = (
-        <div className="pb-24">
+        <div className="pb-14 w-[1190px]">
           {visibleActivities?.map(datum =>
             tableRowRenderer({
               datum,
@@ -155,6 +164,3 @@ export function Table({
 }
 // flex justify-end font-semibold text-xs dark:text-neutral-400
 export default React.memo(Table);
-
-const DEFAULT_BUTTON_TEXT = 'Sort';
-const DEFAULT_POPOVER_HEADER = 'Sort Order';

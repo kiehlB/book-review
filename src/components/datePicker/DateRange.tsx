@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { getEndOfDay, getStartOfDay, minusDays } from '../../lib/dateFormat';
 import DateRangePicker from './DayPicker';
 import { DateRange, DayPicker } from 'react-day-picker';
 import { addDays, format, subDays } from 'date-fns';

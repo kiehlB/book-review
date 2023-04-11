@@ -1,36 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 
-interface AppLayoutProps {
+type MainNavProps = CellLayoutProps;
+
+export function MainNav({ children, className }: MainNavProps) {
+  return <nav className={className}>{children}</nav>;
+}
+
+type AppLayoutProps = {
   first?: React.ReactNode;
   second?: React.ReactNode;
   third?: React.ReactNode;
   className?: string;
-}
+};
 
-interface CellLayoutProps {
-  children?: React.ReactNode;
-  className?: string;
-}
-
-const CellLayout: React.FC<CellLayoutProps> = ({ children, className }) => (
-  <div className={className}>{children}</div>
-);
-
-export const MainNav: React.FC<CellLayoutProps> = ({ children, className }) => (
-  <nav className={className}>{children}</nav>
-);
-
-export const AppLayout: React.FC<AppLayoutProps> = ({
-  first,
-  second,
-  third,
-  className,
-}) => {
+export function AppLayout({ first, second, third, className }: AppLayoutProps) {
   const { isdark } = useSelector((state: RootState) => state.core);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const root = window.document.documentElement;
 
     root.classList.remove(isdark === 'dark' ? 'light' : 'dark');
@@ -39,21 +27,26 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
   return (
     <main className={className}>
-      <CellLayout className="first">{first}</CellLayout>
-      <CellLayout className="second">{second}</CellLayout>
-      <CellLayout className="third">{third}</CellLayout>
+      {first}
+      {second}
+      {third}
     </main>
   );
+}
+
+type CellLayoutProps = {
+  children?: React.ReactNode;
+  className?: string;
 };
 
-export const First: React.FC<CellLayoutProps> = ({ children }) => (
-  <CellLayout className="first">{children}</CellLayout>
-);
+export function First({ children }: CellLayoutProps) {
+  return <>{children}</>;
+}
 
-export const Second: React.FC<CellLayoutProps> = ({ children }) => (
-  <CellLayout className="second">{children}</CellLayout>
-);
+export function Second({ children }: CellLayoutProps) {
+  return <>{children}</>;
+}
 
-export const Third: React.FC<CellLayoutProps> = ({ children }) => (
-  <CellLayout className="third">{children}</CellLayout>
-);
+export function Third({ children }: CellLayoutProps) {
+  return <>{children}</>;
+}

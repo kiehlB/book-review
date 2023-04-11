@@ -1,5 +1,4 @@
 import React from 'react';
-import { IoIosClose } from 'react-icons/io';
 import { PostCardSkeletonProps } from '../post/PostCardItem';
 import { Skeleton, SkeletonTexts } from '../common/Skeleton';
 import { useSelector } from 'react-redux';

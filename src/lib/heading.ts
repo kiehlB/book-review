@@ -1,9 +1,5 @@
 import { escapeForUrl } from './utils';
 
-/**
- * Set unique id for each headings (only for h1, h2, h3)
- * @param html
- */
 export function setHeadingId(html: string) {
   if (typeof window !== 'undefined') {
     const div = document?.createElement('div');

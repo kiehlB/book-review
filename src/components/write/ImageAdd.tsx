@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import imageCompression from 'browser-image-compression';
 import styled from 'styled-components';
-import { Spinner } from 'evergreen-ui';
-import { Pane, Badge, Text } from 'evergreen-ui';
 
 type ImageProps = {
   addImage: (e) => void;
@@ -136,7 +134,8 @@ export default class ImageAdd extends PureComponent<ImageProps> {
       <div className="cursor-pointer">
         <ButtonStyles>
           {this.props.previewSource == 1 ? (
-            <Spinner size={18} />
+            // <Spinner size={18} />
+            <div>wait</div>
           ) : (
             <div className="flex cursor-pointer">
               <label htmlFor="fileInput">

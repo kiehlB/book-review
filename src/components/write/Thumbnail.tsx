@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import imageCompression from 'browser-image-compression';
 import styled from 'styled-components';
-import { Spinner } from 'evergreen-ui';
 import {
   UploadedImage,
   UploadImageToCloudinaryMutationFn,
@@ -181,7 +180,7 @@ export default class PostThumbnail extends PureComponent<ImageProps> {
           <div className="w-full h-full absolute left-0 top-0 shadow">
             {this.props.previewSource == 1 ? (
               <div className="w-full h-full flex justify-center items-center">
-                <Spinner size={48} />
+                {/* <Spinner size={48} /> */}
               </div>
             ) : this.props.readyForFile && this.props.previewSource == 2 ? (
               <img

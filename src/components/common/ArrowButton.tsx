@@ -110,7 +110,7 @@ function ArrowButtonContent({
         <div className="absolute">
           <svg width="60" height="60">
             <circle
-              stroke="currentColor"
+              stroke="#818890"
               strokeWidth="2"
               fill="transparent"
               r="28"
@@ -119,7 +119,7 @@ function ArrowButtonContent({
             />
 
             <motion.circle
-              className="text-[#f0b90b]"
+              className="text-[#f0b90b] "
               stroke="currentColor"
               strokeWidth="2"
               fill="transparent"
@@ -254,7 +254,6 @@ function NextLink({
       transition={shouldReduceMotion ? { duration: 0 } : {}}>
       <H6 as="span">{children}</H6>
       <motion.span
-     
         variants={shouldReduceMotion ? {} : arrowVariants.right}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
         <ArrowIcon direction="right" />

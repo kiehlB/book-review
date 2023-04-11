@@ -7,7 +7,6 @@ import {
   NormalizedCacheObject,
   fromPromise,
 } from '@apollo/client';
-import fetch from 'cross-fetch';
 import { concatPagination } from '@apollo/client/utilities';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';

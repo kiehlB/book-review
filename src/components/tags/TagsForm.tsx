@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import transitions from '../../lib/transitions';
-import { Tooltip, IconButton, EditIcon } from 'evergreen-ui';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostSaveSuccess, getPostTags } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
@@ -128,7 +129,9 @@ function TagsForm(props: TagsFormProps) {
         </TagItem>
       ))}
 
-      <Tooltip content="엔터키로 등록, 태그를 클릭하면 삭제 됩니다">
+      <a
+        data-tooltip-id="my-tooltip"
+        data-tooltip-content="엔터키로 등록, 태그를 클릭하면 삭제 됩니다">
         <input
           placeholder="태그를 입력하세요"
           tabIndex={2}
@@ -139,7 +142,8 @@ function TagsForm(props: TagsFormProps) {
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
         />
-      </Tooltip>
+      </a>
+      <Tooltip id="my-tooltip" />
     </div>
   );
 }

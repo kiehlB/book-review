@@ -1,7 +1,5 @@
 import React from 'react';
-import { IoIosClose } from 'react-icons/io';
 import { NextLink } from '../common/ArrowButton';
-import { PostCardSkeleton } from '../post/PostCardItem';
 import useGetTags from './hooks/usegetTags';
 import TagItem, { TagsSkeleton } from './TagsItem';
 

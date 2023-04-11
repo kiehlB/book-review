@@ -1,11 +1,4 @@
 import React, { useRef, useState } from 'react';
-
-import {
-  Button as EvergreenButton,
-  ButtonProps,
-  IconButton as EvergreenIconButton,
-  IconButtonProps,
-} from 'evergreen-ui';
 import { CaptionProps, DayPicker, useNavigation } from 'react-day-picker';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
@@ -40,24 +33,6 @@ function CustomCaption(props: CaptionProps) {
       </button>
     </h2>
   );
-}
-
-export const IconButton = (props: IconButtonProps) => {
-  const appearance = props.appearance;
-  const intent = props.intent;
-
-  return <EvergreenIconButton {...props} fontWeight="600" />;
-};
-
-export const Button = props => {
-  const appearance = props.appearance;
-  const intent = props.intent;
-
-  return <EvergreenButton {...props} fontWeight="600" />;
-};
-
-interface HandleClickOptions {
-  closePopover: () => void;
 }
 
 const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) => {
