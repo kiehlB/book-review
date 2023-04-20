@@ -90,7 +90,7 @@ export function Table({
               <li className="book_item fifth"></li>
               <li className="book_item sixth"></li>
             </ul>
-            <div className="shelf"></div>
+            <div className="loadingShelf"></div>
           </div>
         </div>
       );

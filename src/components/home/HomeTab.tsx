@@ -32,7 +32,7 @@ function HomeTab({ primaryItems }: HomeTabProps) {
   };
 
   return (
-    <div className="flex items-center">
+    <nav className="flex items-center">
       {primaryItems.map(({ name, href, svg }) => (
         <Link
           key={name}
@@ -73,7 +73,7 @@ function HomeTab({ primaryItems }: HomeTabProps) {
       ))}
 
       <ActivityDateRangePicker />
-    </div>
+    </nav>
   );
 }
 

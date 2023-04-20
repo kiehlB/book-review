@@ -137,7 +137,7 @@ export default class ImageAdd extends PureComponent<ImageProps> {
             // <Spinner size={18} />
             <div>wait</div>
           ) : (
-            <div className="flex cursor-pointer">
+            <div className="flex cursor-pointer dark:text-[#cfcfcf]">
               <label htmlFor="fileInput">
                 <svg
                   className="cursor-pointer"

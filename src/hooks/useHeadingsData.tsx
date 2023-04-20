@@ -25,7 +25,8 @@ export const useHeadingsData = () => {
   const isLoading = useSelector((state: RootState) => state.core.isLoading);
 
   useEffect(() => {
-    const headingElements = Array.from(document.querySelectorAll('h1,h2, h3'));
+    const contentElement = document.getElementById('content');
+    const headingElements = Array.from(contentElement.querySelectorAll('h1, h2, h3'));
 
     const newNestedHeadings = getNestedHeadings(headingElements);
     setNestedHeadings(newNestedHeadings);

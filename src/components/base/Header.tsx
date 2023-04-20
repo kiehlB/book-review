@@ -29,7 +29,8 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
           'w-14 mmx:w-12': variant === 'icon',
           'px-8': variant === 'labelled',
         },
-      )}>
+      )}
+      aria-label="Toggle dark mode">
       <div className="relative h-8 w-8">
         <div
           className="absolute inset-0 flex justify-center items-center rotate-90 transform text-black transition duration-1000 motion-reduce:duration-[0s] dark:rotate-0 dark:text-white"
@@ -80,32 +81,32 @@ function Header({
 
   const AuthButtons = () => (
     <>
-      <div
+      <span
         className="pr-4 text-sm text-[#181A20] font-semibold cursor-pointer hover:text-[#495057] dark:text-[#e4e5e7] dark:mxs:text-[#212529] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[16px] mxs:py-[12px] rounded-3xl"
         onClick={() => {
           SetIsClose(!IsClose);
           SetMode('login');
         }}>
         Sign in
-      </div>
-      <div
+      </span>
+      <span
         className="text-sm font-semibold px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] mxs:hidden"
         onClick={() => {
           SetIsClose(!IsClose);
           SetMode('register');
         }}>
         Sign up
-      </div>
+      </span>
     </>
   );
 
   const LoggedInButtons = () => (
     <div className="flex items-center">
-      <div
+      <span
         onClick={() => SetBookIsClose(!BookIsClose)}
         className="text-sm border px-[20px] py-[10px] rounded-3xl mr-4 text-[#212529] cursor-pointer hover:text-[#5b646d] font-semibold dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:border-none dark:hover:text-white mxs:hidden">
         Write
-      </div>
+      </span>
       <PopMenu profileThumbnail={profileThumbnail} />
     </div>
   );
@@ -113,11 +114,11 @@ function Header({
   const AuthControl = () => (auth?.id ? <LoggedInButtons /> : <AuthButtons />);
 
   return (
-    <div
+    <header
       className={`grid grid-cols-10 gap-6 max-w-[98.5rem] mx-auto mxl:max-w-[75rem] mmd:grid-cols-10 mmx:grid-cols-none items-center py-[1rem] mmx:w-full mmx:flex`}>
       <div
         className={`col-span-2 whitespace-nowrap text-[1.5625rem] transition focus:outline-none text-[#212529] mxl:col-span-2 dark:text-[#e4e5e7] mmx:col-span-none`}>
-        <div className="flex items-center">
+        <span className="flex items-center">
           <div className="md:hidden mr-2 mxs:mr-1">
             <Sidebar BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} />
           </div>
@@ -127,7 +128,7 @@ function Header({
           <Link href="/" className={`font-Fredoka mxs:text-2xl sxm:hidden text-[28px]`}>
             BR
           </Link>
-        </div>
+        </span>
       </div>
 
       <form
@@ -156,7 +157,7 @@ function Header({
 
         <AuthControl />
       </div>
-    </div>
+    </header>
   );
 }
 

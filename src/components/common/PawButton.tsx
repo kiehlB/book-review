@@ -9,11 +9,12 @@ export type PostProps = {
   id: string | any;
   isdark: string;
   auth: any;
+  data: any;
+  onLikeToggle: any;
 };
 
-export default function PawButton({ id, isdark, auth }: PostProps) {
+export default function PawButton({ id, isdark, auth, data, onLikeToggle }: PostProps) {
   let confettiAmount = 60;
-  const { data, onLikeToggle } = usePostLike({ id });
 
   const confettiColors = [
     '#7d32f5',
@@ -38,6 +39,8 @@ export default function PawButton({ id, isdark, auth }: PostProps) {
     elem.style.setProperty('--b', confettiColors[random(0, 5)]);
     to.appendChild(elem);
   };
+
+  console.log(data?.post?.liked);
 
   useEffect(() => {
     document.querySelectorAll('.paw-button').forEach((elem: any) => {
@@ -170,13 +173,6 @@ export default function PawButton({ id, isdark, auth }: PostProps) {
             />
           </symbol>
         </svg>
-
-        <a className="dribbble" href="https://dribbble.com/shots/8082836-Paw-Clap-Button">
-          <img
-            src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg"
-            alt=""
-          />
-        </a>
       </div>
     </>
   );

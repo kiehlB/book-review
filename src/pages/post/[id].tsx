@@ -33,8 +33,9 @@ import { toast } from 'react-toastify';
 import ProfileIcon from '../../svg/profile';
 import { PostCardSkeletonProps } from '../../components/post/PostCardItem';
 import { Skeleton, SkeletonTexts } from '../../components/common/Skeleton';
-import Header from '../../components/base/Header';
 import { formatDate } from '../../lib/utils';
+import usePostLike from '../../components/post/hooks/usePostLike';
+import Image from 'next/image';
 
 export type PostProps = {
   id: string;
@@ -47,8 +48,9 @@ function PostDetail() {
   const insertID = setHeadingId(singlePostData?.post?.body);
   const { isdark } = useSelector((state: RootState) => state.core);
   const { auth } = useSelector((state: RootState) => state.auth);
-
   const id = router?.query?.id;
+  const { data, onLikeToggle, loading } = usePostLike({ id });
+
   const BodyResult = insertID.replace('<toc></toc>', '');
   singlePostData?.post?.bookInfo;
 
@@ -94,6 +96,8 @@ function PostDetail() {
       }
     }
   };
+
+  if (loading) return null;
 
   return (
     <>
@@ -170,7 +174,13 @@ function PostDetail() {
                 <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
                   <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden">
                     <div className="sticky top-[20%]">
-                      <PawButton id={id} isdark={isdark} auth={auth} />
+                      <PawButton
+                        id={id}
+                        isdark={isdark}
+                        auth={auth}
+                        data={data}
+                        onLikeToggle={onLikeToggle}
+                      />
                     </div>
                   </div>
 
@@ -180,10 +190,11 @@ function PostDetail() {
                         <div className="card">
                           <div className="imgBox">
                             <div className="bark "></div>
-                            <img
+                            <Image
+                              alt="book"
                               src={singlePostData?.post?.bookInfo?.bookUrl}
-                              width="120px"
-                              height="174px"
+                              width={120}
+                              height={174}
                             />
                           </div>
                           <div className="details">
@@ -209,7 +220,7 @@ function PostDetail() {
                     <div>
                       <img src={singlePostData?.post?.thumbnail} />
                     </div>
-                    <Content isdark={isdark}>
+                    <Content isdark={isdark} id="content">
                       <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
                     </Content>
                   </div>
@@ -247,7 +258,6 @@ function PostDetail() {
 export default PostDetail;
 
 function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
-  const paddingTop = `${(1 / 1.644444444444444) * 100}%`;
   const { isdark } = useSelector((state: RootState) => state.core);
 
   return (
@@ -288,75 +298,16 @@ function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
                     wordLengths={[4, 4, 4, 4, 4, 7, 5, 2, 4, 5]}
                   />
                 </div>
-                <div className="py-1">
-                  <SkeletonTexts
-                    isdark={isdark}
-                    wordLengths={[
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                    ]}
-                  />
-                </div>
-                <div className="py-1">
-                  <SkeletonTexts
-                    isdark={isdark}
-                    wordLengths={[
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                    ]}
-                  />
-                </div>
-                <div className="py-1">
-                  <SkeletonTexts
-                    isdark={isdark}
-                    wordLengths={[
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                      Math.floor(Math.random() * 10),
-                    ]}
-                  />
-                </div>
+                {[...Array(3)].map((_, i) => (
+                  <div className="py-1" key={i}>
+                    <SkeletonTexts
+                      isdark={isdark}
+                      wordLengths={[...Array(16)].map(() =>
+                        Math.floor(Math.random() * 10),
+                      )}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </Second>

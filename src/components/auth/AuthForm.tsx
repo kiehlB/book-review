@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import LabelInput from '../common/LabelInput';
 import clsx from 'clsx';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -147,13 +148,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
           />
         </div>
 
-        <div
+        <span
           className={clsx('text-xs py-[0.5rem] px-1', {
             'text-[#17c964]': Usernamehelper?.color == 'success',
             'text-[#f31260]': Usernamehelper?.color == 'error',
           })}>
           {UsernameState()}
-        </div>
+        </span>
         <div className="flex items-center mt-6">
           <LabelInput
             name="password"
@@ -171,13 +172,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
             helper={Passwordhelper}
           />
         </div>
-        <div
+        <span
           className={clsx('text-xs py-[0.5rem] px-1', {
             'text-[#17c964]': Passwordhelper?.color == 'success',
             'text-[#f31260]': Passwordhelper?.color == 'error',
           })}>
           {PasswordState()}
-        </div>
+        </span>
 
         <div
           onClick={(e: any) => {
@@ -196,26 +197,26 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </motion.button>
         </div>
       </div>
-      <div className="link px-[6.46875rem] text-base flex justify-end mmd:px-[2rem] ssm:px-[1rem]">
+      <p className="link px-[6.46875rem] text-base flex justify-end mmd:px-[2rem] ssm:px-[1rem]">
         {mode == 'register' ? (
-          <div
+          <span
             className="text-[#C99400] font-semibold cursor-pointer"
             onClick={() => SetMode('login')}>
             로그인
-          </div>
+          </span>
         ) : (
-          <div
+          <span
             className="text-[#C99400] font-semibold cursor-pointer"
             onClick={() => SetMode('register')}>
             회원가입
-          </div>
+          </span>
         )}
-        <div className="dark:text-[#e4e5e7]"> 으로 이동</div>
-      </div>
+        <span className="dark:text-[#e4e5e7]"> 으로 이동</span>
+      </p>
 
       <div className="flex mt-4  my-8 items-center justify-between px-1">
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
-        <div className="text-[#707a8a] dark:text-[#e4e5e7]">Or</div>
+        <span className="text-[#707a8a] dark:text-[#e4e5e7]">Or</span>
         <div className="w-[136px] h-[1px] bg-[#EAECEF]"></div>
       </div>
 
@@ -229,13 +230,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
         <div onClick={handleClick}>
           <div ref={naverRef} id="naverIdLogin" className="hidden" />
           <div className="rounded-full w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
-            <img src="/naver.png " />
+            <Image src="/naver.png " alt="icon" width={50} height={50} />
           </div>
         </div>
 
         <Link href={`${process.env.KAKAO_CALLBACK}`} passHref={true}>
           <div className="rounded-full bg-[#fee500] w-[50px] h-[50px] flex justify-center items-center transition-all hover:hover:translate-y-[-5px] transform duration-500 ease-in-out cursor-pointer hover:shadow-md">
-            <img src="/kakao.png" className="w-[24px] h-[24px]" />
+            <Image src="/kakao.png" width={24} height={24} alt="alt" />
           </div>
         </Link>
       </div>

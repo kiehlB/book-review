@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { useHeadingsData } from '../../hooks/useHeadingsData';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';

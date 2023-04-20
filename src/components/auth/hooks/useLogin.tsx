@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ import {
 import { inputProps } from '../AuthForm';
 import { toast } from 'react-toastify';
 import { LoginMutation, LoginMutationVariables } from '../../../types/apolloComponent';
+import { GET_Post } from '../../../lib/graphql/posts';
 
 export default function useLogin() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function useLogin() {
   const { IsClose, SetIsClose, mode, SetMode } = useContext(ModalContext);
 
   const dispatch = useDispatch();
+  const client = useApolloClient();
 
   const validateUsername = value => {
     return value.match(/^[a-z0-9]{5,20}$/);
@@ -96,6 +98,7 @@ export default function useLogin() {
       });
       inputs.username = '';
       inputs.password = '';
+      client.resetStore();
       router.push('/');
     },
   });

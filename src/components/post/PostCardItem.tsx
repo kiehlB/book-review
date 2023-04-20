@@ -25,12 +25,12 @@ function PostCardItem({ post }: GridProps) {
       <div className="flex flex-1 flex-col h-full">
         <div className="h-full justify-between flex flex-col">
           <div className="px-4">
-            <div
+            <span
               className={clsx(
                 'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#CFCFCF] truncate pt-[1rem]',
               )}>
               도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
-            </div>
+            </span>
 
             <WithoutPostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#CFCFCF]">
               {post?.title}
@@ -43,13 +43,13 @@ function PostCardItem({ post }: GridProps) {
 
           <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
             <div className="flex font-semibold text-xs">
-              <div className="mr-2">좋아요 {post?.likes}개</div>
-              <div>댓글 {post?.subs_count}개</div>
+              <span className="mr-2">좋아요 {post?.likes}개</span>
+              <span>댓글 {post?.subs_count}개</span>
             </div>
 
-            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF] ">
+            <span className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF] ">
               {formatDate(post?.released_at)}
-            </div>
+            </span>
           </div>
         </div>
       </div>
@@ -75,12 +75,12 @@ function PostCardItem({ post }: GridProps) {
 
         <div className="h-full justify-between flex flex-col">
           <div className="px-4">
-            <div
+            <span
               className={clsx(
                 'text-[#4b4b4b] font-semibold text-[0.8125rem] dark:text-[#CFCFCF] truncate pt-[1rem]',
               )}>
               도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
-            </div>
+            </span>
 
             <PostTitle className="text-[#18191b] font-semibold text-base m-0 mb-[0.25rem] leading-normal mt-2 dark:text-[#CFCFCF]">
               {post?.title}
@@ -109,13 +109,13 @@ function PostCardItem({ post }: GridProps) {
 
           <div className="flex justify-between mt-6 leading-normal text-[#2e2e2e] dark:text-[#CFCFCF] p-4">
             <div className="flex font-semibold text-xs">
-              <div className="mr-2">좋아요 {post?.likes}개</div>
-              <div>댓글 {post?.subs_count}개</div>
+              <span className="mr-2">좋아요 {post?.likes}개</span>
+              <span>댓글 {post?.subs_count}개</span>
             </div>
 
-            <div className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF]">
+            <span className="flex font-semibold text-xs text-[#2e2e2e] dark:text-[#CFCFCF]">
               {formatDate(post?.released_at)}
-            </div>
+            </span>
           </div>
         </div>
       </div>

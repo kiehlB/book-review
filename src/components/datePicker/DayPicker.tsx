@@ -50,10 +50,10 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
   const [isSelectingFirstDay, setIsSelectingFirstDay] = useState(true);
   let footer = (
     <div className="px-2 flex w-[60%] justify-between mx-auto items-center">
-      <div>취소</div>
-      <div className="text-sm font-semibold px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] mxs:hidden">
+      <span>취소</span>
+      <span className="text-sm font-semibold px-[20px] py-[12px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] mxs:hidden">
         완료
-      </div>
+      </span>
     </div>
   );
 

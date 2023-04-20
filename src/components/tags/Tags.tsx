@@ -1,4 +1,5 @@
 import React from 'react';
+import { IoIosClose } from 'react-icons/io';
 import { NextLink } from '../common/ArrowButton';
 import useGetTags from './hooks/usegetTags';
 import TagItem, { TagsSkeleton } from './TagsItem';
@@ -25,10 +26,12 @@ function Tags(props: TagsProps) {
       ))}
       {loading && Array.from({ length: 8 }).map((_, i) => <TagsSkeleton key={i} />)}
       <div className="flex items-center mt-2">
-        <NextLink className="text-[#475569] hover:text-[#212529]" href={'/tags'}>
-          <div className="font-bold py-1 pl-3 text-[#475569] mr-2 text-base hover:text-[#212529]">
+        <NextLink
+          className="text-[#475569] hover:text-[#212529] dark:text-[#e4e5e7] dark:hover:text-white"
+          href={'/tags'}>
+          <span className="font-bold py-1 pl-3 text-[#475569] mr-2 text-base hover:text-[#212529] dark:text-[#e4e5e7] dark:hover:text-white">
             See All Tags
-          </div>
+          </span>
         </NextLink>
       </div>
     </div>

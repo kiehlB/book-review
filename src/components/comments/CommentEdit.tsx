@@ -17,7 +17,6 @@ const CommentEdit: React.FC<CommentEditProps> = ({ id, defaultText, onCancel }) 
       onCancel();
     },
   });
-  const [wait, setWait] = useState(false);
 
   const onWrite = async () => {
     await editComment({

@@ -26,9 +26,9 @@ function Comments({ commentCount, postId, comments, isMine, currentId }: Comment
 
   return (
     <div className="mt-24">
-      <div className="text-[#212529] text-lg font-bold mb-4 dark:text-[#ececec]">
+      <span className="text-[#212529] text-lg font-bold mb-4 dark:text-[#ececec]">
         {commentCount}개의 댓글
-      </div>
+      </span>
       <CommentsWrite
         postId={postId}
         comment={comment}

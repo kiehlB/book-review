@@ -10,6 +10,7 @@ import { AiOutlineLink, AiOutlineOrderedList } from 'react-icons/ai';
 import { MdFormatListBulleted } from 'react-icons/md';
 import { Tooltip } from 'react-tooltip';
 import { FaUndoAlt, FaRedoAlt } from 'react-icons/fa';
+import { RxReset } from 'react-icons/rx';
 
 const ProjectCreateContentToolbar = ({
   editor,
@@ -39,7 +40,7 @@ const ProjectCreateContentToolbar = ({
       <div className="flex items-center flex-wrap mxs:flex-nowrap">
         <HeadingToolbarButtons editor={editor} isdark={isdark} />
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900 ${
             editor.isActive('bold') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -47,7 +48,7 @@ const ProjectCreateContentToolbar = ({
           <BsTypeBold size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('italic') ? 'bg-gray-100 dark:bg-slate-900 ' : ''
           }`}
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -55,7 +56,7 @@ const ProjectCreateContentToolbar = ({
           <BiItalic size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('strike') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleStrike().run()}
@@ -66,7 +67,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('code') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleCode().run()}
@@ -74,7 +75,7 @@ const ProjectCreateContentToolbar = ({
           <BiCodeAlt size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('blockquote') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
@@ -85,7 +86,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md ${
+          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('HorizontalRule') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
@@ -96,7 +97,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('paragraph') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().setParagraph().run()}
@@ -107,7 +108,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('underline') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -118,10 +119,12 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
 
-        <div className="flex items-center px-[8px] ">{children}</div>
+        <div className="flex items-center px-[8px] py-2 hover:bg-gray-100 dark:hover:bg-slate-900">
+          {children}
+        </div>
 
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md ${
+          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('link') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => {
@@ -155,14 +158,14 @@ const ProjectCreateContentToolbar = ({
         <button
           aria-label="youtube"
           onClick={addYoutubeVideo}
-          className={`p-2 mx-1 active:scale-90 rounded-md ${
+          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('youtube') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}>
           <BsYoutube size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
 
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('bulletList') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -173,7 +176,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md ${
+          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('orderedList') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
@@ -187,7 +190,7 @@ const ProjectCreateContentToolbar = ({
         {/* <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} /> */}
 
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md ${
+          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('undo') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().undo().run()}
@@ -195,7 +198,7 @@ const ProjectCreateContentToolbar = ({
           <FaUndoAlt size={20} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md ${
+          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('redo') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().redo().run()}
@@ -206,7 +209,6 @@ const ProjectCreateContentToolbar = ({
         <div className="ml-2 mr-1 flex items-center">
           <SetColor
             type="color"
-            ad
             className="border-none bg-none"
             onInput={(event: any) =>
               editor.chain().focus().setColor(event.target.value).run()
@@ -217,15 +219,12 @@ const ProjectCreateContentToolbar = ({
 
         <a data-tooltip-id="my-color" data-tooltip-content="색깔을 초기화 시킵니다">
           <button
-            className={`p-2 mx-1 rounded-md active:scale-90 ${
+            className={`p-2 mx-1 rounded-md active:scale-90 hover:bg-gray-100 dark:hover:bg-slate-900${
               editor.isActive('unset color') ? 'bg-gray-100 dark:bg-slate-900' : ''
             }`}
             onClick={() => editor.chain().focus().unsetColor().run()}
             aria-label="unset color">
-            <GrPowerReset
-              size={20}
-              color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
-            />
+            <RxReset size={20} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
           </button>
         </a>
         <Tooltip id="my-color" />

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import imageCompression from 'browser-image-compression';
 import { AiFillEdit } from 'react-icons/ai';
+import Image from 'next/image';
 
 type ImageProps = {
   addImage: (e) => void;
@@ -177,9 +178,12 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
               <div className=" rounded-lg absolute hover:bg-[#00000066] transition-all  z-10 w-[128px] h-[128px] flex justify-center items-center opacity-0 hover:opacity-100">
                 <AiFillEdit size={42} color="#ffff" className="" />
               </div>
-              <img
+              <Image
+                alt="readyForFile"
                 src={this.props.readyForFile}
                 className="flex items-center flex-col justify-center object-cover w-[128px] h-[128px]"
+                width={128}
+                height={128}
               />
 
               <input

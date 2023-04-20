@@ -36,7 +36,7 @@ function CommentsWrite({
         {onCancel && (
           <button
             onClick={onCancel}
-            className="mr-4 text-sm py-[10px] rounded-3xl text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">
+            className="mr-4 text-sm py-[10px] rounded-3xl text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold dark:text-[#cfcfcf]">
             취소
           </button>
         )}

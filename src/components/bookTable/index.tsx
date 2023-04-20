@@ -42,7 +42,7 @@ function BooksTableForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="relative border-2">
+      <div className="relative">
         <div className="absolute top-[50%] left-[16px] translate-y-[-50%] bg-[rgb(255 115 179)] dark:text-[#e4e5e7]">
           <IoSearchOutline />
         </div>
@@ -295,10 +295,7 @@ const BookTalble = ({}) => {
             </div>
 
             <div onClick={handleNextClick}>
-              <ArrowLink
-                href={book?.title ? '/write' : ''}
-                direction="right"
-                textSize="small">
+              <ArrowLink href="/write" direction="right" textSize="small" className={''}>
                 다음
               </ArrowLink>
             </div>

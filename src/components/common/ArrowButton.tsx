@@ -244,21 +244,24 @@ function NextLink({
 >) {
   const [ref, state] = useElementState();
   const shouldReduceMotion = useReducedMotion();
+
   return (
-    <MotionLink
-      href={href}
-      className={clsx('flex focus:outline-none items-center', className)}
-      ref={ref}
-      onClick={() => click()}
-      animate={state}
-      transition={shouldReduceMotion ? { duration: 0 } : {}}>
-      <H6 as="span">{children}</H6>
-      <motion.span
-        variants={shouldReduceMotion ? {} : arrowVariants.right}
+    <div className={className}>
+      <MotionLink
+        href={href}
+        className={clsx('flex focus:outline-none items-center')}
+        ref={ref}
+        onClick={() => click()}
+        animate={state}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
-        <ArrowIcon direction="right" />
-      </motion.span>
-    </MotionLink>
+        <H6 as="span">{children}</H6>
+        <motion.span
+          variants={shouldReduceMotion ? {} : arrowVariants.right}
+          transition={shouldReduceMotion ? { duration: 0 } : {}}>
+          <ArrowIcon direction="right" />
+        </motion.span>
+      </MotionLink>
+    </div>
   );
 }
 

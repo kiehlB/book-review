@@ -8,14 +8,15 @@ import ProfileIcon from '../../svg/profile';
 import CommentEdit from './CommentEdit';
 import { formatDate } from '../../lib/utils';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 
 export type CommentItemProps = {
   comment: Sub | null;
   onRemove: (id: string) => void;
   isMine: boolean;
   ownComment: string;
-  getId;
-  onLikeToggle?;
+  getId: (id: string) => void;
+  onLikeToggle: (id: string) => Promise<void>;
 };
 
 const PostCommentItem = styled.div`
@@ -35,15 +36,17 @@ function CommentItem({
 }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
-  const dispatch = useDispatch();
 
   return (
     <PostCommentItem className="comment py-1 mt-1">
       <div className="flex">
         {comment?.user?.profile?.thumbnail ? (
-          <img
+          <Image
             src={comment?.user?.profile?.thumbnail}
-            className="w-[48px] h-[48px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]"
+            alt="Profile thumbnail"
+            width={48}
+            height={48}
+            className="rounded-full object-cover block mxs:w-[40px] mxs:h-[40px]"
           />
         ) : (
           <ProfileIcon className="w-[48px] h-[48px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]" />
@@ -54,29 +57,29 @@ function CommentItem({
             <div className="w-full">
               <div className="flex items-center mxs:flex-col mxs:items-baseline justify-between w-full">
                 <div className="flex items-center">
-                  <div className="font-bold text-[#212529] ml-2 mxs:text-sm dark:text-[#ececec]">
+                  <h3 className="font-bold text-[#212529] ml-2 mxs:text-sm dark:text-[#ececec]">
                     {comment.deleted
                       ? '알 수 없음'
                       : comment?.user?.profile?.profile_name
                       ? comment?.user?.profile?.profile_name
                       : comment?.user?.username}
-                  </div>
-                  <div className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
+                  </h3>
+                  <p className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
                     {formatDate(comment?.created_at)}
-                  </div>
+                  </p>
                 </div>
 
-                <div className="flex text-[#868e96] text-sm h-full dark:text-[#acacac]">
+                <div className="flex text-[#868e96] text-sm h-full dark:text-[#acacac] mxs:px-2">
                   {ownComment == comment?.user?.id && !comment.deleted ? (
                     <>
-                      <div onClick={onToggleEditing} className="mr-2 cursor-pointer">
+                      <span onClick={onToggleEditing} className="mr-2 cursor-pointer">
                         수정
-                      </div>
-                      <div
+                      </span>
+                      <span
                         className="cursor-pointer"
                         onClick={() => onRemove(comment.id)}>
                         삭제
-                      </div>
+                      </span>
                     </>
                   ) : (
                     ''
@@ -109,7 +112,7 @@ function CommentItem({
                         }}>
                         <BiUpvote className="mr-[3px]" />
 
-                        <div>{comment?.upvotes}</div>
+                        <span>{comment?.upvotes}</span>
                       </div>
                     </div>
                     {!comment.deleted && comment?.level < 2 ? (

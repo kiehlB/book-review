@@ -26,7 +26,7 @@ function SavedPostItem({
   const editUrl = `/write?id=${post.id}`;
 
   return (
-    <div className="flex justify-between hover:bg-[#e2e8f0] py-[6px] transition-all dark:hover:bg-[#54565f33] rounded">
+    <div className="flex justify-between hover:bg-[#e2e8f0] py-[6px] transition-all dark:hover:bg-[#54565f33] rounded px-1">
       <div className="flex items-center" onClick={() => dispatch(getPostId(post.id))}>
         <div>
           <PostIcon className="w-6 cursor-pointer" />

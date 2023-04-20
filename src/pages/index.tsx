@@ -4,7 +4,6 @@ import Navbar from '../components/navbar';
 import { RiBookOpenLine } from 'react-icons/ri';
 import { RiFileChartFill } from 'react-icons/ri';
 import { PageLayout } from '../components/layout/PageLayout';
-import { getNextSeo } from '../lib/nextSeo';
 import PostCard from '../components/post/PostCard';
 import { AppLayout, First, MainNav, Second } from '../components/layout/AppLayout';
 import Tags from '../components/tags/Tags';
@@ -26,12 +25,12 @@ export default function Home({ post }) {
         <title>Book Reivew</title>
         <meta
           name="description"
-          content="책 리뷰를 작성해 보세요 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다."
+          content="책 리뷰를 작성해 보세요 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요."
         />
         <meta name="og:title" content="Book review Main" />
         <meta
           name="og:description"
-          content="책 리뷰를 작성해 보세요 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다."
+          content="책 리뷰를 작성해 보세요 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요."
         />
       </Head>
       <PageLayout>
