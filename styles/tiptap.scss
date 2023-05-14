@@ -40,166 +40,234 @@ $col-39: #008080;
 $col-40: #000000;
 $col-41: #01f6f1;
 $col-42: #ffc0cb;
-$colours: $col-1, $col-2, $col-3, $col-4, $col-5, $col-6, $col-7, $col-8, $col-9,
-  $col-10, $col-11, $col-12, $col-13, $col-14, $col-15, $col-16, $col-17,
-  $col-18, $col-19, $col-20, $col-21, $col-22, $col-23, $col-24, $col-25,
-  $col-26, $col-27, $col-28, $col-29, $col-30, $col-31, $col-32, $col-33,
-  $col-34, $col-35, $col-36, $col-37, $col-38, $col-39, $col-40, $col-41,
-  $col-42;
-$text: "", "", "", "", "", "", "--", "--", "--", "---", "---", "---", "", "", "",
-  "", "", "--", "--", "--", "---", "---", "------------------------";
-$text-col: #111111, #eeeeee, #111111;
- 
-.shelf {
-  height: 8px;
-  background-color: #8b4513;
-  border-radius: 5px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  
+$colours: $col-1,
+$col-2,
+$col-3,
+$col-4,
+$col-5,
+$col-6,
+$col-7,
+$col-8,
+$col-9,
+$col-10,
+$col-11,
+$col-12,
+$col-13,
+$col-14,
+$col-15,
+$col-16,
+$col-17,
+$col-18,
+$col-19,
+$col-20,
+$col-21,
+$col-22,
+$col-23,
+$col-24,
+$col-25,
+$col-26,
+$col-27,
+$col-28,
+$col-29,
+$col-30,
+$col-31,
+$col-32,
+$col-33,
+$col-34,
+$col-35,
+$col-36,
+$col-37,
+$col-38,
+$col-39,
+$col-40,
+$col-41,
+$col-42;
+$text: "",
+"",
+"",
+"",
+"",
+"",
+"--",
+"--",
+"--",
+"---",
+"---",
+"---",
+"",
+"",
+"",
+"",
+"",
+"--",
+"--",
+"--",
+"---",
+"---",
+"------------------------";
+$text-col: #111111,
+#eeeeee,
+#111111;
 
-  &:hover {
-    animation: shelf-lift 0.5s ease;
-    animation-iteration-count: 1;
-    transform-origin: 50% 50%;
-    cursor: pointer;
-    .book {
-      animation: book-bounce 0.5s ease;
-      animation-iteration-count: 1;
+.shelf {
+    height: 8px;
+    background-color: #8b4513;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+
+    &:hover {
+        animation: shelf-lift 0.5s ease;
+        animation-iteration-count: 1;
+        transform-origin: 50% 50%;
+        cursor: pointer;
+
+        .book {
+            animation: book-bounce 0.5s ease;
+            animation-iteration-count: 1;
+        }
     }
-  }
 }
 
 .book {
-  margin-bottom: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 2px;
-  font-size: 20px;
-  overflow: hidden;
-  line-height: 15%;
-  text-align: center;
-  font-weight: lighter;
- 
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 2px;
+    font-size: 20px;
+    overflow: hidden;
+    line-height: 15%;
+    text-align: center;
+    font-weight: lighter;
+
 }
 
 @for $i from 0 through 99 {
-  .book:nth-child(#{$i}):before {
-    content: nth($text, random(length($text)));
-    color: nth($text-col, random(length($text-col)));
-  }
-  .book:nth-child(#{$i}) {
-    height: random(30) + 40px;
-    animation-delay: $i * 0.002s !important;
-    background-color: nth($colours, random(length($colours)));
-    width: random(4) + 7px;
-  }
-}
-@keyframes book-bounce {
-  0% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-20px);
-  }
-  80% {
-    transform: translateY(-2px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+    .book:nth-child(#{$i}):before {
+        content: nth($text, random(length($text)));
+        color: nth($text-col, random(length($text-col)));
+    }
+
+    .book:nth-child(#{$i}) {
+        height: random(30) + 40px;
+        animation-delay: $i * 0.002s !important;
+        background-color: nth($colours, random(length($colours)));
+        width: random(4) + 7px;
+    }
 }
 
- 
- 
-p:empty::after {
-  content: "\00A0";
+@keyframes book-bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-20px);
+    }
+
+    80% {
+        transform: translateY(-2px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
- 
+
+
+
+p:empty::after {
+    content: "\00A0";
+}
+
 
 
 
 
 .toc {
-  background: rgba(black, 0.1);
-  border-radius: 0.5rem;
-  opacity: 0.75;
-  padding: 0.75rem;
+    background: rgba(black, 0.1);
+    border-radius: 0.5rem;
+    opacity: 0.75;
+    padding: 0.75rem;
 
-  &__list {
-    list-style: none;
-    padding: 0;
+    &__list {
+        list-style: none;
+        padding: 0;
 
-    &::before {
-      content: "Table of Contents";
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.025rem;
-      opacity: 0.5;
-      text-transform: uppercase;
-    }
-  }
-
-  &__item {
-    a:hover {
-      opacity: 0.5;
+        &::before {
+            content: "Table of Contents";
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.025rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+        }
     }
 
-    &--3 {
-      padding-left: 1rem;
-    }
+    &__item {
+        a:hover {
+            opacity: 0.5;
+        }
 
-    &--4 {
-      padding-left: 2rem;
-    }
+        &--3 {
+            padding-left: 1rem;
+        }
 
-    &--5 {
-      padding-left: 3rem;
-    }
+        &--4 {
+            padding-left: 2rem;
+        }
 
-    &--6 {
-      padding-left: 4rem;
+        &--5 {
+            padding-left: 3rem;
+        }
+
+        &--6 {
+            padding-left: 4rem;
+        }
     }
-  }
 }
 
 
 
- 
- 
-.sc-gswNZR{
-  color: blue;
-  img {
-    height: 100%;
-    max-width: 100%;
-    object-fit: cover;
 
-    &.ProseMirror-selectednode {
-      outline: 3px solid #68cef8;
+
+.sc-gswNZR {
+    color: blue;
+
+    img {
+        height: 100%;
+        max-width: 100%;
+        object-fit: cover;
+
+        &.ProseMirror-selectednode {
+            outline: 3px solid #68cef8;
+        }
     }
-  }
 
-  h1 {
-    font-size: 2.5rem;
-    line-height: 1.5;
-  }
+    h1 {
+        font-size: 2.5rem;
+        line-height: 1.5;
+    }
 
-  h2 {
-    font-size: 2rem;
-    line-height: 1.5;
-  }
-  h3 {
-    font-size: 1.5rem;
-    line-height: 1.5;
-  }
-  h4 {
-    font-size: 1.3125rem;
-    line-height: 1.5;
-  }
+    h2 {
+        font-size: 2rem;
+        line-height: 1.5;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        line-height: 1.5;
+    }
+
+    h4 {
+        font-size: 1.3125rem;
+        line-height: 1.5;
+    }
 }
- 
+
 
 $clr-primary: #18ffff;
 $clr-primary-light: #f0b90b;
@@ -215,38 +283,38 @@ $clr-gray700: #161d34;
 $clr-bg: #060b23;
 
 .form {
-  position: relative;
-  width: 100%;
-  height: 3rem;
-
-  &__input {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
-    height: 100%;
-    // border: 1px solid $clr-gray300;
-    padding: 1rem;
-    border-radius: 4px;
-    outline: none;
-  }
+    height: 3rem;
 
-  &__label {
-    position: absolute;
-    left: 0.75rem;
-    top: 0.75rem;
-    padding: 0 0.5rem;
-    cursor: text;
-    transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
-  }
+    &__input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // border: 1px solid $clr-gray300;
+        padding: 1rem;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    &__label {
+        position: absolute;
+        left: 0.75rem;
+        top: 0.75rem;
+        padding: 0 0.5rem;
+        cursor: text;
+        transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+    }
 }
 
 
-.form__input:focus ~ .form__label,
-.form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
-  top: -1.7rem;
-  font-size: 1rem;
-  left: -0rem;
+.form__input:focus~.form__label,
+.form__input:not(:placeholder-shown).form__input:not(:focus)~.form__label {
+    top: -1.7rem;
+    font-size: 1rem;
+    left: -0rem;
 }
 
 
@@ -255,268 +323,269 @@ $thickness : 5px;
 $duration : 2500;
 $delay : $duration/6;
 
-@mixin polka($size, $dot, $base, $accent){
-  background: $base;
-  background-image: radial-gradient($accent $dot, transparent 0);
-  background-size:$size $size;
-  background-position: 0 -2.5px;
+@mixin polka($size, $dot, $base, $accent) {
+    background: $base;
+    background-image: radial-gradient($accent $dot, transparent 0);
+    background-size: $size $size;
+    background-position: 0 -2.5px;
 }
 
 
 .bookshelf_wrapper {
-  position: relative;
-  top: 15%;
-   
+    position: relative;
+    top: 15%;
+
 }
 
 .books_list {
-  margin: 0 auto;
-  width: 300px;
-  padding: 0;
+    margin: 0 auto;
+    width: 300px;
+    padding: 0;
 }
 
 .book_item {
-  position: absolute;
-  top: -120px;
-  box-sizing: border-box;
-  list-style: none;
-  width: 40px;
-  height: 120px;
-  opacity: 0;
-  background-color: #1e6cc7;
-  border: $thickness solid white;
-  transform-origin: bottom left;
-  transform: translateX(300px);
-  animation: travel #{$duration}ms linear infinite;
-  
-  &.first {
-    top: -140px;
-    height: 140px;
-    
-    &:before,
-    &:after {
-      content:'';
-      position: absolute;
-      top: 10px;
-      left: 0;
-      width: 100%;
-      height: $thickness;
-      background-color: white;
+    position: absolute;
+    top: -120px;
+    box-sizing: border-box;
+    list-style: none;
+    width: 40px;
+    height: 120px;
+    opacity: 0;
+    background-color: #1e6cc7;
+    border: $thickness solid white;
+    transform-origin: bottom left;
+    transform: translateX(300px);
+    animation: travel #{$duration}ms linear infinite;
+
+    &.first {
+        top: -140px;
+        height: 140px;
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            height: $thickness;
+            background-color: white;
+        }
+
+        &:after {
+            top: initial;
+            bottom: 10px;
+        }
     }
 
-    &:after {
-      top: initial;
-      bottom: 10px;
-    }
-  }
-  
-  &.second,
-  &.fifth {
-    &:before,
-    &:after {
-      box-sizing: border-box;
-      content:'';
-      position: absolute;
-      top: 10px;
-      left: 0;
-      width: 100%;
-      height: $thickness*3.5;
-      border-top: $thickness solid white;
-      border-bottom: $thickness solid white;
+    &.second,
+    &.fifth {
+
+        &:before,
+        &:after {
+            box-sizing: border-box;
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            height: $thickness*3.5;
+            border-top: $thickness solid white;
+            border-bottom: $thickness solid white;
+        }
+
+        &:after {
+            top: initial;
+            bottom: 10px;
+        }
     }
 
-    &:after {
-      top: initial;
-      bottom: 10px;
-    }
-  }
-  
-  &.third {
-    &:before,
-    &:after {
-      box-sizing: border-box;
-      content:'';
-      position: absolute;
-      top: 10px;
-      left: 9px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: $thickness solid white;
+    &.third {
+
+        &:before,
+        &:after {
+            box-sizing: border-box;
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 9px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: $thickness solid white;
+        }
+
+        &:after {
+            top: initial;
+            bottom: 10px;
+        }
     }
 
-    &:after {
-      top: initial;
-      bottom: 10px;
-    }
-  }
-  
-  &.fourth {
-    top: -130px;
-    height: 130px;
-    
-    &:before {
-      box-sizing: border-box;
-      content:'';
-      position: absolute;
-      top: 46px;
-      left: 0;
-      width: 100%;
-      height: $thickness*3.5;
-      border-top: $thickness solid white;
-      border-bottom: $thickness solid white;
-    }
-  }
-  
-  &.fifth {
-    top: -100px;
-    height: 100px;
-  }
-  
-  &.sixth {
-    top: -140px;
-    height: 140px;
-    
-    &:before {
-      box-sizing: border-box;
-      content:'';
-      position: absolute;
-      bottom: 31px;
-      left: 0px;
-      width: 100%;
-      height: $thickness;
-      background-color: white;
+    &.fourth {
+        top: -130px;
+        height: 130px;
+
+        &:before {
+            box-sizing: border-box;
+            content: '';
+            position: absolute;
+            top: 46px;
+            left: 0;
+            width: 100%;
+            height: $thickness*3.5;
+            border-top: $thickness solid white;
+            border-bottom: $thickness solid white;
+        }
     }
 
-    &:after {
-      box-sizing: border-box;
-      content:'';
-      position: absolute;
-      bottom: 10px;
-      left: 9px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: $thickness solid white;
+    &.fifth {
+        top: -100px;
+        height: 100px;
     }
-  }
-  
-  &:nth-child(2) {
-    animation-delay: #{$delay*1}ms;
-  }
-  
-  &:nth-child(3) {
-    animation-delay: #{$delay*2}ms;
-  }
-  
-  &:nth-child(4) {
-    animation-delay: #{$delay*3}ms;
-  }
-  
-  &:nth-child(5) {
-    animation-delay: #{$delay*4}ms;
-  }
-  
-  &:nth-child(6) {
-    animation-delay: #{$delay*5}ms;
-  }
-  
+
+    &.sixth {
+        top: -140px;
+        height: 140px;
+
+        &:before {
+            box-sizing: border-box;
+            content: '';
+            position: absolute;
+            bottom: 31px;
+            left: 0px;
+            width: 100%;
+            height: $thickness;
+            background-color: white;
+        }
+
+        &:after {
+            box-sizing: border-box;
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 9px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: $thickness solid white;
+        }
+    }
+
+    &:nth-child(2) {
+        animation-delay: #{$delay*1}ms;
+    }
+
+    &:nth-child(3) {
+        animation-delay: #{$delay*2}ms;
+    }
+
+    &:nth-child(4) {
+        animation-delay: #{$delay*3}ms;
+    }
+
+    &:nth-child(5) {
+        animation-delay: #{$delay*4}ms;
+    }
+
+    &:nth-child(6) {
+        animation-delay: #{$delay*5}ms;
+    }
+
 }
 
 .loadingShelf {
-  width: 300px;
-  height: $thickness;
-  margin: 0 auto;
-  background-color: white;
-  position: relative;
-  
-  &:before,
-  &:after {
-    content:'';
-    position : absolute;
-    width: 100%;
-    height: 100%;
-    @include polka(10px, 30%, #1e6cc7, rgba(255,255,255,0.5));
-    top: 200%;
-    left: 5%;
-    animation: move #{$duration/10}ms linear infinite;
-  }
-  
-  &:after {
-    top: 400%;
-    left: 7.5%;
-  }
-  
+    width: 300px;
+    height: $thickness;
+    margin: 0 auto;
+    background-color: white;
+    position: relative;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        @include polka(10px, 30%, #1e6cc7, rgba(255, 255, 255, 0.5));
+        top: 200%;
+        left: 5%;
+        animation: move #{$duration/10}ms linear infinite;
+    }
+
+    &:after {
+        top: 400%;
+        left: 7.5%;
+    }
+
 }
 
 @keyframes move {
-  
-  from {
-    background-position-x: 0;
-  }
-  
-  to {
-    background-position-x: 10px;
-  }
-  
+
+    from {
+        background-position-x: 0;
+    }
+
+    to {
+        background-position-x: 10px;
+    }
+
 }
 
 @keyframes travel {
-  
-  0% {
-    opacity: 0;
-    transform: translateX(300px) rotateZ(0deg) scaleY(1);
-  }
-  
-  6.5% {
-    transform: translateX(279.5px) rotateZ(0deg) scaleY(1.1);
-  }
-  
-  8.8% {
-    transform: translateX(273.6px) rotateZ(0deg) scaleY(1);
-  }
-  
-  10% {
-    opacity: 1;
-    transform: translateX(270px) rotateZ(0deg);
-  }
-  
-  17.6% {
-    transform: translateX(247.2px) rotateZ(-30deg);
-  }
-  
-  45% {
-    transform: translateX(165px) rotateZ(-30deg);
-  }
-  
-  49.5% {
-    transform: translateX(151.5px) rotateZ(-45deg);
-  }
-  
-  61.5% {
-    transform: translateX(115.5px) rotateZ(-45deg);
-  }
-  
-  67% {
-    transform: translateX(99px) rotateZ(-60deg);
-  }
-  
-  76% {
-    transform: translateX(72px) rotateZ(-60deg);
-  }
-  
-  83.5% {
-    opacity: 1;
-    transform: translateX(49.5px) rotateZ(-90deg);
-  }
-  
-  90% {
-    opacity: 0;
-  }
-  
-  100% {
-    opacity: 0;
-    transform: translateX(0px) rotateZ(-90deg);
-  }
-  
+
+    0% {
+        opacity: 0;
+        transform: translateX(300px) rotateZ(0deg) scaleY(1);
+    }
+
+    6.5% {
+        transform: translateX(279.5px) rotateZ(0deg) scaleY(1.1);
+    }
+
+    8.8% {
+        transform: translateX(273.6px) rotateZ(0deg) scaleY(1);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateX(270px) rotateZ(0deg);
+    }
+
+    17.6% {
+        transform: translateX(247.2px) rotateZ(-30deg);
+    }
+
+    45% {
+        transform: translateX(165px) rotateZ(-30deg);
+    }
+
+    49.5% {
+        transform: translateX(151.5px) rotateZ(-45deg);
+    }
+
+    61.5% {
+        transform: translateX(115.5px) rotateZ(-45deg);
+    }
+
+    67% {
+        transform: translateX(99px) rotateZ(-60deg);
+    }
+
+    76% {
+        transform: translateX(72px) rotateZ(-60deg);
+    }
+
+    83.5% {
+        opacity: 1;
+        transform: translateX(49.5px) rotateZ(-90deg);
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(0px) rotateZ(-90deg);
+    }
 }

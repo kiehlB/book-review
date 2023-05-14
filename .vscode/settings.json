@@ -1,0 +1,26 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.detectIndentation": true,
+	"editor.fontFamily": "'Fira Code', 'JetBrains Mono', 'Consolas', 'Source Code Pro', 'Roboto Mono', monospace",
+	"editor.fontLigatures": false,
+	"editor.acceptSuggestionOnCommitCharacter": false,
+	"editor.renderWhitespace": "boundary",
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/coverage": true,
+		"**/dist": true,
+		"**/build": true,
+		"**/.build": true,
+		"**/.gh-pages": true
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": false
+	},
+	"breadcrumbs.enabled": true,
+	"npm.runSilent": true,
+	"editor.formatOnPaste": false,
+	"editor.cursorSmoothCaretAnimation": "on",
+	"editor.smoothScrolling": true
+}
