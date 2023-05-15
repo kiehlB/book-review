@@ -1,4 +1,4 @@
-import React, { FormEvent, SetStateAction, useContext, useState } from 'react';
+import React, { SetStateAction } from 'react';
 import Modal from '../modal';
 import Register from './register';
 import Login from './login';

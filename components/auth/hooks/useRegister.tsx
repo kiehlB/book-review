@@ -94,6 +94,7 @@ export default function useRegister() {
           ),
         );
         dispatch(initAuth(signUp?.register) as any);
+
         toast.success('회원가입 완료!', {
           position: 'bottom-right',
           autoClose: 5000,

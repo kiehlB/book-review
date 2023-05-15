@@ -1,14 +1,8 @@
-'use client';
-
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { MdClose } from 'react-icons/md';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import { IoSearchOutline } from 'react-icons/io5';
-import BookContext from '@/context/book-context';
-import ModalContext from '@/context/modal-context';
-import { RootState } from '@/store/rootReducer';
+import { RootState } from '../../store/rootReducer';
+import { MdClose } from 'react-icons/md';
 import {
   getBookInfoSuccess,
   getPostBody,
@@ -16,21 +10,19 @@ import {
   getPostTags,
   getPostTitle,
   getThumbnail,
-} from '@/store/book';
+} from '../../store/book';
+import { toast } from 'react-toastify';
+import { IoSearchOutline } from 'react-icons/io5';
+import BookContext from '@/context/book-context';
+import ModalContext from '@/context/modal-context';
 import { ArrowLink, NextLink } from '../arrow-button';
 import BooksTableContainer from './table-container';
-
-interface BooksTableFormProps {
-  BookName: string;
-  initialBookName?: string;
-  onSubmit: (bookName: string) => void;
-}
 
 function BooksTableForm({
   BookName: externalBookName,
   initialBookName = externalBookName || '',
   onSubmit,
-}: BooksTableFormProps) {
+}: any) {
   const [BookName, setBookName] = React.useState(initialBookName);
 
   React.useEffect(() => {
@@ -59,7 +51,7 @@ function BooksTableForm({
           value={BookName}
           placeholder="책을 검색해 보세요"
           name="BookName"
-          className=" mmd:w-[280px] h-[50px] w-[320px] rounded-full border-[1px] border-[#d8dae5] px-[2.5rem] py-[0.5rem] text-xs text-[#474d66] focus:outline-none dark:border-[#1a1b1e] dark:bg-[#2b2d31] dark:text-[#e4e5e7] dark:placeholder-gray-300"
+          className=" h-[50px] w-[310px] rounded-full border-[1px] border-[#d8dae5] px-[2.5rem] py-[0.5rem] text-xs text-[#474d66] focus:outline-none dark:border-[#1a1b1e] dark:bg-[#2b2d31] dark:text-[#e4e5e7] dark:placeholder-gray-300"
           style={{ borderRadius: '1.5rem', fontSize: '12px' }}
         />
       </div>
@@ -91,7 +83,7 @@ function useSafeDispatch(dispatch: any) {
   );
 }
 
-function asyncReducer(action: any) {
+function asyncReducer(state: any, action: any) {
   switch (action.type) {
     case 'pending': {
       return { status: 'pending', data: null, error: null };
@@ -121,13 +113,13 @@ function useAsync(initialState: any) {
   const { data, error, status } = state;
 
   const run = React.useCallback(
-    (promise: Promise<any>) => {
+    (promise: any) => {
       dispatch({ type: 'pending' });
       promise.then(
-        data => {
+        (data: any) => {
           dispatch({ type: 'resolved', data });
         },
-        error => {
+        (error: any) => {
           dispatch({ type: 'rejected', error });
         },
       );
@@ -222,7 +214,7 @@ const BookTalble = ({}) => {
   const { book } = useSelector((state: RootState) => state.book);
   const dispatch = useDispatch();
 
-  function handleSubmit(booksName: React.SetStateAction<string>) {
+  function handleSubmit(booksName: any) {
     setBookName(booksName);
   }
 
@@ -239,38 +231,18 @@ const BookTalble = ({}) => {
       type: 'error',
     });
   };
-  const handleSkipClick = () => {
-    dispatch(getPostTitle(''));
-    dispatch(getPostBody(''));
-    dispatch(getPostTags([]));
-    dispatch(getPostId(''));
-    dispatch(getThumbnail(''));
-    SetBookIsClose(!BookIsClose);
-  };
 
-  const handleNextClick = () => {
-    dispatch(getPostTitle(''));
-    dispatch(getPostBody(''));
-    dispatch(getPostTags([]));
-    dispatch(getPostId(''));
-    dispatch(getThumbnail(''));
-    if (book?.title) {
-      SetBookIsClose(!BookIsClose);
-    } else {
-      withoutBookInfo();
-    }
-  };
   return (
     <>
-      <div className="grid-rows-12 mmd:h-[100vh] mmd:px-[1rem] mxs:px-[0.5rem] grid h-[calc(100vh-8rem)] w-full px-[2rem]">
-        <div className="mxs:px-[0rem] row-span-1 flex items-end pb-4">
+      <div className="grid h-[calc(100vh-8rem)] w-full grid-rows-12 px-[2rem] mmd:h-[100vh] mmd:px-[1rem] mxs:px-[0.5rem]">
+        <div className="row-span-1 flex items-end pb-4 mxs:px-[0rem]">
           <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
         </div>
-        <div className="row-span-10 scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-h-2 scrollbar-thumb-rounded-3xl overflow-y-scroll rounded-md border border-[#EDEFF5] dark:border-none">
+        <div className="scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl row-span-10 overflow-y-scroll rounded-md border border-[#EDEFF5] dark:border-none">
           <BookInfo bookName={bookName} />
         </div>
 
-        <div className="mmd:hidden flex items-center justify-between pt-4 dark:text-[#e4e5e7]">
+        <div className="flex items-center justify-between pt-4 dark:text-[#e4e5e7] mmd:hidden">
           <div className="ml-2 flex">
             {book?.thumbnail ? (
               <img src={book?.thumbnail} width="45px" height="70px" />
@@ -292,7 +264,15 @@ const BookTalble = ({}) => {
             )}
           </div>
           <div className="flex">
-            <div onClick={handleSkipClick}>
+            <div
+              onClick={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags([]));
+                dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
+                SetBookIsClose(!BookIsClose);
+              }}>
               <ArrowLink
                 href={'/write'}
                 direction="right"
@@ -302,8 +282,20 @@ const BookTalble = ({}) => {
               </ArrowLink>
             </div>
 
-            <div onClick={handleNextClick}>
-              <ArrowLink href="/write" direction="right" textSize="small" className={''}>
+            <div
+              onClick={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags([]));
+                dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
+                book?.title ? SetBookIsClose(!BookIsClose) : '';
+                book?.title ? '' : withoutBookInfo();
+              }}>
+              <ArrowLink
+                href={book?.title ? '/write' : ''}
+                direction="right"
+                textSize="small">
                 다음
               </ArrowLink>
             </div>
@@ -311,7 +303,7 @@ const BookTalble = ({}) => {
         </div>
       </div>
 
-      <div className="fxied mmd:fixed mmd:bottom-0 mmd:px-[2rem] mxs:px-[0.5rem] bottom-0 w-full bg-[#e9e9e9] py-2 md:hidden">
+      <div className="fxied bottom-0 w-full bg-[#e9e9e9] py-2 md:hidden mmd:fixed mmd:bottom-0 mmd:px-[2rem] mxs:px-[0.5rem]">
         <div className="flex justify-between">
           <div className="flex">
             {book?.thumbnail ? (
@@ -341,14 +333,34 @@ const BookTalble = ({}) => {
           </div>
 
           <div className="flex items-center">
-            <NextLink className="mr-2" click={handleSkipClick} href="/write">
+            <NextLink
+              className="mr-2"
+              click={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags([]));
+                dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
+                SetBookIsClose(!BookIsClose);
+              }}
+              href="/write">
               <div className="mr-2 flex items-center justify-between text-base font-semibold text-[#334155]">
                 Skip
               </div>
             </NextLink>
 
-            <NextLink click={handleNextClick} href={book?.title ? '/write' : ''}>
-              <div className="mxs:pl-2 mr-2 flex items-center justify-between pl-6 text-base font-semibold text-[#334155]">
+            <NextLink
+              click={() => {
+                dispatch(getPostTitle(''));
+                dispatch(getPostBody(''));
+                dispatch(getPostTags([]));
+                dispatch(getPostId(''));
+                dispatch(getThumbnail(''));
+                book?.title ? SetBookIsClose(!BookIsClose) : '';
+                book?.title ? '' : withoutBookInfo();
+              }}
+              href={book?.title ? '/write' : ''}>
+              <div className="mr-2 flex items-center justify-between pl-6 text-base font-semibold text-[#334155] mxs:pl-2">
                 다음
               </div>
             </NextLink>
