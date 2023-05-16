@@ -7,6 +7,14 @@ export type LoginProps = {
 };
 
 function Login({ mode }: LoginProps) {
+  const isClientRender = typeof window !== 'undefined';
+
+  if (isClientRender) {
+    console.log('ref Client-side rendering (CSR)');
+  } else {
+    console.log('reg erver-side rendering (SSR)');
+  }
+
   const {
     username,
     password,

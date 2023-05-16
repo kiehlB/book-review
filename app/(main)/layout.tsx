@@ -9,7 +9,6 @@ import { BsTagFill } from 'react-icons/bs';
 import { IoMdTime } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
 import { RiBookOpenLine, RiFileChartFill } from 'react-icons/ri';
-import { toast } from 'react-toastify';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (

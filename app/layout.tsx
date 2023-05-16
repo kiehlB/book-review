@@ -4,12 +4,16 @@ import { ApolloWrapper } from '@/lib/apollo-wapper';
 import { ReduxProvider } from '@/store/provider';
 import { BooksContextProvider } from '@/context/book-context';
 import { ModalContextProvider } from '@/context/modal-context';
+
 import '@/styles/globals.css';
 import '@/styles/tiptap.scss';
 import 'react-day-picker/dist/style.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout(props: {
+  children: React.ReactNode;
+  auth: React.ReactNode;
+}) {
   return (
     <html lang="ko">
       <Head>
@@ -28,7 +32,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ReduxProvider>
           <ApolloWrapper>
             <BooksContextProvider>
-              <ModalContextProvider>{children}</ModalContextProvider>
+              <ModalContextProvider>
+                {props.children}
+                {props.auth}
+              </ModalContextProvider>
             </BooksContextProvider>
           </ApolloWrapper>
         </ReduxProvider>

@@ -130,7 +130,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   // dark:text-[#41ec8b] dark:bg-[#042f14]
   return (
     <>
-      <div className="mmd:px-[2rem] ssm:px-[1rem] px-[6.46875rem] py-[1.5rem]">
+      <div className="px-[6.46875rem] py-[1.5rem] mmd:px-[2rem] ssm:px-[1rem]">
         <div className="flex items-center">
           <LabelInput
             name="username"
@@ -198,22 +198,22 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </motion.button>
         </div>
       </div>
-      <p className="link mmd:px-[2rem] ssm:px-[1rem] flex justify-end px-[6.46875rem] text-base">
+      {/* <p className="link flex justify-end px-[6.46875rem] text-base mmd:px-[2rem] ssm:px-[1rem]">
         {mode == 'register' ? (
           <span
             className="cursor-pointer font-semibold text-[#C99400]"
             onClick={() => SetMode('login')}>
-            로그인
+            <Link href="/login"> 로그인</Link>
           </span>
         ) : (
           <span
             className="cursor-pointer font-semibold text-[#C99400]"
             onClick={() => SetMode('register')}>
-            회원가입
+            <Link href="/register"> 회원가입</Link>
           </span>
         )}
         <span className="dark:text-[#e4e5e7]"> 으로 이동</span>
-      </p>
+      </p> */}
 
       <div className="my-8 mt-4 flex items-center justify-between px-1">
         <div className="h-[1px] w-[136px] bg-[#EAECEF]"></div>

@@ -7,7 +7,6 @@ import BookModal from '../book-finder/book-modal';
 import BookTalble from '../book-finder';
 import FloatingHeader from '../floating';
 import Header from '../app-bar';
-import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 
 interface PageLayoutProps {
@@ -20,7 +19,7 @@ function PageLayout({ children }: PageLayoutProps) {
 
   return (
     <div className="h-full mxl:px-4">
-      <AuthContainer IsClose={IsClose} SetIsClose={SetIsClose} mode={mode} />
+     
       <BookModal visible={BookIsClose} onClose={SetBookIsClose}>
         <BookTalble />
       </BookModal>
