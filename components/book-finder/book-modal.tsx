@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 interface BookModalProps {
   visible?: boolean;
-  onClose: (visible: boolean) => void;
+  onClose?: (visible) => void;
   children?: React.ReactNode;
   className?: string;
 }
@@ -48,22 +48,23 @@ const liVariants = {
 
 const BookModal: React.FC<BookModalProps> = ({ visible, children, onClose }) => {
   React.useEffect(() => {
+    // scrollbar
     document.body.style.overflowY = visible ? 'hidden' : 'initial';
   }, [visible]);
 
   return (
     <motion.div
       className={clsx(
-        'mxs:flex-1 mxs:w-full mxs:h-full fixed left-0 top-0 z-[1000] flex h-full w-full items-center justify-center bg-[#00000080] ',
+        'fixed top-0 left-0 w-full h-full flex items-center justify-center z-[1000] bg-[#00000080] mxs:flex-1 mxs:w-full mxs:h-full',
       )}
       initial={{ display: 'none' }}
       animate={visible ? 'open' : 'closed'}
       variants={ulVariants}>
       <motion.div
         variants={liVariants}
-        className={`mxs:flex-1 mxs:w-auto mxs:h-full h-full w-full max-w-[80rem] bg-[#E9E9E9] dark:bg-[#1a1b1e]`}>
-        <div className="flex flex-1 flex-col bg-[#E9E9E9] py-4 dark:bg-[#1a1b1e]">
-          <div className="mmd:px-[1rem] mxs:mb-0 flex justify-end p-[1.5rem] px-[2.2rem]">
+        className={`bg-[#E9E9E9] h-full max-w-[80rem] w-full dark:bg-[#1a1b1e] mxs:flex-1 mxs:w-auto mxs:h-full`}>
+        <div className="flex-1 flex flex-col py-4 bg-[#E9E9E9] dark:bg-[#1a1b1e]">
+          <div className="flex justify-end p-[1.5rem] mxs:mb-0">
             <MdClose
               onClick={() => onClose(!visible)}
               tabIndex={1}
@@ -72,7 +73,7 @@ const BookModal: React.FC<BookModalProps> = ({ visible, children, onClose }) => 
               className="cursor-pointer"
             />
           </div>
-          <div className="flex flex-1 flex-col">{children}</div>
+          <div className="flex flex-col flex-1">{children}</div>
         </div>
       </motion.div>
     </motion.div>

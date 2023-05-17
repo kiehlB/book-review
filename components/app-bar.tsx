@@ -83,26 +83,23 @@ function Header({
 
   const AuthButtons = () => (
     <>
-      <Link href="/login">
-        <div
-          className="cursor-pointer rounded-3xl pr-4 text-sm font-semibold text-[#181A20] hover:text-[#495057] dark:text-[#e4e5e7] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[16px] mxs:py-[12px] dark:mxs:text-[#212529]"
-          onClick={() => {
-            SetMode('login');
-            SetIsClose(!IsClose);
-          }}>
-          Sign in
-        </div>
-      </Link>
-      <Link href="/register">
-        <div
-          className="cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[12px] text-sm font-semibold text-[#181A20] hover:text-[#5b646d] mxs:hidden"
-          onClick={() => {
-            SetMode('register');
-            SetIsClose(!IsClose);
-          }}>
-          Sign up
-        </div>
-      </Link>
+      <div
+        className="cursor-pointer rounded-3xl pr-4 text-sm font-semibold text-[#181A20] hover:text-[#495057] dark:text-[#e4e5e7] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[16px] mxs:py-[12px] dark:mxs:text-[#212529]"
+        onClick={() => {
+          SetMode('login');
+          SetIsClose(!IsClose);
+        }}>
+        Sign in
+      </div>
+
+      <div
+        className="cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[12px] text-sm font-semibold text-[#181A20] hover:text-[#5b646d] mxs:hidden"
+        onClick={() => {
+          SetMode('register');
+          SetIsClose(!IsClose);
+        }}>
+        Sign up
+      </div>
     </>
   );
 
@@ -113,6 +110,7 @@ function Header({
         className="mr-4 cursor-pointer rounded-3xl border px-[20px] py-[10px] text-sm font-semibold text-[#212529] hover:text-[#5b646d] dark:border-none dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:hover:text-white mxs:hidden">
         Write
       </div>
+
       <PopMenu profileThumbnail={profileThumbnail} />
     </div>
   );

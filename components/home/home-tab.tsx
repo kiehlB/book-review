@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname, useSelectedLayoutSegment } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import ActivityDateRangePicker from '../date-picker/date-range';
 
 export type TabProps = {
   svg: React.ReactNode;
@@ -73,7 +74,7 @@ function HomeTab({ primaryItems }: HomeTabProps) {
         </Link>
       ))}
 
-      {/* <ActivityDateRangePicker /> */}
+      <ActivityDateRangePicker />
     </nav>
   );
 }

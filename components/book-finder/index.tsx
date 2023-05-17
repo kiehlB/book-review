@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';

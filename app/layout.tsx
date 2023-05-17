@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function RootLayout(props: {
   children: React.ReactNode;
   auth: React.ReactNode;
+  book: React.ReactNode;
 }) {
   return (
     <html lang="ko">
@@ -32,10 +33,7 @@ export default function RootLayout(props: {
         <ReduxProvider>
           <ApolloWrapper>
             <BooksContextProvider>
-              <ModalContextProvider>
-                {props.children}
-                {props.auth}
-              </ModalContextProvider>
+              <ModalContextProvider>{props.children}</ModalContextProvider>
             </BooksContextProvider>
           </ApolloWrapper>
         </ReduxProvider>

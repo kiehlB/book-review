@@ -19,7 +19,7 @@ function PageLayout({ children }: PageLayoutProps) {
 
   return (
     <div className="h-full mxl:px-4">
-     
+      <AuthContainer IsClose={IsClose} SetIsClose={SetIsClose} mode={mode} />
       <BookModal visible={BookIsClose} onClose={SetBookIsClose}>
         <BookTalble />
       </BookModal>

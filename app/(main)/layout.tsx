@@ -3,7 +3,7 @@ import { AppLayout, First, MainNav, Second } from '@/components/layout/app-layou
 import { PageGrid } from '@/components/layout/grid-layout';
 import { PageLayout } from '@/components/layout/page-layout';
 import Navbar from '@/components/navbar';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
 import { IoMdTime } from 'react-icons/io';
