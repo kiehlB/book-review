@@ -6,7 +6,7 @@ import AuthContainer from '../auth/auth-container';
 import BookModal from '../book-finder/book-modal';
 import BookTalble from '../book-finder';
 import FloatingHeader from '../floating';
-import Header from '../app-bar';
+import Header from '../appbar';
 import { ToastContainer } from 'react-toastify';
 
 interface PageLayoutProps {

@@ -52,5 +52,9 @@ module.exports = {
     aspectRatio: false,
   },
 
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
+    require('@tailwindcss/line-clamp'),
+  ],
 };

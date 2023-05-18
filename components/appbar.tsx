@@ -10,8 +10,9 @@ import styled from 'styled-components';
 import { RootState } from '@/store/rootReducer';
 import { getSearchInput, getcoreInfoSuccess } from '@/store/core';
 import { useRouter } from 'next/navigation';
-import PopMenu from './pop-up';
+import PopMenu from './popup';
 import useWhoAmI from './auth/hooks/useWhoami';
+import Sidebar from './sidebar';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 
@@ -124,7 +125,7 @@ function Header({
         className={`mmx:col-span-none col-span-2 whitespace-nowrap text-[1.5625rem] text-[#212529] transition focus:outline-none dark:text-[#e4e5e7] mxl:col-span-2`}>
         <span className="flex items-center">
           <div className="mr-2 md:hidden mxs:mr-1">
-            {/* <Sidebar BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} /> */}
+            <Sidebar BookIsClose={BookIsClose} SetBookIsClose={SetBookIsClose} />
           </div>
           <Link href="/" className={`font-Fredoka text-[28px] mxs:text-2xl ssm:hidden`}>
             BookReview

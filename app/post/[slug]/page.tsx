@@ -24,6 +24,8 @@ import ProfileIcon from '@/svg/profile';
 import { formatDate } from '@/lib/utils';
 import styled, { keyframes, css } from 'styled-components';
 import media from '@/lib/media';
+import PostTableOfContents from '@/components/table-of-content';
+import Comments from '@/components/comments/comments';
 
 export type PostProps = {
   id: string;
@@ -145,7 +147,7 @@ function PostDetail() {
                 <div className="mx-auto mb-[0.5rem] mt-8 flex max-w-[812.5px] flex-wrap justify-start text-sm text-[#868E96]">
                   <div className="flex flex-wrap">
                     {singlePostData?.post?.tags.map(tag => (
-                      <Tag className="mr-2 flex flex-wrap" key={tag.name}>
+                      <Tag className="flex flex-wrap mr-2" key={tag.name}>
                         {tag?.tag?.name}
                       </Tag>
                     ))}
@@ -187,7 +189,7 @@ function PostDetail() {
                             </h4>
                           </div>
                         </div>
-                        <div className="ml-8 flex flex-col ssm:ml-0 ssm:mt-2">
+                        <div className="flex flex-col ml-8 ssm:ml-0 ssm:mt-2">
                           <div className="text-xl font-bold text-[#495057] dark:text-[#ececec] mxs:text-base">
                             도서: {singlePostData?.post?.bookInfo?.bookTitle}
                           </div>
@@ -210,7 +212,7 @@ function PostDetail() {
                   </div>
                   <div className="col-span-2 mp:hidden">
                     <div className="sticky top-[20%]">
-                      {/* <PostTableOfContents isdark={isdark} /> */}
+                      <PostTableOfContents isdark={isdark} />
                     </div>
                   </div>
                 </div>
@@ -219,13 +221,13 @@ function PostDetail() {
             third={
               <Third>
                 <div className="mx-auto max-w-[812.5px]">
-                  {/* <Comments
+                  <Comments
                     commentCount={singlePostData?.post?.subs_count}
                     comments={singlePostData?.post?.subs}
                     postId={singlePostData?.post?.id}
                     isMine={singlePostData?.post?.user?.id == auth?.id}
                     currentId={auth?.id}
-                  /> */}
+                  />
                 </div>
                 <div className="h-[40vh]"></div>
               </Third>

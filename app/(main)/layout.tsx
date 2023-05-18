@@ -3,6 +3,7 @@ import { AppLayout, First, MainNav, Second } from '@/components/layout/app-layou
 import { PageGrid } from '@/components/layout/grid-layout';
 import { PageLayout } from '@/components/layout/page-layout';
 import Navbar from '@/components/navbar';
+import Tags from '@/components/tags/Tags';
 import React from 'react';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
@@ -43,7 +44,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 },
               ]}
             />
-            {/* <Tags /> */}
+            <Tags />
           </div>
         </MainNav>
 
