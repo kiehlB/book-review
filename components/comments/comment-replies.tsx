@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useBoolean from '../../hooks/useBoolean';
@@ -30,7 +30,7 @@ function CommentReplies({
   open,
   hasChild,
 }: CommentRepliesProps) {
-  const router = useRouter();
+  const router = useParams();
 
   const { onRemove, askRemove, onConfirmRemove, onToggleAskRemove, getCommentsCount } =
     useDeleteComment(id, hasChild);
@@ -74,7 +74,7 @@ function CommentReplies({
     try {
       await writeComment({
         variables: {
-          post_id: router?.query?.id,
+          post_id: router?.slug,
           text: comment,
           comment_id: id,
         },
@@ -98,7 +98,7 @@ function CommentReplies({
   return (
     <div>
       {open ? (
-        <div className="mt-4 ml-12">
+        <div className="ml-12 mt-4">
           <CommentsWrite
             comment={comment}
             onWrite={onWrite}

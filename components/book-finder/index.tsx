@@ -240,7 +240,7 @@ const BookTalble = ({}) => {
         <div className="row-span-1 flex items-end pb-4 mxs:px-[0rem]">
           <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
         </div>
-        <div className="scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-3xl row-span-10 overflow-y-scroll rounded-md border border-[#EDEFF5] dark:border-none">
+        <div className="row-span-10 overflow-y-scroll rounded-md border border-[#EDEFF5] scrollbar scrollbar-track-gray-100 scrollbar-thumb-gray-900 scrollbar-thumb-rounded-3xl scrollbar-w-2 dark:border-none">
           <BookInfo bookName={bookName} />
         </div>
 
@@ -297,6 +297,7 @@ const BookTalble = ({}) => {
               <ArrowLink
                 href={book?.title ? '/write' : ''}
                 direction="right"
+                className=""
                 textSize="small">
                 다음
               </ArrowLink>

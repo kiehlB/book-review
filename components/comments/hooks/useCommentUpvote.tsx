@@ -1,6 +1,7 @@
+'use client';
+
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import {
@@ -17,8 +18,6 @@ import {
   CommentUpvotesMutation,
   DeleteCommentUpvoteMutation,
 } from '../../../types/apolloComponent';
-import { getClient } from '@/lib/client';
- 
 
 export default async function useCommentUpvote() {
   const { auth } = useSelector((state: RootState) => state.auth);
@@ -32,9 +31,8 @@ export default async function useCommentUpvote() {
     },
     [CommentId],
   );
- 
-  
-  // const client = await getClient();
+
+  // const client = initializeApollo();
 
   const [UpvoteComment, { loading: loadingLike }] =
     useMutation<CommentUpvotesMutation>(CommentUpvotes);
@@ -69,58 +67,57 @@ export default async function useCommentUpvote() {
       }
     `;
 
-    try {
-      // const { data: repliesData } = await client.query({
-      //   query: GET_SubComment,
-      //   variables: {
-      //     comment_id: id,
-      //   },
-      // });
-
-      // if (repliesData?.getSub?.likedSub) {
-      //   client.writeFragment({
-      //     id: `Sub:${id}`,
-      //     fragment: UpVoteFragment,
-      //     data: {
-      //       upvotes: repliesData?.getSub?.upvotes - 1,
-      //       __typename: 'Sub',
-      //     },
-      //   });
-      //   await unupvoteComment({
-      //     variables,
-      //     refetchQueries: [
-      //       {
-      //         query: GET_SubComment,
-      //         variables: {
-      //           comment_id: id,
-      //         },
-      //       },
-      //     ],
-      //   });
-      // } else if (!repliesData?.getSub?.likedSub) {
-      //   client.writeFragment({
-      //     id: `Sub:${id}`,
-      //     fragment: UpVoteFragment,
-      //     data: {
-      //       upvotes: repliesData?.getSub?.upvotes + 1,
-      //       __typename: 'Sub',
-      //     },
-      //   });
-      //   await UpvoteComment({
-      //     variables,
-      //     refetchQueries: [
-      //       {
-      //         query: GET_SubComment,
-      //         variables: {
-      //           comment_id: id,
-      //         },
-      //       },
-      //     ],
-      //   });
-      // }
-    } catch (e) {
-      console.log(e);
-    }
+    // try {
+    //   const { data: repliesData } = await client.query({
+    //     query: GET_SubComment,
+    //     variables: {
+    //       comment_id: id,
+    //     },
+    //   });
+    //   if (repliesData?.getSub?.likedSub) {
+    //     client.writeFragment({
+    //       id: `Sub:${id}`,
+    //       fragment: UpVoteFragment,
+    //       data: {
+    //         upvotes: repliesData?.getSub?.upvotes - 1,
+    //         __typename: 'Sub',
+    //       },
+    //     });
+    //     await unupvoteComment({
+    //       variables,
+    //       refetchQueries: [
+    //         {
+    //           query: GET_SubComment,
+    //           variables: {
+    //             comment_id: id,
+    //           },
+    //         },
+    //       ],
+    //     });
+    //   } else if (!repliesData?.getSub?.likedSub) {
+    //     client.writeFragment({
+    //       id: `Sub:${id}`,
+    //       fragment: UpVoteFragment,
+    //       data: {
+    //         upvotes: repliesData?.getSub?.upvotes + 1,
+    //         __typename: 'Sub',
+    //       },
+    //     });
+    //     await UpvoteComment({
+    //       variables,
+    //       refetchQueries: [
+    //         {
+    //           query: GET_SubComment,
+    //           variables: {
+    //             comment_id: id,
+    //           },
+    //         },
+    //       ],
+    //     });
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   return { onLikeToggle, getId };

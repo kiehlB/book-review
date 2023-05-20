@@ -2,7 +2,6 @@
 
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useCallback, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Create_Post, Edit_Post, RELOAD_COMMENTS } from '../../../lib/graphql/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -16,7 +15,7 @@ import {
 } from '../../../types/apolloComponent';
 
 export default function useCreateCommentWrite(postId) {
-  const { auth } = useSelector((state: RootState) => state.auth);
+  const { auth } = useSelector((state: any) => state.auth);
   const [writeComment] = useMutation<CreateSubMutation>(CreateComment, {});
   const [removeComment] = useMutation<RemoveSubMutation>(RemoveSub);
   const [askRemove, onToggleAskRemove] = useBoolean(false);

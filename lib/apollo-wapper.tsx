@@ -1,6 +1,13 @@
 'use client';
 
-import { ApolloClient, ApolloLink, HttpLink, SuspenseCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  NormalizedCacheObject,
+  SuspenseCache,
+  from,
+} from '@apollo/client';
 import {
   ApolloNextAppProvider,
   NextSSRInMemoryCache,
@@ -20,6 +27,7 @@ function makeClient() {
         ? ApolloLink.from([
             new SSRMultipartLink({
               stripDefer: true,
+              cutoffDelay: 100,
             }),
             httpLink,
           ])

@@ -57,7 +57,7 @@ const authSlice = createSlice({
     }>,
   ) => {
     builder.addCase(PURGE, state => {
-      localStorage.remove('auth');
+      localStorage.removeItem('auth');
     });
   },
 });

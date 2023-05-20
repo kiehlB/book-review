@@ -1,6 +1,6 @@
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { useCallback, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter ,useParams  } from 'next/navigation';
 import { Create_Post, Edit_Post, RELOAD_COMMENTS } from '../../../lib/graphql/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -14,13 +14,13 @@ import useBoolean from '../../../hooks/useBoolean';
 import { GetSubQuery, RemoveSubMutation } from '../../../types/apolloComponent';
 
 export default function useDeleteComment(id, hasChild) {
-  const router = useRouter();
+  const params = useParams();
 
   const [removeComment] = useMutation<RemoveSubMutation>(RemoveSub);
 
   const getCommentsCount = useQuery(GET_COMMENTS_COUNT, {
     variables: {
-      id: router?.query?.id,
+      id: params?.slug,
     },
   });
 

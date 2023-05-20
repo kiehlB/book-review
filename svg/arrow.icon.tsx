@@ -7,23 +7,34 @@ export interface ArrowIconProps {
   className?: string;
 }
 
-export const rotationMap = {
-  up: 'rotate-180',
-  right: '-rotate-90',
-  down: 'rotate-0',
-  left: 'rotate-90',
-  'top-right': '-rotate-135',
-};
-
 function ArrowIcon({ direction, size = 28, className }: ArrowIconProps) {
+  const getRotationValue = direction => {
+    switch (direction) {
+      case 'up':
+        return 180;
+      case 'right':
+        return -90;
+      case 'down':
+        return 0;
+      case 'left':
+        return 90;
+      case 'top-right':
+        return -135;
+      default:
+        return 0;
+    }
+  };
+
+  const transform = `rotate(${getRotationValue(direction)}deg)`;
   return (
     <svg
-      className={clsx(className, 'transform', rotationMap[direction])}
+      className={clsx(className)}
       width={size}
       height={size}
       viewBox="0 0 32 32"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ transform }}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -33,5 +44,4 @@ function ArrowIcon({ direction, size = 28, className }: ArrowIconProps) {
     </svg>
   );
 }
-
 export { ArrowIcon };

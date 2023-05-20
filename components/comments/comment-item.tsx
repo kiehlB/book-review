@@ -3,12 +3,13 @@ import useBoolean from '../../hooks/useBoolean';
 import { Sub } from '../../types/apolloComponent';
 import CommentReplies from './comment-replies';
 import styled, { css } from 'styled-components';
-import { BiUpvote } from 'react-icons/bi';
+import { BiCommentDetail, BiUpvote } from 'react-icons/bi';
 import ProfileIcon from '../../svg/profile';
 import CommentEdit from './comment-edit';
 import { formatDate } from '../../lib/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
+import { CgComment } from 'react-icons/cg';
 
 export type CommentItemProps = {
   comment: Sub | null;
@@ -38,7 +39,7 @@ function CommentItem({
   const [editing, onToggleEditing] = useBoolean(false);
 
   return (
-    <PostCommentItem className="py-1 mt-1 comment">
+    <PostCommentItem className="comment mt-1 py-1">
       <div className="flex">
         {comment?.user?.profile?.thumbnail ? (
           <Image
@@ -46,30 +47,30 @@ function CommentItem({
             alt="Profile thumbnail"
             width={48}
             height={48}
-            className="rounded-full object-cover block mxs:w-[40px] mxs:h-[40px]"
+            className="block rounded-full object-cover mxs:h-[40px] mxs:w-[40px]"
           />
         ) : (
-          <ProfileIcon className="w-[48px] h-[48px] rounded-[50%] object-cover block mxs:w-[40px] mxs:h-[40px]" />
+          <ProfileIcon className="block h-[48px] w-[48px] rounded-[50%] object-cover mxs:h-[40px] mxs:w-[40px]" />
         )}
 
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center w-full">
+        <div className="flex w-full items-center justify-between">
+          <div className="flex w-full items-center">
             <div className="w-full">
-              <div className="flex items-center justify-between w-full mxs:flex-col mxs:items-baseline">
+              <div className="flex w-full items-center justify-between mxs:flex-col mxs:items-baseline">
                 <div className="flex items-center">
-                  <h3 className="font-bold text-[#212529] ml-2 mxs:text-sm dark:text-[#ececec]">
+                  <h3 className="ml-2 font-bold text-[#212529] dark:text-[#ececec] mxs:text-sm">
                     {comment.deleted
                       ? '알 수 없음'
                       : comment?.user?.profile?.profile_name
                       ? comment?.user?.profile?.profile_name
                       : comment?.user?.username}
                   </h3>
-                  <p className="text-[#868E96] text-xs ml-2 dark:text-[#acacac]">
+                  <p className="ml-2 text-xs text-[#868E96] dark:text-[#acacac]">
                     {formatDate(comment?.created_at)}
                   </p>
                 </div>
 
-                <div className="flex text-[#868e96] text-sm h-full dark:text-[#acacac] mxs:px-2">
+                <div className="flex h-full text-sm text-[#868e96] dark:text-[#acacac] mxs:px-2">
                   {ownComment == comment?.user?.id && !comment.deleted ? (
                     <>
                       <span onClick={onToggleEditing} className="mr-2 cursor-pointer">
@@ -88,7 +89,7 @@ function CommentItem({
               </div>
 
               <div className="ml-2 w-[100%]">
-                <div className="mt-1 mxs:text-sm dark:text-[#ececec]">
+                <div className="mt-1 dark:text-[#ececec] mxs:text-sm">
                   {editing ? (
                     <CommentEdit
                       id={comment.id}
@@ -101,10 +102,10 @@ function CommentItem({
                     comment.text
                   )}
                 </div>
-                <div className="text-[#212529] text-sm mt-2 w-fit dark:text-[#ececec]">
+                <div className="mt-2 w-fit text-sm text-[#212529] dark:text-[#ececec]">
                   <div className="flex items-center">
-                    <div className="flex items-center mr-2 cursor-pointer">
-                      <div
+                    <div className="mr-2 flex cursor-pointer items-center">
+                      {/* <div
                         className="flex items-center"
                         onClick={async () => {
                           getId(comment.id);
@@ -113,10 +114,18 @@ function CommentItem({
                         <BiUpvote className="mr-[3px]" />
 
                         <span>{comment?.upvotes}</span>
-                      </div>
+                      </div> */}
                     </div>
+
                     {!comment.deleted && comment?.level < 2 ? (
-                      <div onClick={onToggleOpen}>답글</div>
+                      <div
+                        onClick={onToggleOpen}
+                        className="flex cursor-pointer  items-center">
+                        <div className="mr-1">
+                          <CgComment size={14} />
+                        </div>
+                        <div>답글</div>
+                      </div>
                     ) : (
                       ''
                     )}

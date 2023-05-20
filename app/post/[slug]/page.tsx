@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname, useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import useGetPost from '@/components/write/hooks/useGetSinglePost';
@@ -26,6 +26,9 @@ import styled, { keyframes, css } from 'styled-components';
 import media from '@/lib/media';
 import PostTableOfContents from '@/components/table-of-content';
 import Comments from '@/components/comments/comments';
+import usePostLike from '@/components/post-grid/hooks/usePostLike';
+import PawButton from '@/components/like-button';
+import { Skeleton, SkeletonTexts } from '@/components/skeleton';
 
 export type PostProps = {
   id: string;
@@ -34,12 +37,14 @@ export type PostProps = {
 function PostDetail() {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
   const router = useRouter();
+  const params = useParams();
   const dispatch = useDispatch();
   const insertID = setHeadingId(singlePostData?.post?.body);
   const { isdark } = useSelector((state: RootState) => state.core);
-  const { auth } = useSelector((state: RootState) => state.auth);
+  const { auth } = useSelector((state: any) => state.auth);
+  const id = params.slug;
 
-  // const { data, onLikeToggle, loading } = usePostLike({ id });
+  const { data, onLikeToggle, loading } = usePostLike({ id });
 
   const BodyResult = insertID.replace('<toc></toc>', '');
   singlePostData?.post?.bookInfo;
@@ -92,7 +97,7 @@ function PostDetail() {
   return (
     <>
       <PageLayout>
-        {/* {singlePostLoding && <PostCardSkeleton />} */}
+        {singlePostLoding && <PostCardSkeleton />}
         {singlePostData && !singlePostLoding ? (
           <AppLayout
             first={
@@ -147,7 +152,7 @@ function PostDetail() {
                 <div className="mx-auto mb-[0.5rem] mt-8 flex max-w-[812.5px] flex-wrap justify-start text-sm text-[#868E96]">
                   <div className="flex flex-wrap">
                     {singlePostData?.post?.tags.map(tag => (
-                      <Tag className="flex flex-wrap mr-2" key={tag.name}>
+                      <Tag className="mr-2 flex flex-wrap" key={tag.name}>
                         {tag?.tag?.name}
                       </Tag>
                     ))}
@@ -160,20 +165,20 @@ function PostDetail() {
                 <div className="mx-auto grid max-w-[96rem] grid-cols-10 gap-[1.5rem] mp:max-w-[1280px] mp:grid-cols-8">
                   <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden">
                     <div className="sticky top-[20%]">
-                      {/* <PawButton
+                      <PawButton
                         id={id}
                         isdark={isdark}
                         auth={auth}
                         data={data}
                         onLikeToggle={onLikeToggle}
-                      /> */}
+                      />
                     </div>
                   </div>
 
                   <div className="col-span-6 mx-auto w-full max-w-[812.5px] mmd:col-span-8">
                     {singlePostData?.post?.bookInfo?.bookTitle ? (
                       <div className="mx-auto mb-[1rem] flex max-w-[812.5px] rounded bg-[#F8F9FA] px-8 py-8 shadow dark:bg-[#2b2d31] ssm:flex-col">
-                        <div className="card">
+                        {/* <div className="card">
                           <div className="imgBox">
                             <div className="bark "></div>
                             <Image
@@ -188,8 +193,8 @@ function PostDetail() {
                               {singlePostData?.post?.bookInfo?.bookContent}
                             </h4>
                           </div>
-                        </div>
-                        <div className="flex flex-col ml-8 ssm:ml-0 ssm:mt-2">
+                        </div> */}
+                        <div className="ml-8 flex flex-col ssm:ml-0 ssm:mt-2">
                           <div className="text-xl font-bold text-[#495057] dark:text-[#ececec] mxs:text-base">
                             도서: {singlePostData?.post?.bookInfo?.bookTitle}
                           </div>
@@ -243,65 +248,65 @@ function PostDetail() {
 
 export default PostDetail;
 
-// function PostCardSkeleton() {
-//   const { isdark } = useSelector((state: RootState) => state.core);
+function PostCardSkeleton() {
+  const { isdark } = useSelector((state: RootState) => state.core);
 
-//   return (
-//     <>
-//       <AppLayout
-//         first={
-//           <First>
-//             <PostTitle className="text-[#212529] text-[2.5rem] max-w-[72rem] mx-auto font-bold px-[5rem] text-center my-[3rem] mxs:my-[2rem] mxs:max-w-[100%]  dark:text-[#ececec] mmx:text-[2rem] mmx:px-[3rem]  mxs:px-[1rem] mxs:text-[1.5rem]">
-//               <SkeletonTexts wordLengths={[10, 12]} isdark={isdark} />
-//             </PostTitle>
+  return (
+    <>
+      <AppLayout
+        first={
+          <First>
+            <PostTitle className="mx-auto my-[3rem] max-w-[72rem] px-[5rem] text-center text-[2.5rem] font-bold text-[#212529] dark:text-[#ececec] mmx:px-[3rem]  mmx:text-[2rem] mxs:my-[2rem] mxs:max-w-[100%]  mxs:px-[1rem] mxs:text-[1.5rem]">
+              <SkeletonTexts wordLengths={[10, 12]} isdark={isdark} />
+            </PostTitle>
 
-//             <div className="flex justify-center items-center text-[#212529] dark:text-[#ececec] mb-[1rem]">
-//               <div className="text-lg font-medium">
-//                 <div className="flex flex-wrap items-center">
-//                   <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
-//                 </div>
-//               </div>
-//               <div className="mx-[0.75rem]  font-bold text-[#64748b] text-lg">·</div>
-//               <div className="text-lg text-[#344155] dark:text-[#ececec]">
-//                 <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
-//               </div>
-//             </div>
-//           </First>
-//         }
-//         second={
-//           <Second>
-//             <div className="grid grid-cols-10 max-w-[96rem] mx-auto gap-[1.5rem] mp:grid-cols-8 mp:max-w-[1280px]">
-//               <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden"></div>
+            <div className="mb-[1rem] flex items-center justify-center text-[#212529] dark:text-[#ececec]">
+              <div className="text-lg font-medium">
+                <div className="flex flex-wrap items-center">
+                  <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
+                </div>
+              </div>
+              <div className="mx-[0.75rem]  text-lg font-bold text-[#64748b]">·</div>
+              <div className="text-lg text-[#344155] dark:text-[#ececec]">
+                <Skeleton width="6em" marginRight="1rem" isdark={isdark} />
+              </div>
+            </div>
+          </First>
+        }
+        second={
+          <Second>
+            <div className="mx-auto grid max-w-[96rem] grid-cols-10 gap-[1.5rem] mp:max-w-[1280px] mp:grid-cols-8">
+              <div className="col-span-2 justify-self-center mp:col-span-1 mmd:hidden"></div>
 
-//               <div className="col-span-6 w-full max-w-[812.5px] mx-auto mmd:col-span-8">
-//                 <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} isdark={isdark} />
+              <div className="col-span-6 mx-auto w-full max-w-[812.5px] mmd:col-span-8">
+                <SkeletonTexts wordLengths={[4, 4, 4, 4, 4]} isdark={isdark} />
 
-//                 <Skeleton noSpacing={true} width="100%" height="20vh" isdark={isdark} />
+                <Skeleton noSpacing={true} width="100%" height="20vh" isdark={isdark} />
 
-//                 <div className="py-1">
-//                   <SkeletonTexts
-//                     isdark={isdark}
-//                     wordLengths={[4, 4, 4, 4, 4, 7, 5, 2, 4, 5]}
-//                   />
-//                 </div>
-//                 {[...Array(3)].map((_, i) => (
-//                   <div className="py-1" key={i}>
-//                     <SkeletonTexts
-//                       isdark={isdark}
-//                       wordLengths={[...Array(16)].map(() =>
-//                         Math.floor(Math.random() * 10),
-//                       )}
-//                     />
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           </Second>
-//         }
-//       />
-//     </>
-//   );
-// }
+                <div className="py-1">
+                  <SkeletonTexts
+                    isdark={isdark}
+                    wordLengths={[4, 4, 4, 4, 4, 7, 5, 2, 4, 5]}
+                  />
+                </div>
+                {[...Array(3)].map((_, i) => (
+                  <div className="py-1" key={i}>
+                    <SkeletonTexts
+                      isdark={isdark}
+                      wordLengths={[...Array(16)].map(() =>
+                        Math.floor(Math.random() * 10),
+                      )}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Second>
+        }
+      />
+    </>
+  );
+}
 
 const PostTitle = styled.section`
   display: -webkit-box;

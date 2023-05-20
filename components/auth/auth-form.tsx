@@ -198,22 +198,22 @@ const AuthForm: React.FC<AuthFormProps> = ({
           </motion.button>
         </div>
       </div>
-      {/* <p className="link flex justify-end px-[6.46875rem] text-base mmd:px-[2rem] ssm:px-[1rem]">
+      <p className="link flex justify-end px-[6.46875rem] text-base mmd:px-[2rem] ssm:px-[1rem]">
         {mode == 'register' ? (
           <span
             className="cursor-pointer font-semibold text-[#C99400]"
             onClick={() => SetMode('login')}>
-            <Link href="/login"> 로그인</Link>
+            로그인
           </span>
         ) : (
           <span
             className="cursor-pointer font-semibold text-[#C99400]"
             onClick={() => SetMode('register')}>
-            <Link href="/register"> 회원가입</Link>
+            회원가입
           </span>
         )}
         <span className="dark:text-[#e4e5e7]"> 으로 이동</span>
-      </p> */}
+      </p>
 
       <div className="my-8 mt-4 flex items-center justify-between px-1">
         <div className="h-[1px] w-[136px] bg-[#EAECEF]"></div>

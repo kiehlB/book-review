@@ -49,7 +49,6 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) 
 
   const closeModal = () => {
     onClose && onClose(!visible);
-    router.back();
   };
 
   return (
@@ -67,11 +66,11 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) 
           <motion.div
             variants={modalVariants}
             className={`${className} flex bg-[#fff] shadow-md dark:bg-[#1a1b1e] mmx:h-full mmx:w-auto mmx:flex-1 mmx:shadow-none`}>
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-1 flex-col">
               <div className="flex justify-end p-[1.5rem] mmx:mb-0">
                 <MdClose onClick={closeModal} tabIndex={1} size={24} color="#868E96" />
               </div>
-              <div className="flex flex-col flex-1">{children}</div>
+              <div className="flex flex-1 flex-col">{children}</div>
             </div>
           </motion.div>
         </motion.div>

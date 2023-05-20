@@ -8,6 +8,7 @@ import '@/styles/tiptap.scss';
 import 'react-day-picker/dist/style.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Script from 'next/script';
+import { ToastContainer } from 'react-toastify';
 
 export const metadata = {
   title: 'Book Review',

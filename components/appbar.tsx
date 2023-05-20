@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { RootState } from '@/store/rootReducer';
 import { getSearchInput, getcoreInfoSuccess } from '@/store/core';
 import { useRouter } from 'next/navigation';
-import PopMenu from './popup';
+import PopMenu from './popup-menu';
 import useWhoAmI from './auth/hooks/useWhoami';
 import Sidebar from './sidebar';
 
@@ -25,7 +25,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
         dispatch(getcoreInfoSuccess());
       }}
       className={clsx(
-        'inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 border-gray-200 p-1 transition hover:border-[#FCD535] focus:outline-none mmx:h-12',
+        'inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 border-gray-200 p-1 transition focus:outline-none hover:border-[#FCD535] mmx:h-12',
         {
           'w-14 mmx:w-12': variant === 'icon',
           'px-8': variant === 'labelled',

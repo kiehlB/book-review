@@ -1,9 +1,6 @@
 import useCreateCommentWrite from './hooks/useCommentWrite';
 import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
-import { Button } from '../common/Button';
-import { useSelector } from 'react-redux';
-import { Sub } from '../../types/apolloComponent';
 
 export type CommentsWriteProps = {
   postId?: string;
@@ -24,19 +21,19 @@ function CommentsWrite({
   edit,
 }: CommentsWriteProps) {
   return (
-    <div className="flex items-end flex-col">
+    <div className="flex flex-col items-end">
       <StyledTextarea
         value={comment}
         onChange={e => onChange(e)}
         placeholder="댓글을 작성하세요"
-        className="border border-[#f1f3f5] dark:border-none bg-[#0000000d] dark:bg-[#2b2d31] dark:text-[#ececec] w-full"
+        className="w-full border border-[#f1f3f5] bg-[#0000000d] dark:border-none dark:bg-[#2b2d31] dark:text-[#ececec]"
       />
 
       <div className="flex">
         {onCancel && (
           <button
             onClick={onCancel}
-            className="mr-4 text-sm py-[10px] rounded-3xl text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold dark:text-[#cfcfcf]">
+            className="mr-4 cursor-pointer rounded-3xl py-[10px] text-sm font-semibold text-[#181A20] hover:text-[#5b646d] dark:text-[#cfcfcf]">
             취소
           </button>
         )}
@@ -45,7 +42,7 @@ function CommentsWrite({
           onClick={() => {
             onWrite();
           }}
-          className="text-sm px-[20px] py-[10px] rounded-3xl bg-[#FCD535] text-[#181A20] cursor-pointer hover:text-[#5b646d] font-semibold">
+          className="cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[10px] text-sm font-semibold text-[#181A20] hover:text-[#5b646d]">
           {edit ? '수정' : '작성'}
         </button>
       </div>

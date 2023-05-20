@@ -30,7 +30,7 @@ function Tags(props: TagsProps) {
         <NextLink
           className="text-[#475569] hover:text-[#212529] dark:text-[#e4e5e7] dark:hover:text-white"
           href={'/tags'}>
-          <span className="mr-2 py-1 pl-3 text-base font-bold text-[#475569] hover:text-[#212529] dark:text-[#e4e5e7] dark:hover:text-white">
+          <span className="mr-2 py-1 text-base font-bold text-[#475569] hover:text-[#212529] dark:text-[#e4e5e7] dark:hover:text-white">
             See All Tags
           </span>
         </NextLink>
