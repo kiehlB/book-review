@@ -1,0 +1,125 @@
+import { useMutation } from '@apollo/client';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import TextareaAutosize from 'react-textarea-autosize';
+import styled from 'styled-components';
+import useInput from '../../hooks/useIntput';
+import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
+import { RootState } from '../../store/rootReducer';
+import ProfileThumbnail from './profile-thumbnail';
+import useGetUser from './hooks/useGetUser';
+import useProfile from './hooks/useProfile';
+
+export type SettingCardProps = {};
+
+function SettingCard({}: SettingCardProps) {
+  const { getUser, loading } = useGetUser();
+  const { handleSubmit } = useProfile();
+  const [readyForFile, setreadyForFile] = useState('');
+  const [previewSource, setPreviewSource] = useState(0);
+  const [fileInputState, setFileInputState] = useState();
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [url, setUrl] = useState('');
+  const {
+    auth,
+    profileThumbnail,
+    displayName,
+    bio: Bio,
+  } = useSelector((state: RootState) => state.auth);
+
+  console.log(readyForFile);
+  const [name, setName] = useState(displayName ? displayName : '');
+
+  const [bio, setBio] = useState(Bio ? Bio : '');
+
+  const [uploadThumbnail] = useMutation(UPLOAD_IMAGE_TO_CLOUDINARY);
+
+  useEffect(() => {
+    setreadyForFile(profileThumbnail);
+    setPreviewSource(2);
+  }, [loading]);
+
+  const addImage = useCallback(async url => {
+    await uploadThumbnail({
+      variables: {
+        body: url,
+        width: 128,
+        height: 128,
+      },
+      update: (_proxy, { data: newData }) => {
+        setUrl(newData.uploadImage.url);
+        setreadyForFile(newData.uploadImage.url);
+        setPreviewSource(2);
+      },
+    });
+    if (url) {
+      setFileInputState(url);
+    }
+  }, []);
+
+  if (loading) return;
+
+  return (
+    <div className="rounded py-[2rem]">
+      <div className="flex">
+        <div className="w-[260px] text-[#21259]">프로필 사진</div>
+        <div className="cursor-pointer">
+          <ProfileThumbnail
+            addImage={addImage}
+            readyForFile={readyForFile}
+            setPreviewSource={setPreviewSource}
+            uploadThumbnail={uploadThumbnail}
+            previewSource={previewSource}
+            setreadyForFile={setreadyForFile}
+            thumbnail={profileThumbnail}
+          />
+        </div>
+      </div>
+      <div className="mt-[24px] flex py-4">
+        <div className="w-[260px] text-[#21259]">로그인 계정</div>
+        <div>{getUser?.whoami?.username}</div>
+      </div>
+      <div className="mt-[24px] flex">
+        <div className="w-[260px] text-[#21259]">닉네임</div>
+        <StyledTextarea
+          value={name}
+          onChange={e => setName(e.target.value)}
+          placeholder="닉네임을 작성 해보세요"
+          className="w-[50%] border border-[#f1f3f5] bg-[#0000000d] dark:border-none dark:bg-[#2b2d31] dark:text-[#ececec]"
+        />
+      </div>
+
+      <div className="mt-[24px] flex">
+        <div className="w-[260px] text-[#21259]">한 줄 소개</div>
+
+        <StyledTextarea
+          value={bio}
+          onChange={e => setBio(e.target.value)}
+          placeholder="한 줄 소개를 작성 해보세요"
+          className="w-[50%] border border-[#f1f3f5] bg-[#0000000d] dark:border-none dark:bg-[#2b2d31] dark:text-[#ececec]"
+        />
+      </div>
+      <div className="flex w-[calc(50%+260px)] justify-end">
+        <div
+          onClick={() => handleSubmit(bio, name, readyForFile ? readyForFile : url)}
+          className="cursor-pointer rounded-3xl bg-[#fcd535] px-[20px] py-[12px]  text-sm font-semibold  text-[#181A20] hover:text-[#495057]">
+          저장
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default SettingCard;
+
+const StyledTextarea = styled(TextareaAutosize)`
+  resize: none;
+  padding: 1rem;
+  padding-bottom: 1.5rem;
+  outline: none;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  min-height: 6.125rem;
+  font-size: 1rem;
+  line-height: 1.75;
+`;
