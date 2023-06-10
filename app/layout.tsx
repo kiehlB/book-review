@@ -8,7 +8,6 @@ import '@/styles/tiptap.scss';
 import 'react-day-picker/dist/style.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Script from 'next/script';
-import { ToastContainer } from 'react-toastify';
 
 export const metadata = {
   title: 'Book Review',
@@ -36,6 +35,8 @@ export default function RootLayout(props: {
           </ApolloWrapper>
         </ReduxProvider>
       </body>
+      {/* <Script src="/theme.js" strategy="beforeInteractive" /> */}
+
       <Script
         defer
         src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>

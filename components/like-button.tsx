@@ -41,8 +41,6 @@ export default function PawButton({ id, isdark, auth, data, onLikeToggle }: Post
     to.appendChild(elem);
   };
 
-  console.log(data?.post?.liked);
-
   useEffect(() => {
     document.querySelectorAll('.paw-button').forEach((elem: any) => {
       if (data?.post?.liked) {

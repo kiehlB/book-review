@@ -1,12 +1,5 @@
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  NormalizedCacheObject,
-  from,
-} from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { registerApolloClient } from '@apollo/experimental-nextjs-app-support/rsc';
-import { NextSSRInMemoryCache } from '@apollo/experimental-nextjs-app-support/ssr';
 
 export const { getClient } = registerApolloClient(() => {
   return new ApolloClient({

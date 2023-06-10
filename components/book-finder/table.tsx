@@ -13,7 +13,7 @@ interface TableProps<T> {
   disabled?: boolean;
   filterFn?: (data: T[], filter: string) => T[];
   filterPlaceholder?: string;
-  formatEntries?:any;
+  formatEntries?: any;
   isLoading?: boolean;
   onRowClick?: (item: T) => void;
   rowHeight?: number;

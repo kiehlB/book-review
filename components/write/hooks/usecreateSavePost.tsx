@@ -37,7 +37,6 @@ export default function useCreateSavePost() {
   const posts = data?.posts;
 
   const ConfirmSave = async (id, title, body, tags, book) => {
-    console.log(Boolean(id));
     if (!title) {
       toast.error('제목 또는 내용이 비어있습니다.', {
         position: 'bottom-right',
@@ -61,7 +60,6 @@ export default function useCreateSavePost() {
           },
 
           update: async (proxy, { data: createPost }) => {
-            console.log('asdhjaksdhas');
             dispatch(getPostId(createPost?.createPost.id));
 
             proxy?.writeQuery({

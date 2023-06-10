@@ -12,6 +12,7 @@ import { AppLayout, First, MainNav, Second } from '../layout/app-layout';
 import { BackLink } from '../arrow-button';
 import CoreButton from './core-button';
 import { ToastContainer } from 'react-toastify';
+import TagsForm from '../tags/TagsForm';
 
 export type TapProps = {};
 
@@ -46,7 +47,7 @@ function WriteTemplate({}: TapProps) {
                 <CoreButton StoreTag={StoreTag} />
               </div>
               <div className="px-4 py-4 mxs:px-2">
-                {/* <TagsForm StoreTag={StoreTag} postId={postId} posts={posts} /> */}
+                <TagsForm StoreTag={StoreTag} postId={postId} posts={posts} />
               </div>
             </First>
           }

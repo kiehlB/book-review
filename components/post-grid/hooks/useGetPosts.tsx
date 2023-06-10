@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import useScrollPagination from '../../../hooks/useScrollPagination';
@@ -11,8 +13,6 @@ export default function useGetPosts() {
       variables: {
         limit: 24,
       },
-
-      notifyOnNetworkStatusChange: true,
     },
   );
   const [isFinished, setIsFinished] = useState(false);
@@ -45,5 +45,5 @@ export default function useGetPosts() {
     onLoadMore,
   });
 
-  return { data, loading, isFinished };
+  return { data, isFinished, loading };
 }

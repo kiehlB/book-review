@@ -8,11 +8,9 @@ import useGetPosts from '@/components/post-grid/hooks/useGetPosts';
 export const dynamic = 'force-dynamic';
 
 export default function MainPage() {
-  const { data, loading } = useGetPosts();
-
   return (
-    <PostGrid className="mt-[1rem]">
-      <PostCard posts={data?.recentPosts || []} loading={!data || loading} />
-    </PostGrid>
+    <div>
+      <div>제작중</div>
+    </div>
   );
 }

@@ -70,7 +70,6 @@ export default function useCreatePost() {
     }
 
     if (id) {
-      console.log(postBodyReplace);
       try {
         await editPost({
           variables: {

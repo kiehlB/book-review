@@ -1,5 +1,4 @@
 'use client';
-'use client';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -41,8 +40,7 @@ export const NavbarItem = (props: NavbarItemProps) => {
       className={clsx(
         'underlined hover:text-team-current focus:text-team-current relative my-[0.5rem] flex items-center whitespace-nowrap py-[0.5rem] text-lg font-semibold transition-all focus:outline-none dark:text-[#e4e5e7]',
         {
-          'active rounded text-[#212529] hover:pl-2 dark:bg-[#54565F33] dark:hover:bg-[#53525280]':
-            isSelected,
+          'active rounded text-[#212529] hover:pl-2': isSelected,
           'text-[#495057] transition-all hover:pl-2': !isSelected,
         },
       )}
@@ -54,12 +52,11 @@ export const NavbarItem = (props: NavbarItemProps) => {
         </span>
         {isSelected && (
           <span
-            className="absolute"
+            className="absolute bg-[#FFF23080] dark:bg-[#333333]"
             style={{
-              backgroundColor: '#FFF23080',
               height: '12px',
               width: iconAndTextWidth,
-              top: textHeight / 2 + 2,
+              top: textHeight / 2 + 3,
               zIndex: -1,
             }}
           />

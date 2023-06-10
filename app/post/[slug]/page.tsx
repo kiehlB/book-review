@@ -141,7 +141,7 @@ function PostDetail() {
                       </div>
                     </Link>
 
-                    <div className="cursor-pointer" onClick={() => handleSubmit(1)}>
+                    <div className="cursor-pointer" onClick={() => handleSubmit(id)}>
                       삭제
                     </div>
                   </div>
@@ -178,7 +178,7 @@ function PostDetail() {
                   <div className="col-span-6 mx-auto w-full max-w-[812.5px] mmd:col-span-8">
                     {singlePostData?.post?.bookInfo?.bookTitle ? (
                       <div className="mx-auto mb-[1rem] flex max-w-[812.5px] rounded bg-[#F8F9FA] px-8 py-8 shadow dark:bg-[#2b2d31] ssm:flex-col">
-                        {/* <div className="card">
+                        <div className="card">
                           <div className="imgBox">
                             <div className="bark "></div>
                             <Image
@@ -193,7 +193,7 @@ function PostDetail() {
                               {singlePostData?.post?.bookInfo?.bookContent}
                             </h4>
                           </div>
-                        </div> */}
+                        </div>
                         <div className="ml-8 flex flex-col ssm:ml-0 ssm:mt-2">
                           <div className="text-xl font-bold text-[#495057] dark:text-[#ececec] mxs:text-base">
                             도서: {singlePostData?.post?.bookInfo?.bookTitle}
@@ -207,10 +207,20 @@ function PostDetail() {
                     ) : (
                       ''
                     )}
+                    {singlePostData?.post?.thumbnail ? (
+                      <div className="mx-auto my-12 flex max-w-full justify-center">
+                        <div className="flex justify-center">
+                          <img
+                            className="h-auto max-w-full"
+                            src={singlePostData?.post?.thumbnail}
+                            alt="..."
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      ''
+                    )}
 
-                    <div>
-                      <img src={singlePostData?.post?.thumbnail} />
-                    </div>
                     <Content isdark={isdark} id="content">
                       <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
                     </Content>

@@ -28,7 +28,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 {
                   icon: <AiFillNotification />,
                   text: '게시판',
-                  to: '/post',
+                  to: '/dashboard',
                 },
                 {
                   icon: <BsTagFill />,

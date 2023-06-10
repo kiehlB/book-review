@@ -101,7 +101,7 @@ export const HistoryTableRow = ({ datum, clicked, handleClick, id }: any) => {
       key={uuidv4()}
       onClick={e => {
         dispatch(initBook(datum));
-        handleClick(e, datum);
+        handleClick(datum);
       }}>
       <div className="flex">
         {datum.thumbnail ? (
@@ -119,10 +119,10 @@ export const HistoryTableRow = ({ datum, clicked, handleClick, id }: any) => {
 
         <div className="ml-5 flex w-full flex-col overflow-hidden truncate whitespace-nowrap text-xs">
           <div className="flex w-full justify-between">
-            <strong className="mmd:text-base text-xl dark:text-[#e4e5e7]">
+            <strong className="text-xl dark:text-[#e4e5e7] mmd:text-base">
               {datum.title || TITLE_PLACEHOLDER}
             </strong>
-            <div className="mxs:hidden mr-2 dark:text-[#e4e5e7]">
+            <div className="mr-2 dark:text-[#e4e5e7] mxs:hidden">
               {formatDate(datum.datetime)}
             </div>
           </div>
