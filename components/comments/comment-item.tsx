@@ -47,7 +47,7 @@ function CommentItem({
             alt="Profile thumbnail"
             width={48}
             height={48}
-            className="block rounded-full object-cover mxs:h-[40px] mxs:w-[40px]"
+            className="block h-[48px] w-[48px] rounded-full object-cover mxs:h-[40px] mxs:w-[40px]"
           />
         ) : (
           <ProfileIcon className="block h-[48px] w-[48px] rounded-[50%] object-cover mxs:h-[40px] mxs:w-[40px]" />

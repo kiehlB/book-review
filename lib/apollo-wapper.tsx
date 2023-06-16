@@ -14,9 +14,11 @@ import {
   SSRMultipartLink,
 } from '@apollo/experimental-nextjs-app-support/ssr';
 
+export const __prod__ = process.env.NODE_ENV === 'production';
+
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: 'http://localhost:4000/graphql',
+    uri: __prod__ ? process.env.API_URL : 'http://localhost:4000/graphql',
     credentials: 'include',
   });
 

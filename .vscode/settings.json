@@ -22,5 +22,6 @@
 	"npm.runSilent": true,
 	"editor.formatOnPaste": false,
 	"editor.cursorSmoothCaretAnimation": "on",
-	"editor.smoothScrolling": true
+	"editor.smoothScrolling": true,
+	"files.autoGuessEncoding": false
 }

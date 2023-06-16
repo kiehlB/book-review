@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['search1.kakaocdn.net'],
+    domains: ['search1.kakaocdn.net', 'res.cloudinary.com'],
   },
   env: {
     API_URL: process.env.API_URL,

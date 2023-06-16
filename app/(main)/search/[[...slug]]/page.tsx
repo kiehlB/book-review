@@ -3,7 +3,6 @@
 import { PostGrid } from '@/components/layout/grid-layout';
 import PostCard from '@/components/post-grid/post-card';
 import React from 'react';
-import useGetPosts from '@/components/post-grid/hooks/useGetPosts';
 
 import { useRouter, usePathname, useParams } from 'next/navigation';
 import useGetSearchPosts from '@/components/post-grid/hooks/useGetSearchPosts';
@@ -11,9 +10,11 @@ import useGetSearchPosts from '@/components/post-grid/hooks/useGetSearchPosts';
 export const dynamic = 'force-dynamic';
 
 export default function MainPage() {
-  const params = useParams();
+  const path = usePathname();
 
-  const { data, loading } = useGetSearchPosts(params.slug);
+  const result = path.match(/\/search\/(.*)/)[1];
+
+  const { data, loading } = useGetSearchPosts(decodeURIComponent(result));
 
   return (
     <PostGrid className="mt-[1rem]">
