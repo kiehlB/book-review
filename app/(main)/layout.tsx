@@ -28,7 +28,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 {
                   icon: <AiFillNotification />,
                   text: '게시판',
-                  to: '/dashboard',
+                  to: '/board',
                 },
                 {
                   icon: <BsTagFill />,
@@ -50,25 +50,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
         <AppLayout
           className="col-span-8 mmd:col-span-12"
-          first={
-            <First>
-              <HomeTitle
-                title="포스트"
-                primaryItems={[
-                  {
-                    svg: <IoMdTime />,
-                    name: '최신',
-                    href: '/',
-                  },
-                  {
-                    svg: <MdOutlineLocalFireDepartment />,
-                    name: '트렌딩',
-                    href: '/trending',
-                  },
-                ]}
-              />
-            </First>
-          }
+          first={<First></First>}
           second={<Second>{children}</Second>}
         />
       </PageGrid>

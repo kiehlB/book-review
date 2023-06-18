@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { AiFillEdit, AiFillLike, AiFillNotification } from 'react-icons/ai';
 import { TfiWrite } from 'react-icons/tfi';
 import { CiRead } from 'react-icons/ci';

@@ -1,5 +1,6 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, useContext } from 'react';
 import { getScrollBottom, getScrollTop } from '../lib/utils';
+import CursorContext from '@/context/cursor-context';
 
 type Params = {
   offset?: number | null;
@@ -16,6 +17,8 @@ export default function useScrollPagination({
   onLoadMore,
   onLoadMoreByOffset,
 }: Params) {
+  const { cursor: storedCursor, setCursor } = useContext(CursorContext);
+
   const last = useRef<string | number | null>(null);
 
   const preventBottomStick = useCallback(() => {
@@ -35,7 +38,7 @@ export default function useScrollPagination({
   const loadMoreUsingOffset = useCallback(async () => {
     if (stop || !offset || !onLoadMoreByOffset) return;
     if (offset === last.current) return;
-    last.current = offset;
+    last.current = storedCursor || cursor;
     await onLoadMoreByOffset(offset);
     preventBottomStick();
   }, [offset, onLoadMoreByOffset, preventBottomStick, stop]);

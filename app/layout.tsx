@@ -8,6 +8,7 @@ import '@/styles/tiptap.scss';
 import 'react-day-picker/dist/style.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Script from 'next/script';
+import MuiProvider from '@/lib/mui-provider';
 
 export const metadata = {
   title: 'Book Review',
@@ -30,7 +31,9 @@ export default function RootLayout(props: {
         <ReduxProvider>
           <ApolloWrapper>
             <BooksContextProvider>
-              <ModalContextProvider>{props.children}</ModalContextProvider>
+              <ModalContextProvider>
+                <MuiProvider>{props.children}</MuiProvider>
+              </ModalContextProvider>
             </BooksContextProvider>
           </ApolloWrapper>
         </ReduxProvider>

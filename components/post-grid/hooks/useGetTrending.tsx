@@ -23,10 +23,10 @@ export default function useGetTrendingPosts() {
   const [isFinished, setIsFinished] = useState(false);
 
   const onLoadMore = useCallback(
-    (cursor: string) => {
+    offset => {
       fetchMore({
         variables: {
-          cursor,
+          offset,
           limit: 24,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
@@ -43,10 +43,8 @@ export default function useGetTrendingPosts() {
     [fetchMore],
   );
 
-  const cursor = data?.trendingPosts[data?.trendingPosts?.length - 1]?.id;
-
   useScrollPagination({
-    cursor,
+    offset: data?.trendingPosts.length,
     onLoadMore,
   });
 
