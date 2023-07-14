@@ -79,13 +79,18 @@ function Header({
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    const trimmedValue = input.trim();
+
+    if (trimmedValue === '') {
+      return;
+    }
     router.push(`/search/${input}`);
   };
 
   const AuthButtons = () => (
     <>
       <div
-        className="cursor-pointer rounded-3xl pr-4 text-sm font-semibold text-[#181A20] hover:text-[#495057] dark:text-[#e4e5e7] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[16px] mxs:py-[12px] dark:mxs:text-[#212529]"
+        className="cursor-pointer rounded-3xl pr-4 font-[Fredoka] text-sm font-semibold text-[#181A20] hover:text-[#495057] dark:text-[#e4e5e7] dark:hover:text-[#fcd535]  mxs:bg-[#fcd535] mxs:px-[16px] mxs:py-[12px] dark:mxs:text-[#212529]"
         onClick={() => {
           SetMode('login');
           SetIsClose(!IsClose);
@@ -94,7 +99,7 @@ function Header({
       </div>
 
       <div
-        className="cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[12px] text-sm font-semibold text-[#181A20] hover:text-[#5b646d] mxs:hidden"
+        className=" cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[12px] font-[Fredoka] text-sm font-semibold text-[#181A20] hover:text-[#5b646d] mxs:hidden"
         onClick={() => {
           SetMode('register');
           SetIsClose(!IsClose);
@@ -108,7 +113,7 @@ function Header({
     <div className="flex items-center">
       <div
         onClick={() => SetBookIsClose(!BookIsClose)}
-        className="mr-4 cursor-pointer rounded-3xl border px-[20px] py-[10px] text-sm font-semibold text-[#212529] hover:text-[#5b646d] dark:border-none dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:hover:text-white mxs:hidden">
+        className="mr-4 cursor-pointer rounded-3xl border px-[20px] py-[10px] font-[Fredoka] text-sm font-semibold text-[#212529] hover:text-[#5b646d] dark:border-none dark:bg-[#2b3139] dark:text-[#e4e5e7] dark:hover:text-white mxs:hidden">
         Write
       </div>
 

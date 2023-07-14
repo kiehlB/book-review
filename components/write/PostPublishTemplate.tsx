@@ -107,11 +107,11 @@ function PostPublishTemplate({}: PostPublishTemplateProps) {
                 />
 
                 <div className="mt-4 text-[1.3rem] font-semibold text-[#212529] mxs:py-2">
-                  등록될 책
+                  책 제목
                 </div>
                 <div>
                   <div className="py-2 text-[1rem] font-semibold text-[#212529]">
-                    책: {book?.title ? book?.title : '선택된 책이 없습니다'}
+                    {book?.title ? book?.title : '선택된 책이 없습니다'}
                   </div>
                   <div>
                     <img src={book?.thumbnail} />

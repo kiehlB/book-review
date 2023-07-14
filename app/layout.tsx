@@ -13,7 +13,7 @@ import MuiProvider from '@/lib/mui-provider';
 export const metadata = {
   title: 'Book Review',
   description:
-    '책 리뷰를 작성하는 곳 입니다  여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다.',
+    '책 리뷰를 작성하는 곳 입니다. 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다.',
   icons: {
     icon: '/logo10.png',
     shortcut: '/logo10.png',

@@ -52,11 +52,7 @@ export default function Profile({ children }) {
 
         <AppLayout
           className="col-span-8 mmd:col-span-10 mmd:col-start-3 mmx:col-start-2"
-          first={
-            <First>
-              <HomeTitle title="내 정보 설정" />
-            </First>
-          }
+          first={<First></First>}
           second={<Second>{children}</Second>}
         />
       </PageGrid>

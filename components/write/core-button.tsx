@@ -121,12 +121,12 @@ function CoreButton({ StoreTag }: TapProps) {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           onClick={handleClick}
-          className="mr-4 cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[10px] font-Roboto text-sm tracking-wider text-[#181A20] hover:text-[#545b6d] ssm:mr-1">
+          className=" mr-4 cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[10px] font-[Fredoka] text-sm font-medium tracking-wider text-[#181A20] hover:text-[#545b6d] ssm:mr-1">
           saved
         </div>
         <div
           onClick={() => dispatch(getIsOpenSuccess())}
-          className="mr-1 cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[10px] font-Roboto text-sm tracking-wider text-[#181A20] hover:text-[#545b6d]">
+          className="mr-1 cursor-pointer rounded-3xl bg-[#FCD535] px-[20px] py-[10px] font-[Fredoka] text-sm tracking-wider text-[#181A20] hover:text-[#545b6d]">
           publish
         </div>
       </div>

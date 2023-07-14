@@ -1,11 +1,11 @@
 'use client';
 
-import { PostGrid } from '@/components/layout/grid-layout';
-import PostCard from '@/components/post-grid/post-card';
 import React from 'react';
 
 import { useRouter, usePathname, useParams } from 'next/navigation';
 import useGetSearchPosts from '@/components/post-grid/hooks/useGetSearchPosts';
+import { PostGrid } from '@/components/layout/grid-layout';
+import PostCard from '@/components/post-grid/post-card';
 
 export const dynamic = 'force-dynamic';
 

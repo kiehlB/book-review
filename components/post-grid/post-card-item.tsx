@@ -84,7 +84,7 @@ function PostCardItem({ post }: GridProps) {
               도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
             </div>
 
-            <PostTitle className="m-0 mb-[0.25rem] mt-2 text-base font-semibold leading-normal text-[#18191b] dark:text-[#CFCFCF]">
+            <PostTitle className="m-0 mb-[0.25rem] mt-2 font-[Fredoka] text-base font-semibold leading-normal text-[#18191b] dark:text-[#CFCFCF]">
               {post?.title}
             </PostTitle>
 

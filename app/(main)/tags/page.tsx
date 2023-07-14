@@ -12,11 +12,7 @@ export const dynamic = 'force-dynamic';
 
 export default function MainPage() {
   const { data: Tags, loading } = useGetTags({ sort: 'byName' });
-  const GetTags = Tags?.tags
-    ?.slice()
-    ?.sort((a, b) => b.posts_count - a.posts_count)
-    ?.slice(0, 6);
-
+  const GetTags = Tags?.tags?.slice()?.sort((a, b) => b.posts_count - a.posts_count);
   return (
     <div>
       <HomeTitle title="태그" />

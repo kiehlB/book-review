@@ -15,7 +15,7 @@ export type TagItemProps = {
 function TagItem(props: TagItemProps) {
   return (
     <div className="flex cursor-pointer flex-col">
-      <div className="flex w-[80%] items-center py-1 pl-3">
+      <div className="flex w-[80%] items-center py-1 pl-1">
         <div className="flex-1 font-semibold transition-all hover:pl-[6px] hover:text-[#212529] dark:text-[#e4e5e7] hover:dark:text-[#fff]">
           {props.name}
         </div>
