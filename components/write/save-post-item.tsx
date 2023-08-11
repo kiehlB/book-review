@@ -44,7 +44,7 @@ function SavedPostItem({
         </button>
         {isOpen && (
           <div className="fixed left-0 right-0 z-50 flex items-center justify-center">
-            <div className="w-72 rounded-lg bg-white p-6 shadow-2xl mxl:w-[14rem]">
+            <div className="w-[17.5rem] rounded-lg bg-white p-6 shadow-2xl mxl:w-[14rem]">
               <div className="mb-4 text-center text-lg font-bold">삭제</div>
               <div className="mb-2 text-center text-sm text-[#495057]">
                 정말 삭제 하시겠습니까?

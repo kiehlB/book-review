@@ -125,7 +125,7 @@ function Header({
 
   return (
     <header
-      className={`mx-auto grid max-w-[98.5rem] grid-cols-10 items-center gap-6 py-[1rem] mxl:max-w-[75rem] mmd:grid-cols-10 mmx:flex mmx:w-full mmx:grid-cols-none`}>
+      className={`mx-auto grid max-w-[98.5rem] grid-cols-10 items-center gap-6 py-[1rem] mxl:max-w-[75rem] mmd:flex mmd:w-full mmd:grid-cols-none`}>
       <div
         className={`mmx:col-span-none col-span-2 whitespace-nowrap text-[1.5625rem] text-[#212529] transition focus:outline-none dark:text-[#e4e5e7] mxl:col-span-2`}>
         <span className="flex items-center">
@@ -146,7 +146,7 @@ function Header({
           dispatch(getSearchInput(input));
           handleSubmit(e);
         }}
-        className="col-span-6 mxl:col-span-5 mmx:hidden">
+        className="col-span-6 mxl:col-span-5 mmd:hidden">
         <div className="relative">
           <div className="bg-[rgb(255 115 179)] absolute left-[16px] top-[50%] translate-y-[-50%] dark:text-[#e4e5e7] ">
             <IoSearchOutline />
@@ -155,7 +155,7 @@ function Header({
             value={input}
             onChange={e => setInput(e.target.value)}
             isdark={isdark}
-            className="h-[42px] w-full rounded-full border-[1px] bg-[#F5F7FA] px-[2.5rem] py-[0.5rem]  text-sm focus:outline-none dark:border-[#1a1b1e] dark:bg-[#2b2d31] dark:text-[#e4e5e7]"
+            className="h-[42px] w-full rounded-full border-[1px] bg-[#F5F7FA] px-[2.5rem] py-[0.5rem] text-sm focus:outline-none dark:border-[#1a1b1e] dark:bg-[#2b2d31] dark:text-[#e4e5e7]"
           />
         </div>
       </form>

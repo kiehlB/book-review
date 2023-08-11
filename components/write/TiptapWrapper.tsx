@@ -54,7 +54,7 @@ const TiptapWrapper = ({ editor }) => {
       <ul className="toc__list">
         {items.map((item, index) => (
           <li key={index} className={`toc__item toc__item--${item.level}`}>
-            <a href={`#${item.id}`}>{item.text}</a>
+            <div>{item.text}</div>
           </li>
         ))}
       </ul>

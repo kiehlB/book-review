@@ -1,3 +1,26 @@
+// import { PageLayout } from '@/components/layout/page-layout';
+// import PostDetailClient from '../post.client';
+// import { getClient } from '@/lib/client';
+// import { GET_Post } from '@/lib/graphql/posts';
+
+// async function PostDetail({ params }: { params: { slug: string } }) {
+//   const Id = params?.slug;
+//   const PostData = await getClient().query({
+//     query: GET_Post,
+//     variables: { id: Id },
+//   });
+
+//   console.log(PostData?.data);
+
+//   return (
+//     <PageLayout>
+//       <PostDetailClient singlePostData={PostData?.data} id={Id} />
+//     </PageLayout>
+//   );
+// }
+
+// export default PostDetail;
+
 'use client';
 
 import { useRouter, usePathname, useParams } from 'next/navigation';

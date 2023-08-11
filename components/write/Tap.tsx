@@ -224,7 +224,7 @@ function Tap({ postId, posts }: TapProps) {
 
       dispatch(getPostTitle(findPost[0]?.title));
       // dispatch(getPostBody(findPost[0]?.body));
-      editor.commands.setContent(BodyResult);
+      editor?.commands?.setContent(BodyResult);
       // dispatch(getPostTags(findPost[0]?.tags?.map(e => e?.tag?.name)));
     }
   }, [postId]);
@@ -242,7 +242,7 @@ function Tap({ postId, posts }: TapProps) {
       </div>
 
       <Content
-        className="w-full mt-2 overflow-y-scroll scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-w-2 px-[1rem] mxs:px-2"
+        className="mt-2 w-full overflow-y-scroll px-[1rem] scrollbar scrollbar-track-gray-100 scrollbar-thumb-gray-900 scrollbar-w-2 mxs:px-2"
         isdark={isdark}>
         <EditorContent
           editor={editor}

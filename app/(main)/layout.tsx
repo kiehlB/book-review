@@ -1,4 +1,3 @@
-import HomeTitle from '@/components/home/home-title';
 import { AppLayout, First, MainNav, Second } from '@/components/layout/app-layout';
 import { PageGrid } from '@/components/layout/grid-layout';
 import { PageLayout } from '@/components/layout/page-layout';
@@ -7,8 +6,6 @@ import Tags from '@/components/tags/Tags';
 import React from 'react';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
-import { IoMdTime } from 'react-icons/io';
-import { MdOutlineLocalFireDepartment } from 'react-icons/md';
 import { RiBookOpenLine, RiFileChartFill } from 'react-icons/ri';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
@@ -50,8 +47,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
         <AppLayout
           className="col-span-8 mmd:col-span-12"
-          first={<First></First>}
-          second={<Second>{children}</Second>}
+          first={<First>{children}</First>}
         />
       </PageGrid>
     </PageLayout>

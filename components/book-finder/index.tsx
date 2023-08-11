@@ -24,6 +24,8 @@ function BooksTableForm({
   BookName: externalBookName,
   initialBookName = externalBookName || '',
   onSubmit,
+  BookIsClose,
+  SetBookIsClose,
 }: any) {
   const [BookName, setBookName] = React.useState(initialBookName);
 
@@ -43,8 +45,8 @@ function BooksTableForm({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="relative">
+    <form onSubmit={handleSubmit} className="w-full">
+      <div className="relative flex w-full items-center justify-between">
         <div className="bg-[rgb(255 115 179)] absolute left-[16px] top-[50%] translate-y-[-50%] dark:text-[#e4e5e7]">
           <IoSearchOutline />
         </div>
@@ -55,6 +57,13 @@ function BooksTableForm({
           name="BookName"
           className=" h-[50px] w-[310px] rounded-full border-[1px] border-[#d8dae5] px-[2.5rem] py-[0.5rem] text-xs text-[#474d66] focus:outline-none dark:border-[#1a1b1e] dark:bg-[#2b2d31] dark:text-[#e4e5e7] dark:placeholder-gray-300"
           style={{ borderRadius: '1.5rem', fontSize: '12px' }}
+        />
+        <MdClose
+          onClick={() => SetBookIsClose(!BookIsClose)}
+          tabIndex={1}
+          size={24}
+          color="#868E96"
+          className="cursor-pointer sm:hidden"
         />
       </div>
     </form>
@@ -237,8 +246,13 @@ const BookTalble = ({}) => {
   return (
     <>
       <div className="grid h-[calc(100vh-8rem)] w-full grid-rows-12 px-[2rem] mmd:h-[100vh] mmd:px-[1rem] mxs:px-[0.5rem]">
-        <div className="row-span-1 flex items-end pb-4 mxs:px-[0rem]">
-          <BooksTableForm BookName={bookName} onSubmit={handleSubmit} />
+        <div className="row-span-1 flex w-full items-end pb-4 mxs:px-[0rem]">
+          <BooksTableForm
+            BookName={bookName}
+            onSubmit={handleSubmit}
+            BookIsClose={BookIsClose}
+            SetBookIsClose={SetBookIsClose}
+          />
         </div>
         <div className="row-span-10 overflow-y-scroll rounded-md border border-[#EDEFF5] scrollbar scrollbar-track-gray-100 scrollbar-thumb-gray-900 scrollbar-thumb-rounded-3xl scrollbar-w-2 dark:border-none">
           <BookInfo bookName={bookName} />

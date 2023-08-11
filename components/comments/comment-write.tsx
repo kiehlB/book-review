@@ -21,7 +21,7 @@ function CommentsWrite({
   edit,
 }: CommentsWriteProps) {
   return (
-    <div className="flex flex-col items-end">
+    <div className="mt-2 flex flex-col items-end">
       <StyledTextarea
         value={comment}
         onChange={e => onChange(e)}

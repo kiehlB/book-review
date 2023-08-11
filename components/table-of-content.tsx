@@ -4,7 +4,7 @@ import { getScrollTop } from '@/lib/utils';
 import { useCallback, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-const PostTableOfContents = ({ isdark } : any) => {
+const PostTableOfContents = ({ isdark }: any) => {
   const [activeId, setActiveId] = useState('');
   const { nestedHeadings } = useHeadingsData();
   useIntersectionObserver(setActiveId);
@@ -86,15 +86,15 @@ const PostTableOfContents = ({ isdark } : any) => {
   return (
     <nav
       aria-label="Table of contents"
-      className="flex flex-col border-l-2 text-[#868e96] dark:text-[#acacac] max-h-[calc(100vh-128px)] overflow-y-scroll overflow-x-hidden scrollbar scrollbar-thumb-slate-600 scrollbar-track-gray-100 scrollbar-w-1">
+      className="flex max-h-[calc(100vh-128px)] flex-col overflow-y-scroll border-l-2 text-[#868e96] scrollbar overflow-x-hidden scrollbar-track-gray-100 scrollbar-thumb-slate-600 scrollbar-w-1 dark:text-[#acacac]">
       {nestedHeadings?.map(item => (
         <Toc
           isdark={isdark}
-          className="text-sm mt-[6px]"
+          className="mt-[6px] text-sm"
           active={activeId === item.id}
           key={item.id}
           style={{ marginLeft: item.level * 12 }}>
-          <a href={`#${item.id}`}>{item.title}</a>
+          <div>{item.title}</div>
         </Toc>
       ))}
     </nav>
@@ -117,7 +117,7 @@ const Toc = styled.div<{ active: boolean; isdark: any }>`
   ${props =>
     props.active &&
     css`
-      color: ${(props : any) => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      color: ${(props: any) => (props.isdark == 'dark' ? '#ececec' : '#212529')};
 
       font-weight: 700;
       transform: scale(1.02);

@@ -48,26 +48,7 @@ export const GET_Post = gql`
         reply
         created_at
         updated_at
-
         upvotes
-        replies {
-          id
-          text
-          has_replies
-          created_at
-          updated_at
-        }
-        replies_count
-        user {
-          id
-          username
-          profile {
-            id
-            bio
-            profile_name
-            thumbnail
-          }
-        }
       }
     }
   }
