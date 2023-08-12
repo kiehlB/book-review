@@ -3,13 +3,13 @@ import useBoolean from '../../hooks/useBoolean';
 import { Sub } from '../../types/apolloComponent';
 import CommentReplies from './comment-replies';
 import styled, { css } from 'styled-components';
-import { BiCommentDetail, BiUpvote } from 'react-icons/bi';
 import ProfileIcon from '../../svg/profile';
 import CommentEdit from './comment-edit';
 import { formatDate } from '../../lib/utils';
-import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
-import { CgComment } from 'react-icons/cg';
+
+import { LiaComments } from 'react-icons/lia';
+import clsx from 'clsx';
 
 export type CommentItemProps = {
   comment: Sub | null;
@@ -38,6 +38,7 @@ function CommentItem({
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
 
+  console.log(comment.level);
   return (
     <PostCommentItem className="comment mt-1 py-1">
       <div className="flex">
@@ -65,7 +66,10 @@ function CommentItem({
                       ? comment?.user?.profile?.profile_name
                       : comment?.user?.username}
                   </h3>
-                  <p className="ml-2 text-xs text-[#868E96] dark:text-[#acacac]">
+                  <p
+                    className={clsx('text-xs text-[#868E96] dark:text-[#acacac]', {
+                      'ml-1': comment.level >= 1,
+                    })}>
                     {formatDate(comment?.created_at)}
                   </p>
                 </div>
@@ -104,7 +108,7 @@ function CommentItem({
                 </div>
                 <div className="mt-2 w-fit text-sm text-[#212529] dark:text-[#ececec]">
                   <div className="flex items-center">
-                    <div className="mr-2 flex cursor-pointer items-center">
+                    <div className="flex cursor-pointer items-center">
                       {/* <div
                         className="flex items-center"
                         onClick={async () => {
@@ -122,7 +126,7 @@ function CommentItem({
                         onClick={onToggleOpen}
                         className="flex cursor-pointer  items-center">
                         <div className="mr-1">
-                          <CgComment size={14} />
+                          <LiaComments size={16} />
                         </div>
                         <div>답글</div>
                       </div>

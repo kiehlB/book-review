@@ -1,9 +1,6 @@
-'use client';
-
 import * as React from 'react';
 import { MdClose } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 
 interface ModalProps {
   visible?: boolean;
@@ -13,8 +10,6 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) => {
-  const router = useRouter();
-
   React.useEffect(() => {
     document.body.style.overflowY = visible ? 'hidden' : 'initial';
   }, [visible]);

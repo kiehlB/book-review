@@ -94,7 +94,7 @@ const PostTableOfContents = ({ isdark }: any) => {
           active={activeId === item.id}
           key={item.id}
           style={{ marginLeft: item.level * 12 }}>
-          <div>{item.title}</div>
+          <a href={`#${item.id}`}>{item.title}</a>
         </Toc>
       ))}
     </nav>

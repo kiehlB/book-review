@@ -235,7 +235,7 @@ function Tap({ postId, posts }: TapProps) {
 
   return (
     <>
-      <div className="px-[1rem] mxs:px-2">
+      <div className="sticky top-0 z-50 bg-white px-[1rem] mxs:px-2">
         <ProjectCreateContentToolbar editor={editor} isdark={isdark}>
           <ImageAdd addImage={addImage} previewSource={previewSource} />
         </ProjectCreateContentToolbar>

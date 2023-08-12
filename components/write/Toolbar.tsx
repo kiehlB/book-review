@@ -36,11 +36,11 @@ const ProjectCreateContentToolbar = ({
   };
   // overflow-x-scroll
   return (
-    <div className="flex flex-wrap w-full items-center sticky top-0 z-1 bg-white border border-gray-300 p-1 rounded shadow dark:bg-[#212529] dark:border-none mxs:overflow-x-scroll mxs:flex-nowrap">
-      <div className="flex items-center flex-wrap mxs:flex-nowrap">
+    <div className="z-1 flex w-full flex-wrap  items-center rounded border border-gray-300 bg-white p-1 shadow dark:border-none dark:bg-[#212529] mxs:flex-nowrap mxs:overflow-x-scroll">
+      <div className="flex flex-wrap items-center mxs:flex-nowrap">
         <HeadingToolbarButtons editor={editor} isdark={isdark} />
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900 ${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900 ${
             editor.isActive('bold') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -48,7 +48,7 @@ const ProjectCreateContentToolbar = ({
           <BsTypeBold size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('italic') ? 'bg-gray-100 dark:bg-slate-900 ' : ''
           }`}
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -56,7 +56,7 @@ const ProjectCreateContentToolbar = ({
           <BiItalic size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('strike') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleStrike().run()}
@@ -67,7 +67,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('code') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleCode().run()}
@@ -75,7 +75,7 @@ const ProjectCreateContentToolbar = ({
           <BiCodeAlt size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('blockquote') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
@@ -86,7 +86,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 active:scale-90 dark:hover:bg-slate-900${
             editor.isActive('HorizontalRule') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
@@ -97,7 +97,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('paragraph') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().setParagraph().run()}
@@ -108,7 +108,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('underline') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -124,7 +124,7 @@ const ProjectCreateContentToolbar = ({
         </div>
 
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 active:scale-90 dark:hover:bg-slate-900${
             editor.isActive('link') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => {
@@ -158,14 +158,14 @@ const ProjectCreateContentToolbar = ({
         <button
           aria-label="youtube"
           onClick={addYoutubeVideo}
-          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 active:scale-90 dark:hover:bg-slate-900${
             editor.isActive('youtube') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}>
           <BsYoutube size={24} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
 
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('bulletList') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -176,7 +176,7 @@ const ProjectCreateContentToolbar = ({
           />
         </button>
         <button
-          className={`p-2 mx-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
             editor.isActive('orderedList') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
@@ -190,7 +190,7 @@ const ProjectCreateContentToolbar = ({
         {/* <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} /> */}
 
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 active:scale-90 dark:hover:bg-slate-900${
             editor.isActive('undo') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().undo().run()}
@@ -198,7 +198,7 @@ const ProjectCreateContentToolbar = ({
           <FaUndoAlt size={20} color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`} />
         </button>
         <button
-          className={`p-2 mx-1 active:scale-90 rounded-md hover:bg-gray-100 dark:hover:bg-slate-900${
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 active:scale-90 dark:hover:bg-slate-900${
             editor.isActive('redo') ? 'bg-gray-100 dark:bg-slate-900' : ''
           }`}
           onClick={() => editor.chain().focus().redo().run()}
@@ -219,7 +219,7 @@ const ProjectCreateContentToolbar = ({
 
         <a data-tooltip-id="my-color" data-tooltip-content="색깔을 초기화 시킵니다">
           <button
-            className={`p-2 mx-1 rounded-md active:scale-90 hover:bg-gray-100 dark:hover:bg-slate-900${
+            className={`mx-1 rounded-md p-2 hover:bg-gray-100 active:scale-90 dark:hover:bg-slate-900${
               editor.isActive('unset color') ? 'bg-gray-100 dark:bg-slate-900' : ''
             }`}
             onClick={() => editor.chain().focus().unsetColor().run()}
