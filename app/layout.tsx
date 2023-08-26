@@ -11,13 +11,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Script from 'next/script';
 
 import { Metadata } from 'next';
-import GlobalStyles from '@/styles/GlobalStyles';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NODE_ENV === 'production'
-      ? 'https://www.bookreview.pro'
-      : 'http://localhost:3000',
+    process.env.NODE_ENV === 'production' ? process.env.API_URL : 'http://localhost:3000',
   ),
   title: 'Book Review',
   themeColor: [
@@ -56,7 +53,6 @@ export default function RootLayout(props: {
   return (
     <html lang="ko">
       <body className="h-full transition duration-500 dark:bg-[#1a1b1e]">
-        <GlobalStyles />
         <ReduxProvider>
           <ApolloWrapper>
             <BooksContextProvider>
