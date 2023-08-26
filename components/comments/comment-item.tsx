@@ -38,7 +38,7 @@ function CommentItem({
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
 
-  console.log(comment.level);
+  console.log(comment);
   return (
     <PostCommentItem className="comment mt-1 py-1">
       <div className="flex">
@@ -68,7 +68,7 @@ function CommentItem({
                   </h3>
                   <p
                     className={clsx('text-xs text-[#868E96] dark:text-[#acacac]', {
-                      'ml-1': comment.level >= 1,
+                      'ml-1': comment?.level >= 0,
                     })}>
                     {formatDate(comment?.created_at)}
                   </p>

@@ -19,7 +19,7 @@ const getNestedHeadings = (headingElements: HTMLHeadingElement[]): HeadingItem[]
       nestedHeadings.push({ id, title, items: [], level: 1 });
     } else if (heading.nodeName === 'H2') {
       nestedHeadings.push({ id, title, items: [], level: 2 });
-    } else if (heading.nodeName === 'H3' && nestedHeadings.length > 0) {
+    } else if (heading.nodeName === 'H3') {
       nestedHeadings.push({ id, title, items: [], level: 3 });
     }
   });

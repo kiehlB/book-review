@@ -62,7 +62,9 @@ function PostDetail() {
   const router = useRouter();
   const params = useParams();
   const dispatch = useDispatch();
+
   const insertID = setHeadingId(singlePostData?.post?.body);
+
   const { isdark } = useSelector((state: RootState) => state.core);
   const { auth } = useSelector((state: any) => state.auth);
   const id = params.slug;
@@ -464,13 +466,14 @@ const Content = styled.div<{ isdark: string }>`
     list-style-type: decimal;
     position: relative;
     color: #ffb300;
-    font-weight: 600;
-    padding-left: 20px;
+
+    padding-left: 40px;
     font-size: 1.125rem;
     margin: 18px 0;
 
     li {
       line-height: 1.5;
+      margin: 18px 0;
       vertical-align: middle;
     }
 
@@ -479,14 +482,13 @@ const Content = styled.div<{ isdark: string }>`
       padding-bottom: 5px;
     }
   }
-
   ul {
     list-style-type: disc;
     position: relative;
     color: #ffb300;
     margin: 18px 0;
-    padding-left: 20px;
     font-size: 1.125rem;
+    padding-left: 40px;
 
     vertical-align: middle;
 
@@ -592,11 +594,8 @@ const Content = styled.div<{ isdark: string }>`
     letter-spacing: -0.004em;
 
     display: block;
-    font-family: 'Noto Sans KR', 'Nanum Gothic', 'Roboto', 'Helvetica Neue', Arial,
-      sans-serif;
-    font-weight: 400;
-    line-height: 1.7;
-    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#333')};
+
+    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
 
     word-break: break-all;
   }

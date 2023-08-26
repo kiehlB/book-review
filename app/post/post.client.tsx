@@ -29,7 +29,6 @@ import Comments from '@/components/comments/comments';
 function PostDetailClient({ singlePostData, id }) {
   const dispatch = useDispatch();
 
-  console.log(singlePostData);
   const { data, onLikeToggle, loading } = usePostLike({ id });
 
   const insertID = setHeadingId(singlePostData?.post?.body);
@@ -550,3 +549,7 @@ const Img = styled.img<{ profileThumbnail: string }>`
 
   background-position: center;
 `;
+// font-family: 'Noto Sans KR', 'Nanum Gothic', 'Roboto', 'Helvetica Neue', Arial,
+// sans-serif;
+// font-weight: 400;
+// line-height: 1.7;

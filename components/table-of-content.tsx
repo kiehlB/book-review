@@ -7,6 +7,8 @@ import styled, { css } from 'styled-components';
 const PostTableOfContents = ({ isdark }: any) => {
   const [activeId, setActiveId] = useState('');
   const { nestedHeadings } = useHeadingsData();
+
+  console.log(nestedHeadings);
   useIntersectionObserver(setActiveId);
   const [headingTops, setHeadingTops] = useState<
     | null

@@ -361,13 +361,13 @@ const Content = styled.div<{ isdark: string }>`
       list-style-type: decimal;
       position: relative;
       color: #ffb300;
-      font-weight: 600;
-      padding-left: 20px;
+      padding-left: 40px;
       font-size: 1.125rem;
       margin: 18px 0;
 
       li {
         line-height: 1.5;
+        margin: 18px 0;
         vertical-align: middle;
       }
 
@@ -382,7 +382,7 @@ const Content = styled.div<{ isdark: string }>`
       position: relative;
       color: #ffb300;
       margin: 18px 0;
-      padding-left: 20px;
+      padding-left: 40px;
       font-size: 1.125rem;
 
       vertical-align: middle;
@@ -493,11 +493,6 @@ const Content = styled.div<{ isdark: string }>`
     letter-spacing: -0.004em;
     color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#333')};
     display: block;
-
-    font-family: 'Noto Sans KR', 'Nanum Gothic', 'Roboto', 'Helvetica Neue', Arial,
-      sans-serif;
-    font-weight: 400;
-    line-height: 1.7;
 
     word-break: break-all;
   }

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,20 +14,22 @@
   font-weight: 800;
 }
 
+@font-face {
+  font-family: 'Malgun Gothic';
+  src: url('../public/font/malgun.ttf') ;
+  font-weight: 400;
+}
+
+
+
 body {
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
+   
+  
 }
 
  
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 700;
-  color: #212529;
-  line-height: 1.5;
-}
+ 
 
 @layer components {
   .collapse-enter {

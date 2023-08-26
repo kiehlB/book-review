@@ -34,7 +34,7 @@ function PostCardItem({ post }: GridProps) {
               도서: {post?.bookInfo?.bookTitle ? post?.bookInfo?.bookTitle : '미선택'}
             </div>
 
-            <WithoutPostTitle className="m-0 mb-[0.25rem] mt-2 text-base font-semibold leading-normal text-[#18191b] dark:text-[#CFCFCF]">
+            <WithoutPostTitle className="m-0 mb-[0.25rem] mt-2 text-base font-semibold leading-normal text-[#212529] dark:text-[#CFCFCF] ">
               {post?.title}
             </WithoutPostTitle>
 
@@ -164,7 +164,7 @@ export function PostCardSkeleton({ hideUser }: PostCardSkeletonProps) {
 
 export default PostCardItem;
 
-const WithoutPostTitle = styled.section`
+const WithoutPostTitle = styled.h4`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
