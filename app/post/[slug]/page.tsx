@@ -247,7 +247,10 @@ function PostDetail() {
                     )}
 
                     <Content isdark={isdark} id="content">
-                      <div dangerouslySetInnerHTML={{ __html: BodyResult }} />
+                      <div
+                        className="font-Pretendard"
+                        dangerouslySetInnerHTML={{ __html: BodyResult }}
+                      />
                     </Content>
                   </div>
                   <div className="col-span-2 mp:hidden">
@@ -390,8 +393,9 @@ const Content = styled.div<{ isdark: string }>`
   white-space: initial;
   word-wrap: break-word;
   margin-top: 1rem;
-  color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+
   span {
+    font-family: 'Pretendard';
     color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
   }
   a {
@@ -400,9 +404,12 @@ const Content = styled.div<{ isdark: string }>`
   }
 
   img {
-    height: 100%;
     max-width: 100%;
     object-fit: cover;
+    display: block;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
 
     &.ProseMirror-selectednode {
       outline: 3px solid #68cef8;
@@ -410,6 +417,9 @@ const Content = styled.div<{ isdark: string }>`
   }
 
   h1 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+      'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic',
+      'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
     font-size: 2.5rem;
     line-height: 1.5;
     font-weight: 700;
@@ -426,6 +436,9 @@ const Content = styled.div<{ isdark: string }>`
   }
 
   h2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+      'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic',
+      'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
     font-size: 2rem;
     line-height: 1.5;
     margin-bottom: 1rem;
@@ -437,6 +450,9 @@ const Content = styled.div<{ isdark: string }>`
     }
   }
   h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+      'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic',
+      'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
     font-size: 1.5rem;
     line-height: 1.5;
     margin-bottom: 1rem;
@@ -448,6 +464,9 @@ const Content = styled.div<{ isdark: string }>`
     }
   }
   h4 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+      'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic',
+      'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
     font-size: 1.3125rem;
     line-height: 1.5;
     margin-bottom: 1rem;
@@ -516,7 +535,6 @@ const Content = styled.div<{ isdark: string }>`
     .toc {
       margin-bottom: 1.5rem;
     }
-    color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
 
     .toc__list::before {
       color: ${props => (props.isdark == 'dark' ? 'white' : '')};
@@ -526,7 +544,7 @@ const Content = styled.div<{ isdark: string }>`
   pre {
     background: #0d0d0d;
     color: #fff;
-    font-family: 'JetBrainsMono', monospace;
+
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     margin: 0.75rem 0rem;
@@ -563,7 +581,7 @@ const Content = styled.div<{ isdark: string }>`
       ${media.custom(768)} {
         font-size: 70px;
       }
-      font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+
       line-height: 0.9;
       content: open-quote;
       vertical-align: top;
@@ -586,16 +604,22 @@ const Content = styled.div<{ isdark: string }>`
   }
 
   .ptag {
-    font-size: 1.125rem;
+    strong {
+      font-size: 1.1rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+        'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic',
+        'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
+    }
+    font-size: 1.25rem;
+
     ${media.custom(768)} {
       font-size: 1rem;
     }
-    line-height: 1.7;
-    letter-spacing: -0.004em;
+    line-height: 1.9;
 
     display: block;
 
-    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#232629')};
 
     word-break: break-all;
   }

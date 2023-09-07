@@ -2,7 +2,14 @@ import React from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 import HeadingToolbarButtons from './HeadingToolbarButtons';
-import { BsParagraph, BsTypeBold, BsTypeUnderline, BsYoutube } from 'react-icons/bs';
+import {
+  BsJustifyLeft,
+  BsParagraph,
+  BsTextCenter,
+  BsTypeBold,
+  BsTypeUnderline,
+  BsYoutube,
+} from 'react-icons/bs';
 import { BiCodeAlt, BiItalic, BiStrikethrough } from 'react-icons/bi';
 import { GrBlockQuote, GrPowerReset } from 'react-icons/gr';
 import { VscHorizontalRule } from 'react-icons/vsc';
@@ -122,6 +129,32 @@ const ProjectCreateContentToolbar = ({
         <div className="flex items-center px-[8px] py-2 hover:bg-gray-100 dark:hover:bg-slate-900">
           {children}
         </div>
+
+        <button
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
+            editor.isActive({ textAlign: 'left' }) ? 'bg-gray-100 dark:bg-slate-900' : ''
+          }`}
+          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+          aria-label="left">
+          <BsJustifyLeft
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
+
+        <button
+          className={`mx-1 rounded-md p-2 hover:bg-gray-100 dark:hover:bg-slate-900${
+            editor.isActive({ textAlign: 'center' })
+              ? 'bg-gray-100 dark:bg-slate-900'
+              : ''
+          }`}
+          onClick={() => editor.chain().focus().setTextAlign('center').run()}
+          aria-label="center">
+          <BsTextCenter
+            size={24}
+            color={`${isdark == 'dark' ? '#cfcfcf' : '#0000008a'}`}
+          />
+        </button>
 
         <button
           className={`mx-1 rounded-md p-2 hover:bg-gray-100 active:scale-90 dark:hover:bg-slate-900${

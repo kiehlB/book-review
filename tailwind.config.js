@@ -11,7 +11,7 @@ module.exports = {
       Fredoka: ['Fredoka One', 'cursive'],
       Titan: ['Titan One', 'cursive'],
       Rubik: ['Rubik', 'sans-serif'],
-
+      Pretendard: ['Pretendard', 'sans-serif'],
       KR: ['Noto Sans KR', 'sans-serif'],
       Malgun: ['Malgun Gothic', 'sans-serif'],
     },

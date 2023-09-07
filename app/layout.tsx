@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Script from 'next/script';
 
 import { Metadata } from 'next';
+import { GlobalStyle } from '@/styles/createGlobalStyle';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -52,6 +53,7 @@ export default function RootLayout(props: {
 }) {
   return (
     <html lang="ko">
+      <GlobalStyle />
       <body className="h-full transition duration-500 dark:bg-[#1a1b1e]">
         <ReduxProvider>
           <ApolloWrapper>

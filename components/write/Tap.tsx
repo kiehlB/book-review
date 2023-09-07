@@ -155,6 +155,7 @@ function Tap({ postId, posts }: TapProps) {
 
       TextAlign.configure({
         types: ['heading', 'paragraph'],
+        alignments: ['left', 'center', 'right'],
       }),
       Focus.configure({
         className: 'has-focus',
@@ -296,9 +297,12 @@ const Content = styled.div<{ isdark: string }>`
     }
 
     img {
-      height: 100%;
       max-width: 100%;
       object-fit: cover;
+      display: block;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
 
       &.ProseMirror-selectednode {
         outline: 3px solid #68cef8;
@@ -488,10 +492,17 @@ const Content = styled.div<{ isdark: string }>`
   }
 
   p {
-    font-size: 1.125rem;
+    font-size: 1.1875rem;
+
+    strong {
+      font-size: 1.1rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+        'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', 나눔고딕, 'Nanum Gothic',
+        'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
+    }
     line-height: 1.7;
     letter-spacing: -0.004em;
-    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#333')};
+    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#232629')};
     display: block;
 
     word-break: break-all;
