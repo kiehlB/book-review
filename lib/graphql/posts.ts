@@ -10,6 +10,7 @@ export const GET_Post = gql`
       likes
       views
       is_temp
+      views
       is_private
       subs_count
       released_at
@@ -438,5 +439,11 @@ export const UPLOAD_IMAGE_TO_CLOUDINARY = gql`
       public_id
       url
     }
+  }
+`;
+
+export const Post_View = gql`
+  mutation PostView($id: String!) {
+    postView(id: $id)
   }
 `;

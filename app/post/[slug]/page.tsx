@@ -52,6 +52,7 @@ import Comments from '@/components/comments/comments';
 import usePostLike from '@/components/post-grid/hooks/usePostLike';
 import PawButton from '@/components/like-button';
 import { Skeleton, SkeletonTexts } from '@/components/skeleton';
+import useGetPostView from '@/components/post-grid/hooks/useGetPostView';
 
 export type PostProps = {
   id: string;
@@ -59,6 +60,7 @@ export type PostProps = {
 
 function PostDetail() {
   const { singlePostLoding, singlePostError, singlePostData } = useGetPost();
+
   const router = useRouter();
   const params = useParams();
   const dispatch = useDispatch();
@@ -68,6 +70,8 @@ function PostDetail() {
   const { isdark } = useSelector((state: RootState) => state.core);
   const { auth } = useSelector((state: any) => state.auth);
   const id = params.slug;
+
+  const {} = useGetPostView(id);
 
   const { data, onLikeToggle, loading } = usePostLike({ id });
 
@@ -160,6 +164,7 @@ function PostDetail() {
 
                 {singlePostData?.post?.user?.id == auth?.id ? (
                   <div className="mx-auto mb-[1rem] mt-2 flex max-w-[812.5px] justify-end text-sm text-[#868E96]">
+                    <div className="mr-4">view: {singlePostData?.post?.views}</div>
                     <Link href={`/write`} passHref>
                       <div onClick={getPostData} className="mr-4 cursor-pointer">
                         수정
@@ -615,7 +620,7 @@ const Content = styled.div<{ isdark: string }>`
     ${media.custom(768)} {
       font-size: 1rem;
     }
-    line-height: 1.9;
+    line-height: 1.7;
 
     display: block;
 
