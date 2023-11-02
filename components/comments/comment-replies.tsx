@@ -10,7 +10,7 @@ import {
 } from '../../lib/graphql/comments';
 import CommentList from './comment-list';
 import CommentsWrite from './comment-write';
-import useDeleteComment from './hooks/useDeleteSub';
+import useDeleteComment from './hooks/use-delete-sub';
 import { toast } from 'react-toastify';
 import { RootState } from '../../store/rootReducer';
 import PopUpContainer from '../popup-container';
@@ -42,7 +42,7 @@ function CommentReplies({
     skip: hasChild ? false : true,
   });
 
-  const { auth } = useSelector((state: RootState) => state.auth);
+  const { auth } = useSelector((state: RootState) => state.auth) as any;
 
   const [writeComment] = useMutation(CreateComment, {
     onCompleted({}) {
@@ -60,7 +60,7 @@ function CommentReplies({
 
   const [comment, setComment] = useState('');
 
-  const onChange = e => {
+  const onChange = (e: { target: { value: React.SetStateAction<string> } }) => {
     setComment(e.target.value);
   };
 

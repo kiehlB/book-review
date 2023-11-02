@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
 import { NavbarItem, NavbarItemProps } from './navbar-item';
-import Trending from '@/svg/trending';
 
 interface NavbarProps {
   primaryItems: NavbarItemProps[];

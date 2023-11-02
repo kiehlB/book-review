@@ -24,7 +24,7 @@ const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF', '#4400FF', '#4422AA'
 export type MenuItemProps = {
   id: number;
   text: string;
-  link: string;
+  link?: string;
   onClick?: ((e: React.MouseEvent<HTMLLIElement>) => Promise<void>) | (() => void);
 };
 

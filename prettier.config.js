@@ -1,7 +1,6 @@
 module.exports = {
   tailwindConfig: './tailwind.config.js',
   tailwindFunctions: ['clsx'],
-
   bracketSpacing: true,
   jsxBracketSameLine: true,
   printWidth: 90,

@@ -17,7 +17,7 @@ export default function useScrollPagination({
   onLoadMore,
   onLoadMoreByOffset,
 }: Params) {
-  const { cursor: storedCursor, setCursor } = useContext(CursorContext);
+  const { cursor: storedCursor } = useContext(CursorContext);
 
   const last = useRef<string | number | null>(null);
 

@@ -2,10 +2,10 @@ import { BASE_SIZE } from '@/lib/constants';
 import React, { useCallback, useId, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import TableContent from './table-content';
-import FindBook from '@/svg/findBook';
-import ErrorSVG from '@/svg/error';
-import NoData from '@/svg/noData';
 import defaultRowRenderer, { DEFAULT_TABLE_ROW_HEIGHT } from './default-tableRow';
+import FindBook from '../svg/findBook';
+import ErrorSVG from '../svg/error';
+import NoData from '../svg/noData';
 
 interface TableProps<T> {
   data: any;

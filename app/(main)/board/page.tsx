@@ -1,9 +1,5 @@
-'use client';
-
 import React, { useState } from 'react';
 import HomeTitle from '@/components/home/home-title';
-import NoticeBoard from '../../../components/board/notice-board';
-import Pagination from '@mui/material/Pagination';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,9 +1,12 @@
 import { PostGrid } from '@/components/layout/grid-layout';
-import React from 'react';
+import React, { Suspense } from 'react';
 import HomeTitle from '@/components/home/home-title';
 import { IoMdTime } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
-import GetPosts from './get-posts';
+import GetPosts from '@/components/post/post-grid';
+import PostLoading from '@/components/loading/post-loading';
+
+export const revalidate = 0;
 
 export default function MainPage() {
   return (
@@ -24,7 +27,9 @@ export default function MainPage() {
         ]}
       />
       <PostGrid className="mt-[1rem]">
-        <GetPosts />
+        <Suspense fallback={<PostLoading />}>
+          <GetPosts />
+        </Suspense>
       </PostGrid>
     </>
   );

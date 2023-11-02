@@ -1,29 +1,24 @@
 'use client';
 
-import { PostGrid } from '@/components/layout/grid-layout';
-import PostCard from '@/components/post-grid/post-card';
-import React from 'react';
-import useGetPosts from '@/components/post-grid/hooks/useGetPosts';
+import React, { Suspense } from 'react';
+
 import HomeTitle from '@/components/home/home-title';
-import useGetTags from '@/components/tags/hooks/usegetTags';
-import TagItem from '@/components/tags/TagsItem';
+import useGetTags from '@/components/tags/hooks/use-get-Tags';
+import TagItem from '@/components/tags/tags-item';
 
 export const dynamic = 'force-dynamic';
 
 export default function MainPage() {
-  const { data: Tags, loading } = useGetTags({ sort: 'byName' });
-  const GetTags = Tags?.tags?.slice()?.sort((a, b) => b.posts_count - a.posts_count);
+  const { data: Tags } = useGetTags({ sort: 'byName' });
+  const GetTags = Tags?.tags
+    ?.slice()
+    ?.sort((a: any, b: any) => b.posts_count - a.posts_count);
   return (
-    <div>
+    <Suspense>
       <HomeTitle title="태그" />
-      {GetTags?.map(tag => (
-        <TagItem
-          name={tag.name}
-          key={tag.id}
-          postsCount={tag.posts_count}
-          loading={!Tags || loading}
-        />
+      {GetTags?.map((tag: any) => (
+        <TagItem name={tag.name} key={tag.id} postsCount={tag.posts_count} />
       ))}
-    </div>
+    </Suspense>
   );
 }

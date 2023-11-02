@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { AiFillEdit } from 'react-icons/ai';
 
 type ImageProps = {
-  addImage: (e) => void;
+  addImage: (e: any) => void;
   readyForFile: any;
   uploadThumbnail: any;
   previewSource: any;
@@ -14,7 +14,7 @@ type ImageProps = {
 };
 
 export default class ProfileThumbnail extends PureComponent<ImageProps> {
-  constructor(args) {
+  constructor(args: ImageProps | Readonly<ImageProps>) {
     super(args);
     this.compressImage = this.compressImage.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -90,15 +90,15 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
     this.preventNextClose = false;
   };
 
-  handleChange(target) {
-    return e => {
+  handleChange(target: any) {
+    return (e: { currentTarget: { value: any } }) => {
       this.setState({ [target]: e.currentTarget.value });
     };
   }
 
-  onProgress(p, useWebWorker) {
+  onProgress(p: any, useWebWorker: any) {
     const targetName = useWebWorker ? 'webWorker' : 'mainThread';
-    this.setState(prevState => ({
+    this.setState((prevState: any) => ({
       ...prevState,
       [targetName]: {
         ...prevState[targetName],
@@ -107,11 +107,11 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
     }));
   }
 
-  async compressImage(event, useWebWorker) {
+  async compressImage(event: any, useWebWorker: boolean) {
     const file = event.target.files[0];
 
     const targetName = useWebWorker ? 'webWorker' : 'mainThread';
-    this.setState(prevState => ({
+    this.setState((prevState: any) => ({
       ...prevState,
       [targetName]: {
         ...prevState[targetName],
@@ -124,7 +124,7 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
       maxSizeMB: 1,
       maxWidthOrHeight: 1024,
       useWebWorker,
-      onProgress: p => this.onProgress(p, useWebWorker),
+      onProgress: (p: any) => this.onProgress(p, useWebWorker),
     };
     const output = await imageCompression(file, options);
 
@@ -141,7 +141,7 @@ export default class ProfileThumbnail extends PureComponent<ImageProps> {
       }
     };
 
-    this.setState(prevState => ({
+    this.setState((prevState: any) => ({
       ...prevState,
       [targetName]: {
         ...prevState[targetName],

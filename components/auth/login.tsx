@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import useLogin from './hooks/useLogin';
+import useLogin from './hooks/use-login';
 import AuthForm from './auth-form';
 
 export type LoginProps = {

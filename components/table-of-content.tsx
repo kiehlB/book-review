@@ -1,3 +1,5 @@
+'use client';
+
 import { useHeadingsData } from '@/hooks/useHeadingsData';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { getScrollTop } from '@/lib/utils';
@@ -8,7 +10,6 @@ const PostTableOfContents = ({ isdark }: any) => {
   const [activeId, setActiveId] = useState('');
   const { nestedHeadings } = useHeadingsData();
 
-  console.log(nestedHeadings);
   useIntersectionObserver(setActiveId);
   const [headingTops, setHeadingTops] = useState<
     | null

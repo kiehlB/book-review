@@ -1,10 +1,10 @@
 import { Sub } from '../../types/apolloComponent';
 import CommentItem from './comment-item';
-import useCommentUpvote from './hooks/useCommentUpvote';
+import useCommentUpvote from './hooks/use-comment-upvote';
 
 export type CommentListProps = {
   comments: Sub[];
-  onRemove?: (id: string) => void;
+  onRemove: (id: string) => void;
   isMine: boolean;
   currentId: string;
 };
@@ -14,9 +14,9 @@ function CommentList({ comments, onRemove, isMine, currentId }: CommentListProps
 
   return (
     <>
-      {comments &&
+      {(comments as any) &&
         [...comments]
-          .sort((a, b) => b.upvotes - a.upvotes)
+          .sort((a: any, b: any) => b.upvotes - a.upvotes)
           ?.map(comment => (
             <CommentItem
               comment={comment}

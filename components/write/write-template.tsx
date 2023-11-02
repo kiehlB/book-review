@@ -3,22 +3,22 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
-import useCreateSavePost from './hooks/usecreateSavePost';
-import Tap from './Tap';
+import Tap from './tiptap';
 import TapSide from './tap-side';
-import WriterHead from './WriterHeader';
+import WriterHead from './writer-header';
 import { PageGrid } from '../layout/grid-layout';
 import { AppLayout, First, MainNav, Second } from '../layout/app-layout';
 import { BackLink } from '../arrow-button';
 import CoreButton from './core-button';
 import { ToastContainer } from 'react-toastify';
-import TagsForm from '../tags/TagsForm';
+import TagsForm from '../tags/tags-form';
+import useCreateSavePost from './hooks/use-create-save-post';
 
 export type TapProps = {};
 
 function WriteTemplate({}: TapProps) {
   const StoreTag = useSelector((state: RootState) => state.book.tags);
-  const postId = useSelector((state: RootState) => state.book.postId);
+  const postId = useSelector((state: RootState) => state.book.postId) as any;
 
   const { posts } = useCreateSavePost();
 

@@ -4,10 +4,10 @@ import clsx from 'clsx';
 import { ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
 
-import Google from '../../svg/google';
 import Link from 'next/link';
 import Image from 'next/image';
 import LabelInput from '../label-input';
+import Google from '../svg/google';
 
 export interface inputProps {
   password: string | number | readonly string[];
@@ -63,7 +63,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-
       type: 'error',
     });
   };
@@ -101,7 +100,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-
           type: 'error',
         },
       );

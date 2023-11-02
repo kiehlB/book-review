@@ -1,5 +1,4 @@
-import { PageLayout } from '@/components/layout/page-layout';
-import PostPublishTemplate from '@/components/write/PostPublishTemplate';
+import PostPublishTemplate from '@/components/write/post-publish-template';
 import WriteTemplate from '@/components/write/write-template';
 
 export default function Home() {

@@ -1,10 +1,21 @@
 'use client';
 
-import React, { ReactNode, ReactElement, useState } from 'react';
+import React, {
+  ReactNode,
+  ReactElement,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 
-const CursorContext = React.createContext({
+interface CursorContextType {
+  cursor: any;
+  setCursor: Dispatch<SetStateAction<string>> | Dispatch<SetStateAction<null>> | null;
+}
+
+const CursorContext = React.createContext<CursorContextType>({
   cursor: null,
-  setCursor: null,
+  setCursor: () => {},
 });
 
 interface CursorContextProviderProps {

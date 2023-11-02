@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 export type MenuToggleProps = {
   toggle: MouseEventHandler<HTMLButtonElement>;
-  isOpen?: boolean;
+  isOpen: boolean;
 };
 
 export type VariantsProps = {

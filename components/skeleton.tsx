@@ -6,17 +6,17 @@ export type SkeletonProps = {
   height?: number | string;
   flex?: number;
   marginRight?: number | string;
-  noSpacing?: boolean;
+  noSpacing: boolean;
   circle?: boolean;
   className?: string;
   borderRadius?: string;
-  isdark?: string;
+  isdark: string;
 };
 
 type SkeletonTextsProps = {
   wordLengths: number[];
   useFlex?: boolean;
-  isdark?: string;
+  isdark: string;
 };
 
 export function SkeletonTexts({ wordLengths, useFlex, isdark }: SkeletonTextsProps) {
@@ -26,7 +26,7 @@ export function SkeletonTexts({ wordLengths, useFlex, isdark }: SkeletonTextsPro
         const props = {
           [useFlex ? 'flex' : 'width']: useFlex ? length : `${length}rem`,
         };
-        return <Skeleton key={index} {...props} isdark={isdark} />;
+        return <Skeleton noSpacing={true} key={index} {...props} isdark={isdark} />;
       })}
     </>
   );
@@ -45,9 +45,9 @@ export function Skeleton({
 }: SkeletonProps) {
   return (
     <Block
-      isdark={isdark}
+      $isdark={isdark}
       style={{ width, height, flex, marginRight, borderRadius }}
-      noSpacing={noSpacing}
+      $noSpacing={noSpacing}
       circle={circle}
       className={className}
     />
@@ -66,8 +66,8 @@ const shining = keyframes`
   }
 `;
 
-const Block = styled.span<{ noSpacing?: boolean; circle?: boolean; isdark: string }>`
-  background: ${props => (props.isdark == 'dark' ? '#2b2d31' : '#f1f3f5')};
+const Block = styled.span<{ $noSpacing: boolean; circle?: boolean; $isdark: string }>`
+  background: ${props => (props.$isdark == 'dark' ? '#2b2d31' : '#f1f3f5')};
 
   animation: ${shining} 1s ease-in-out infinite;
   display: inline-block;
@@ -75,7 +75,7 @@ const Block = styled.span<{ noSpacing?: boolean; circle?: boolean; isdark: strin
   height: 1em;
 
   ${props =>
-    !props.noSpacing &&
+    !props.$noSpacing &&
     css`
       & + & {
         margin-left: 0.5rem;

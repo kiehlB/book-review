@@ -2,6 +2,12 @@
 
 import React, { ReactNode, ReactElement } from 'react';
 
+interface BookAction {
+  type: 'ADD_Book';
+  BookName: string;
+  BookData: any;
+}
+
 const BookContext = React.createContext({
   cache: null,
   dispatch: null,
@@ -11,10 +17,7 @@ interface BooksContextProviderProps {
   children: ReactNode;
 }
 
-function BookCacheReducer(
-  state: any,
-  action: { type: any; BookName: any; BookData: any },
-) {
+function BookCacheReducer(state: any, action: BookAction) {
   switch (action.type) {
     case 'ADD_Book': {
       return { ...state, [action.BookName]: action.BookData };

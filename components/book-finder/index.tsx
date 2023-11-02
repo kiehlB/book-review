@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { RootState } from '../../store/rootReducer';
@@ -16,9 +16,17 @@ import {
 import { toast } from 'react-toastify';
 import { IoSearchOutline } from 'react-icons/io5';
 import BookContext from '@/context/book-context';
-import ModalContext from '@/context/modal-context';
+import ModalContext, { Dispatch } from '@/context/modal-context';
 import { ArrowLink, NextLink } from '../arrow-button';
 import BooksTableContainer from './table-container';
+
+interface BooksTableForm {
+  BookName: string;
+  initialBookName?: string;
+  onSubmit: (e: string) => void;
+  BookIsClose: boolean;
+  SetBookIsClose: Dispatch<SetStateAction<boolean>>;
+}
 
 function BooksTableForm({
   BookName: externalBookName,
@@ -26,7 +34,7 @@ function BooksTableForm({
   onSubmit,
   BookIsClose,
   SetBookIsClose,
-}: any) {
+}: BooksTableForm) {
   const [BookName, setBookName] = React.useState(initialBookName);
 
   React.useEffect(() => {
@@ -35,7 +43,7 @@ function BooksTableForm({
     }
   }, [externalBookName]);
 
-  function handleChange(e: { target: { value: any } }) {
+  function handleChange(e: { target: { value: string } }) {
     setBookName(e.target.value);
   }
 
@@ -157,7 +165,7 @@ function useAsync(initialState: any) {
   };
 }
 
-export const bookApi = (title: any) => {
+export const bookApi = (title: string) => {
   return axios
     .request({
       method: 'get',
@@ -219,13 +227,13 @@ function BookInfo({ bookName }: any) {
   throw new Error('다시 시도해주세요');
 }
 
-const BookTalble = ({}) => {
+const BookTalble = () => {
   const [bookName, setBookName] = useState('');
   const { BookIsClose, SetBookIsClose } = React.useContext(ModalContext);
   const { book } = useSelector((state: RootState) => state.book);
   const dispatch = useDispatch();
 
-  function handleSubmit(booksName: any) {
+  function handleSubmit(booksName: string) {
     setBookName(booksName);
   }
 
@@ -238,9 +246,46 @@ const BookTalble = ({}) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-
       type: 'error',
     });
+  };
+
+  const resetPostDataMobile = () => {
+    dispatch(getPostTitle(''));
+    dispatch(getPostBody(''));
+    dispatch(getPostTags([]));
+    dispatch(getPostId(''));
+    dispatch(getThumbnail(''));
+    SetBookIsClose(!BookIsClose);
+  };
+
+  const handleNextClickMobile = () => {
+    resetPostData();
+    if (!book?.title) {
+      withoutBookInfo();
+    }
+  };
+
+  const resetPostData = () => {
+    dispatch(getPostTitle(''));
+    dispatch(getPostBody(''));
+    dispatch(getPostTags([]));
+    dispatch(getPostId(''));
+    dispatch(getThumbnail(''));
+  };
+
+  const handleSkipClick = () => {
+    resetPostData();
+    SetBookIsClose(!BookIsClose);
+  };
+
+  const handleNextClick = () => {
+    resetPostData();
+    if (!book?.title) {
+      withoutBookInfo();
+    } else {
+      SetBookIsClose(!BookIsClose);
+    }
   };
 
   return (
@@ -279,43 +324,15 @@ const BookTalble = ({}) => {
               ''
             )}
           </div>
-          <div className="flex">
-            <div
-              onClick={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                SetBookIsClose(!BookIsClose);
-              }}>
-              <ArrowLink
-                href={'/write'}
-                direction="right"
-                className="mr-8"
-                textSize="small">
-                Skip
-              </ArrowLink>
-            </div>
 
-            <div
-              onClick={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                book?.title ? SetBookIsClose(!BookIsClose) : '';
-                book?.title ? '' : withoutBookInfo();
-              }}>
-              <ArrowLink
-                href={book?.title ? '/write' : ''}
-                direction="right"
-                className=""
-                textSize="small">
-                다음
-              </ArrowLink>
-            </div>
+          <div className="flex">
+            <ArrowLink click={handleSkipClick} href="/write" className="mr-8">
+              Skip
+            </ArrowLink>
+
+            <ArrowLink click={handleNextClick} href={book?.title ? '/write' : ''}>
+              다음
+            </ArrowLink>
           </div>
         </div>
       </div>
@@ -349,38 +366,18 @@ const BookTalble = ({}) => {
             )}
           </div>
 
-          <div className="flex items-center">
-            <NextLink
-              className="mr-2"
-              click={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                SetBookIsClose(!BookIsClose);
-              }}
-              href="/write">
-              <div className="mr-2 flex items-center justify-between text-base font-semibold text-[#334155]">
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <NextLink href="/write" click={resetPostDataMobile} className="mr-2">
                 Skip
-              </div>
-            </NextLink>
-
-            <NextLink
-              click={() => {
-                dispatch(getPostTitle(''));
-                dispatch(getPostBody(''));
-                dispatch(getPostTags([]));
-                dispatch(getPostId(''));
-                dispatch(getThumbnail(''));
-                book?.title ? SetBookIsClose(!BookIsClose) : '';
-                book?.title ? '' : withoutBookInfo();
-              }}
-              href={book?.title ? '/write' : ''}>
-              <div className="mr-2 flex items-center justify-between pl-6 text-base font-semibold text-[#334155] mxs:pl-2">
+              </NextLink>
+              <NextLink
+                href={book?.title ? '/write' : ''}
+                click={handleNextClickMobile}
+                className="mr-2 pl-6 mxs:pl-2">
                 다음
-              </div>
-            </NextLink>
+              </NextLink>
+            </div>
           </div>
         </div>
       </div>

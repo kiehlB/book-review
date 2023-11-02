@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import PostIcon from '../../svg/post';
 import { getPostBody, getPostId } from '../../store/book';
 import { useDispatch } from 'react-redux';
 import { Post } from '../../types/apolloComponent';
 import styled from 'styled-components';
+import PostIcon from '../svg/post';
 
 export interface SavedPostItemProps {
   post: Post;
-  onConfirmRemove: (e) => any;
-  isOpen;
-  onOpen;
-  onClose;
+  onConfirmRemove: (e: any) => any;
+  isOpen: any;
+  onOpen: any;
+  onClose: any;
 }
 
 function SavedPostItem({
@@ -27,7 +27,9 @@ function SavedPostItem({
 
   return (
     <div className="flex justify-between rounded px-1 py-[6px] transition-all hover:bg-[#e2e8f0] dark:hover:bg-[#54565f33]">
-      <div className="flex items-center" onClick={() => dispatch(getPostId(post.id))}>
+      <div
+        className="flex items-center"
+        onClick={() => dispatch(getPostId(post.id as any))}>
         <div>
           <PostIcon className="w-6 cursor-pointer" />
         </div>
@@ -62,7 +64,7 @@ function SavedPostItem({
                   className="rounded-lg bg-red-500 px-4 py-2 text-white shadow-md transition duration-200 hover:bg-red-600"
                   onClick={() => {
                     onConfirmRemove(post.id);
-                    dispatch(getPostId(null));
+                    dispatch(getPostId(''));
                   }}>
                   삭제
                 </button>

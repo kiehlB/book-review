@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SavedPostItem from './save-post-item';
-import useCreateSavePost from './hooks/usecreateSavePost';
 import { useSpring, animated } from '@react-spring/web';
+import useCreateSavePost from './hooks/use-create-save-post';
 export type TapProps = { value: string };
 
 function SavePost({ value }: TapProps) {
@@ -10,7 +10,7 @@ function SavePost({ value }: TapProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activePopover, setActivePopover] = useState(null);
 
-  const handleOpenPopover = postId => {
+  const handleOpenPopover = (postId: React.SetStateAction<null>) => {
     setActivePopover(postId);
   };
 
@@ -20,7 +20,9 @@ function SavePost({ value }: TapProps) {
 
   const onToggle = () => setIsOpen(s => !s);
 
-  const isFilterData = value ? posts?.filter(e => e?.title?.includes(value)) : posts;
+  const isFilterData = value
+    ? posts?.filter((e: { title: string | string[] }) => e?.title?.includes(value))
+    : posts;
 
   const springProps = useSpring({
     from: { maxHeight: '0px', opacity: 0, transform: 'translateY(-20px)' },
@@ -52,7 +54,7 @@ function SavePost({ value }: TapProps) {
       <animated.section style={springProps}>
         {isOpen && (
           <div className="mt-3 px-4 text-base font-bold text-[#64748b]">
-            {isFilterData?.map(post => (
+            {isFilterData?.map((post: any) => (
               <SavedPostItem
                 post={post}
                 key={post.id}

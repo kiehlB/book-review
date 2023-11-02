@@ -35,7 +35,7 @@ function CustomCaption(props: CaptionProps) {
   );
 }
 
-const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) => {
+const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }: any) => {
   const { isdark } = useSelector((state: RootState) => state.core);
 
   const buttonRef = useRef() as any;
@@ -97,7 +97,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
     selectedDays = [start, { from: start, to: end }];
   }
 
-  const handleRangeClick = range => {
+  const handleRangeClick = (range: any) => {
     if (range) {
       router.push('/trending');
       dispatch(getTimestamp(range));
@@ -136,7 +136,7 @@ const DateRangePicker = ({ onChange, range, ranges, setRange, ...otherProps }) =
                     className="relative grid bg-white dark:bg-[#212227] dark:text-white lg:grid-cols-1">
                     {ranges && (
                       <div className="flex flex-col border-b dark:bg-[#212227]">
-                        {ranges.map(range => (
+                        {ranges.map((range: any) => (
                           <div
                             key={range.label}
                             className="rounded py-2 text-center text-xs font-bold text-[#475569] hover:bg-slate-100 dark:text-[#cfcfcf] dark:hover:bg-[#32333a] dark:hover:text-[#cfcfcf] "

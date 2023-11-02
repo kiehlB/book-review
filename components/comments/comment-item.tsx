@@ -3,16 +3,16 @@ import useBoolean from '../../hooks/useBoolean';
 import { Sub } from '../../types/apolloComponent';
 import CommentReplies from './comment-replies';
 import styled, { css } from 'styled-components';
-import ProfileIcon from '../../svg/profile';
 import CommentEdit from './comment-edit';
 import { formatDate } from '../../lib/utils';
 import Image from 'next/image';
 
 import { LiaComments } from 'react-icons/lia';
 import clsx from 'clsx';
+import ProfileIcon from '../svg/profile';
 
 export type CommentItemProps = {
-  comment: Sub | null;
+  comment: any;
   onRemove: (id: string) => void;
   isMine: boolean;
   ownComment: string;
@@ -38,7 +38,6 @@ function CommentItem({
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
 
-  console.log(comment);
   return (
     <PostCommentItem className="comment mt-1 py-1">
       <div className="flex">

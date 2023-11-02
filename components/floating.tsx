@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 
 import { getScrollTop } from '@/lib/utils';
-import Header, { HeaderProps } from './appbar';
+import Header, { HeaderProps } from './app-bar';
 
 export type FloatingHeaderProps = {
   children?: React.ReactNode;

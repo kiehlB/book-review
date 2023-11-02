@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import useRegister from './hooks/useRegister';
+import useRegister from './hooks/use-register';
 import AuthForm from './auth-form';
 
 export type RegisterProps = {
@@ -10,7 +10,6 @@ function Register({ mode }: RegisterProps) {
   const {
     username,
     password,
-    signUp,
     handleSubmit,
     registerError,
     handleChange,

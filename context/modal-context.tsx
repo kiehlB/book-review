@@ -2,7 +2,7 @@
 
 import React, { ReactNode, ReactElement, useMemo, useState, SetStateAction } from 'react';
 
-type Dispatch<A> = (value: A) => void;
+export type Dispatch<A> = (value: A) => void;
 
 export interface ModalContextData {
   IsClose: boolean;

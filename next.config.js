@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['search1.kakaocdn.net', 'res.cloudinary.com'],
   },
+  compiler: {
+    styledComponents: true,
+  },
   env: {
     API_URL: process.env.API_URL,
     KAKAO: process.env.KAKAO,

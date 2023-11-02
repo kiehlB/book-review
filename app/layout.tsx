@@ -4,24 +4,23 @@ import { BooksContextProvider } from '@/context/book-context';
 import { ModalContextProvider } from '@/context/modal-context';
 import '@/styles/globals.css';
 import '@/styles/tiptap.scss';
-import MuiProvider from '@/lib/mui-provider';
 
 import 'react-day-picker/dist/style.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Script from 'next/script';
+import clientCookies from 'js-cookie';
 
 import { Metadata } from 'next';
-import { GlobalStyle } from '@/styles/createGlobalStyle';
+import StyledComponentsRegistry from '@/lib/registry';
+import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NODE_ENV === 'production' ? process.env.API_URL : 'http://localhost:3000',
+    process.env.NODE_ENV! === 'production'
+      ? process.env.API_URL!
+      : 'http://localhost:3000',
   ),
-  title: 'Book Review',
-  themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#000212' },
-    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
-  ],
+  title: '북리뷰',
   robots: {
     index: true,
     follow: true,
@@ -32,11 +31,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
   },
   description:
     '책 리뷰를 작성하는 곳 입니다. 여러분들이 읽은 책의 소감과 감상을 공유하고, 다른 사람들의 서평도 함께 읽어보세요. 책을 선택할 때 도움이 되는 다양한 리뷰와 평점 정보를 확인하실 수 있습니다.',
@@ -53,17 +47,17 @@ export default function RootLayout(props: {
 }) {
   return (
     <html lang="ko">
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <body className="h-full transition duration-500 dark:bg-[#1a1b1e]">
-        <ReduxProvider>
-          <ApolloWrapper>
-            <BooksContextProvider>
-              <ModalContextProvider>
-                <MuiProvider>{props.children}</MuiProvider>
-              </ModalContextProvider>
-            </BooksContextProvider>
-          </ApolloWrapper>
-        </ReduxProvider>
+        <StyledComponentsRegistry>
+          <ReduxProvider>
+            <ApolloWrapper>
+              <BooksContextProvider>
+                <ModalContextProvider>{props.children}</ModalContextProvider>
+              </BooksContextProvider>
+            </ApolloWrapper>
+          </ReduxProvider>
+        </StyledComponentsRegistry>
       </body>
       {/* <Script src="/theme.js" strategy="beforeInteractive" /> */}
 

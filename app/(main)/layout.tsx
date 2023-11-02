@@ -1,9 +1,10 @@
 import { AppLayout, First, MainNav, Second } from '@/components/layout/app-layout';
 import { PageGrid } from '@/components/layout/grid-layout';
 import { PageLayout } from '@/components/layout/page-layout';
+import TagLoading from '@/components/loading/tags-loading';
 import Navbar from '@/components/navbar';
-import Tags from '@/components/tags/Tags';
-import React from 'react';
+import Tags from '@/components/tags/post-tags';
+import React, { Suspense } from 'react';
 import { AiFillNotification } from 'react-icons/ai';
 import { BsTagFill } from 'react-icons/bs';
 import { RiBookOpenLine, RiFileChartFill } from 'react-icons/ri';
@@ -41,7 +42,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 },
               ]}
             />
-            <Tags />
+            <Suspense fallback={<TagLoading />}>
+              <Tags />
+            </Suspense>
           </div>
         </MainNav>
 

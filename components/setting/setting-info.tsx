@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
 import { RootState } from '../../store/rootReducer';
 import ProfileThumbnail from './profile-thumbnail';
-import useGetUser from './hooks/useGetUser';
-import useProfile from './hooks/useProfile';
+import useGetUser from './hooks/use-get-user';
+import useProfile from './hooks/use-profile';
 
 export type SettingCardProps = {};
 
@@ -39,7 +39,7 @@ function SettingCard({}: SettingCardProps) {
     setPreviewSource(2);
   }, [loading]);
 
-  const addImage = useCallback(async url => {
+  const addImage = useCallback(async (url: React.SetStateAction<undefined>) => {
     await uploadThumbnail({
       variables: {
         body: url,

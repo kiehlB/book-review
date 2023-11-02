@@ -1,10 +1,10 @@
+'use client';
+
 import { Sub } from '../../types/apolloComponent';
 import PopUpContainer from '../popup-container';
 import CommentList from './comment-list';
 import CommentsWrite from './comment-write';
-
-import useCommentUpvote from './hooks/useCommentUpvote';
-import useCreateCommentWrite from './hooks/useCommentWrite';
+import useCreateCommentWrite from './hooks/use-comment-write';
 
 export type CommentsProps = {
   commentCount: number;

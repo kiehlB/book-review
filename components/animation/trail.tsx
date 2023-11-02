@@ -26,6 +26,7 @@ export const ListTrail: React.FC<ListTrailProps> = ({
       {trail.map((style, index) => {
         return (
           <div key={index}>
+            <div>dd</div>
             <animated.div style={style} {...setItemContainerProps(index)}>
               {renderItem(index)}
             </animated.div>

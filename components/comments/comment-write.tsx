@@ -1,12 +1,11 @@
-import useCreateCommentWrite from './hooks/useCommentWrite';
 import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 
 export type CommentsWriteProps = {
   postId?: string;
   comment?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onWrite?: () => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onWrite: () => void;
   onCancel?: () => void;
   edit?: boolean;
 };
@@ -24,7 +23,7 @@ function CommentsWrite({
     <div className="mt-2 flex flex-col items-end">
       <StyledTextarea
         value={comment}
-        onChange={e => onChange(e)}
+        onChange={(e: any) => onChange(e)}
         placeholder="댓글을 작성하세요"
         className="w-full border border-[#f1f3f5] bg-[#0000000d] dark:border-none dark:bg-[#2b2d31] dark:text-[#ececec]"
       />

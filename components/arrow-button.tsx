@@ -3,8 +3,9 @@ import type { Variant } from 'framer-motion';
 import { motion, useReducedMotion } from 'framer-motion';
 import Link, { LinkProps } from 'next/link';
 import { ElementState, useElementState } from '../hooks/useElementState';
-import { ArrowIcon } from '../svg/arrow.icon';
+
 import { H6 } from './typography';
+import { ArrowIcon } from './svg/arrow.icon';
 
 type ArrowIconProps = React.ComponentProps<typeof ArrowIcon>;
 

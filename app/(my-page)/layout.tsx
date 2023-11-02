@@ -9,7 +9,7 @@ import Navbar from '@/components/navbar';
 import HomeTitle from '@/components/home/home-title';
 import { RiBookOpenLine } from 'react-icons/ri';
 
-export default function Profile({ children }) {
+export default function Profile({ children }: any) {
   return (
     <PageLayout>
       <PageGrid as="div" className="pb-[2rem] pt-[2rem] mxs:block">

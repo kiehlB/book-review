@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 interface BookModalProps {
   visible?: boolean;
-  onClose?: (visible) => void;
+  onClose: (visible: boolean) => void;
   children?: React.ReactNode;
   className?: string;
 }

@@ -9,7 +9,7 @@ import { TfiWrite } from 'react-icons/tfi';
 import { RiBookOpenLine } from 'react-icons/ri';
 import { CiRead } from 'react-icons/ci';
 import { MdLogout } from 'react-icons/md';
-import useLogout from './auth/hooks/useLogout';
+import useLogout from './auth/hooks/use-logout';
 
 export default function PopMenu({ profileThumbnail }: any) {
   const { handleSubmitLogout } = useLogout();

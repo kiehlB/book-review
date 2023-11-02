@@ -26,11 +26,11 @@ export default function PawButton({ id, isdark, auth, data, onLikeToggle }: Post
     '#6e57ff',
   ];
 
-  const random = (min, max): any => {
+  const random = (min: number, max: number): any => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
-  const createConfetti = to => {
+  const createConfetti = (to: { appendChild: (arg0: HTMLElement) => void }) => {
     let elem = document.createElement('i'),
       set = Math.random() < 0.5 ? -1 : 1;
     elem.style.setProperty('--x', random(-260, 260) + 'px');
@@ -53,7 +53,7 @@ export default function PawButton({ id, isdark, auth, data, onLikeToggle }: Post
     });
   }, [data?.post?.liked]);
 
-  const a = e => {
+  const a = (e: { preventDefault: () => void }) => {
     if (!auth) {
       toast.error('로그인 후 이용해주세요.', {
         position: 'bottom-right',
@@ -72,7 +72,7 @@ export default function PawButton({ id, isdark, auth, data, onLikeToggle }: Post
             elem.classList.add('liked');
           }, 200);
           setTimeout(() => {
-            elem.querySelectorAll('i').forEach(i => i.remove());
+            elem.querySelectorAll('i').forEach((i: { remove: () => any }) => i.remove());
           }, 200);
         }, 260);
       } else {

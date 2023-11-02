@@ -7,13 +7,14 @@ import {
   getPostTitle,
 } from '../../store/book';
 import { RootState } from '../../store/rootReducer';
-import useCreateSavePost from './hooks/usecreateSavePost';
-import WriteMenu from './WriteMenu';
+
+import WriteMenu from './write-menu';
 import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { IoMdArrowBack } from 'react-icons/io';
 import { AiOutlineSave } from 'react-icons/ai';
 import { MdDone } from 'react-icons/md';
+import useCreateSavePost from './hooks/use-create-save-post';
 
 export type TapProps = {
   StoreTag: string[];
