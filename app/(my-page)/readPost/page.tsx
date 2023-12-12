@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PostGrid } from '@/components/layout/grid-layout';
-import HomeTitle from '@/components/home/home-title';
+import HomeTitle from '@/views/home/home-title';
 
 export default function MainPage() {
   return (

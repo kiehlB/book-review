@@ -1,15 +1,15 @@
-import clsx from 'clsx';
-import type { Variant } from 'framer-motion';
-import { motion, useReducedMotion } from 'framer-motion';
-import Link, { LinkProps } from 'next/link';
-import { ElementState, useElementState } from '../hooks/useElementState';
+'use client';
 
+import { clsx } from 'clsx';
+import { motion, useReducedMotion, type Variant } from 'framer-motion';
+import { ElementState, useElementState } from '@/hooks/use-element-state';
+import { ArrowIcon } from './icons';
 import { H6 } from './typography';
-import { ArrowIcon } from './svg/arrow.icon';
+import Link, { LinkProps } from 'next/link';
 
 type ArrowIconProps = React.ComponentProps<typeof ArrowIcon>;
 
-export const arrowVariants: Record<
+const arrowVariants: Record<
   ArrowIconProps['direction'],
   Record<ElementState, Variant>
 > = {
@@ -70,9 +70,20 @@ type ArrowButtonBaseProps = {
 
 type ArrowLinkProps = {
   direction?: ArrowIconProps['direction'];
-  click?: () => void;
-} & ({ href?: string; to?: never } | { href?: never; to: string }) &
-  ArrowButtonBaseProps & { prefetch?: 'intent' | 'render' | 'none' };
+  onClick?: () => void;
+} & (
+  | {
+      href?: string;
+      as?: string;
+    }
+  | {
+      href?: never;
+      to?: never;
+    }
+) &
+  ArrowButtonBaseProps & {
+    prefetch?: 'intent' | 'render' | 'none';
+  };
 
 type ArrowButtonProps = {
   onClick?: JSX.IntrinsicElements['button']['onClick'];
@@ -82,7 +93,7 @@ type ArrowButtonProps = {
 function getBaseProps({ textSize, className }: ArrowButtonBaseProps) {
   return {
     className: clsx(
-      'inline-flex items-center text-left font-medium focus:outline-none cursor-pointer transition',
+      'text-primary inline-flex items-center text-left font-medium focus:outline-none cursor-pointer transition',
       {
         'text-xl': textSize === 'medium',
         'text-lg': textSize === 'small',
@@ -104,14 +115,14 @@ function ArrowButtonContent({
     <>
       {children &&
       (direction === 'right' || direction === 'up' || direction === 'top-right') ? (
-        <span className="mr-4 text-xl font-medium">{children}</span>
+        <span className="mr-1 text-xl font-medium">{children}</span>
       ) : null}
 
-      <div className="relative inline-flex items-center justify-center flex-none p-1 h-14 w-14">
-        <div className="absolute">
+      <div className="relative inline-flex h-14 w-14 flex-none items-center justify-center p-1">
+        <div className="absolute text-gray-200 dark:text-gray-600">
           <svg width="60" height="60">
             <circle
-              stroke="#818890"
+              stroke="currentColor"
               strokeWidth="2"
               fill="transparent"
               r="28"
@@ -120,14 +131,14 @@ function ArrowButtonContent({
             />
 
             <motion.circle
-              className="text-[#f0b90b] "
+              className="text-primary"
               stroke="currentColor"
               strokeWidth="2"
               fill="transparent"
               r="28"
               cx="30"
               cy="30"
-              style={{ strokeDasharray }}
+              style={{ strokeDasharray, rotate: -90 }}
               variants={{
                 initial: { strokeDashoffset: circumference },
                 hover: { strokeDashoffset: 0 },
@@ -175,59 +186,46 @@ function ArrowButton({ onClick, type, ...props }: ArrowButtonProps) {
 
 const MotionLink = motion(Link);
 
-function ArrowLink({ to, href, click, ...props }: ArrowLinkProps) {
+function ArrowLink({ href, onClick, ...props }: ArrowLinkProps) {
   const [ref, state] = useElementState();
   const shouldReduceMotion = useReducedMotion();
 
-  if (href) {
-    return (
-      <Link href={href}>
-        <motion.div
-          {...getBaseProps(props)}
-          ref={ref}
-          animate={state}
-          onClick={click}
-          transition={shouldReduceMotion ? { duration: 0 } : {}}>
-          <ArrowButtonContent {...props} />
-        </motion.div>
-      </Link>
-    );
-  } else {
-    return (
-      <motion.a
+  return (
+    <MotionLink href={href ? href : '/'}>
+      <motion.div
         {...getBaseProps(props)}
         ref={ref}
         animate={state}
-        onClick={click}
+        onClick={onClick}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
         <ArrowButtonContent {...props} />
-      </motion.a>
-    );
-  }
+      </motion.div>
+    </MotionLink>
+  );
 }
 
 function BackLink({
   href,
   className,
   children,
-}: { href: LinkProps['href'] } & Pick<
-  ArrowLinkProps,
-  'className' | 'children' | 'click'
->) {
+}: {
+  href: string;
+} & Pick<ArrowLinkProps, 'className' | 'children'>) {
   const [ref, state] = useElementState();
   const shouldReduceMotion = useReducedMotion();
+
   return (
     <MotionLink
       href={href}
-      className={clsx('flex items-center text-black focus:outline-none', className)}
+      passHref
+      className={clsx('text-primary flex space-x-4 focus:outline-none', className)}
       ref={ref}
       animate={state}
       transition={shouldReduceMotion ? { duration: 0 } : {}}>
       <motion.span
-        className="flex items-center"
         variants={shouldReduceMotion ? {} : arrowVariants.left}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
-        <ArrowIcon direction="left" className="dark:text-white" />
+        <ArrowIcon direction="left" />
       </motion.span>
       <H6 as="span">{children}</H6>
     </MotionLink>
@@ -238,10 +236,10 @@ function NextLink({
   href,
   className,
   children,
-  click,
+  onClick,
 }: { href: LinkProps['href'] } & Pick<
   ArrowLinkProps,
-  'className' | 'children' | 'click'
+  'className' | 'children' | 'onClick'
 >) {
   const [ref, state] = useElementState();
   const shouldReduceMotion = useReducedMotion();
@@ -252,7 +250,7 @@ function NextLink({
         href={href}
         className={clsx('flex items-center focus:outline-none')}
         ref={ref}
-        onClick={click}
+        onClick={onClick}
         animate={state}
         transition={shouldReduceMotion ? { duration: 0 } : {}}>
         <H6 as="span">{children}</H6>

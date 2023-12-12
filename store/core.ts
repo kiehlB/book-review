@@ -1,57 +1,37 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { create } from 'zustand';
 
 interface Time {
-  fr: Date;
+  from: Date;
   to: Date;
 }
 
-export interface coreState {
+interface CoreState {
   isdark: string;
   error: string;
   isLoading: boolean;
   search: string;
   timestamp: Time | null;
+  toggleDarkMode: (newDarkMode: string | undefined) => void;
+  setLoading: (isLoading: boolean) => void;
+  setSearchInput: (search: string) => void;
+  setTimestamp: (timestamp: Time | null) => void;
+  setError: (error: string) => void;
 }
 
-export const initialState = {
+const useCoreStore = create<CoreState>(set => ({
   isdark: 'light',
   isLoading: false,
   error: '',
   search: '',
   timestamp: null,
-};
-
-const CoreSlice = createSlice({
-  name: 'core',
-  initialState,
-  reducers: {
-    getcoreInfoSuccess(state: coreState) {
-      const isdarkSet = state.isdark == 'dark' ? 'light' : 'dark';
-      state.isdark = isdarkSet;
-    },
-    getcoreIsLoading(state: coreState) {
-      state.isLoading = !state.isLoading;
-    },
-    getSearchInput(state: coreState, actions: PayloadAction<string>) {
-      state.search = actions.payload;
-    },
-
-    getTimestamp(state: coreState, actions) {
-      state.timestamp = actions.payload;
-    },
-
-    getcoreFailure(state: coreState, { payload }: PayloadAction<coreState>) {
-      state.error = payload.error;
-    },
+  toggleDarkMode: (newDarkMode: string | undefined) =>
+    set(() => ({ isdark: newDarkMode })),
+  setLoading: isLoading => set(() => ({ isLoading })),
+  setSearchInput: search => set(() => ({ search })),
+  setTimestamp: timestamp => {
+    set(() => ({ timestamp }));
   },
-});
+  setError: error => set(() => ({ error })),
+}));
 
-export const {
-  getcoreFailure,
-  getcoreInfoSuccess,
-  getcoreIsLoading,
-  getSearchInput,
-  getTimestamp,
-} = CoreSlice.actions;
-
-export default CoreSlice.reducer;
+export default useCoreStore;

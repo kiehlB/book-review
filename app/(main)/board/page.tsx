@@ -1,5 +1,5 @@
+import HomeTitle from '@/views/home/home-title';
 import React, { useState } from 'react';
-import HomeTitle from '@/components/home/home-title';
 
 export const dynamic = 'force-dynamic';
 

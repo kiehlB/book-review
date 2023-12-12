@@ -1,4 +1,5 @@
-import clsx from 'clsx';
+import { clsx } from 'clsx';
+import Link from 'next/link';
 import * as React from 'react';
 
 interface ButtonProps {
@@ -41,7 +42,7 @@ function ButtonInner({
             'text-inverse': variant === 'primary',
             'text-red-500': variant === 'danger',
             'space-x-5 px-11 py-6': size === 'large',
-            'space-x-3 px-5 py-2 font-semibold': size === 'medium',
+            'space-x-3 px-8 py-4': size === 'medium',
             'space-x-1 px-5 py-2 text-sm': size === 'small',
           },
         )}>

@@ -1,24 +1,90 @@
 import gql from 'graphql-tag';
 
+// export const CORE_POST_FIELDS = gql`
+//   fragment CorePostFields on Post {
+//     id
+//     title
+//     body
+//     thumbnail
+//     likes
+//     views
+//     is_temp
+//     is_private
+//     released_at
+//     created_at
+//     updated_at
+//     liked
+//     tags {
+//       tag {
+//         name
+//       }
+//     }
+//     bookInfo {
+//       bookTitle
+//       bookContent
+//       bookUrl
+//       bookIsbn
+//       bookAuthors
+//     }
+//   }
+// `;
+
+// export const CORE_USER_FIELDS = gql`
+//   fragment CoreUserFields on User {
+//     id
+//     username
+//     profile {
+//       id
+//       bio
+//       profile_name
+//       thumbnail
+//     }
+//   }
+// `;
+
+// export const CORE_COMMENT_FIELDS = gql`
+//   fragment CoreCommentFields on Comments {
+//     id
+//     text
+//     likes
+//     has_replies
+//     deleted
+//     level
+//     reply
+//     created_at
+//     updated_at
+//     user {
+//       ...UserInfo
+//     }
+//     replies {
+//       id
+//       text
+//       has_replies
+//       created_at
+//       updated_at
+//     }
+//   }
+// `;
+
 export const GET_Post = gql`
   query GetPost($id: String!) {
     post(id: $id) {
       id
       title
       body
+      postbody
       thumbnail
       likes
       views
       is_temp
-      views
       is_private
-      subs_count
       released_at
       created_at
       updated_at
       liked
       tags {
         tag {
+          id
           name
         }
       }
@@ -32,14 +98,8 @@ export const GET_Post = gql`
       user {
         id
         username
-        profile {
-          id
-          bio
-          profile_name
-          thumbnail
-        }
       }
-      subs {
+      comments {
         id
         text
         likes
@@ -49,16 +109,7 @@ export const GET_Post = gql`
         reply
         created_at
         updated_at
-
         upvotes
-        replies {
-          id
-          text
-          has_replies
-          created_at
-          updated_at
-        }
-        replies_count
         user {
           id
           username
@@ -69,7 +120,16 @@ export const GET_Post = gql`
             thumbnail
           }
         }
+        replies {
+          id
+          text
+          has_replies
+          created_at
+          updated_at
+        }
+        replies_count
       }
+      comments_count
     }
   }
 `;
@@ -80,6 +140,7 @@ export const GET_Posts = gql`
       id
       title
       body
+      postbody
       thumbnail
       likes
       views
@@ -105,11 +166,11 @@ export const GET_Posts = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
       }
-      subs_count
+      comments_count
     }
   }
 `;
@@ -119,17 +180,22 @@ export const GET_recentPosts = gql`
     recentPosts(cursor: $cursor, limit: $limit) {
       id
       title
-
+      body
+      postbody
       thumbnail
       likes
       views
       is_temp
-      postbody
       is_private
       released_at
       created_at
       updated_at
       liked
+      tags {
+        tag {
+          name
+        }
+      }
       bookInfo {
         bookTitle
         bookContent
@@ -141,11 +207,11 @@ export const GET_recentPosts = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
       }
-      subs_count
+      comments_count
     }
   }
 `;
@@ -188,43 +254,57 @@ export const GET_trendingPosts = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
       }
-      subs_count
+      comments_count
     }
   }
 `;
 
 export const Create_Post = gql`
   mutation CreatePost(
-    $body: String!
     $title: String!
-    $thumbnail: String
+    $body: String!
     $postbody: String
-    $tags: [String]
+    $tags: [String]!
     $is_temp: Boolean
     $is_private: Boolean
+    $series_id: String
+    $thumbnail: String
     $bookTitle: String
     $bookContent: String
     $bookUrl: String
     $bookIsbn: String
-    $bookAuthors: [String]
+    $bookAuthors: String
+    $publisher: String
+    $pubDate: String
+    $customerReviewRank: Int
+    $priceStandard: Int
+    $categoryName: String
+    $categoryId: Int
   ) {
     createPost(
-      body: $body
       title: $title
-      tags: $tags
-      thumbnail: $thumbnail
+      body: $body
       postbody: $postbody
+      tags: $tags
       is_temp: $is_temp
       is_private: $is_private
+      series_id: $series_id
+      thumbnail: $thumbnail
       bookTitle: $bookTitle
       bookContent: $bookContent
       bookUrl: $bookUrl
       bookIsbn: $bookIsbn
       bookAuthors: $bookAuthors
+      publisher: $publisher
+      pubDate: $pubDate
+      customerReviewRank: $customerReviewRank
+      priceStandard: $priceStandard
+      categoryName: $categoryName
+      categoryId: $categoryId
     ) {
       id
       title
@@ -265,7 +345,7 @@ export const RELOAD_COMMENTS = gql`
       views
       is_temp
       is_private
-      subs_count
+      comments_count
       released_at
       created_at
       updated_at
@@ -281,11 +361,11 @@ export const RELOAD_COMMENTS = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
-        updated_at
       }
+      comments_count
     }
   }
 `;
@@ -296,6 +376,7 @@ export const GET_Search_Posts = gql`
       id
       title
       body
+      postbody
       thumbnail
       likes
       views
@@ -316,11 +397,11 @@ export const GET_Search_Posts = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
       }
-      subs_count
+      comments_count
     }
   }
 `;
@@ -362,11 +443,11 @@ export const Edit_Post = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
       }
-      subs_count
+      comments_count
     }
   }
 `;
@@ -396,11 +477,11 @@ export const Like_Post = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
       }
-      subs_count
+      comments_count
     }
   }
 `;
@@ -424,11 +505,11 @@ export const UnLike_Post = gql`
         id
         username
       }
-      subs {
+      comments {
         id
         text
       }
-      subs_count
+      comments_count
     }
   }
 `;

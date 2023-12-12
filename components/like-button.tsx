@@ -5,16 +5,18 @@ import { useDebounce, useDebouncedCallback } from 'use-debounce';
 import styled, { keyframes, css } from 'styled-components';
 import clsx from 'clsx';
 import { toast } from 'react-toastify';
+import usePostLike from '@/views/post/hooks/use-post-like';
+import useCoreStore from '@/store/core';
 
 export type PostProps = {
-  id: string | any;
-  isdark: string;
+  id: string;
   auth: any;
-  data: any;
-  onLikeToggle: any;
 };
 
-export default function PawButton({ id, isdark, auth, data, onLikeToggle }: PostProps) {
+export default function PawButton({ id, auth }: PostProps) {
+  const { isdark } = useCoreStore();
+  const { data, onLikeToggle } = usePostLike(id, auth);
+
   let confettiAmount = 60;
 
   const confettiColors = [
@@ -92,7 +94,7 @@ export default function PawButton({ id, isdark, auth, data, onLikeToggle }: Post
   return (
     <>
       <div onClick={debounced}>
-        <Paw className={clsx('paw-button')} isLike={data?.post?.liked} isdark={isdark}>
+        <Paw className={clsx('paw-button')} $isLike={data?.post?.liked!} $isdark={isdark}>
           <div className="text">
             <svg>
               <use xlinkHref="#heart"></use>
@@ -177,7 +179,7 @@ export default function PawButton({ id, isdark, auth, data, onLikeToggle }: Post
   );
 }
 
-const Paw = styled.div<{ isLike: boolean; isdark: string }>`
+const Paw = styled.div<{ $isLike: boolean; $isdark: string }>`
   --background: #fff;
   --background-active: #fee8f4;
   --border: #f1eceb;
@@ -219,7 +221,9 @@ const Paw = styled.div<{ isLike: boolean; isdark: string }>`
     right: -2px;
     z-index: 1;
     border-radius: 5px;
-    transition: background 0.45s, border-color 0.45s;
+    transition:
+      background 0.45s,
+      border-color 0.45s;
     border: 2px solid #f1eceb;
     border-radius: 5px;
   }
@@ -236,7 +240,9 @@ const Paw = styled.div<{ isLike: boolean; isdark: string }>`
     width: var(--w, 30px);
     span,
     svg {
-      transition: transform 0.15s ease-out, opacity 0.2s;
+      transition:
+        transform 0.15s ease-out,
+        opacity 0.2s;
       opacity: var(--o, 1);
     }
     span {
@@ -276,7 +282,9 @@ const Paw = styled.div<{ isLike: boolean; isdark: string }>`
     svg {
       position: absolute;
       bottom: 0;
-      transition: transform 0.3s ease-out, opacity 0.2s;
+      transition:
+        transform 0.3s ease-out,
+        opacity 0.2s;
       opacity: var(--o, 0);
       transform: translate(var(--x, 0), var(--y, 0));
       &.paw {
@@ -309,7 +317,9 @@ const Paw = styled.div<{ isLike: boolean; isdark: string }>`
         background: var(--circle);
         transform: scale(var(--s, 0));
         opacity: var(--o, 1);
-        transition: transform 0.15s ease 0.16s, opacity 0.2s linear 0.25s;
+        transition:
+          transform 0.15s ease 0.16s,
+          opacity 0.2s linear 0.25s;
       }
       div {
         width: 2px;
@@ -343,7 +353,9 @@ const Paw = styled.div<{ isLike: boolean; isdark: string }>`
       div:after {
         opacity: var(--o, 1);
         transform-origin: 50% 100%;
-        transition: transform 0.12s ease 0.17s, opacity 0.18s linear 0.21s;
+        transition:
+          transform 0.12s ease 0.17s,
+          opacity 0.18s linear 0.21s;
       }
     }
   }

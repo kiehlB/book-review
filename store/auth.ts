@@ -1,77 +1,71 @@
-import { createSlice, PayloadAction, ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { PURGE } from 'redux-persist';
+'use client';
 
-import { AppDispatch } from './store';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
-export interface auth {
+interface Profile {
   id: string;
-  username: string;
-  __typename: string;
+  bio: string;
+  profile_name: string;
+  thumbnail: string;
+  created_at: string;
+  updated_at: string;
 }
 
-export interface authState {
-  auth: auth | null;
+interface User {
+  id: string;
+  username: string;
+  accessToken: string;
+  refreshToken: string;
+  profile: Profile | null;
+  __typename: 'User';
+}
+
+export interface AuthState {
+  auth: User;
   error: string;
   profileThumbnail: string;
   displayName: string;
   bio: string;
+  setAuthInfo: (auth: User) => void;
+  setAuthImg: (thumbnail: string) => void;
+  setAuthName: (name: string) => void;
+  setAuthBio: (bio: string) => void;
+  setAuthFailure: (error: string) => void;
 }
 
-export const initialState = {
-  auth: null,
-  error: '',
-  profileThumbnail: '',
-  displayName: '',
-  bio: '',
-};
+export const useAuthStore = create(
+  persist<AuthState>(
+    set => ({
+      auth: {
+        id: '',
+        username: '',
+        accessToken: '',
+        refreshToken: '',
+        profile: {
+          id: '',
+          bio: '',
+          profile_name: '',
+          thumbnail: '',
+          created_at: '',
+          updated_at: '',
+        },
+        __typename: 'User',
+      },
+      error: '',
+      profileThumbnail: '',
+      displayName: '',
+      bio: '',
+      setAuthInfo: auth => set({ auth }),
+      setAuthImg: thumbnail => set({ profileThumbnail: thumbnail }),
+      setAuthName: name => set({ displayName: name }),
+      setAuthBio: bio => set({ bio }),
+      setAuthFailure: error => set({ error }),
+    }),
+    {
+      name: 'authState',
 
-const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    getAuthInfoSuccess(state: authState, action: PayloadAction<auth | null>) {
-      state.auth = action.payload;
+      storage: createJSONStorage(() => localStorage),
     },
-    getAuthImgSuccess(state: authState, action: PayloadAction<string>) {
-      state.profileThumbnail = action.payload;
-    },
-
-    getAuthNameSuccess(state: authState, action: PayloadAction<string>) {
-      state.displayName = action.payload;
-    },
-    getAuthBioSuccess(state: authState, action: PayloadAction<string>) {
-      state.bio = action.payload;
-    },
-
-    getauthFailure(state: authState, { payload }: PayloadAction<authState>) {
-      state.error = payload.error;
-    },
-  },
-  extraReducers: (
-    builder: ActionReducerMapBuilder<{
-      auth: null;
-      error: string;
-      profileThumbnail: string;
-      displayName: string;
-      bio: string;
-    }>,
-  ) => {
-    builder.addCase(PURGE, state => {
-      localStorage.removeItem('auth');
-    });
-  },
-});
-
-export const {
-  getauthFailure,
-  getAuthInfoSuccess,
-  getAuthImgSuccess,
-  getAuthNameSuccess,
-  getAuthBioSuccess,
-} = authSlice.actions;
-
-export const initAuth = (payload: any) => async (dispatch: AppDispatch) => {
-  dispatch(getAuthInfoSuccess(payload));
-};
-
-export default authSlice.reducer;
+  ),
+);

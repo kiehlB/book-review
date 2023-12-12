@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+:root {
+    --color-black: #000;
+    --color-white: #fff;
+
+    --color-blue-100: #e8f2ff;
+    --color-blue-500: #4b96ff;
+    --color-slate-500: #a9adc1;
+
+    --color-gray-100: #f7f7f7;
+    --color-gray-200: #e6e9ee;
+    --color-gray-300: #dde0e4;
+    --color-gray-400: #818890;
+    --color-gray-500: #535661;
+    --color-gray-600: #4b4c53;
+    --color-gray-700: #3a3d4a;
+    --color-gray-800: #2e3039;
+    --color-gray-900: #1f2028;
+
+    --color-green-100: #e7f9ed;
+    --color-green-500: #30c85e;
+    --color-green-600: #68d94a;
+
+    --color-red-400: #ff816b;
+    --color-red-500: #ff4545;
+    --color-red-600: #d31510;
+
+    --color-yellow-100:#FCD535;
+    --color-yellow-200:#C99400;
+    --color-yellow-300:#87721C;
+    --color-yellow-400:#87721C;
+
+    --color-dark-100: #b0b3b8;
+    --color-dark-200: #e4e6eb;
+    --color-dark-300: #3a3b3c;
+    --color-dark-400: #242526;
+    --color-dark-500: #18191a;
+
+    --color-default:#212529;
+    --color-dark:#cfcfcf;
+  }
+}
+
+  @layer utilities {
+    .collapse-enter {
+      max-height: 0;
+      overflow: hidden;
+    }
+  
+    .collapse-css-transition {
+      transition: max-height 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  
+    .collapse-enter-active {
+      max-height: 50rem;
+      transition-property: max-height;
+      transition-duration: 500ms;
+      transition-timing-function: cubic-bezier(0, 1, 0, 1);
+    }
+  
+    .collapse-leave {
+      max-height: 50rem;
+    }
+  
+    .collapse-leave-active {
+      max-height: 0;
+      transition-property: max-height;
+      transition-duration: 500ms;
+      transition-timing-function: cubic-bezier(0, 1, 0, 1);
+    }
+  }
+  
+  @layer utilities {
+    .highlight__panel {
+      @apply hidden;
+    }
+  
+    .navigation-underline {
+      @apply w-full border border-[#FFA500];
+    }
+  }
+  
+  @layer utilities {
+    @variants responsive {
+      .hide {
+        display: none;
+        visibility: hidden;
+      }
+  
+      .show {
+        display: inline;
+        visibility: visible;
+      }
+    }
+  }
+  
+  
+  @keyframes shining {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }

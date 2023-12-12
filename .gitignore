@@ -4,10 +4,13 @@
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
+
 # testing
 /coverage
-.next
+
 # next.js
+/.next/
 /out/
 
 # production

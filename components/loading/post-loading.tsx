@@ -1,5 +1,4 @@
-import { PostGrid } from '../layout/grid-layout';
-import { PostCardSkeleton } from '../post/post-card-item';
+import PostCardSkeleton from '@/views/post/post-card-skeleton';
 
 export default function PostLoading() {
   return Array.from({ length: 8 }).map((_, i) => <PostCardSkeleton key={i} />);

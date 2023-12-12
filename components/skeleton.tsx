@@ -1,5 +1,4 @@
 import React from 'react';
-import styled, { keyframes, css } from 'styled-components';
 
 export type SkeletonProps = {
   width?: number | string;
@@ -10,23 +9,21 @@ export type SkeletonProps = {
   circle?: boolean;
   className?: string;
   borderRadius?: string;
-  isdark: string;
 };
 
 type SkeletonTextsProps = {
   wordLengths: number[];
   useFlex?: boolean;
-  isdark: string;
 };
 
-export function SkeletonTexts({ wordLengths, useFlex, isdark }: SkeletonTextsProps) {
+export function SkeletonTexts({ wordLengths, useFlex }: SkeletonTextsProps) {
   return (
     <>
       {wordLengths.map((length, index) => {
         const props = {
           [useFlex ? 'flex' : 'width']: useFlex ? length : `${length}rem`,
         };
-        return <Skeleton noSpacing={true} key={index} {...props} isdark={isdark} />;
+        return <Skeleton noSpacing={true} key={index} {...props} />;
       })}
     </>
   );
@@ -41,49 +38,14 @@ export function Skeleton({
   circle,
   className,
   borderRadius,
-  isdark,
 }: SkeletonProps) {
   return (
-    <Block
-      $isdark={isdark}
-      style={{ width, height, flex, marginRight, borderRadius }}
-      $noSpacing={noSpacing}
-      circle={circle}
-      className={className}
-    />
+    <>
+      <div
+        className={`inline-block h-4 animate-shining rounded bg-[#f1f3f5] dark:bg-dark-300 ${
+          circle ? 'rounded-full' : 'rounded'
+        } ${noSpacing ? 'ml-2' : ''}`}
+        style={{ width, height, flex, marginRight, borderRadius }}></div>
+    </>
   );
 }
-
-const shining = keyframes`
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-`;
-
-const Block = styled.span<{ $noSpacing: boolean; circle?: boolean; $isdark: string }>`
-  background: ${props => (props.$isdark == 'dark' ? '#2b2d31' : '#f1f3f5')};
-
-  animation: ${shining} 1s ease-in-out infinite;
-  display: inline-block;
-  border-radius: 4px;
-  height: 1em;
-
-  ${props =>
-    !props.$noSpacing &&
-    css`
-      & + & {
-        margin-left: 0.5rem;
-      }
-    `}
-  ${props =>
-    props.circle &&
-    css`
-      border-radius: 50%;
-    `}
-`;

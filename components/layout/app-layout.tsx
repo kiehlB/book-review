@@ -1,9 +1,4 @@
-'use client';
-
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
-import { RootState } from '@/store/rootReducer';
+import React from 'react';
 
 type MainNavProps = CellLayoutProps;
 
@@ -19,15 +14,6 @@ type AppLayoutProps = {
 };
 
 export function AppLayout({ first, second, third, className }: AppLayoutProps) {
-  const { isdark } = useSelector((state: RootState) => state.core);
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-
-    root.classList.remove(isdark === 'dark' ? 'light' : 'dark');
-    root.classList.add(isdark);
-  }, [isdark]);
-
   return (
     <main className={className}>
       {first}

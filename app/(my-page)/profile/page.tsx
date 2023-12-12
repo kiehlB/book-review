@@ -1,6 +1,5 @@
-import HomeTitle from '@/components/home/home-title';
-import SettingCard from '@/components/setting/setting-info';
-
+import HomeTitle from '@/views/home/home-title';
+import SettingCard from '@/views/setting/setting-info';
 import React from 'react';
 
 export default function MainPage() {

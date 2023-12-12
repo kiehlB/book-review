@@ -5,11 +5,10 @@ import { CiRead } from 'react-icons/ci';
 import { PageLayout } from '@/components/layout/page-layout';
 import { PageGrid } from '@/components/layout/grid-layout';
 import { AppLayout, First, MainNav, Second } from '@/components/layout/app-layout';
-import Navbar from '@/components/navbar';
-import HomeTitle from '@/components/home/home-title';
 import { RiBookOpenLine } from 'react-icons/ri';
+import Navbar from '@/views/navbar';
 
-export default function Profile({ children }: any) {
+export default function MyPage({ children }: any) {
   return (
     <PageLayout>
       <PageGrid as="div" className="pb-[2rem] pt-[2rem] mxs:block">
@@ -51,7 +50,7 @@ export default function Profile({ children }: any) {
         </MainNav>
 
         <AppLayout
-          className="col-span-8 mmd:col-span-10 mmd:col-start-3 mmx:col-start-2"
+          className="col-span-8 mmd:col-span-10 mmd:col-start-3 mms:col-start-2"
           first={<First></First>}
           second={<Second>{children}</Second>}
         />

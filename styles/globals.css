@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* @font-face {
   font-family: 'Peace';
   src: url('../public/font/Peace.otf') format("opentype");
@@ -17,81 +13,36 @@
   font-weight: 400;
 } */
 
-@font-face {
+/* @font-face {
   font-family: 'Pretendard';
 	font-weight: 400;
   font-display: swap;
 	src: url('../public/font/PretendardR.woff2') format('woff');
-}
+} */
 
 body {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
 }
 
-/* h1,
-h2,
-h3{
-  font-weight: 700;
-  color: #212529;
-  line-height: 1.5;
-} */
-
-@layer components {
-  .collapse-enter {
-    max-height: 0;
-    overflow: hidden;
-  }
-
-  .collapse-css-transition {
-    transition: max-height 280ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .collapse-enter-active {
-    max-height: 50rem;
-    transition-property: max-height;
-    transition-duration: 500ms;
-    transition-timing-function: cubic-bezier(0, 1, 0, 1);
-  }
-
-  .collapse-leave {
-    max-height: 50rem;
-  }
-
-  .collapse-leave-active {
-    max-height: 0;
-    transition-property: max-height;
-    transition-duration: 500ms;
-    transition-timing-function: cubic-bezier(0, 1, 0, 1);
-  }
+ 
+.custom-input::selection {
+  background: '';
 }
 
-@layer components {
-  .highlight__panel {
-    @apply hidden;
-  }
-
-
-  .navigation-underline {
-    @apply w-full border border-[#FFA500];
-  }
-}
-
-@layer utilities {
-  @variants responsive {
-    .hide {
-      display: none;
-      visibility: hidden;
-    }
-
-    .show {
-      display: inline;
-      visibility: visible;
-    }
-  }
+.dark .custom-input::selection {
+  background: #e4e5e7; 
 }
 
 
+.auth-control {
+  visibility: hidden;
+}
+
+/* When client-side hydration determines the state, show the auth control */
+.auth-control.hydrated {
+  visibility: visible;
+}
 
 .css-ueukts-MuiButtonBase-root-MuiToggleButton-root {
   border: none !important;

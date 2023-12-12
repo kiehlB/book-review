@@ -1,44 +1,52 @@
 'use client';
 
-import ModalContext from '@/context/modal-context';
-import * as React from 'react';
-import AuthContainer from '../auth/auth-container';
-import BookModal from '../book-finder/book-modal';
-import BookTalble from '../book-finder';
-import FloatingHeader from '../floating';
-import Header from '../app-bar';
+import useModalStore from '@/store/modal';
 import { ToastContainer } from 'react-toastify';
+import FloatingHeader from '../floating';
+import useBookStore from '@/store/book';
+import Header from '@/views/app-bar';
+import { Core } from '../core';
+import useGetUser from '@/views/setting/hooks/use-get-user';
+import { Suspense } from 'react';
+
+export type RequestCookie = {
+  name: string;
+  value: string;
+};
 
 interface PageLayoutProps {
   children: React.ReactNode;
+  token?: RequestCookie | undefined;
 }
 
-function PageLayout({ children }: PageLayoutProps) {
-  const { BookIsClose, SetBookIsClose, IsClose, SetIsClose, mode, SetMode } =
-    React.useContext(ModalContext);
+function PageLayout({ children, token }: PageLayoutProps) {
+  const { isClose, setClose, setMode } = useModalStore();
+  const { isSearchBook, setIsSearchBook } = useBookStore();
+  const { getUser } = useGetUser();
 
   return (
     <div className="h-full mxl:px-4">
-      <AuthContainer IsClose={IsClose} SetIsClose={SetIsClose} mode={mode} />
-      <BookModal visible={BookIsClose} onClose={SetBookIsClose}>
-        <BookTalble />
-      </BookModal>
       <ToastContainer />
-      <FloatingHeader
-        IsClose={IsClose}
-        SetIsClose={SetIsClose}
-        SetMode={SetMode}
-        BookIsClose={BookIsClose}
-        SetBookIsClose={SetBookIsClose}
-      />
-
-      <Header
-        IsClose={IsClose}
-        SetIsClose={SetIsClose}
-        SetMode={SetMode}
-        BookIsClose={BookIsClose}
-        SetBookIsClose={SetBookIsClose}
-      />
+      <Suspense>
+        <FloatingHeader
+          token={token}
+          IsClose={isClose}
+          SetIsClose={setClose}
+          SetMode={setMode}
+          BookIsClose={isSearchBook}
+          SetBookClose={setIsSearchBook}
+          getUser={getUser}
+        />
+        <Header
+          getUser={getUser}
+          token={token}
+          IsClose={isClose}
+          SetIsClose={setClose}
+          SetMode={setMode}
+          BookIsClose={isSearchBook}
+          SetBookClose={setIsSearchBook}
+        />
+      </Suspense>
       <main>{children}</main>
     </div>
   );

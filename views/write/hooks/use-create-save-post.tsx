@@ -1,0 +1,226 @@
+'use client';
+
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { toast } from 'react-toastify';
+import { useDebouncedCallback } from 'use-debounce';
+import {
+  Create_Post,
+  Edit_Post,
+  GET_Posts,
+  Remove_Post,
+} from '../../../lib/graphql/posts';
+import {
+  CreatePostMutation,
+  EditPostMutation,
+  RemovePostMutation,
+} from '../../../types/apolloComponent';
+import useBookStore, { BookData } from '@/store/book';
+import { useAuthStore } from '@/store/auth';
+
+export default function useCreateSavePost() {
+  const auth = useAuthStore(state => state.auth);
+
+  const { setPostId } = useBookStore(state => ({
+    postId: state.postId,
+    setPostId: state.setPostId,
+  }));
+
+  const [writePost] = useMutation<CreatePostMutation>(Create_Post, {});
+  const [removePost] = useMutation<RemovePostMutation>(Remove_Post);
+  const [editPost] = useMutation<EditPostMutation>(Edit_Post, {});
+  const client = useApolloClient();
+
+  const { data, loading, refetch } = useQuery(GET_Posts, {
+    variables: {
+      username: auth?.username,
+      istemp: true,
+    },
+    skip: !auth,
+  });
+
+  const posts = data?.posts;
+
+  const ConfirmSave = async (
+    id: string | null,
+    title: string,
+    body: string,
+    tags: string[],
+    book: any,
+  ) => {
+    if (!title) {
+      toast.error('제목 또는 내용이 비어있습니다.', {
+        position: 'bottom-right',
+      });
+      return;
+    }
+
+    if (!id) {
+      try {
+        writePost({
+          variables: {
+            id: id,
+            title,
+            body,
+            tags: tags,
+            is_temp: true,
+            bookTitle: book?.title,
+            bookContent: book?.description,
+            bookUrl: book?.cover,
+            bookIsbn: book?.isbn,
+            bookAuthors: book?.author,
+            publisher: book.publisher,
+            pubDate: book.pubDate,
+            customerReviewRank: book.customerReviewRank,
+            priceStandard: book.priceStandard,
+            categoryName: book.categoryName,
+            categoryId: book.categoryId,
+          },
+
+          update: async (proxy, { data: createPost }) => {
+            if (createPost && createPost.createPost && createPost.createPost.id) {
+              setPostId(createPost.createPost.id);
+            }
+
+            proxy?.writeQuery({
+              query: GET_Posts,
+              variables: {
+                username: auth?.username,
+                istemp: true,
+              },
+              data: {
+                posts: [createPost?.createPost, ...posts],
+              },
+            });
+          },
+        });
+
+        toast.success('포스트 저장 성공', {
+          position: 'bottom-right',
+        });
+      } catch (e) {
+        toast.error('포스트 저장 실패', {
+          position: 'bottom-right',
+        });
+      }
+    } else if (id && posts?.length !== 0) {
+      try {
+        await editPost({
+          variables: {
+            id: id,
+            title,
+            body,
+            tags: tags,
+            is_temp: true,
+            bookTitle: book?.title,
+            bookContent: book?.description,
+            bookUrl: book?.cover,
+            bookIsbn: book?.isbn,
+            bookAuthors: book?.author,
+            publisher: book.publisher,
+            pubDate: book.pubDate,
+            customerReviewRank: book.customerReviewRank,
+            priceStandard: book.priceStandard,
+            categoryName: book.categoryName,
+            categoryId: book.categoryId,
+          },
+
+          update: async (proxy, { data: editPost }) => {
+            await refetch();
+          },
+        });
+
+        toast.success('포스트 저장 성공', {
+          position: 'bottom-right',
+        });
+      } catch (e) {
+        toast.error('포스트 저장 실패', {
+          position: 'bottom-right',
+        });
+      }
+    } else if (id && posts?.length == 0) {
+      try {
+        await writePost({
+          variables: {
+            id: id,
+            title,
+            body,
+            tags: tags,
+            is_temp: true,
+            bookTitle: book?.title,
+            bookContent: book?.description,
+            bookUrl: book?.cover,
+            bookIsbn: book?.isbn,
+            bookAuthors: book?.author,
+            publisher: book.publisher,
+            pubDate: book.pubDate,
+            customerReviewRank: book.customerReviewRank,
+            priceStandard: book.priceStandard,
+            categoryName: book.categoryName,
+            categoryId: book.categoryId,
+          },
+
+          update: async (proxy, { data: createPost }) => {
+            if (createPost && createPost.createPost && createPost.createPost.id) {
+              setPostId(createPost.createPost.id);
+            }
+
+            proxy?.writeQuery({
+              query: GET_Posts,
+              variables: {
+                username: auth?.username,
+                istemp: true,
+              },
+              data: {
+                posts: [createPost?.createPost, ...posts],
+              },
+            });
+          },
+        });
+        toast.success('포스트 저장 성공', {
+          position: 'bottom-right',
+        });
+      } catch (e) {
+        toast.error('포스트 저장 실패', {
+          position: 'bottom-right',
+        });
+      }
+    }
+  };
+
+  const onConfirmRemove = async (id: string) => {
+    if (!id) return;
+    try {
+      await removePost({
+        variables: {
+          id: id,
+        },
+      });
+      client.writeQuery({
+        query: GET_Posts,
+        variables: {
+          username: auth?.username,
+          istemp: true,
+        },
+        data: {
+          posts: data.posts.filter((p: { id: string }) => p.id !== id),
+        },
+      });
+      toast.success('포스트가 삭제되었습니다.', {
+        position: 'bottom-right',
+      });
+    } catch (e) {
+      toast.error('포스트 삭제 실패', {
+        position: 'bottom-right',
+      });
+    }
+  };
+
+  const onConfirmSave = useDebouncedCallback(ConfirmSave, 200);
+
+  return {
+    onConfirmRemove,
+    onConfirmSave,
+    posts,
+    loading,
+  };
+}

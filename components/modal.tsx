@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 interface ModalProps {
   visible?: boolean;
-  onClose?: (visible: any) => void;
+  onClose?: (visible: boolean) => void;
   children?: React.ReactNode;
   className: string;
 }
@@ -50,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) 
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed left-0 top-0 z-[1000] flex h-full w-full items-center justify-center bg-[#00000080]  mmx:h-full mmx:w-full mmx:flex-1 mmx:overflow-y-scroll mmx:bg-[#fff]"
+          className="fixed left-0 top-0 z-[1000] flex h-full w-full items-center justify-center bg-[#00000080] mms:h-full mms:w-full mms:flex-1 mms:overflow-y-scroll mms:bg-[#fff]"
           initial="hidden"
           animate="visible"
           exit="hidden"
@@ -60,12 +60,14 @@ const Modal: React.FC<ModalProps> = ({ visible, children, onClose, className }) 
           variants={backdropVariants}>
           <motion.div
             variants={modalVariants}
-            className={`${className} flex bg-[#fff] shadow-md dark:bg-[#1a1b1e] mmx:h-full mmx:w-auto mmx:flex-1 mmx:shadow-none`}>
-            <div className="flex flex-1 flex-col">
-              <div className="flex justify-end p-[1.5rem] mmx:mb-0">
+            className={`${className} flex bg-[#fff] shadow-md mms:h-full mms:w-auto mms:flex-1 mms:shadow-none`}>
+            <div className="flex flex-1 flex-col dark:bg-dark-500 mms:bg-[#fff]">
+              <div className="flex justify-end p-[1.5rem] mms:mb-0">
                 <MdClose onClick={closeModal} tabIndex={1} size={24} color="#868E96" />
               </div>
-              <div className="flex flex-1 flex-col">{children}</div>
+              <div className="flex flex-1 flex-col dark:bg-dark-500 mms:bg-[#fff]">
+                {children}
+              </div>
             </div>
           </motion.div>
         </motion.div>

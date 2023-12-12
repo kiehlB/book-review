@@ -1,10 +1,9 @@
 'use client';
 
+import HomeTitle from '@/views/home/home-title';
+import useGetTags from '@/views/tags/hooks/use-get-tags';
+import TagItem from '@/views/tags/tags-item';
 import React, { Suspense } from 'react';
-
-import HomeTitle from '@/components/home/home-title';
-import useGetTags from '@/components/tags/hooks/use-get-Tags';
-import TagItem from '@/components/tags/tags-item';
 
 export const dynamic = 'force-dynamic';
 

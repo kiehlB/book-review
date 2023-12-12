@@ -1,7 +1,6 @@
-import { RootState } from '@/store/rootReducer';
+import useCoreStore from '@/store/core';
 import { motion } from 'framer-motion';
 import { MouseEventHandler } from 'react';
-import { useSelector } from 'react-redux';
 
 export type MenuToggleProps = {
   toggle: MouseEventHandler<HTMLButtonElement>;
@@ -46,7 +45,7 @@ function Path(props: PathProps) {
 }
 
 function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
-  const { isdark } = useSelector((state: RootState) => state.core);
+  const { isdark } = useCoreStore();
 
   return (
     <button

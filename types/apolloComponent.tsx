@@ -1,966 +1,861 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Date: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Date: { input: any; output: any; }
 };
 
 export type CategoryInput = {
   __typename?: 'CategoryInput';
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
+export type Comments = {
+  __typename?: 'Comments';
+  created_at: Scalars['Date']['output'];
+  deleted: Scalars['Boolean']['output'];
+  has_replies: Scalars['Boolean']['output'];
+  id: Scalars['String']['output'];
+  level: Scalars['Int']['output'];
+  likedComments?: Maybe<Scalars['Boolean']['output']>;
+  likes: Scalars['Int']['output'];
+  post_id?: Maybe<Scalars['String']['output']>;
+  replies?: Maybe<Array<Maybe<Comments>>>;
+  replies_count?: Maybe<Scalars['Int']['output']>;
+  reply?: Maybe<Scalars['String']['output']>;
+  text: Scalars['String']['output'];
+  updated_at: Scalars['Date']['output'];
+  upvotes?: Maybe<Scalars['Int']['output']>;
+  user: User;
+  users?: Maybe<User>;
+};
+
+export type CommentsTypes = {
+  __typename?: 'CommentsTypes';
+  created_at?: Maybe<Scalars['Date']['output']>;
+  deleted?: Maybe<Scalars['Boolean']['output']>;
+  has_replies?: Maybe<Scalars['Boolean']['output']>;
+  id: Scalars['String']['output'];
+  level?: Maybe<Scalars['Int']['output']>;
+  likes?: Maybe<Scalars['Int']['output']>;
+  post_id?: Maybe<Scalars['String']['output']>;
+  replies?: Maybe<Array<Maybe<CommentsTypes>>>;
+  reply?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['Date']['output']>;
+  user?: Maybe<User>;
+};
 
 export type Followers = {
   __typename?: 'Followers';
-  follower_id?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['String']>;
+  follower_id?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  user_id?: Maybe<Scalars['String']['output']>;
 };
 
 export type Following = {
   __typename?: 'Following';
-  following_id?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['String']>;
+  following_id?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  user_id?: Maybe<Scalars['String']['output']>;
 };
 
 export type ImageUrl = {
   __typename?: 'ImageUrl';
-  public_id?: Maybe<Array<Maybe<Scalars['String']>>>;
-  url?: Maybe<Scalars['String']>;
+  public_id?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  commentUpvotes?: Maybe<Scalars['Boolean']>;
+  _empty?: Maybe<Scalars['String']['output']>;
+  commentUpvotes?: Maybe<Scalars['Boolean']['output']>;
+  createComments?: Maybe<Comments>;
   createPost?: Maybe<Post>;
   createPostHistory?: Maybe<Post>;
-  createProfile: UserProfile;
-  createSub?: Maybe<Sub>;
-  deleteCommentUpvote?: Maybe<Scalars['Boolean']>;
+  createProfile?: Maybe<Profile>;
+  deleteCommentUpvote?: Maybe<Scalars['Boolean']['output']>;
+  editComments?: Maybe<Comments>;
   editPost?: Maybe<Post>;
-  editSub?: Maybe<Sub>;
   likePost?: Maybe<Post>;
   login?: Maybe<User>;
-  logout?: Maybe<Scalars['Boolean']>;
-  mergeTag?: Maybe<Scalars['Boolean']>;
-  postView?: Maybe<Scalars['Boolean']>;
+  logout?: Maybe<Scalars['Boolean']['output']>;
+  mergeTag?: Maybe<Scalars['Boolean']['output']>;
+  postView?: Maybe<Scalars['Boolean']['output']>;
   register?: Maybe<User>;
-  removePost?: Maybe<Scalars['Boolean']>;
-  removeSub?: Maybe<Scalars['Boolean']>;
+  removeComments?: Maybe<Scalars['Boolean']['output']>;
+  removePost?: Maybe<Scalars['Boolean']['output']>;
   unlikePost?: Maybe<Post>;
+  unregister?: Maybe<Scalars['Boolean']['output']>;
   uploadImage?: Maybe<UploadedImage>;
 };
 
 
 export type MutationCommentUpvotesArgs = {
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationCreateCommentsArgs = {
+  comment_id?: InputMaybe<Scalars['String']['input']>;
+  post_id?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type MutationCreatePostArgs = {
-  body?: Maybe<Scalars['String']>;
-  bookAuthors?: Maybe<Array<Maybe<Scalars['String']>>>;
-  bookContent?: Maybe<Scalars['String']>;
-  bookIsbn?: Maybe<Scalars['String']>;
-  bookTitle?: Maybe<Scalars['String']>;
-  bookUrl?: Maybe<Scalars['String']>;
-  is_private?: Maybe<Scalars['Boolean']>;
-  is_temp?: Maybe<Scalars['Boolean']>;
-  postbody?: Maybe<Scalars['String']>;
-  series_id?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
-  thumbnail?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  body: Scalars['String']['input'];
+  bookAuthors?: InputMaybe<Scalars['String']['input']>;
+  bookContent?: InputMaybe<Scalars['String']['input']>;
+  bookIsbn?: InputMaybe<Scalars['String']['input']>;
+  bookTitle?: InputMaybe<Scalars['String']['input']>;
+  bookUrl?: InputMaybe<Scalars['String']['input']>;
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
+  categoryName?: InputMaybe<Scalars['String']['input']>;
+  customerReviewRank?: InputMaybe<Scalars['Int']['input']>;
+  is_private?: InputMaybe<Scalars['Boolean']['input']>;
+  is_temp?: InputMaybe<Scalars['Boolean']['input']>;
+  postbody?: InputMaybe<Scalars['String']['input']>;
+  priceStandard?: InputMaybe<Scalars['Int']['input']>;
+  pubDate?: InputMaybe<Scalars['String']['input']>;
+  publisher?: InputMaybe<Scalars['String']['input']>;
+  series_id?: InputMaybe<Scalars['String']['input']>;
+  tags: Array<InputMaybe<Scalars['String']['input']>>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
 };
 
 
 export type MutationCreatePostHistoryArgs = {
-  body?: Maybe<Scalars['String']>;
-  post_id?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  body?: InputMaybe<Scalars['String']['input']>;
+  post_id?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type MutationCreateProfileArgs = {
-  bio?: Maybe<Scalars['String']>;
-  profile_name?: Maybe<Scalars['String']>;
-  thumbnail?: Maybe<Scalars['String']>;
-};
-
-
-export type MutationCreateSubArgs = {
-  comment_id?: Maybe<Scalars['String']>;
-  post_id?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+  profile_name?: InputMaybe<Scalars['String']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  user_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type MutationDeleteCommentUpvoteArgs = {
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationEditCommentsArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type MutationEditPostArgs = {
-  body?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  is_private?: Maybe<Scalars['Boolean']>;
-  is_temp?: Maybe<Scalars['Boolean']>;
-  postbody?: Maybe<Scalars['String']>;
-  series_id?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
-  thumbnail?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-
-export type MutationEditSubArgs = {
-  id?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+  body?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  is_private?: InputMaybe<Scalars['Boolean']['input']>;
+  is_temp?: InputMaybe<Scalars['Boolean']['input']>;
+  postbody?: InputMaybe<Scalars['String']['input']>;
+  series_id?: InputMaybe<Scalars['String']['input']>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type MutationLikePostArgs = {
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 };
 
 
 export type MutationLoginArgs = {
-  password: Scalars['String'];
-  username: Scalars['String'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 
 export type MutationMergeTagArgs = {
-  merge_to?: Maybe<Scalars['String']>;
-  selected?: Maybe<Scalars['String']>;
+  merge_to?: InputMaybe<Scalars['String']['input']>;
+  selected?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type MutationPostViewArgs = {
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 };
 
 
 export type MutationRegisterArgs = {
-  password: Scalars['String'];
-  username: Scalars['String'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+
+export type MutationRemoveCommentsArgs = {
+  id: Scalars['String']['input'];
 };
 
 
 export type MutationRemovePostArgs = {
-  id?: Maybe<Scalars['String']>;
-};
-
-
-export type MutationRemoveSubArgs = {
-  id: Scalars['String'];
+  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type MutationUnlikePostArgs = {
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationUnregisterArgs = {
+  token: Scalars['String']['input'];
 };
 
 
 export type MutationUploadImageArgs = {
-  body?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-  width?: Maybe<Scalars['Int']>;
+  body?: InputMaybe<Scalars['String']['input']>;
+  height?: InputMaybe<Scalars['Int']['input']>;
+  width?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  endCursor?: Maybe<Scalars['String']['output']>;
+  hasNextPage: Scalars['Boolean']['output'];
+  hasPreviousPage: Scalars['Boolean']['output'];
+  startCursor?: Maybe<Scalars['String']['output']>;
 };
 
 export type Post = {
   __typename?: 'Post';
-  body?: Maybe<Scalars['String']>;
+  body?: Maybe<Scalars['String']['output']>;
   bookInfo?: Maybe<PostBookInfo>;
-  created_at?: Maybe<Scalars['Date']>;
-  endCursor?: Maybe<Scalars['String']>;
-  hasMore?: Maybe<Scalars['Boolean']>;
-  id?: Maybe<Scalars['String']>;
-  is_private?: Maybe<Scalars['Boolean']>;
-  is_temp?: Maybe<Scalars['Boolean']>;
-  liked?: Maybe<Scalars['Boolean']>;
-  likes?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  post_id?: Maybe<Scalars['String']>;
-  postbody?: Maybe<Scalars['String']>;
-  released_at?: Maybe<Scalars['Date']>;
-  subs?: Maybe<Array<Maybe<Sub>>>;
-  subs_count?: Maybe<Scalars['Int']>;
+  comments?: Maybe<Array<Maybe<Comments>>>;
+  comments_count?: Maybe<Scalars['Int']['output']>;
+  created_at?: Maybe<Scalars['Date']['output']>;
+  endCursor?: Maybe<Scalars['String']['output']>;
+  hasMore?: Maybe<Scalars['Boolean']['output']>;
+  id: Scalars['String']['output'];
+  is_private?: Maybe<Scalars['Boolean']['output']>;
+  is_temp?: Maybe<Scalars['Boolean']['output']>;
+  liked?: Maybe<Scalars['Boolean']['output']>;
+  likes?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  post_id?: Maybe<Scalars['String']['output']>;
+  postbody?: Maybe<Scalars['String']['output']>;
+  released_at?: Maybe<Scalars['Date']['output']>;
   tags?: Maybe<Array<Maybe<Tag>>>;
-  thumbnail?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['Date']>;
-  upvotes?: Maybe<Scalars['Int']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['Date']['output']>;
+  upvotes?: Maybe<Scalars['Int']['output']>;
+  url: Scalars['String']['output'];
   user?: Maybe<User>;
-  views?: Maybe<Scalars['Int']>;
+  views?: Maybe<Scalars['Int']['output']>;
 };
 
 export type PostBookInfo = {
   __typename?: 'PostBookInfo';
-  bookAuthors?: Maybe<Array<Maybe<Scalars['String']>>>;
-  bookContent?: Maybe<Scalars['String']>;
-  bookIsbn?: Maybe<Scalars['String']>;
-  bookTitle?: Maybe<Scalars['String']>;
-  bookUrl?: Maybe<Scalars['String']>;
+  bookAuthors?: Maybe<Scalars['String']['output']>;
+  bookContent?: Maybe<Scalars['String']['output']>;
+  bookIsbn?: Maybe<Scalars['String']['output']>;
+  bookTitle?: Maybe<Scalars['String']['output']>;
+  bookUrl?: Maybe<Scalars['String']['output']>;
+  categoryId?: Maybe<Scalars['String']['output']>;
+  categoryName?: Maybe<Scalars['String']['output']>;
+  customerReviewRank?: Maybe<Scalars['Int']['output']>;
+  id: Scalars['String']['output'];
+  post_id?: Maybe<Scalars['String']['output']>;
+  priceStandard?: Maybe<Scalars['String']['output']>;
+  pubDate?: Maybe<Scalars['String']['output']>;
+  publisher?: Maybe<Scalars['String']['output']>;
 };
 
 export type PostTag = {
   __typename?: 'PostTag';
-  name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type Profile = {
   __typename?: 'Profile';
-  bio?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['Date']>;
-  id?: Maybe<Scalars['String']>;
-  profile_name?: Maybe<Scalars['String']>;
-  thumbnail?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['Date']>;
-  user_id?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['Date']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  profile_name?: Maybe<Scalars['String']['output']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['Date']['output']>;
+  user_id?: Maybe<Scalars['String']['output']>;
+};
+
+export type ProfileArgs = {
+  __typename?: 'ProfileArgs';
+  bio?: Maybe<Scalars['String']['output']>;
+  profile_name?: Maybe<Scalars['String']['output']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  Comments?: Maybe<Array<Maybe<Comments>>>;
+  _empty?: Maybe<Scalars['String']['output']>;
+  getComments?: Maybe<Comments>;
   getImageUrl?: Maybe<ImageUrl>;
   getProfile?: Maybe<Profile>;
-  getSub?: Maybe<Sub>;
+  getSubComments?: Maybe<Array<Maybe<Comments>>>;
   post?: Maybe<Post>;
   postHistories?: Maybe<Array<Maybe<Post>>>;
   posts?: Maybe<Array<Maybe<Post>>>;
+  readHistory: ReadingHistoryConnection;
   recentPosts?: Maybe<Array<Maybe<Post>>>;
   searchPosts?: Maybe<Array<Maybe<Post>>>;
-  sub?: Maybe<Array<Maybe<Sub>>>;
-  subcomments?: Maybe<Array<Maybe<Sub>>>;
+  searchReadingHistory?: Maybe<ReadingHistoryConnection>;
   tag?: Maybe<Tag>;
   tags?: Maybe<Array<Maybe<Tag>>>;
   trendingPosts?: Maybe<Array<Maybe<Post>>>;
   user: User;
+  userMostReadTags?: Maybe<Array<Maybe<UserMostReadTag>>>;
+  userReadHistory?: Maybe<Array<Maybe<UserReadHistory>>>;
+  userReadingRank?: Maybe<UserReadingRank>;
   userTags?: Maybe<UserTags>;
   users?: Maybe<Array<Maybe<User>>>;
   whoami?: Maybe<User>;
 };
 
 
-export type QueryGetProfileArgs = {
-  user_id?: Maybe<Scalars['String']>;
+export type QueryGetCommentsArgs = {
+  comment_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type QueryGetSubArgs = {
-  comment_id?: Maybe<Scalars['String']>;
+export type QueryGetProfileArgs = {
+  user_id: Scalars['String']['input'];
+};
+
+
+export type QueryGetSubCommentsArgs = {
+  comment_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryPostArgs = {
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['String']['input'];
 };
 
 
 export type QueryPostHistoriesArgs = {
-  post_id?: Maybe<Scalars['String']>;
+  post_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryPostsArgs = {
-  cursor?: Maybe<Scalars['String']>;
-  istemp?: Maybe<Scalars['Boolean']>;
-  limit?: Maybe<Scalars['Int']>;
-  tag?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  istemp?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  tag?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryReadHistoryArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  isPublic?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryRecentPostsArgs = {
-  cursor?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QuerySearchPostsArgs = {
-  searchInput?: Maybe<Scalars['String']>;
+  searchInput?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type QuerySubcommentsArgs = {
-  comment_id?: Maybe<Scalars['String']>;
+export type QuerySearchReadingHistoryArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  query: Scalars['String']['input'];
 };
 
 
 export type QueryTagArgs = {
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
 };
 
 
 export type QueryTagsArgs = {
-  cursor?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
-  sort: Scalars['String'];
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  sort: Scalars['String']['input'];
 };
 
 
 export type QueryTrendingPostsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  timeframe?: Maybe<Scalars['String']>;
+  from?: InputMaybe<Scalars['Date']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  timeframe?: InputMaybe<Scalars['String']['input']>;
+  to?: InputMaybe<Scalars['Date']['input']>;
 };
 
 
 export type QueryUserArgs = {
-  id?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryUserMostReadTagsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryUserReadHistoryArgs = {
+  after: Scalars['String']['input'];
+  before: Scalars['String']['input'];
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryUserReadingRankArgs = {
+  id: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  version?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryUserTagsArgs = {
-  username?: Maybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type Sub = {
-  __typename?: 'Sub';
-  created_at?: Maybe<Scalars['Date']>;
-  deleted?: Maybe<Scalars['Boolean']>;
-  has_replies?: Maybe<Scalars['Boolean']>;
-  id: Scalars['String'];
-  level?: Maybe<Scalars['Int']>;
-  likedSub?: Maybe<Scalars['Boolean']>;
-  likes?: Maybe<Scalars['Int']>;
-  post_id?: Maybe<Scalars['String']>;
-  replies?: Maybe<Array<Maybe<Sub>>>;
-  replies_count?: Maybe<Scalars['Int']>;
-  reply?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['Date']>;
-  upvotes?: Maybe<Scalars['Int']>;
-  user?: Maybe<User>;
-  users?: Maybe<User>;
+export type ReadingHistory = {
+  __typename?: 'ReadingHistory';
+  post: Post;
+  timestamp: Scalars['Date']['output'];
+  timestampDb: Scalars['Date']['output'];
+};
+
+export type ReadingHistoryConnection = {
+  __typename?: 'ReadingHistoryConnection';
+  edges: Array<Maybe<ReadingHistoryEdge>>;
+  pageInfo: PageInfo;
+};
+
+export type ReadingHistoryEdge = {
+  __typename?: 'ReadingHistoryEdge';
+  cursor: Scalars['String']['output'];
+  node: ReadingHistory;
+};
+
+export type SearchReadingHistorySuggestion = {
+  __typename?: 'SearchReadingHistorySuggestion';
+  title: Scalars['String']['output'];
+};
+
+export type SearchReadingHistorySuggestionsResults = {
+  __typename?: 'SearchReadingHistorySuggestionsResults';
+  hits: Array<SearchReadingHistorySuggestion>;
+  query: Scalars['String']['output'];
 };
 
 export type Tag = {
   __typename?: 'Tag';
-  created_at?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  post_id?: Maybe<Scalars['String']>;
-  posts_count?: Maybe<Scalars['Int']>;
+  created_at?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  post_id?: Maybe<Scalars['String']['output']>;
+  posts_count?: Maybe<Scalars['Int']['output']>;
   tag?: Maybe<PostTag>;
-  thumbnail?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
 };
 
 export type TagInput = {
   __typename?: 'TagInput';
-  tag_name: Scalars['String'];
+  tag_name: Scalars['String']['output'];
 };
 
 export type TransformImageOptionsInput = {
   __typename?: 'TransformImageOptionsInput';
-  crop?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-  width?: Maybe<Scalars['Int']>;
+  crop?: Maybe<Scalars['String']['output']>;
+  height?: Maybe<Scalars['Int']['output']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 export type UploadOptionsInput = {
   __typename?: 'UploadOptionsInput';
-  access_mode?: Maybe<Scalars['String']>;
-  auto_tagging?: Maybe<Scalars['Boolean']>;
+  access_mode?: Maybe<Scalars['String']['output']>;
+  auto_tagging?: Maybe<Scalars['Boolean']['output']>;
   categorization?: Maybe<Array<Maybe<CategoryInput>>>;
-  cinemegraph_analysis?: Maybe<Scalars['Boolean']>;
-  colors?: Maybe<Scalars['Boolean']>;
-  discard_original_filename?: Maybe<Scalars['Boolean']>;
-  faces?: Maybe<Scalars['Boolean']>;
-  folder?: Maybe<Scalars['String']>;
-  image_metadata?: Maybe<Scalars['Boolean']>;
-  overwrite?: Maybe<Scalars['Boolean']>;
-  phash?: Maybe<Scalars['Boolean']>;
-  public_id?: Maybe<Scalars['String']>;
-  quality_analysis?: Maybe<Scalars['Boolean']>;
-  resource_type?: Maybe<Scalars['String']>;
+  cinemegraph_analysis?: Maybe<Scalars['Boolean']['output']>;
+  colors?: Maybe<Scalars['Boolean']['output']>;
+  discard_original_filename?: Maybe<Scalars['Boolean']['output']>;
+  faces?: Maybe<Scalars['Boolean']['output']>;
+  folder?: Maybe<Scalars['String']['output']>;
+  image_metadata?: Maybe<Scalars['Boolean']['output']>;
+  overwrite?: Maybe<Scalars['Boolean']['output']>;
+  phash?: Maybe<Scalars['Boolean']['output']>;
+  public_id?: Maybe<Scalars['String']['output']>;
+  quality_analysis?: Maybe<Scalars['Boolean']['output']>;
+  resource_type?: Maybe<Scalars['String']['output']>;
   tags?: Maybe<Array<Maybe<TagInput>>>;
-  type?: Maybe<Scalars['String']>;
-  unique_filename?: Maybe<Scalars['Boolean']>;
-  use_filename?: Maybe<Scalars['Boolean']>;
+  type?: Maybe<Scalars['String']['output']>;
+  unique_filename?: Maybe<Scalars['Boolean']['output']>;
+  use_filename?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UploadedImage = {
   __typename?: 'UploadedImage';
-  bytes: Scalars['Int'];
-  created_at: Scalars['String'];
-  etag: Scalars['String'];
-  format: Scalars['String'];
-  height: Scalars['Int'];
-  original_filename: Scalars['String'];
-  public_id: Scalars['String'];
-  resource_type: Scalars['String'];
-  secure_url: Scalars['String'];
-  signature: Scalars['String'];
+  bytes: Scalars['Int']['output'];
+  created_at: Scalars['String']['output'];
+  etag: Scalars['String']['output'];
+  format: Scalars['String']['output'];
+  height: Scalars['Int']['output'];
+  original_filename: Scalars['String']['output'];
+  public_id: Scalars['String']['output'];
+  resource_type: Scalars['String']['output'];
+  secure_url: Scalars['String']['output'];
+  signature: Scalars['String']['output'];
   tags: Array<Maybe<Tag>>;
-  type: Scalars['String'];
-  url: Scalars['String'];
-  version: Scalars['String'];
-  width: Scalars['Int'];
+  type: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+  version: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
 };
 
 export type User = {
   __typename?: 'User';
-  accessToken?: Maybe<Scalars['String']>;
+  accessToken?: Maybe<Scalars['String']['output']>;
   auth?: Maybe<Array<Maybe<User>>>;
-  created_at?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']['output']>;
   follower?: Maybe<Followers>;
-  id?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
+  id: Scalars['String']['output'];
+  is_certified: Scalars['Boolean']['output'];
+  password?: Maybe<Scalars['String']['output']>;
   profile?: Maybe<UserProfile>;
-  refreshToken?: Maybe<Scalars['String']>;
-  tokenVersion?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-  username_verified?: Maybe<Scalars['Boolean']>;
+  refreshToken?: Maybe<Scalars['String']['output']>;
+  timezone?: Maybe<Scalars['String']['output']>;
+  tokenVersion?: Maybe<Scalars['String']['output']>;
+  username?: Maybe<Scalars['String']['output']>;
+  username_verified?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type UserMostReadTag = {
+  __typename?: 'UserMostReadTag';
+  count: Scalars['Int']['output'];
+  percentage?: Maybe<Scalars['Float']['output']>;
+  total?: Maybe<Scalars['Int']['output']>;
+  value: Scalars['String']['output'];
 };
 
 export type UserProfile = {
   __typename?: 'UserProfile';
-  bio?: Maybe<Scalars['String']>;
-  created_at?: Maybe<Scalars['Date']>;
-  id?: Maybe<Scalars['String']>;
-  profile_name?: Maybe<Scalars['String']>;
-  thumbnail?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['Date']>;
-  user_id?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['Date']['output']>;
+  id: Scalars['String']['output'];
+  profile_name?: Maybe<Scalars['String']['output']>;
+  thumbnail?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['Date']['output']>;
+  user_id?: Maybe<Scalars['String']['output']>;
+};
+
+export type UserReadHistory = {
+  __typename?: 'UserReadHistory';
+  date: Scalars['String']['output'];
+  reads: Scalars['Int']['output'];
+};
+
+export type UserReadingRank = {
+  __typename?: 'UserReadingRank';
+  currentRank: Scalars['Int']['output'];
+  lastReadTime?: Maybe<Scalars['Date']['output']>;
+  progressThisWeek?: Maybe<Scalars['Int']['output']>;
+  rankLastWeek?: Maybe<Scalars['Int']['output']>;
+  rankThisWeek?: Maybe<Scalars['Int']['output']>;
+  readToday?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type UserTags = {
   __typename?: 'UserTags';
-  posts_count?: Maybe<Scalars['Int']>;
+  posts_count?: Maybe<Scalars['Int']['output']>;
   tags?: Maybe<Array<Maybe<Tag>>>;
 };
 
-export type CreateSubMutationVariables = Exact<{
-  post_id: Scalars['String'];
-  text: Scalars['String'];
-  comment_id?: Maybe<Scalars['String']>;
+export type CreateCommentsMutationVariables = Exact<{
+  post_id: Scalars['String']['input'];
+  text: Scalars['String']['input'];
+  comment_id?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type CreateSubMutation = (
-  { __typename?: 'Mutation' }
-  & { createSub?: Maybe<(
-    { __typename?: 'Sub' }
-    & Pick<Sub, 'id'>
-  )> }
-);
+export type CreateCommentsMutation = { __typename?: 'Mutation', createComments?: { __typename?: 'Comments', id: string, level: number } | null };
 
-export type RemoveSubMutationVariables = Exact<{
-  id: Scalars['String'];
+export type RemoveCommentsMutationVariables = Exact<{
+  id: Scalars['String']['input'];
 }>;
 
 
-export type RemoveSubMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'removeSub'>
-);
+export type RemoveCommentsMutation = { __typename?: 'Mutation', removeComments?: boolean | null };
 
-export type EditSubMutationVariables = Exact<{
-  id: Scalars['String'];
-  text: Scalars['String'];
+export type GetCommentsCountQueryVariables = Exact<{
+  id: Scalars['String']['input'];
 }>;
 
 
-export type EditSubMutation = (
-  { __typename?: 'Mutation' }
-  & { editSub?: Maybe<(
-    { __typename?: 'Sub' }
-    & Pick<Sub, 'id' | 'text' | 'level' | 'updated_at' | 'created_at'>
-  )> }
-);
+export type GetCommentsCountQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, comments_count?: number | null } | null };
 
-export type GetSubQueryVariables = Exact<{
-  comment_id: Scalars['String'];
+export type EditCommentsMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  text: Scalars['String']['input'];
 }>;
 
 
-export type GetSubQuery = (
-  { __typename?: 'Query' }
-  & { getSub?: Maybe<(
-    { __typename?: 'Sub' }
-    & Pick<Sub, 'id' | 'text' | 'likes' | 'has_replies' | 'deleted' | 'upvotes' | 'likedSub' | 'level' | 'reply' | 'created_at' | 'updated_at' | 'replies_count'>
-    & { users?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, replies?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text' | 'level' | 'updated_at' | 'upvotes'>
-      & { user?: Maybe<(
-        { __typename?: 'User' }
-        & Pick<User, 'id' | 'username'>
-        & { profile?: Maybe<(
-          { __typename?: 'UserProfile' }
-          & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
-        )> }
-      )> }
-    )>>> }
-  )> }
-);
+export type EditCommentsMutation = { __typename?: 'Mutation', editComments?: { __typename?: 'Comments', id: string, text: string, level: number, updated_at: any, created_at: any } | null };
+
+export type GetSubCommentsQueryVariables = Exact<{
+  comment_id: Scalars['String']['input'];
+}>;
+
+
+export type GetSubCommentsQuery = { __typename?: 'Query', getSubComments?: Array<{ __typename?: 'Comments', id: string, text: string, likes: number, has_replies: boolean, deleted: boolean, upvotes?: number | null, likedComments?: boolean | null, level: number, reply?: string | null, created_at: any, updated_at: any, replies_count?: number | null, users?: { __typename?: 'User', id: string, username?: string | null } | null, replies?: Array<{ __typename?: 'Comments', id: string, text: string, level: number, updated_at: any, created_at: any, has_replies: boolean, replies_count?: number | null, upvotes?: number | null, users?: { __typename?: 'User', id: string, username?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, thumbnail?: string | null } | null } | null } | null> | null } | null> | null };
 
 export type CommentUpvotesMutationVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type CommentUpvotesMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'commentUpvotes'>
-);
+export type CommentUpvotesMutation = { __typename?: 'Mutation', commentUpvotes?: boolean | null };
 
 export type DeleteCommentUpvoteMutationVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type DeleteCommentUpvoteMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'deleteCommentUpvote'>
-);
+export type DeleteCommentUpvoteMutation = { __typename?: 'Mutation', deleteCommentUpvote?: boolean | null };
 
 export type GetPostQueryVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type GetPostQuery = (
-  { __typename?: 'Query' }
-  & { post?: Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'subs_count' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
-    & { tags?: Maybe<Array<Maybe<(
-      { __typename?: 'Tag' }
-      & { tag?: Maybe<(
-        { __typename?: 'PostTag' }
-        & Pick<PostTag, 'name'>
-      )> }
-    )>>>, bookInfo?: Maybe<(
-      { __typename?: 'PostBookInfo' }
-      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
-    )>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-      & { profile?: Maybe<(
-        { __typename?: 'UserProfile' }
-        & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
-      )> }
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text' | 'likes' | 'has_replies' | 'deleted' | 'level' | 'reply' | 'created_at' | 'updated_at' | 'upvotes' | 'replies_count'>
-      & { replies?: Maybe<Array<Maybe<(
-        { __typename?: 'Sub' }
-        & Pick<Sub, 'id' | 'text' | 'updated_at'>
-      )>>>, user?: Maybe<(
-        { __typename?: 'User' }
-        & Pick<User, 'id' | 'username'>
-        & { profile?: Maybe<(
-          { __typename?: 'UserProfile' }
-          & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
-        )> }
-      )> }
-    )>>> }
-  )> }
-);
+export type GetPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title?: string | null, body?: string | null, postbody?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, tags?: Array<{ __typename?: 'Tag', tag?: { __typename?: 'PostTag', name?: string | null } | null } | null> | null, bookInfo?: { __typename?: 'PostBookInfo', bookTitle?: string | null, bookContent?: string | null, bookUrl?: string | null, bookIsbn?: string | null, bookAuthors?: string | null } | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string, likes: number, has_replies: boolean, deleted: boolean, level: number, reply?: string | null, created_at: any, updated_at: any, upvotes?: number | null, replies_count?: number | null, user: { __typename?: 'User', id: string, username?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, thumbnail?: string | null } | null }, replies?: Array<{ __typename?: 'Comments', id: string, text: string, has_replies: boolean, created_at: any, updated_at: any } | null> | null } | null> | null } | null };
 
 export type GetPostsQueryVariables = Exact<{
-  cursor?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-  istemp?: Maybe<Scalars['Boolean']>;
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
+  istemp?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
 
-export type GetPostsQuery = (
-  { __typename?: 'Query' }
-  & { posts?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { tags?: Maybe<Array<Maybe<(
-      { __typename?: 'Tag' }
-      & { tag?: Maybe<(
-        { __typename?: 'PostTag' }
-        & Pick<PostTag, 'name'>
-      )> }
-    )>>>, bookInfo?: Maybe<(
-      { __typename?: 'PostBookInfo' }
-      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
-    )>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
-    )>>> }
-  )>>> }
-);
+export type GetPostsQuery = { __typename?: 'Query', posts?: Array<{ __typename?: 'Post', id: string, title?: string | null, body?: string | null, postbody?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, tags?: Array<{ __typename?: 'Tag', tag?: { __typename?: 'PostTag', name?: string | null } | null } | null> | null, bookInfo?: { __typename?: 'PostBookInfo', bookTitle?: string | null, bookContent?: string | null, bookUrl?: string | null, bookIsbn?: string | null, bookAuthors?: string | null } | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null> | null };
 
 export type RecentPostsQueryVariables = Exact<{
-  cursor?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type RecentPostsQuery = (
-  { __typename?: 'Query' }
-  & { recentPosts?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'postbody' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { bookInfo?: Maybe<(
-      { __typename?: 'PostBookInfo' }
-      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
-    )>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
-    )>>> }
-  )>>> }
-);
+export type RecentPostsQuery = { __typename?: 'Query', recentPosts?: Array<{ __typename?: 'Post', id: string, title?: string | null, body?: string | null, postbody?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, tags?: Array<{ __typename?: 'Tag', tag?: { __typename?: 'PostTag', name?: string | null } | null } | null> | null, bookInfo?: { __typename?: 'PostBookInfo', bookTitle?: string | null, bookContent?: string | null, bookUrl?: string | null, bookIsbn?: string | null, bookAuthors?: string | null } | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null> | null };
 
 export type TrendingPostsQueryVariables = Exact<{
-  offset?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  timeframe?: Maybe<Scalars['String']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  timeframe?: InputMaybe<Scalars['String']['input']>;
+  from?: InputMaybe<Scalars['Date']['input']>;
+  to?: InputMaybe<Scalars['Date']['input']>;
 }>;
 
 
-export type TrendingPostsQuery = (
-  { __typename?: 'Query' }
-  & { trendingPosts?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'thumbnail' | 'likes' | 'postbody' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { bookInfo?: Maybe<(
-      { __typename?: 'PostBookInfo' }
-      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
-    )>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
-    )>>> }
-  )>>> }
-);
+export type TrendingPostsQuery = { __typename?: 'Query', trendingPosts?: Array<{ __typename?: 'Post', id: string, title?: string | null, thumbnail?: string | null, likes?: number | null, postbody?: string | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, bookInfo?: { __typename?: 'PostBookInfo', bookTitle?: string | null, bookContent?: string | null, bookUrl?: string | null, bookIsbn?: string | null, bookAuthors?: string | null } | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null> | null };
 
 export type CreatePostMutationVariables = Exact<{
-  body: Scalars['String'];
-  title: Scalars['String'];
-  thumbnail?: Maybe<Scalars['String']>;
-  postbody?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
-  is_temp?: Maybe<Scalars['Boolean']>;
-  is_private?: Maybe<Scalars['Boolean']>;
-  bookTitle?: Maybe<Scalars['String']>;
-  bookContent?: Maybe<Scalars['String']>;
-  bookUrl?: Maybe<Scalars['String']>;
-  bookIsbn?: Maybe<Scalars['String']>;
-  bookAuthors?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+  title: Scalars['String']['input'];
+  body: Scalars['String']['input'];
+  postbody?: InputMaybe<Scalars['String']['input']>;
+  tags: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+  is_temp?: InputMaybe<Scalars['Boolean']['input']>;
+  is_private?: InputMaybe<Scalars['Boolean']['input']>;
+  series_id?: InputMaybe<Scalars['String']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  bookTitle?: InputMaybe<Scalars['String']['input']>;
+  bookContent?: InputMaybe<Scalars['String']['input']>;
+  bookUrl?: InputMaybe<Scalars['String']['input']>;
+  bookIsbn?: InputMaybe<Scalars['String']['input']>;
+  bookAuthors?: InputMaybe<Scalars['String']['input']>;
+  publisher?: InputMaybe<Scalars['String']['input']>;
+  pubDate?: InputMaybe<Scalars['String']['input']>;
+  customerReviewRank?: InputMaybe<Scalars['Int']['input']>;
+  priceStandard?: InputMaybe<Scalars['Int']['input']>;
+  categoryName?: InputMaybe<Scalars['String']['input']>;
+  categoryId?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type CreatePostMutation = (
-  { __typename?: 'Mutation' }
-  & { createPost?: Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'postbody' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
-    & { bookInfo?: Maybe<(
-      { __typename?: 'PostBookInfo' }
-      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
-    )>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )> }
-  )> }
-);
+export type CreatePostMutation = { __typename?: 'Mutation', createPost?: { __typename?: 'Post', id: string, title?: string | null, body?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, postbody?: string | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, bookInfo?: { __typename?: 'PostBookInfo', bookTitle?: string | null, bookContent?: string | null, bookUrl?: string | null, bookIsbn?: string | null, bookAuthors?: string | null } | null, user?: { __typename?: 'User', id: string, username?: string | null } | null } | null };
 
 export type ReloadCommentsQueryVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type ReloadCommentsQuery = (
-  { __typename?: 'Query' }
-  & { post?: Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'subs_count' | 'released_at' | 'created_at' | 'updated_at' | 'liked'>
-    & { bookInfo?: Maybe<(
-      { __typename?: 'PostBookInfo' }
-      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
-    )>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text' | 'updated_at'>
-    )>>> }
-  )> }
-);
+export type ReloadCommentsQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title?: string | null, body?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, comments_count?: number | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, bookInfo?: { __typename?: 'PostBookInfo', bookTitle?: string | null, bookContent?: string | null, bookUrl?: string | null, bookIsbn?: string | null, bookAuthors?: string | null } | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null };
 
 export type SearchPostsQueryVariables = Exact<{
-  searchInput?: Maybe<Scalars['String']>;
+  searchInput?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type SearchPostsQuery = (
-  { __typename?: 'Query' }
-  & { searchPosts?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { bookInfo?: Maybe<(
-      { __typename?: 'PostBookInfo' }
-      & Pick<PostBookInfo, 'bookTitle' | 'bookContent' | 'bookUrl' | 'bookIsbn' | 'bookAuthors'>
-    )>, user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
-    )>>> }
-  )>>> }
-);
+export type SearchPostsQuery = { __typename?: 'Query', searchPosts?: Array<{ __typename?: 'Post', id: string, title?: string | null, body?: string | null, postbody?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, bookInfo?: { __typename?: 'PostBookInfo', bookTitle?: string | null, bookContent?: string | null, bookUrl?: string | null, bookIsbn?: string | null, bookAuthors?: string | null } | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null> | null };
 
 export type EditPostMutationVariables = Exact<{
-  id: Scalars['String'];
-  title?: Maybe<Scalars['String']>;
-  body?: Maybe<Scalars['String']>;
-  thumbnail?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
-  is_temp?: Maybe<Scalars['Boolean']>;
-  is_private?: Maybe<Scalars['Boolean']>;
+  id: Scalars['String']['input'];
+  title?: InputMaybe<Scalars['String']['input']>;
+  body?: InputMaybe<Scalars['String']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
+  is_temp?: InputMaybe<Scalars['Boolean']['input']>;
+  is_private?: InputMaybe<Scalars['Boolean']['input']>;
+  postbody?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type EditPostMutation = (
-  { __typename?: 'Mutation' }
-  & { editPost?: Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
-    )>>> }
-  )> }
-);
+export type EditPostMutation = { __typename?: 'Mutation', editPost?: { __typename?: 'Post', id: string, title?: string | null, body?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null };
 
 export type RemovePostMutationVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type RemovePostMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'removePost'>
-);
+export type RemovePostMutation = { __typename?: 'Mutation', removePost?: boolean | null };
 
 export type LikePostMutationVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type LikePostMutation = (
-  { __typename?: 'Mutation' }
-  & { likePost?: Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
-    )>>> }
-  )> }
-);
+export type LikePostMutation = { __typename?: 'Mutation', likePost?: { __typename?: 'Post', id: string, title?: string | null, body?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null };
 
 export type UnlikePostMutationVariables = Exact<{
-  id: Scalars['String'];
+  id: Scalars['String']['input'];
 }>;
 
 
-export type UnlikePostMutation = (
-  { __typename?: 'Mutation' }
-  & { unlikePost?: Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'body' | 'thumbnail' | 'likes' | 'views' | 'is_temp' | 'is_private' | 'released_at' | 'created_at' | 'updated_at' | 'liked' | 'subs_count'>
-    & { user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'username'>
-    )>, subs?: Maybe<Array<Maybe<(
-      { __typename?: 'Sub' }
-      & Pick<Sub, 'id' | 'text'>
-    )>>> }
-  )> }
-);
+export type UnlikePostMutation = { __typename?: 'Mutation', unlikePost?: { __typename?: 'Post', id: string, title?: string | null, body?: string | null, thumbnail?: string | null, likes?: number | null, views?: number | null, is_temp?: boolean | null, is_private?: boolean | null, released_at?: any | null, created_at?: any | null, updated_at?: any | null, liked?: boolean | null, comments_count?: number | null, user?: { __typename?: 'User', id: string, username?: string | null } | null, comments?: Array<{ __typename?: 'Comments', id: string, text: string } | null> | null } | null };
 
 export type UploadImageToCloudinaryMutationVariables = Exact<{
-  body: Scalars['String'];
-  width: Scalars['Int'];
-  height: Scalars['Int'];
+  body: Scalars['String']['input'];
+  width: Scalars['Int']['input'];
+  height: Scalars['Int']['input'];
 }>;
 
 
-export type UploadImageToCloudinaryMutation = (
-  { __typename?: 'Mutation' }
-  & { uploadImage?: Maybe<(
-    { __typename?: 'UploadedImage' }
-    & Pick<UploadedImage, 'public_id' | 'url'>
-  )> }
-);
+export type UploadImageToCloudinaryMutation = { __typename?: 'Mutation', uploadImage?: { __typename?: 'UploadedImage', public_id: string, url: string } | null };
+
+export type PostViewMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type PostViewMutation = { __typename?: 'Mutation', postView?: boolean | null };
 
 export type CreateProfileMutationVariables = Exact<{
-  bio?: Maybe<Scalars['String']>;
-  profile_name?: Maybe<Scalars['String']>;
-  thumbnail?: Maybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+  profile_name?: InputMaybe<Scalars['String']['input']>;
+  thumbnail?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type CreateProfileMutation = (
-  { __typename?: 'Mutation' }
-  & { createProfile: (
-    { __typename?: 'UserProfile' }
-    & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail' | 'created_at' | 'updated_at'>
-  ) }
-);
+export type CreateProfileMutation = { __typename?: 'Mutation', createProfile?: { __typename?: 'Profile', id?: string | null, bio?: string | null, profile_name?: string | null, thumbnail?: string | null, created_at?: any | null, updated_at?: any | null } | null };
 
 export type GetProfileQueryVariables = Exact<{
-  user_id?: Maybe<Scalars['String']>;
+  user_id: Scalars['String']['input'];
 }>;
 
 
-export type GetProfileQuery = (
-  { __typename?: 'Query' }
-  & { getProfile?: Maybe<(
-    { __typename?: 'Profile' }
-    & Pick<Profile, 'id' | 'bio' | 'profile_name' | 'thumbnail' | 'created_at' | 'updated_at'>
-  )> }
-);
+export type GetProfileQuery = { __typename?: 'Query', getProfile?: { __typename?: 'Profile', id?: string | null, bio?: string | null, profile_name?: string | null, thumbnail?: string | null, created_at?: any | null, updated_at?: any | null } | null };
 
 export type TagsQueryVariables = Exact<{
-  sort: Scalars['String'];
+  sort: Scalars['String']['input'];
 }>;
 
 
-export type TagsQuery = (
-  { __typename?: 'Query' }
-  & { tags?: Maybe<Array<Maybe<(
-    { __typename?: 'Tag' }
-    & Pick<Tag, 'id' | 'name' | 'posts_count'>
-  )>>> }
-);
+export type TagsQuery = { __typename?: 'Query', tags?: Array<{ __typename?: 'Tag', id: string, name?: string | null, posts_count?: number | null } | null> | null };
 
 export type LoginMutationVariables = Exact<{
-  username: Scalars['String'];
-  password: Scalars['String'];
+  username: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 }>;
 
 
-export type LoginMutation = (
-  { __typename?: 'Mutation' }
-  & { login?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username' | 'accessToken' | 'refreshToken'>
-    & { profile?: Maybe<(
-      { __typename?: 'UserProfile' }
-      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
-    )> }
-  )> }
-);
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: string, username?: string | null, accessToken?: string | null, refreshToken?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, thumbnail?: string | null } | null } | null };
 
 export type RegisterMutationVariables = Exact<{
-  username: Scalars['String'];
-  password: Scalars['String'];
+  username: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 }>;
 
 
-export type RegisterMutation = (
-  { __typename?: 'Mutation' }
-  & { register?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username' | 'accessToken' | 'refreshToken'>
-    & { profile?: Maybe<(
-      { __typename?: 'UserProfile' }
-      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'thumbnail'>
-    )> }
-  )> }
-);
+export type RegisterMutation = { __typename?: 'Mutation', register?: { __typename?: 'User', id: string, username?: string | null, accessToken?: string | null, refreshToken?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, thumbnail?: string | null } | null } | null };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = (
-  { __typename?: 'Query' }
-  & { users?: Maybe<Array<Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
-    & { profile?: Maybe<(
-      { __typename?: 'UserProfile' }
-      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'user_id' | 'created_at' | 'updated_at'>
-    )> }
-  )>>> }
-);
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: string, username?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, user_id?: string | null, created_at?: any | null, updated_at?: any | null } | null } | null> | null };
 
 export type WhoAmIQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type WhoAmIQuery = (
-  { __typename?: 'Query' }
-  & { whoami?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username'>
-    & { profile?: Maybe<(
-      { __typename?: 'UserProfile' }
-      & Pick<UserProfile, 'id' | 'bio' | 'profile_name' | 'user_id' | 'thumbnail' | 'created_at' | 'updated_at'>
-    )> }
-  )> }
-);
+export type WhoAmIQuery = { __typename?: 'Query', whoami?: { __typename?: 'User', id: string, username?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, user_id?: string | null, thumbnail?: string | null, created_at?: any | null, updated_at?: any | null } | null } | null };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LogoutMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'logout'>
-);
+export type LogoutMutation = { __typename?: 'Mutation', logout?: boolean | null };
 
 
-export const CreateSubDocument = gql`
-    mutation CreateSub($post_id: String!, $text: String!, $comment_id: String) {
-  createSub(post_id: $post_id, text: $text, comment_id: $comment_id) {
+export const CreateCommentsDocument = gql`
+    mutation CreateComments($post_id: String!, $text: String!, $comment_id: String) {
+  createComments(post_id: $post_id, text: $text, comment_id: $comment_id) {
     id
+    level
   }
 }
     `;
-export type CreateSubMutationFn = Apollo.MutationFunction<CreateSubMutation, CreateSubMutationVariables>;
+export type CreateCommentsMutationFn = Apollo.MutationFunction<CreateCommentsMutation, CreateCommentsMutationVariables>;
 
 /**
- * __useCreateSubMutation__
+ * __useCreateCommentsMutation__
  *
- * To run a mutation, you first call `useCreateSubMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSubMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateCommentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentsMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createSubMutation, { data, loading, error }] = useCreateSubMutation({
+ * const [createCommentsMutation, { data, loading, error }] = useCreateCommentsMutation({
  *   variables: {
  *      post_id: // value for 'post_id'
  *      text: // value for 'text'
@@ -968,47 +863,88 @@ export type CreateSubMutationFn = Apollo.MutationFunction<CreateSubMutation, Cre
  *   },
  * });
  */
-export function useCreateSubMutation(baseOptions?: Apollo.MutationHookOptions<CreateSubMutation, CreateSubMutationVariables>) {
+export function useCreateCommentsMutation(baseOptions?: Apollo.MutationHookOptions<CreateCommentsMutation, CreateCommentsMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSubMutation, CreateSubMutationVariables>(CreateSubDocument, options);
+        return Apollo.useMutation<CreateCommentsMutation, CreateCommentsMutationVariables>(CreateCommentsDocument, options);
       }
-export type CreateSubMutationHookResult = ReturnType<typeof useCreateSubMutation>;
-export type CreateSubMutationResult = Apollo.MutationResult<CreateSubMutation>;
-export type CreateSubMutationOptions = Apollo.BaseMutationOptions<CreateSubMutation, CreateSubMutationVariables>;
-export const RemoveSubDocument = gql`
-    mutation RemoveSub($id: String!) {
-  removeSub(id: $id)
+export type CreateCommentsMutationHookResult = ReturnType<typeof useCreateCommentsMutation>;
+export type CreateCommentsMutationResult = Apollo.MutationResult<CreateCommentsMutation>;
+export type CreateCommentsMutationOptions = Apollo.BaseMutationOptions<CreateCommentsMutation, CreateCommentsMutationVariables>;
+export const RemoveCommentsDocument = gql`
+    mutation RemoveComments($id: String!) {
+  removeComments(id: $id)
 }
     `;
-export type RemoveSubMutationFn = Apollo.MutationFunction<RemoveSubMutation, RemoveSubMutationVariables>;
+export type RemoveCommentsMutationFn = Apollo.MutationFunction<RemoveCommentsMutation, RemoveCommentsMutationVariables>;
 
 /**
- * __useRemoveSubMutation__
+ * __useRemoveCommentsMutation__
  *
- * To run a mutation, you first call `useRemoveSubMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveSubMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useRemoveCommentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveCommentsMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [removeSubMutation, { data, loading, error }] = useRemoveSubMutation({
+ * const [removeCommentsMutation, { data, loading, error }] = useRemoveCommentsMutation({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useRemoveSubMutation(baseOptions?: Apollo.MutationHookOptions<RemoveSubMutation, RemoveSubMutationVariables>) {
+export function useRemoveCommentsMutation(baseOptions?: Apollo.MutationHookOptions<RemoveCommentsMutation, RemoveCommentsMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveSubMutation, RemoveSubMutationVariables>(RemoveSubDocument, options);
+        return Apollo.useMutation<RemoveCommentsMutation, RemoveCommentsMutationVariables>(RemoveCommentsDocument, options);
       }
-export type RemoveSubMutationHookResult = ReturnType<typeof useRemoveSubMutation>;
-export type RemoveSubMutationResult = Apollo.MutationResult<RemoveSubMutation>;
-export type RemoveSubMutationOptions = Apollo.BaseMutationOptions<RemoveSubMutation, RemoveSubMutationVariables>;
-export const EditSubDocument = gql`
-    mutation EditSub($id: String!, $text: String!) {
-  editSub(id: $id, text: $text) {
+export type RemoveCommentsMutationHookResult = ReturnType<typeof useRemoveCommentsMutation>;
+export type RemoveCommentsMutationResult = Apollo.MutationResult<RemoveCommentsMutation>;
+export type RemoveCommentsMutationOptions = Apollo.BaseMutationOptions<RemoveCommentsMutation, RemoveCommentsMutationVariables>;
+export const GetCommentsCountDocument = gql`
+    query GetCommentsCount($id: String!) {
+  post(id: $id) {
+    id
+    comments_count
+  }
+}
+    `;
+
+/**
+ * __useGetCommentsCountQuery__
+ *
+ * To run a query within a React component, call `useGetCommentsCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentsCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentsCountQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetCommentsCountQuery(baseOptions: Apollo.QueryHookOptions<GetCommentsCountQuery, GetCommentsCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCommentsCountQuery, GetCommentsCountQueryVariables>(GetCommentsCountDocument, options);
+      }
+export function useGetCommentsCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentsCountQuery, GetCommentsCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCommentsCountQuery, GetCommentsCountQueryVariables>(GetCommentsCountDocument, options);
+        }
+export function useGetCommentsCountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCommentsCountQuery, GetCommentsCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCommentsCountQuery, GetCommentsCountQueryVariables>(GetCommentsCountDocument, options);
+        }
+export type GetCommentsCountQueryHookResult = ReturnType<typeof useGetCommentsCountQuery>;
+export type GetCommentsCountLazyQueryHookResult = ReturnType<typeof useGetCommentsCountLazyQuery>;
+export type GetCommentsCountSuspenseQueryHookResult = ReturnType<typeof useGetCommentsCountSuspenseQuery>;
+export type GetCommentsCountQueryResult = Apollo.QueryResult<GetCommentsCountQuery, GetCommentsCountQueryVariables>;
+export const EditCommentsDocument = gql`
+    mutation EditComments($id: String!, $text: String!) {
+  editComments(id: $id, text: $text) {
     id
     text
     level
@@ -1018,43 +954,43 @@ export const EditSubDocument = gql`
   }
 }
     `;
-export type EditSubMutationFn = Apollo.MutationFunction<EditSubMutation, EditSubMutationVariables>;
+export type EditCommentsMutationFn = Apollo.MutationFunction<EditCommentsMutation, EditCommentsMutationVariables>;
 
 /**
- * __useEditSubMutation__
+ * __useEditCommentsMutation__
  *
- * To run a mutation, you first call `useEditSubMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditSubMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useEditCommentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditCommentsMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [editSubMutation, { data, loading, error }] = useEditSubMutation({
+ * const [editCommentsMutation, { data, loading, error }] = useEditCommentsMutation({
  *   variables: {
  *      id: // value for 'id'
  *      text: // value for 'text'
  *   },
  * });
  */
-export function useEditSubMutation(baseOptions?: Apollo.MutationHookOptions<EditSubMutation, EditSubMutationVariables>) {
+export function useEditCommentsMutation(baseOptions?: Apollo.MutationHookOptions<EditCommentsMutation, EditCommentsMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditSubMutation, EditSubMutationVariables>(EditSubDocument, options);
+        return Apollo.useMutation<EditCommentsMutation, EditCommentsMutationVariables>(EditCommentsDocument, options);
       }
-export type EditSubMutationHookResult = ReturnType<typeof useEditSubMutation>;
-export type EditSubMutationResult = Apollo.MutationResult<EditSubMutation>;
-export type EditSubMutationOptions = Apollo.BaseMutationOptions<EditSubMutation, EditSubMutationVariables>;
-export const GetSubDocument = gql`
-    query GetSub($comment_id: String!) {
-  getSub(comment_id: $comment_id) {
+export type EditCommentsMutationHookResult = ReturnType<typeof useEditCommentsMutation>;
+export type EditCommentsMutationResult = Apollo.MutationResult<EditCommentsMutation>;
+export type EditCommentsMutationOptions = Apollo.BaseMutationOptions<EditCommentsMutation, EditCommentsMutationVariables>;
+export const GetSubCommentsDocument = gql`
+    query GetSubComments($comment_id: String!) {
+  getSubComments(comment_id: $comment_id) {
     id
     text
     likes
     has_replies
     deleted
     upvotes
-    likedSub
+    likedComments
     users {
       id
       username
@@ -1069,8 +1005,11 @@ export const GetSubDocument = gql`
       text
       level
       updated_at
+      created_at
+      has_replies
+      replies_count
       upvotes
-      user {
+      users {
         id
         username
         profile {
@@ -1086,32 +1025,37 @@ export const GetSubDocument = gql`
     `;
 
 /**
- * __useGetSubQuery__
+ * __useGetSubCommentsQuery__
  *
- * To run a query within a React component, call `useGetSubQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSubQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetSubCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSubCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetSubQuery({
+ * const { data, loading, error } = useGetSubCommentsQuery({
  *   variables: {
  *      comment_id: // value for 'comment_id'
  *   },
  * });
  */
-export function useGetSubQuery(baseOptions: Apollo.QueryHookOptions<GetSubQuery, GetSubQueryVariables>) {
+export function useGetSubCommentsQuery(baseOptions: Apollo.QueryHookOptions<GetSubCommentsQuery, GetSubCommentsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetSubQuery, GetSubQueryVariables>(GetSubDocument, options);
+        return Apollo.useQuery<GetSubCommentsQuery, GetSubCommentsQueryVariables>(GetSubCommentsDocument, options);
       }
-export function useGetSubLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubQuery, GetSubQueryVariables>) {
+export function useGetSubCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSubCommentsQuery, GetSubCommentsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetSubQuery, GetSubQueryVariables>(GetSubDocument, options);
+          return Apollo.useLazyQuery<GetSubCommentsQuery, GetSubCommentsQueryVariables>(GetSubCommentsDocument, options);
         }
-export type GetSubQueryHookResult = ReturnType<typeof useGetSubQuery>;
-export type GetSubLazyQueryHookResult = ReturnType<typeof useGetSubLazyQuery>;
-export type GetSubQueryResult = Apollo.QueryResult<GetSubQuery, GetSubQueryVariables>;
+export function useGetSubCommentsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetSubCommentsQuery, GetSubCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetSubCommentsQuery, GetSubCommentsQueryVariables>(GetSubCommentsDocument, options);
+        }
+export type GetSubCommentsQueryHookResult = ReturnType<typeof useGetSubCommentsQuery>;
+export type GetSubCommentsLazyQueryHookResult = ReturnType<typeof useGetSubCommentsLazyQuery>;
+export type GetSubCommentsSuspenseQueryHookResult = ReturnType<typeof useGetSubCommentsSuspenseQuery>;
+export type GetSubCommentsQueryResult = Apollo.QueryResult<GetSubCommentsQuery, GetSubCommentsQueryVariables>;
 export const CommentUpvotesDocument = gql`
     mutation commentUpvotes($id: String!) {
   commentUpvotes(id: $id)
@@ -1180,12 +1124,12 @@ export const GetPostDocument = gql`
     id
     title
     body
+    postbody
     thumbnail
     likes
     views
     is_temp
     is_private
-    subs_count
     released_at
     created_at
     updated_at
@@ -1205,14 +1149,8 @@ export const GetPostDocument = gql`
     user {
       id
       username
-      profile {
-        id
-        bio
-        profile_name
-        thumbnail
-      }
     }
-    subs {
+    comments {
       id
       text
       likes
@@ -1223,12 +1161,6 @@ export const GetPostDocument = gql`
       created_at
       updated_at
       upvotes
-      replies {
-        id
-        text
-        updated_at
-      }
-      replies_count
       user {
         id
         username
@@ -1239,7 +1171,16 @@ export const GetPostDocument = gql`
           thumbnail
         }
       }
+      replies {
+        id
+        text
+        has_replies
+        created_at
+        updated_at
+      }
+      replies_count
     }
+    comments_count
   }
 }
     `;
@@ -1268,8 +1209,13 @@ export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
         }
+export function useGetPostSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+        }
 export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
+export type GetPostSuspenseQueryHookResult = ReturnType<typeof useGetPostSuspenseQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsDocument = gql`
     query GetPosts($cursor: String, $username: String, $istemp: Boolean) {
@@ -1277,6 +1223,7 @@ export const GetPostsDocument = gql`
     id
     title
     body
+    postbody
     thumbnail
     likes
     views
@@ -1302,11 +1249,11 @@ export const GetPostsDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
     }
-    subs_count
+    comments_count
   }
 }
     `;
@@ -1337,24 +1284,35 @@ export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
         }
+export function useGetPostsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+        }
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
+export type GetPostsSuspenseQueryHookResult = ReturnType<typeof useGetPostsSuspenseQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const RecentPostsDocument = gql`
     query RecentPosts($cursor: String, $limit: Int) {
   recentPosts(cursor: $cursor, limit: $limit) {
     id
     title
+    body
+    postbody
     thumbnail
     likes
     views
     is_temp
-    postbody
     is_private
     released_at
     created_at
     updated_at
     liked
+    tags {
+      tag {
+        name
+      }
+    }
     bookInfo {
       bookTitle
       bookContent
@@ -1366,11 +1324,11 @@ export const RecentPostsDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
     }
-    subs_count
+    comments_count
   }
 }
     `;
@@ -1400,12 +1358,23 @@ export function useRecentPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<RecentPostsQuery, RecentPostsQueryVariables>(RecentPostsDocument, options);
         }
+export function useRecentPostsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<RecentPostsQuery, RecentPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<RecentPostsQuery, RecentPostsQueryVariables>(RecentPostsDocument, options);
+        }
 export type RecentPostsQueryHookResult = ReturnType<typeof useRecentPostsQuery>;
 export type RecentPostsLazyQueryHookResult = ReturnType<typeof useRecentPostsLazyQuery>;
+export type RecentPostsSuspenseQueryHookResult = ReturnType<typeof useRecentPostsSuspenseQuery>;
 export type RecentPostsQueryResult = Apollo.QueryResult<RecentPostsQuery, RecentPostsQueryVariables>;
 export const TrendingPostsDocument = gql`
-    query TrendingPosts($offset: Int, $limit: Int, $timeframe: String) {
-  trendingPosts(offset: $offset, limit: $limit, timeframe: $timeframe) {
+    query TrendingPosts($offset: Int, $limit: Int, $timeframe: String, $from: Date, $to: Date) {
+  trendingPosts(
+    offset: $offset
+    limit: $limit
+    timeframe: $timeframe
+    from: $from
+    to: $to
+  ) {
     id
     title
     thumbnail
@@ -1429,11 +1398,11 @@ export const TrendingPostsDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
     }
-    subs_count
+    comments_count
   }
 }
     `;
@@ -1453,6 +1422,8 @@ export const TrendingPostsDocument = gql`
  *      offset: // value for 'offset'
  *      limit: // value for 'limit'
  *      timeframe: // value for 'timeframe'
+ *      from: // value for 'from'
+ *      to: // value for 'to'
  *   },
  * });
  */
@@ -1464,24 +1435,36 @@ export function useTrendingPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<TrendingPostsQuery, TrendingPostsQueryVariables>(TrendingPostsDocument, options);
         }
+export function useTrendingPostsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TrendingPostsQuery, TrendingPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TrendingPostsQuery, TrendingPostsQueryVariables>(TrendingPostsDocument, options);
+        }
 export type TrendingPostsQueryHookResult = ReturnType<typeof useTrendingPostsQuery>;
 export type TrendingPostsLazyQueryHookResult = ReturnType<typeof useTrendingPostsLazyQuery>;
+export type TrendingPostsSuspenseQueryHookResult = ReturnType<typeof useTrendingPostsSuspenseQuery>;
 export type TrendingPostsQueryResult = Apollo.QueryResult<TrendingPostsQuery, TrendingPostsQueryVariables>;
 export const CreatePostDocument = gql`
-    mutation CreatePost($body: String!, $title: String!, $thumbnail: String, $postbody: String, $tags: [String], $is_temp: Boolean, $is_private: Boolean, $bookTitle: String, $bookContent: String, $bookUrl: String, $bookIsbn: String, $bookAuthors: [String]) {
+    mutation CreatePost($title: String!, $body: String!, $postbody: String, $tags: [String]!, $is_temp: Boolean, $is_private: Boolean, $series_id: String, $thumbnail: String, $bookTitle: String, $bookContent: String, $bookUrl: String, $bookIsbn: String, $bookAuthors: String, $publisher: String, $pubDate: String, $customerReviewRank: Int, $priceStandard: Int, $categoryName: String, $categoryId: Int) {
   createPost(
-    body: $body
     title: $title
-    tags: $tags
-    thumbnail: $thumbnail
+    body: $body
     postbody: $postbody
+    tags: $tags
     is_temp: $is_temp
     is_private: $is_private
+    series_id: $series_id
+    thumbnail: $thumbnail
     bookTitle: $bookTitle
     bookContent: $bookContent
     bookUrl: $bookUrl
     bookIsbn: $bookIsbn
     bookAuthors: $bookAuthors
+    publisher: $publisher
+    pubDate: $pubDate
+    customerReviewRank: $customerReviewRank
+    priceStandard: $priceStandard
+    categoryName: $categoryName
+    categoryId: $categoryId
   ) {
     id
     title
@@ -1525,18 +1508,25 @@ export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, C
  * @example
  * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
  *   variables: {
- *      body: // value for 'body'
  *      title: // value for 'title'
- *      thumbnail: // value for 'thumbnail'
+ *      body: // value for 'body'
  *      postbody: // value for 'postbody'
  *      tags: // value for 'tags'
  *      is_temp: // value for 'is_temp'
  *      is_private: // value for 'is_private'
+ *      series_id: // value for 'series_id'
+ *      thumbnail: // value for 'thumbnail'
  *      bookTitle: // value for 'bookTitle'
  *      bookContent: // value for 'bookContent'
  *      bookUrl: // value for 'bookUrl'
  *      bookIsbn: // value for 'bookIsbn'
  *      bookAuthors: // value for 'bookAuthors'
+ *      publisher: // value for 'publisher'
+ *      pubDate: // value for 'pubDate'
+ *      customerReviewRank: // value for 'customerReviewRank'
+ *      priceStandard: // value for 'priceStandard'
+ *      categoryName: // value for 'categoryName'
+ *      categoryId: // value for 'categoryId'
  *   },
  * });
  */
@@ -1558,7 +1548,7 @@ export const ReloadCommentsDocument = gql`
     views
     is_temp
     is_private
-    subs_count
+    comments_count
     released_at
     created_at
     updated_at
@@ -1574,11 +1564,11 @@ export const ReloadCommentsDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
-      updated_at
     }
+    comments_count
   }
 }
     `;
@@ -1607,8 +1597,13 @@ export function useReloadCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<ReloadCommentsQuery, ReloadCommentsQueryVariables>(ReloadCommentsDocument, options);
         }
+export function useReloadCommentsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ReloadCommentsQuery, ReloadCommentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ReloadCommentsQuery, ReloadCommentsQueryVariables>(ReloadCommentsDocument, options);
+        }
 export type ReloadCommentsQueryHookResult = ReturnType<typeof useReloadCommentsQuery>;
 export type ReloadCommentsLazyQueryHookResult = ReturnType<typeof useReloadCommentsLazyQuery>;
+export type ReloadCommentsSuspenseQueryHookResult = ReturnType<typeof useReloadCommentsSuspenseQuery>;
 export type ReloadCommentsQueryResult = Apollo.QueryResult<ReloadCommentsQuery, ReloadCommentsQueryVariables>;
 export const SearchPostsDocument = gql`
     query SearchPosts($searchInput: String) {
@@ -1616,6 +1611,7 @@ export const SearchPostsDocument = gql`
     id
     title
     body
+    postbody
     thumbnail
     likes
     views
@@ -1636,11 +1632,11 @@ export const SearchPostsDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
     }
-    subs_count
+    comments_count
   }
 }
     `;
@@ -1669,11 +1665,16 @@ export function useSearchPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<SearchPostsQuery, SearchPostsQueryVariables>(SearchPostsDocument, options);
         }
+export function useSearchPostsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SearchPostsQuery, SearchPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SearchPostsQuery, SearchPostsQueryVariables>(SearchPostsDocument, options);
+        }
 export type SearchPostsQueryHookResult = ReturnType<typeof useSearchPostsQuery>;
 export type SearchPostsLazyQueryHookResult = ReturnType<typeof useSearchPostsLazyQuery>;
+export type SearchPostsSuspenseQueryHookResult = ReturnType<typeof useSearchPostsSuspenseQuery>;
 export type SearchPostsQueryResult = Apollo.QueryResult<SearchPostsQuery, SearchPostsQueryVariables>;
 export const EditPostDocument = gql`
-    mutation EditPost($id: String!, $title: String, $body: String, $thumbnail: String, $tags: [String], $is_temp: Boolean, $is_private: Boolean) {
+    mutation EditPost($id: String!, $title: String, $body: String, $thumbnail: String, $tags: [String], $is_temp: Boolean, $is_private: Boolean, $postbody: String) {
   editPost(
     id: $id
     title: $title
@@ -1682,6 +1683,7 @@ export const EditPostDocument = gql`
     is_temp: $is_temp
     thumbnail: $thumbnail
     is_private: $is_private
+    postbody: $postbody
   ) {
     id
     title
@@ -1699,11 +1701,11 @@ export const EditPostDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
     }
-    subs_count
+    comments_count
   }
 }
     `;
@@ -1729,6 +1731,7 @@ export type EditPostMutationFn = Apollo.MutationFunction<EditPostMutation, EditP
  *      tags: // value for 'tags'
  *      is_temp: // value for 'is_temp'
  *      is_private: // value for 'is_private'
+ *      postbody: // value for 'postbody'
  *   },
  * });
  */
@@ -1789,11 +1792,11 @@ export const LikePostDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
     }
-    subs_count
+    comments_count
   }
 }
     `;
@@ -1842,11 +1845,11 @@ export const UnlikePostDocument = gql`
       id
       username
     }
-    subs {
+    comments {
       id
       text
     }
-    subs_count
+    comments_count
   }
 }
     `;
@@ -1912,6 +1915,37 @@ export function useUploadImageToCloudinaryMutation(baseOptions?: Apollo.Mutation
 export type UploadImageToCloudinaryMutationHookResult = ReturnType<typeof useUploadImageToCloudinaryMutation>;
 export type UploadImageToCloudinaryMutationResult = Apollo.MutationResult<UploadImageToCloudinaryMutation>;
 export type UploadImageToCloudinaryMutationOptions = Apollo.BaseMutationOptions<UploadImageToCloudinaryMutation, UploadImageToCloudinaryMutationVariables>;
+export const PostViewDocument = gql`
+    mutation PostView($id: String!) {
+  postView(id: $id)
+}
+    `;
+export type PostViewMutationFn = Apollo.MutationFunction<PostViewMutation, PostViewMutationVariables>;
+
+/**
+ * __usePostViewMutation__
+ *
+ * To run a mutation, you first call `usePostViewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePostViewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [postViewMutation, { data, loading, error }] = usePostViewMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePostViewMutation(baseOptions?: Apollo.MutationHookOptions<PostViewMutation, PostViewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PostViewMutation, PostViewMutationVariables>(PostViewDocument, options);
+      }
+export type PostViewMutationHookResult = ReturnType<typeof usePostViewMutation>;
+export type PostViewMutationResult = Apollo.MutationResult<PostViewMutation>;
+export type PostViewMutationOptions = Apollo.BaseMutationOptions<PostViewMutation, PostViewMutationVariables>;
 export const CreateProfileDocument = gql`
     mutation CreateProfile($bio: String, $profile_name: String, $thumbnail: String) {
   createProfile(bio: $bio, profile_name: $profile_name, thumbnail: $thumbnail) {
@@ -1953,7 +1987,7 @@ export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfile
 export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
 export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<CreateProfileMutation, CreateProfileMutationVariables>;
 export const GetProfileDocument = gql`
-    query GetProfile($user_id: String) {
+    query GetProfile($user_id: String!) {
   getProfile(user_id: $user_id) {
     id
     bio
@@ -1981,7 +2015,7 @@ export const GetProfileDocument = gql`
  *   },
  * });
  */
-export function useGetProfileQuery(baseOptions?: Apollo.QueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+export function useGetProfileQuery(baseOptions: Apollo.QueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
       }
@@ -1989,8 +2023,13 @@ export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
         }
+export function useGetProfileSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
+        }
 export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
 export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
+export type GetProfileSuspenseQueryHookResult = ReturnType<typeof useGetProfileSuspenseQuery>;
 export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
 export const TagsDocument = gql`
     query Tags($sort: String!) {
@@ -2026,8 +2065,13 @@ export function useTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TagsQ
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<TagsQuery, TagsQueryVariables>(TagsDocument, options);
         }
+export function useTagsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TagsQuery, TagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TagsQuery, TagsQueryVariables>(TagsDocument, options);
+        }
 export type TagsQueryHookResult = ReturnType<typeof useTagsQuery>;
 export type TagsLazyQueryHookResult = ReturnType<typeof useTagsLazyQuery>;
+export type TagsSuspenseQueryHookResult = ReturnType<typeof useTagsSuspenseQuery>;
 export type TagsQueryResult = Apollo.QueryResult<TagsQuery, TagsQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
@@ -2155,8 +2199,13 @@ export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<User
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
         }
+export function useUsersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        }
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
+export type UsersSuspenseQueryHookResult = ReturnType<typeof useUsersSuspenseQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
 export const WhoAmIDocument = gql`
     query whoAmI {
@@ -2199,8 +2248,13 @@ export function useWhoAmILazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Who
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
         }
+export function useWhoAmISuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<WhoAmIQuery, WhoAmIQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<WhoAmIQuery, WhoAmIQueryVariables>(WhoAmIDocument, options);
+        }
 export type WhoAmIQueryHookResult = ReturnType<typeof useWhoAmIQuery>;
 export type WhoAmILazyQueryHookResult = ReturnType<typeof useWhoAmILazyQuery>;
+export type WhoAmISuspenseQueryHookResult = ReturnType<typeof useWhoAmISuspenseQuery>;
 export type WhoAmIQueryResult = Apollo.QueryResult<WhoAmIQuery, WhoAmIQueryVariables>;
 export const LogoutDocument = gql`
     mutation Logout {

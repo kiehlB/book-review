@@ -1,17 +1,16 @@
-import { ApolloWrapper } from '@/lib/apollo-wapper';
-import { ReduxProvider } from '@/store/provider';
-import { BooksContextProvider } from '@/context/book-context';
-import { ModalContextProvider } from '@/context/modal-context';
+import type { Metadata } from 'next';
+import Script from 'next/script';
 import '@/styles/globals.css';
-import '@/styles/tiptap.scss';
+import '@/styles/book.scss';
+import '@/styles/app.css';
+import '@/styles/prose.css';
+
+import { ApolloWrapper } from '@/lib/apollo-wapper';
+import CustomThemeProvider from '@/lib/theme-provider';
+import StyledComponentsRegistry from '@/lib/registry';
 
 import 'react-day-picker/dist/style.css';
 import 'react-toastify/dist/ReactToastify.css';
-import Script from 'next/script';
-import clientCookies from 'js-cookie';
-
-import { Metadata } from 'next';
-import StyledComponentsRegistry from '@/lib/registry';
 import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
@@ -40,28 +39,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout(props: {
-  children: React.ReactNode;
-  auth: React.ReactNode;
-  book: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = cookies();
+  const token = cookieStore.get('access_token');
+
   return (
-    <html lang="ko">
-      {/* <GlobalStyle /> */}
-      <body className="h-full transition duration-500 dark:bg-[#1a1b1e]">
+    <html lang="ko" suppressHydrationWarning>
+      <body className="h-full transition duration-100 dark:bg-dark-500">
         <StyledComponentsRegistry>
-          <ReduxProvider>
-            <ApolloWrapper>
-              <BooksContextProvider>
-                <ModalContextProvider>{props.children}</ModalContextProvider>
-              </BooksContextProvider>
-            </ApolloWrapper>
-          </ReduxProvider>
+          <ApolloWrapper token={token?.value}>
+            <CustomThemeProvider>{children}</CustomThemeProvider>
+          </ApolloWrapper>
         </StyledComponentsRegistry>
       </body>
-      {/* <Script src="/theme.js" strategy="beforeInteractive" /> */}
 
-      <Script
+      {/* <Script
         defer
         src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
 
@@ -71,7 +63,7 @@ export default function RootLayout(props: {
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-R64H1TLKCP"
         strategy="afterInteractive"
-      />
+      /> */}
 
       <Script id="google-analytics" strategy="afterInteractive">
         {`

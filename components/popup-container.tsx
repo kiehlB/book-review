@@ -1,7 +1,9 @@
+'use client';
+
 import * as React from 'react';
 import styled from 'styled-components';
-import Popup from './popup';
 import { motion } from 'framer-motion';
+import Popup from './popup';
 
 const dropIn = {
   hidden: {
@@ -53,8 +55,8 @@ const PopupOKCancelBlock = styled.div`
 export interface PopUpContainerProps {
   visible: boolean;
   title?: string;
-  onConfirm?: any;
-  onCancel?: () => any;
+  onConfirm?: () => void;
+  onCancel?: () => void;
   children: React.ReactNode;
 }
 

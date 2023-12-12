@@ -1,10 +1,11 @@
+import Image from 'next/image';
 import React from 'react';
 
 export interface RatioImageProps {
   widthRatio: number;
   heightRatio: number;
   src: string;
-  alt?: string;
+  alt: string;
   className?: string;
 }
 
@@ -23,10 +24,12 @@ const RatioImage: React.FC<RatioImageProps> = ({
         paddingTop,
       }}
       className={`${className} relative w-full`}>
-      <img
+      <Image
         src={src}
         alt={alt}
+        fill
         className="absolute left-0 top-0 block h-full w-full rounded-xl object-cover"
+        sizes="(max-width: 768px) 100vw ,(max-width: 1024px) 50vw, (max-width: 1280px) 30vw, 320px"
       />
     </div>
   );

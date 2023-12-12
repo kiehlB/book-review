@@ -14,7 +14,7 @@ export const createProfileMutation = gql`
 `;
 
 export const getProfileQuery = gql`
-  query GetProfile($user_id: String) {
+  query GetProfile($user_id: String!) {
     getProfile(user_id: $user_id) {
       id
       bio

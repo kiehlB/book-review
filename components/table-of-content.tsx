@@ -1,12 +1,14 @@
 'use client';
 
-import { useHeadingsData } from '@/hooks/useHeadingsData';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useHeadingsData } from '@/hooks/use-headings-data';
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { getScrollTop } from '@/lib/utils';
+import useCoreStore from '@/store/core';
 import { useCallback, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-const PostTableOfContents = ({ isdark }: any) => {
+const PostTableOfContents = () => {
+  const { isdark } = useCoreStore();
   const [activeId, setActiveId] = useState('');
   const { nestedHeadings } = useHeadingsData();
 
@@ -22,7 +24,7 @@ const PostTableOfContents = ({ isdark }: any) => {
   const updateTocPositions = useCallback(() => {
     if (!nestedHeadings) return;
     const scrollTop = getScrollTop();
-    const headingTops = nestedHeadings.map(({ id }) => {
+    const headingTops = nestedHeadings.map(({ id }: { id: string }) => {
       const el = document.getElementById(id);
       if (!el) {
         return {
@@ -66,11 +68,11 @@ const PostTableOfContents = ({ isdark }: any) => {
       return scrollTop >= headingTop.top - 4;
     });
     if (!currentHeading) {
-      setActiveId(null);
+      setActiveId('');
       return;
     }
 
-    setActiveId(currentHeading.id as any);
+    setActiveId(currentHeading.id);
   }, [headingTops]);
 
   useEffect(() => {
@@ -89,12 +91,12 @@ const PostTableOfContents = ({ isdark }: any) => {
   return (
     <nav
       aria-label="Table of contents"
-      className="flex max-h-[calc(100vh-128px)] flex-col overflow-y-scroll border-l-2 text-[#868e96] scrollbar overflow-x-hidden scrollbar-track-gray-100 scrollbar-thumb-slate-600 scrollbar-w-1 dark:text-[#acacac]">
+      className="scrollbar-thumb-slate-600 flex max-h-[calc(100vh-128px)] flex-col overflow-x-hidden overflow-y-scroll border-l-2 text-[#868e96] scrollbar scrollbar-track-gray-100 scrollbar-w-1 dark:text-[#acacac]">
       {nestedHeadings?.map(item => (
         <Toc
-          isdark={isdark}
+          $isdark={isdark}
           className="mt-[6px] text-sm"
-          active={activeId === item.id}
+          $active={activeId === item.id}
           key={item.id}
           style={{ marginLeft: item.level * 12 }}>
           <a href={`#${item.id}`}>{item.title}</a>
@@ -106,23 +108,39 @@ const PostTableOfContents = ({ isdark }: any) => {
 
 export default PostTableOfContents;
 
-const Toc = styled.div<{ active: boolean; isdark: any }>`
+type TocProps = {
+  $active: boolean;
+  $isdark: string;
+};
+
+const activeStyle = (props: TocProps) => {
+  if (!props.$active) return '';
+
+  return css`
+    color: ${props.$isdark === 'dark' ? '#ececec' : '#212529'};
+    font-weight: 700;
+    transform: scale(1.02);
+  `;
+};
+
+const Toc = styled.div<TocProps>`
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+
   a {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &:hover {
-      color: ${props => (props.isdark == 'dark' ? '#ececec' : '#212529')};
+      color: ${props => (props.$isdark === 'dark' ? '#ececec' : '#212529')};
     }
     text-decoration: none;
     color: inherit;
   }
-  ${props =>
-    props.active &&
-    css`
-      color: ${(props: any) => (props.isdark == 'dark' ? '#ececec' : '#212529')};
 
-      font-weight: 700;
-      transform: scale(1.02);
-    `}
+  // Use the activeStyle function here
+  ${activeStyle}
 `;

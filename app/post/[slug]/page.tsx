@@ -1,19 +1,23 @@
-import { headers } from 'next/headers';
-import PostPageView from '@/components/view/post-view';
-
-export type PostProps = {
-  id: string;
-};
+import { PageLayout } from '@/components/layout/page-layout';
+import PostViewLoading from '@/components/loading/post-view-loading';
+import { PostPageSkeleton } from '@/views/post-view/post-skeleton';
+import PostPageViewWrapper from '@/views/post-view/post-wrapper';
+import { cookies, headers } from 'next/headers';
+import { Suspense } from 'react';
 
 function PostPage() {
   const headersList = headers();
 
   const header_url = headersList.get('x-url') || '';
+  const cookieStore = cookies();
+  const token = cookieStore.get('access_token');
 
   return (
-    <>
-      <PostPageView header_url={header_url} />
-    </>
+    <PageLayout token={token}>
+      <Suspense fallback={<PostPageSkeleton />}>
+        <PostPageViewWrapper header_url={header_url} token={token} />;
+      </Suspense>
+    </PageLayout>
   );
 }
 

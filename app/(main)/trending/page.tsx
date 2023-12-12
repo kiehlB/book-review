@@ -1,11 +1,10 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { PostGrid } from '@/components/layout/grid-layout';
-import HomeTitle from '@/components/home/home-title';
 import { IoMdTime } from 'react-icons/io';
 import { MdOutlineLocalFireDepartment } from 'react-icons/md';
-
-import GetTrendPosts from '@/components/post/trend-post';
-import PostLoading from './loading';
+import PostLoading from '@/components/loading/post-loading';
+import GetTrendPosts from '@/views/post/trend-post';
+import HomeTitle from '@/views/home/home-title';
 
 export const revalidate = 0;
 

@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 
 import { getScrollTop } from '@/lib/utils';
-import Header, { HeaderProps } from './app-bar';
+import Header, { HeaderProps } from '@/views/app-bar';
 
 export type FloatingHeaderProps = {
   children?: React.ReactNode;
@@ -12,7 +14,9 @@ function FloatingHeader({
   SetIsClose,
   SetMode,
   BookIsClose,
-  SetBookIsClose,
+  SetBookClose,
+  token,
+  getUser,
 }: HeaderProps) {
   const [visible, setVisible] = useState(false);
   const blockRef = useRef<HTMLDivElement>(null);
@@ -68,7 +72,7 @@ function FloatingHeader({
 
   return (
     <div
-      className="fixed right-0 top-0 z-[999] w-full bg-white px-4 dark:bg-[#1a1b1e]"
+      className="fixed right-0 top-0 z-[999] w-full bg-white px-4 dark:bg-dark-500"
       style={
         visible
           ? {
@@ -82,11 +86,13 @@ function FloatingHeader({
       }
       ref={blockRef}>
       <Header
+        getUser={getUser}
+        token={token}
         IsClose={IsClose}
         SetIsClose={SetIsClose}
         SetMode={SetMode}
         BookIsClose={BookIsClose}
-        SetBookIsClose={SetBookIsClose}
+        SetBookClose={SetBookClose}
       />
     </div>
   );

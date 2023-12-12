@@ -16,7 +16,7 @@
 		"**/.gh-pages": true
 	},
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": false
+		"source.fixAll.eslint": "never"
 	},
 	"breadcrumbs.enabled": true,
 	"npm.runSilent": true,

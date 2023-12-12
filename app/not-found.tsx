@@ -1,14 +1,13 @@
 'use client';
 
 import { ArrowLink } from '@/components/arrow-button';
-import Link from 'next/link';
 
 export type Error404Props = {};
 
 export default function NotFound() {
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="w-[37.5rem] h-[37.5rem] mt-[5rem]">
+    <div className="flex w-full items-center justify-center">
+      <div className="mt-[5rem] h-[37.5rem] w-[37.5rem]">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
           <g id="freepik--background-complete--inject-18">
             <path
@@ -953,7 +952,7 @@ export default function NotFound() {
           </g>
         </svg>
         <ArrowLink href="/" direction="right" className=" mt-8" prefetch="intent">
-          <span className="text-[1.5rem] text-[#222222] font-Pretendard ">Go Home</span>
+          <span className="font-Pretendard text-[1.5rem] text-[#222222] ">Go Home</span>
         </ArrowLink>
       </div>
     </div>

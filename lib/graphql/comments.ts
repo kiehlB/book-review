@@ -1,23 +1,32 @@
 import gql from 'graphql-tag';
 
 export const CreateComment = gql`
-  mutation CreateSub($post_id: String!, $text: String!, $comment_id: String) {
-    createSub(post_id: $post_id, text: $text, comment_id: $comment_id) {
+  mutation CreateComments($post_id: String!, $text: String!, $comment_id: String) {
+    createComments(post_id: $post_id, text: $text, comment_id: $comment_id) {
       id
       level
     }
   }
 `;
 
-export const RemoveSub = gql`
-  mutation RemoveSub($id: String!) {
-    removeSub(id: $id)
+export const RemoveComments = gql`
+  mutation RemoveComments($id: String!) {
+    removeComments(id: $id)
   }
 `;
 
-export const EditSub = gql`
-  mutation EditSub($id: String!, $text: String!) {
-    editSub(id: $id, text: $text) {
+export const GET_COMMENTS_COUNT = gql`
+  query GetCommentsCount($id: String!) {
+    post(id: $id) {
+      id
+      comments_count
+    }
+  }
+`;
+
+export const EditComments = gql`
+  mutation EditComments($id: String!, $text: String!) {
+    editComments(id: $id, text: $text) {
       id
       text
       level
@@ -28,25 +37,16 @@ export const EditSub = gql`
   }
 `;
 
-export const GET_COMMENTS_COUNT = gql`
-  query GetCommentsCount($id: String!) {
-    post(id: $id) {
-      id
-      subs_count
-    }
-  }
-`;
-
 export const GET_SubComment = gql`
-  query GetSub($comment_id: String!) {
-    getSub(comment_id: $comment_id) {
+  query GetSubComments($comment_id: String!) {
+    getSubComments(comment_id: $comment_id) {
       id
       text
       likes
       has_replies
       deleted
       upvotes
-      likedSub
+      likedComments
       users {
         id
         username
@@ -65,7 +65,7 @@ export const GET_SubComment = gql`
         has_replies
         replies_count
         upvotes
-        user {
+        users {
           id
           username
           profile {
