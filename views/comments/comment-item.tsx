@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import useBoolean from '@/hooks/use-boolean';
 import { ProfileIcon } from '@/components/icons';
 import { Comments, Maybe } from '@/types/apolloComponent';
+import { shortenID } from '@/lib/temporary-id';
 
 export type CommentItemProps = {
   comment: Maybe<Comments>;

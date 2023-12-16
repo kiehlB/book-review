@@ -8,7 +8,7 @@ function simpleHash(str: string) {
   return Math.abs(hash).toString(16);
 }
 
-function shortenID(originalID: string) {
+export function shortenID(originalID: string) {
   const hash = simpleHash(originalID);
   return hash.substring(0, 5);
 }
