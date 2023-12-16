@@ -27,7 +27,6 @@ export default function MainPage() {
           },
         ]}
       />
-
       <PostGrid className="mt-[1rem]">
         <Suspense fallback={<PostLoading />}>
           <GetPosts />
