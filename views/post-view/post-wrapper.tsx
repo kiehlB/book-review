@@ -17,11 +17,10 @@ import useGetUser from '../setting/hooks/use-get-user';
 
 export type PostProps = {
   header_url: string;
-  token: RequestCookie | undefined;
 };
 
-function PostPageViewWrapper({ header_url, token }: PostProps) {
-  const { getUser } = useGetUser(token);
+function PostPageViewWrapper({ header_url }: PostProps) {
+  const { getUser } = useGetUser();
   const auth = getUser?.whoami?.id;
   const pathSegments = header_url.split('/');
   const desiredSegment = pathSegments[pathSegments.length - 1];
@@ -64,7 +63,7 @@ function PostPageViewWrapper({ header_url, token }: PostProps) {
         </div>
       </div>
 
-      <PostAuthControl id={id} auth={auth} singlePostData={singlePostData} />
+      <PostAuthControl id={id} auth={auth!} singlePostData={singlePostData} />
 
       <div className="mx-auto mb-[0.5rem] mt-8 flex max-w-[812.5px] flex-wrap justify-start text-sm text-[#868E96]">
         <div className="flex flex-wrap">
@@ -136,7 +135,7 @@ function PostPageViewWrapper({ header_url, token }: PostProps) {
             ''
           )}
 
-          <div className="dark:prose-dark prose max-w-full">
+          <div className="prose max-w-full dark:prose-dark">
             <div
               id="content"
               className="font-Pretendard"

@@ -16,8 +16,8 @@ import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 
 export default function useCreateCommentWrite(
   postId: string,
-  handleRefetch: any,
-  currentId: any,
+  handleRefetch: () => void,
+  currentId: string | undefined,
 ) {
   const [writeComment] = useMutation<CreateCommentsMutation>(CreateComment, {});
   const [removeComment] = useMutation<RemoveCommentsMutation>(RemoveComments);

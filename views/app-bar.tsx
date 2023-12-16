@@ -20,20 +20,10 @@ import { IoSearchOutline } from 'react-icons/io5';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' }) {
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const { toggleDarkMode } = useCoreStore();
 
   const darkMode = theme == 'dark' ? 'light' : 'dark';
-
-  useEffect(() => {
-    setMounted(true);
-    toggleDarkMode(theme);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   const handleClick = () => {
     setTheme(darkMode);

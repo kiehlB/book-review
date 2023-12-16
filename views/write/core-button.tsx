@@ -11,7 +11,7 @@ import useModalStore from '@/store/modal';
 
 export type TapProps = {
   StoreTag: string[];
-  getUser: any;
+  getUser: string | null;
 };
 
 function CoreButton({ StoreTag, getUser }: TapProps) {

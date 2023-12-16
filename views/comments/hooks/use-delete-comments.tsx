@@ -12,8 +12,8 @@ import {
 } from '@/lib/graphql/comments';
 
 interface DeleteCommentArgs {
-  id: string;
-  hasChild: boolean;
+  id: string | undefined;
+  hasChild: boolean | undefined;
 }
 export default function useDeleteComment({ id, hasChild }: DeleteCommentArgs) {
   const params = useParams();

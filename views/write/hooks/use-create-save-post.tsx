@@ -15,9 +15,8 @@ import {
   RemovePostMutation,
 } from '../../../types/apolloComponent';
 import useBookStore, { BookData } from '@/store/book';
-import { useAuthStore } from '@/store/auth';
 
-export default function useCreateSavePost(getUser: any) {
+export default function useCreateSavePost(userId: string | null) {
   const { setPostId } = useBookStore(state => ({
     postId: state.postId,
     setPostId: state.setPostId,
@@ -30,10 +29,10 @@ export default function useCreateSavePost(getUser: any) {
 
   const { data, loading, refetch } = useQuery(GET_Posts, {
     variables: {
-      username: getUser?.username,
+      id: userId,
       istemp: true,
     },
-    skip: !getUser,
+    skip: !userId,
   });
 
   const posts = data?.posts;
@@ -43,7 +42,7 @@ export default function useCreateSavePost(getUser: any) {
     title: string,
     body: string,
     tags: string[],
-    book: any,
+    book: BookData | null,
   ) => {
     if (!title) {
       toast.error('제목 또는 내용이 비어있습니다.', {
@@ -66,12 +65,12 @@ export default function useCreateSavePost(getUser: any) {
             bookUrl: book?.cover,
             bookIsbn: book?.isbn,
             bookAuthors: book?.author,
-            publisher: book.publisher,
-            pubDate: book.pubDate,
-            customerReviewRank: book.customerReviewRank,
-            priceStandard: book.priceStandard,
-            categoryName: book.categoryName,
-            categoryId: book.categoryId,
+            publisher: book?.publisher,
+            pubDate: book?.pubDate,
+            customerReviewRank: book?.customerReviewRank,
+            priceStandard: book?.priceStandard,
+            categoryName: book?.categoryName,
+            categoryId: book?.categoryId,
           },
 
           update: async (proxy, { data: createPost }) => {
@@ -82,7 +81,7 @@ export default function useCreateSavePost(getUser: any) {
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
-                username: getUser?.username,
+                id: userId,
                 istemp: true,
               },
               data: {
@@ -114,12 +113,12 @@ export default function useCreateSavePost(getUser: any) {
             bookUrl: book?.cover,
             bookIsbn: book?.isbn,
             bookAuthors: book?.author,
-            publisher: book.publisher,
-            pubDate: book.pubDate,
-            customerReviewRank: book.customerReviewRank,
-            priceStandard: book.priceStandard,
-            categoryName: book.categoryName,
-            categoryId: book.categoryId,
+            publisher: book?.publisher,
+            pubDate: book?.pubDate,
+            customerReviewRank: book?.customerReviewRank,
+            priceStandard: book?.priceStandard,
+            categoryName: book?.categoryName,
+            categoryId: book?.categoryId,
           },
 
           update: async (proxy, { data: editPost }) => {
@@ -149,12 +148,12 @@ export default function useCreateSavePost(getUser: any) {
             bookUrl: book?.cover,
             bookIsbn: book?.isbn,
             bookAuthors: book?.author,
-            publisher: book.publisher,
-            pubDate: book.pubDate,
-            customerReviewRank: book.customerReviewRank,
-            priceStandard: book.priceStandard,
-            categoryName: book.categoryName,
-            categoryId: book.categoryId,
+            publisher: book?.publisher,
+            pubDate: book?.pubDate,
+            customerReviewRank: book?.customerReviewRank,
+            priceStandard: book?.priceStandard,
+            categoryName: book?.categoryName,
+            categoryId: book?.categoryId,
           },
 
           update: async (proxy, { data: createPost }) => {
@@ -165,7 +164,7 @@ export default function useCreateSavePost(getUser: any) {
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
-                username: getUser?.username,
+                id: userId,
                 istemp: true,
               },
               data: {
@@ -196,7 +195,7 @@ export default function useCreateSavePost(getUser: any) {
       client.writeQuery({
         query: GET_Posts,
         variables: {
-          username: getUser?.username,
+          id: userId,
           istemp: true,
         },
         data: {

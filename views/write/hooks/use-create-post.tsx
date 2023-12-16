@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import { checkEmpty } from '../../../lib/utils';
 import { CreatePostMutation, EditPostMutation } from '../../../types/apolloComponent';
 import useBookStore from '@/store/book';
+import useModalStore from '@/store/modal';
 
 export default function useCreatePost() {
   const router = useRouter();
   const { setIsOpen, setTitle, setBody, setTags, setPostId, setThumbnail, setBook } =
     useBookStore();
+
+  const { publishClose, setPublishClose } = useModalStore();
 
   const [editPost] = useMutation<EditPostMutation>(Edit_Post, {
     onCompleted({}) {
@@ -34,7 +37,7 @@ export default function useCreatePost() {
       setTags([]);
       setPostId('');
       setThumbnail('');
-
+      setPublishClose(!publishClose);
       router.push('/');
     },
   });

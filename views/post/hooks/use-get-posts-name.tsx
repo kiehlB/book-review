@@ -16,7 +16,7 @@ export default function useGetPostsBy({ isTemp = false }: useGetPostProps) {
   const { data, loading, fetchMore } = useQuery<{ posts: Post[] }>(GET_Posts, {
     variables: {
       limit: 24,
-      username: auth?.username,
+      id: auth?.id,
       istemp: isTemp,
     },
 

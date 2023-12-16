@@ -12,6 +12,7 @@ export default function useRegister() {
   const { setClose } = useModalStore();
 
   const [signUp, { error: registerError }] = useMutation(registerMutation, {
+    errorPolicy: 'all',
     onCompleted(signUp) {
       setAuthInfo(signUp?.register);
       setClose(false);

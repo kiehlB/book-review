@@ -17,13 +17,13 @@ import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import { GetSubCommentsQuery } from '@/types/apolloComponent';
 
 export type CommentRepliesProps = {
-  id: string;
+  id: string | undefined;
   onToggleOpen: () => void;
   isMine: boolean;
   open: boolean;
-  hasChild: boolean;
-  auth: any;
-  handleRefetch: any;
+  hasChild: boolean | undefined;
+  auth: string | undefined;
+  handleRefetch: () => void;
 };
 
 function CommentReplies({

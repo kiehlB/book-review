@@ -9,36 +9,24 @@ import Tap from './tiptap';
 import useBookStore from '@/store/book';
 import useCreateSavePost from './hooks/use-create-save-post';
 import { ToastContainer } from 'react-toastify';
-import useCoreStore from '@/store/core';
-import { useTheme } from 'next-themes';
 import { PageGrid } from '@/components/layout/grid-layout';
 import { AppLayout, First, MainNav, Second } from '@/components/layout/app-layout';
 import { BackLink } from '@/components/arrow-button';
 import useGetUser from '../setting/hooks/use-get-user';
 
-export type TapProps = { token: any };
+export type TapProps = {};
 
-function WriteTemplate({ token }: TapProps) {
-  const [mounted, setMounted] = useState(false);
-  const { getUser } = useGetUser(token);
-  const { theme, setTheme } = useTheme();
-  const { toggleDarkMode } = useCoreStore();
+function WriteTemplate({}: TapProps) {
+  const { getUser } = useGetUser();
 
-  useEffect(() => {
-    setMounted(true);
-    toggleDarkMode(theme);
-  }, []);
+  const userId = getUser?.whoami?.id ?? null;
 
   const { tags, postId } = useBookStore(state => ({
     tags: state.tags,
     postId: state.postId,
   }));
 
-  const { posts } = useCreateSavePost(getUser);
-
-  if (!mounted) {
-    return null;
-  }
+  const { posts } = useCreateSavePost(userId);
 
   return (
     <>
@@ -54,7 +42,7 @@ function WriteTemplate({ token }: TapProps) {
               </BackLink>
             </div>
           </div>
-          <TapSide getUser={getUser} />
+          <TapSide getUser={userId} />
         </MainNav>
         <AppLayout
           className="col-span-8 mmd:col-span-10"
@@ -62,7 +50,7 @@ function WriteTemplate({ token }: TapProps) {
             <First>
               <div className="flex items-center justify-between">
                 <WriteHeader />
-                <CoreButton StoreTag={tags} getUser={getUser} />
+                <CoreButton StoreTag={tags} getUser={userId} />
               </div>
               <div className="px-4 py-4 mxs:px-2">
                 <TagsForm StoreTag={tags} postId={postId} posts={posts} />

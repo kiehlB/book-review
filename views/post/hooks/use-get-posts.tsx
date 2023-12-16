@@ -42,11 +42,10 @@ export default function useGetPosts() {
 
   const cursor = data?.recentPosts[data?.recentPosts.length - 1]?.id;
 
-  // useScrollPagination({
-  //   cursor,
-  //   data,
-  //   onLoadMore,
-  // });
+  useScrollPagination({
+    cursor,
+    onLoadMore,
+  });
 
   return { data, isFinished };
 }

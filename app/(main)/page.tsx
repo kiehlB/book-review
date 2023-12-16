@@ -2,7 +2,6 @@
 
 import { PostGrid } from '@/components/layout/grid-layout';
 import PostLoading from '@/components/loading/post-loading';
-
 import HomeTitle from '@/views/home/home-title';
 import GetPosts from '@/views/post/post-grid';
 import React, { Suspense } from 'react';

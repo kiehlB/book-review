@@ -12,7 +12,7 @@ export type CommentsProps = {
   postId: string;
   isMine: boolean;
   currentId: string | undefined;
-  handleRefetch: any;
+  handleRefetch: () => void;
 };
 
 function Comments({

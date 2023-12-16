@@ -13,7 +13,7 @@ export default function useSavedPosts() {
 
   const { data, loading, fetchMore } = useQuery(GET_Posts, {
     variables: {
-      username: auth?.username,
+      id: auth?.id,
       istemp: true,
     },
     skip: !auth,
@@ -33,7 +33,7 @@ export default function useSavedPosts() {
       client.writeQuery({
         query: GET_Posts,
         variables: {
-          username: auth?.username,
+          id: auth?.id,
           temp_only: true,
         },
         data: {

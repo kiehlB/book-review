@@ -10,7 +10,7 @@ import useCoreStore from '@/store/core';
 
 export type PostProps = {
   id: string;
-  auth: any;
+  auth: string | undefined;
 };
 
 export default function PawButton({ id, auth }: PostProps) {

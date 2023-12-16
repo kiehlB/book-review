@@ -11,7 +11,7 @@ import PostCard from '@/views/post/post-card';
 export const dynamic = 'force-dynamic';
 
 export default function MainPage() {
-  const path = usePathname() as any;
+  const path = usePathname();
 
   let result;
   try {

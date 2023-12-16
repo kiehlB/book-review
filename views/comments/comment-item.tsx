@@ -10,15 +10,16 @@ import { LiaComments } from 'react-icons/lia';
 import clsx from 'clsx';
 import useBoolean from '@/hooks/use-boolean';
 import { ProfileIcon } from '@/components/icons';
+import { Comments, Maybe } from '@/types/apolloComponent';
 
 export type CommentItemProps = {
-  comment: any;
+  comment: Maybe<Comments>;
   onRemove: (id: string) => void;
   isMine: boolean;
   ownComment: string | undefined;
   getId: (id: string) => void;
-  onLikeToggle: any;
-  handleRefetch: any;
+  onLikeToggle: (id: string) => void;
+  handleRefetch: () => void;
 };
 
 const PostCommentItem = styled.div`
@@ -61,7 +62,7 @@ function CommentItem({
               <div className="flex w-full items-center justify-between mxs:flex-col mxs:items-baseline">
                 <div className="flex items-center">
                   <h3 className="ml-2 font-bold text-[#212529] dark:text-[#ececec] mxs:text-sm">
-                    {comment.deleted
+                    {comment && comment.deleted !== undefined && comment.deleted
                       ? '알 수 없음'
                       : comment?.user?.profile?.profile_name
                         ? comment?.user?.profile?.profile_name
@@ -69,21 +70,21 @@ function CommentItem({
                   </h3>
                   <p
                     className={clsx('text-xs text-[#868E96] dark:text-[#acacac]', {
-                      'ml-1': comment?.level >= 0,
+                      'ml-1': comment?.level ?? 0,
                     })}>
                     {formatDate(comment?.created_at)}
                   </p>
                 </div>
 
                 <div className="flex h-full text-sm text-[#868e96] dark:text-[#acacac] mxs:px-2">
-                  {ownComment == comment?.user?.id && !comment.deleted ? (
+                  {ownComment == comment?.user?.id && !comment?.deleted ? (
                     <>
                       <span onClick={onToggleEditing} className="mr-2 cursor-pointer">
                         수정
                       </span>
                       <span
                         className="cursor-pointer"
-                        onClick={() => onRemove(comment.id)}>
+                        onClick={() => comment && onRemove(comment.id)}>
                         삭제
                       </span>
                     </>
@@ -97,14 +98,14 @@ function CommentItem({
                 <div className="mt-1 dark:text-[#ececec] mxs:text-sm">
                   {editing ? (
                     <CommentEdit
-                      id={comment.id}
-                      defaultText={comment.text || ''}
+                      id={comment?.id ?? ''}
+                      defaultText={comment?.text || ''}
                       onCancel={onToggleEditing}
                     />
-                  ) : comment.deleted ? (
+                  ) : comment?.deleted ? (
                     '삭제 되었습니다'
                   ) : (
-                    comment.text
+                    comment?.text ?? ''
                   )}
                 </div>
                 <div className="mt-2 w-fit text-sm text-[#212529] dark:text-[#ececec]">
@@ -122,7 +123,7 @@ function CommentItem({
                       </div> */}
                     </div>
 
-                    {!comment.deleted && comment?.level < 2 ? (
+                    {!comment?.deleted && (comment?.level ?? 0) < 2 ? (
                       <div
                         onClick={onToggleOpen}
                         className="flex cursor-pointer  items-center">
@@ -143,7 +144,7 @@ function CommentItem({
       </div>
 
       <CommentReplies
-        id={comment.id}
+        id={comment?.id}
         handleRefetch={handleRefetch}
         onToggleOpen={onToggleOpen}
         isMine={isMine}

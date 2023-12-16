@@ -9,7 +9,7 @@ export type CommentListProps = {
   onRemove: (id: string) => void;
   isMine: boolean;
   currentId: string | undefined;
-  handleRefetch: any;
+  handleRefetch: () => void;
 };
 
 function CommentList({

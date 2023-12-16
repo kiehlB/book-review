@@ -7,7 +7,7 @@ import { useDebounce } from 'use-debounce';
 import SavePost from './save-post';
 
 export type TapProps = {
-  getUser: any;
+  getUser: string | null;
 };
 
 function TapSide({ getUser }: TapProps) {

@@ -808,7 +808,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: string, username?: string | null, accessToken?: string | null, refreshToken?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, thumbnail?: string | null } | null } | null };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string, username?: string | null, accessToken?: string | null, refreshToken?: string | null, profile?: { __typename?: 'UserProfile', id: string, bio?: string | null, profile_name?: string | null, thumbnail?: string | null } | null } | null };
 
 export type RegisterMutationVariables = Exact<{
   username: Scalars['String']['input'];

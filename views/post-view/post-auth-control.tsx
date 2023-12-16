@@ -1,5 +1,6 @@
 import { Remove_Post } from '@/lib/graphql/posts';
 import useBookStore from '@/store/book';
+import { Post, Maybe, Tag } from '@/types/apolloComponent'; // Import Maybe and Tag types
 import { useApolloClient, useMutation } from '@apollo/client';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
@@ -10,9 +11,9 @@ function PostAuthControl({
   id,
   auth,
 }: {
-  singlePostData: any;
-  id: any;
-  auth: any;
+  singlePostData: { post: Post } | undefined;
+  id: string | undefined;
+  auth: string;
 }) {
   const router = useRouter();
 
@@ -26,7 +27,7 @@ function PostAuthControl({
     },
   });
 
-  const handleSubmit = async (id: string | string[]) => {
+  const handleSubmit = async (id: string | undefined) => {
     if (id) {
       try {
         await removePost({
@@ -48,7 +49,7 @@ function PostAuthControl({
     setBody(singlePostData?.post?.body || '');
     setTags(
       singlePostData?.post?.tags
-        ?.map((e: { tag: { name: string } }) => e?.tag?.name)
+        ?.map((e: Maybe<Tag>) => e?.tag?.name ?? '')
         .filter((name: string): name is string => !!name) || [],
     );
     setPostId(singlePostData?.post?.id || '');

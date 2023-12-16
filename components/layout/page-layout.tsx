@@ -5,10 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import FloatingHeader from '../floating';
 import useBookStore from '@/store/book';
 import Header from '@/views/app-bar';
-import { Core } from '../core';
 import useGetUser from '@/views/setting/hooks/use-get-user';
-import { Suspense, useEffect, useState } from 'react';
-import Script from 'next/script';
 
 export type RequestCookie = {
   name: string;
@@ -24,12 +21,11 @@ function PageLayout({ children, token }: PageLayoutProps) {
   const { isClose, setClose, setMode } = useModalStore();
   const { isSearchBook, setIsSearchBook } = useBookStore();
 
-  const { getUser } = useGetUser(token);
+  const { getUser } = useGetUser();
 
   return (
     <div className="h-full mxl:px-4">
       <ToastContainer />
-
       <FloatingHeader
         token={token}
         IsClose={isClose}

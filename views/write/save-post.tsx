@@ -3,7 +3,7 @@ import SavedPostItem from './save-post-item';
 import { useSpring, animated } from '@react-spring/web';
 import useCreateSavePost from './hooks/use-create-save-post';
 import { Post } from '@/types/apolloComponent';
-export type TapProps = { value: string; getUser: any };
+export type TapProps = { value: string; getUser: string | null };
 
 function SavePost({ value, getUser }: TapProps) {
   const { posts, loading, onConfirmRemove } = useCreateSavePost(getUser);

@@ -15,7 +15,7 @@ function PostPage() {
   return (
     <PageLayout token={token}>
       <Suspense fallback={<PostPageSkeleton />}>
-        <PostPageViewWrapper header_url={header_url} token={token} />;
+        <PostPageViewWrapper header_url={header_url} />;
       </Suspense>
     </PageLayout>
   );

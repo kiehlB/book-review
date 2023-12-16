@@ -145,8 +145,8 @@ export const GET_Post = gql`
 `;
 
 export const GET_Posts = gql`
-  query GetPosts($cursor: String, $username: String, $istemp: Boolean) {
-    posts(cursor: $cursor, username: $username, istemp: $istemp) {
+  query GetPosts($cursor: String, $id: String, $istemp: Boolean) {
+    posts(cursor: $cursor, id: $id, istemp: $istemp) {
       id
       title
       body
