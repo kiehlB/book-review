@@ -19,16 +19,16 @@ function Tags(props: TagsProps) {
     ?.slice(0, 6);
 
   return (
-    <div className=" text-[#475569] dark:text-darkText">
+    <div className=" text-[#495057] dark:text-darkText">
       {GetTags?.map((tag: any) => (
         <TagItem name={tag.name} key={tag.id} postsCount={tag.posts_count} />
       ))}
 
       <div className="mt-2 flex items-center">
         <NextLink
-          className="text-[#475569] hover:text-[#212529] dark:text-darkText dark:hover:text-white"
+          className="text-[#495057] hover:text-[#212529] dark:text-darkText dark:hover:text-white"
           href={'/tags'}>
-          <span className="mr-2 py-1 text-base font-bold text-[#475569] hover:text-[#212529] dark:text-darkText dark:hover:text-white">
+          <span className="mr-2 py-1 text-base font-bold text-[#495057] hover:text-[#212529] dark:text-darkText dark:hover:text-white">
             See All Tags
           </span>
         </NextLink>

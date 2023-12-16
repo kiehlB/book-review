@@ -40,7 +40,10 @@ function CommentItem({
 }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
-
+  const username =
+    comment?.user?.profile?.profile_name ||
+    comment?.user?.username ||
+    shortenID(comment?.user?.id || '');
   return (
     <PostCommentItem className="comment mt-1 py-1">
       <div className="flex">
@@ -64,9 +67,7 @@ function CommentItem({
                   <h3 className="ml-2 font-bold text-[#212529] dark:text-[#ececec] mxs:text-sm">
                     {comment && comment.deleted !== undefined && comment.deleted
                       ? '알 수 없음'
-                      : comment?.user?.profile?.profile_name
-                        ? comment?.user?.profile?.profile_name
-                        : comment?.user?.username}
+                      : username}
                   </h3>
                   <p
                     className={clsx('text-xs text-[#868E96] dark:text-[#acacac]', {
