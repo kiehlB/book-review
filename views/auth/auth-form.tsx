@@ -17,6 +17,8 @@ import { toast } from 'react-toastify';
 import useModalStore from '@/store/modal';
 import { Google } from '@/components/icons';
 import LabelInput from '@/components/input/label-input';
+import Script from 'next/script';
+import Head from 'next/head';
 
 type LoginFunction = (options: {
   variables: LoginMutationVariables;
@@ -48,7 +50,7 @@ const authDescriptions = {
 } as const;
 
 function AuthForm({ mode, login, register, error }: Props) {
-  const { setMode } = useModalStore();
+  const { isClose, setMode } = useModalStore();
 
   const naverRef = React.useRef<HTMLDivElement>(null);
 
@@ -118,69 +120,87 @@ function AuthForm({ mode, login, register, error }: Props) {
     }
   }, [error]);
 
+  React.useEffect(() => {
+    const { naver } = window as any;
+    if (naver) {
+      const naverLogin = new (window as any).naver.LoginWithNaverId({
+        clientId: process.env.NAVER_ID,
+        callbackUrl: process.env.NAVER_CALLBACK,
+        isPopup: false,
+        loginButton: {},
+      });
+
+      naverLogin.init();
+    }
+  }, []);
+
   return (
-    <form onSubmit={onSubmit} className="mx-auto flex w-[90%] flex-1 flex-col p-4 pt-6">
-      <section className="flex flex-col gap-4">
-        <LabelInput
-          label="아이디"
-          placeholder={usernamePlaceholder}
-          disabled={false}
-          errorMessage={errors.username}
-          {...inputProps.username}
-        />
-        <LabelInput
-          label="비밀번호"
-          placeholder={passwordPlaceholder}
-          disabled={false}
-          errorMessage={errors.password}
-          type="password"
-          {...inputProps.password}
-        />
-      </section>
-      <section className="mobile:mt-6 flex w-full flex-col items-center gap-6">
-        {error?.name === 'WrongCredentials' && (
-          <div className="text-center text-sm text-red-500">잘못된 계정 정보입니다.</div>
-        )}
-
-        <button className="mt-8 flex h-12 w-full items-center justify-center rounded-xl bg-yellow-100 tracking-widest text-default">
-          {buttonText}
-        </button>
-
-        <p className="link flex w-full justify-end text-base mmd:px-[2rem] mxx:px-[1rem]">
-          {mode == 'register' ? (
-            <span
-              className="cursor-pointer font-semibold text-yellow-200"
-              onClick={() => setMode('login')}>
-              로그인
-            </span>
-          ) : (
-            <span
-              className="cursor-pointer font-semibold text-yellow-200"
-              onClick={() => setMode('register')}>
-              회원가입
-            </span>
+    <>
+      <form onSubmit={onSubmit} className="mx-auto flex w-[90%] flex-1 flex-col p-4 pt-6">
+        <section className="flex flex-col gap-4">
+          <LabelInput
+            label="아이디"
+            placeholder={usernamePlaceholder}
+            disabled={false}
+            errorMessage={errors.username}
+            {...inputProps.username}
+          />
+          <LabelInput
+            label="비밀번호"
+            placeholder={passwordPlaceholder}
+            disabled={false}
+            errorMessage={errors.password}
+            type="password"
+            {...inputProps.password}
+          />
+        </section>
+        <section className="mobile:mt-6 flex w-full flex-col items-center gap-6">
+          {error?.name === 'WrongCredentials' && (
+            <div className="text-center text-sm text-red-500">
+              잘못된 계정 정보입니다.
+            </div>
           )}
-          <span className="dark:text-200">으로 이동</span>
-        </p>
 
-        <div className="mx-auto flex w-[60%] justify-between pt-3 mxs:w-[80%] mxx:w-[100%] mxx:px-2">
-          <SocialButton
-            href={`${process.env.GOOGLE_CALLBACK}`}
-            className="border border-[#DEE2E6]">
-            <Google />
-          </SocialButton>
+          <button className="mt-8 flex h-12 w-full items-center justify-center rounded-xl bg-yellow-100 tracking-widest text-default">
+            {buttonText}
+          </button>
 
-          <SocialButton onClick={handleClick}>
-            <div ref={naverRef} id="naverIdLogin" className="hidden" />
-            <Image src="/naver.png" alt="icon" width={50} height={50} />
-          </SocialButton>
+          <p className="link flex w-full justify-end text-base mmd:px-[2rem] mxx:px-[1rem]">
+            {mode == 'register' ? (
+              <span
+                className="cursor-pointer font-semibold text-yellow-200"
+                onClick={() => setMode('login')}>
+                로그인
+              </span>
+            ) : (
+              <span
+                className="cursor-pointer font-semibold text-yellow-200"
+                onClick={() => setMode('register')}>
+                회원가입
+              </span>
+            )}
+            <span className="dark:text-200">으로 이동</span>
+          </p>
 
-          <SocialButton href={`${process.env.KAKAO_CALLBACK}`} bgColor="bg-[#fee500]">
-            <Image src="/kakao.png" width={24} height={24} alt="alt" />
-          </SocialButton>
-        </div>
-      </section>
-    </form>
+          <div className="mx-auto flex w-[60%] justify-between pt-3 mxs:w-[80%] mxx:w-[100%] mxx:px-2">
+            <SocialButton
+              href={`${process.env.GOOGLE_CALLBACK}`}
+              className="border border-[#DEE2E6]">
+              <Google />
+            </SocialButton>
+
+            <SocialButton onClick={handleClick}>
+              <div ref={naverRef} id="naverIdLogin" className="hidden" />
+              <Image src="/naver.png" alt="icon" width={50} height={50} />
+            </SocialButton>
+
+            <SocialButton href={`${process.env.KAKAO_CALLBACK}`} bgColor="bg-[#fee500]">
+              <Image src="/kakao.png" width={24} height={24} alt="alt" />
+            </SocialButton>
+          </div>
+        </section>
+      </form>
+    </>
   );
 }
 

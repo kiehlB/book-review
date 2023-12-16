@@ -14,11 +14,13 @@ import { useTheme } from 'next-themes';
 import { PageGrid } from '@/components/layout/grid-layout';
 import { AppLayout, First, MainNav, Second } from '@/components/layout/app-layout';
 import { BackLink } from '@/components/arrow-button';
+import useGetUser from '../setting/hooks/use-get-user';
 
-export type TapProps = {};
+export type TapProps = { token: any };
 
-function WriteTemplate({}: TapProps) {
+function WriteTemplate({ token }: TapProps) {
   const [mounted, setMounted] = useState(false);
+  const { getUser } = useGetUser(token);
   const { theme, setTheme } = useTheme();
   const { toggleDarkMode } = useCoreStore();
 
@@ -32,7 +34,7 @@ function WriteTemplate({}: TapProps) {
     postId: state.postId,
   }));
 
-  const { posts } = useCreateSavePost();
+  const { posts } = useCreateSavePost(getUser);
 
   if (!mounted) {
     return null;
@@ -52,7 +54,7 @@ function WriteTemplate({}: TapProps) {
               </BackLink>
             </div>
           </div>
-          <TapSide />
+          <TapSide getUser={getUser} />
         </MainNav>
         <AppLayout
           className="col-span-8 mmd:col-span-10"
@@ -60,7 +62,7 @@ function WriteTemplate({}: TapProps) {
             <First>
               <div className="flex items-center justify-between">
                 <WriteHeader />
-                <CoreButton StoreTag={tags} />
+                <CoreButton StoreTag={tags} getUser={getUser} />
               </div>
               <div className="px-4 py-4 mxs:px-2">
                 <TagsForm StoreTag={tags} postId={postId} posts={posts} />

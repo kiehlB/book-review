@@ -17,9 +17,7 @@ import {
 import useBookStore, { BookData } from '@/store/book';
 import { useAuthStore } from '@/store/auth';
 
-export default function useCreateSavePost() {
-  const auth = useAuthStore(state => state.auth);
-
+export default function useCreateSavePost(getUser: any) {
   const { setPostId } = useBookStore(state => ({
     postId: state.postId,
     setPostId: state.setPostId,
@@ -32,10 +30,10 @@ export default function useCreateSavePost() {
 
   const { data, loading, refetch } = useQuery(GET_Posts, {
     variables: {
-      username: auth?.username,
+      username: getUser?.username,
       istemp: true,
     },
-    skip: !auth,
+    skip: !getUser,
   });
 
   const posts = data?.posts;
@@ -84,7 +82,7 @@ export default function useCreateSavePost() {
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
-                username: auth?.username,
+                username: getUser?.username,
                 istemp: true,
               },
               data: {
@@ -167,7 +165,7 @@ export default function useCreateSavePost() {
             proxy?.writeQuery({
               query: GET_Posts,
               variables: {
-                username: auth?.username,
+                username: getUser?.username,
                 istemp: true,
               },
               data: {
@@ -198,7 +196,7 @@ export default function useCreateSavePost() {
       client.writeQuery({
         query: GET_Posts,
         variables: {
-          username: auth?.username,
+          username: getUser?.username,
           istemp: true,
         },
         data: {

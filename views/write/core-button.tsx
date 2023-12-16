@@ -11,10 +11,11 @@ import useModalStore from '@/store/modal';
 
 export type TapProps = {
   StoreTag: string[];
+  getUser: any;
 };
 
-function CoreButton({ StoreTag }: TapProps) {
-  const { onConfirmSave, posts, loading } = useCreateSavePost();
+function CoreButton({ StoreTag, getUser }: TapProps) {
+  const { onConfirmSave, posts, loading } = useCreateSavePost(getUser);
   const { body, postId, title, book, setIsOpen, setPostSave, postSave } = useBookStore(
     state => ({
       body: state.body,

@@ -7,7 +7,8 @@ import useBookStore from '@/store/book';
 import Header from '@/views/app-bar';
 import { Core } from '../core';
 import useGetUser from '@/views/setting/hooks/use-get-user';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import Script from 'next/script';
 
 export type RequestCookie = {
   name: string;
@@ -22,31 +23,32 @@ interface PageLayoutProps {
 function PageLayout({ children, token }: PageLayoutProps) {
   const { isClose, setClose, setMode } = useModalStore();
   const { isSearchBook, setIsSearchBook } = useBookStore();
-  const { getUser } = useGetUser();
+
+  const { getUser } = useGetUser(token);
 
   return (
     <div className="h-full mxl:px-4">
       <ToastContainer />
-      <Suspense>
-        <FloatingHeader
-          token={token}
-          IsClose={isClose}
-          SetIsClose={setClose}
-          SetMode={setMode}
-          BookIsClose={isSearchBook}
-          SetBookClose={setIsSearchBook}
-          getUser={getUser}
-        />
-        <Header
-          getUser={getUser}
-          token={token}
-          IsClose={isClose}
-          SetIsClose={setClose}
-          SetMode={setMode}
-          BookIsClose={isSearchBook}
-          SetBookClose={setIsSearchBook}
-        />
-      </Suspense>
+
+      <FloatingHeader
+        token={token}
+        IsClose={isClose}
+        SetIsClose={setClose}
+        SetMode={setMode}
+        BookIsClose={isSearchBook}
+        SetBookClose={setIsSearchBook}
+        getUser={getUser}
+      />
+      <Header
+        getUser={getUser}
+        token={token}
+        IsClose={isClose}
+        SetIsClose={setClose}
+        SetMode={setMode}
+        BookIsClose={isSearchBook}
+        SetBookClose={setIsSearchBook}
+      />
+
       <main>{children}</main>
     </div>
   );

@@ -6,9 +6,11 @@ import styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 import SavePost from './save-post';
 
-export type TapProps = {};
+export type TapProps = {
+  getUser: any;
+};
 
-function TapSide({}: TapProps) {
+function TapSide({ getUser }: TapProps) {
   const [text, setText] = useState('');
   const [value] = useDebounce(text, 300);
 
@@ -35,7 +37,7 @@ function TapSide({}: TapProps) {
       </div>
 
       <PostContent className="sticky top-0 h-[calc(100vh-9.375rem)] min-h-[0] scrollbar scrollbar-track-gray-100 scrollbar-thumb-gray-400 scrollbar-w-1">
-        <SavePost value={value} />
+        <SavePost value={value} getUser={getUser} />
       </PostContent>
     </>
   );

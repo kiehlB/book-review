@@ -18,6 +18,7 @@ export type CommentItemProps = {
   ownComment: string | undefined;
   getId: (id: string) => void;
   onLikeToggle: any;
+  handleRefetch: any;
 };
 
 const PostCommentItem = styled.div`
@@ -34,6 +35,7 @@ function CommentItem({
   ownComment,
   getId,
   onLikeToggle,
+  handleRefetch,
 }: CommentItemProps) {
   const [open, onToggleOpen] = useBoolean(false);
   const [editing, onToggleEditing] = useBoolean(false);
@@ -142,6 +144,7 @@ function CommentItem({
 
       <CommentReplies
         id={comment.id}
+        handleRefetch={handleRefetch}
         onToggleOpen={onToggleOpen}
         isMine={isMine}
         open={open}

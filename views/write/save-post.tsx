@@ -3,10 +3,10 @@ import SavedPostItem from './save-post-item';
 import { useSpring, animated } from '@react-spring/web';
 import useCreateSavePost from './hooks/use-create-save-post';
 import { Post } from '@/types/apolloComponent';
-export type TapProps = { value: string };
+export type TapProps = { value: string; getUser: any };
 
-function SavePost({ value }: TapProps) {
-  const { posts, loading, onConfirmRemove } = useCreateSavePost();
+function SavePost({ value, getUser }: TapProps) {
+  const { posts, loading, onConfirmRemove } = useCreateSavePost(getUser);
   const [isCollapse, setIsCollapse] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [activePopover, setActivePopover] = useState('');

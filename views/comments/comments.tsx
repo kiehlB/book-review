@@ -5,8 +5,6 @@ import CommentList from './comment-list';
 import CommentsWrite from './comment-write';
 import useCreateCommentWrite from './hooks/use-comment-write';
 import PopUpContainer from '@/components/popup-container';
-import { useEffect, useState } from 'react';
-import { useAuthStore } from '@/store/auth';
 
 export type CommentsProps = {
   commentCount: number;
@@ -14,9 +12,17 @@ export type CommentsProps = {
   postId: string;
   isMine: boolean;
   currentId: string | undefined;
+  handleRefetch: any;
 };
 
-function Comments({ commentCount, postId, comments, isMine, currentId }: CommentsProps) {
+function Comments({
+  commentCount,
+  postId,
+  comments,
+  isMine,
+  currentId,
+  handleRefetch,
+}: CommentsProps) {
   const {
     onWrite,
     comment,
@@ -25,7 +31,7 @@ function Comments({ commentCount, postId, comments, isMine, currentId }: Comment
     onRemove,
     askRemove,
     onToggleAskRemove,
-  } = useCreateCommentWrite(postId);
+  } = useCreateCommentWrite(postId, handleRefetch, currentId);
 
   return (
     <div className="mt-32">
@@ -44,6 +50,7 @@ function Comments({ commentCount, postId, comments, isMine, currentId }: Comment
           onRemove={onRemove}
           isMine={isMine}
           currentId={currentId}
+          handleRefetch={handleRefetch}
         />
       </div>
 

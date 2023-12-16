@@ -47,10 +47,10 @@ export default function useGetTrendingPosts() {
   );
   const offset = data?.trendingPosts[data?.trendingPosts.length - 1]?.id;
   // useFetchScroll(offset, onLoadMore, isFinished);
-  useScrollPagination({
-    offset: data?.trendingPosts.length,
-    onLoadMore,
-  });
+  // useScrollPagination({
+  //   offset: data?.trendingPosts.length,
+  //   onLoadMore,
+  // });
 
   return { data, isFinished };
 }

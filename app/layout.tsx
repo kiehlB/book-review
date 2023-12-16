@@ -51,29 +51,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <CustomThemeProvider>{children}</CustomThemeProvider>
           </ApolloWrapper>
         </StyledComponentsRegistry>
-      </body>
 
-      {/* <Script
-        defer
-        src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
+        <Script
+          defer
+          strategy="lazyOnload"
+          src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
 
-      <Script defer src="https://developers.kakao.com/sdk/js/kakao.js"></Script>
+        <Script
+          defer
+          strategy="lazyOnload"
+          src="https://developers.kakao.com/sdk/js/kakao.js"></Script>
 
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-R64H1TLKCP"
-        strategy="afterInteractive"
-      /> */}
-
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-R64H1TLKCP"
+          strategy="lazyOnload"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
          gtag('js', new Date());
        
          gtag('config', 'G-R64H1TLKCP');
         `}
-      </Script>
+        </Script>
+      </body>
     </html>
   );
 }

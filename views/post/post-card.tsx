@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Post } from '../../types/apolloComponent';
 import PostCardItem from './post-card-item';

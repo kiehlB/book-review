@@ -9,9 +9,16 @@ export type CommentListProps = {
   onRemove: (id: string) => void;
   isMine: boolean;
   currentId: string | undefined;
+  handleRefetch: any;
 };
 
-function CommentList({ comments, onRemove, isMine, currentId }: CommentListProps) {
+function CommentList({
+  comments,
+  onRemove,
+  isMine,
+  currentId,
+  handleRefetch,
+}: CommentListProps) {
   const { getId, onLikeToggle } = useCommentUpvote();
 
   return (
@@ -28,6 +35,7 @@ function CommentList({ comments, onRemove, isMine, currentId }: CommentListProps
               isMine={isMine}
               getId={getId}
               onLikeToggle={onLikeToggle}
+              handleRefetch={handleRefetch}
             />
           ))}
     </>

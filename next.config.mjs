@@ -18,6 +18,7 @@ const nextConfig = {
     KAKAO_CALLBACK: process.env.KAKAO_CALLBACK,
     API_ROUTE: process.env.API_ROUTE,
   },
+
   webpack(config, { webpack }) {
     config.plugins.push(
       new webpack.DefinePlugin({

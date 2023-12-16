@@ -5,6 +5,7 @@ type Params = {
   offset?: number | null;
   cursor?: string | null;
   stop?: boolean;
+  data: any;
   onLoadMore?: (cursor: string) => void;
   onLoadMoreByOffset?: (offset: number) => void;
 };
@@ -13,6 +14,7 @@ export default function useScrollPagination({
   cursor,
   stop,
   offset,
+  data,
   onLoadMore,
   onLoadMoreByOffset,
 }: Params) {
@@ -25,9 +27,11 @@ export default function useScrollPagination({
   }, []);
 
   const loadMore = useCallback(async () => {
+    if (data?.recentPosts.length <= 23) return;
     if (!cursor || !onLoadMore) return;
     if (cursor === last.current) return;
     last.current = cursor;
+
     await onLoadMore(cursor);
     preventBottomStick();
   }, [cursor, onLoadMore, preventBottomStick]);

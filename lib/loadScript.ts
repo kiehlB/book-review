@@ -1,4 +1,4 @@
-function loadScript(src: string, strategy = 'defer') {
+export function OauthloadScript(src: string, strategy = 'defer') {
   const script = document.createElement('script');
   script.src = src;
   if (strategy === 'async') {

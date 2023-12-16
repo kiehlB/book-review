@@ -24,14 +24,6 @@ export default function useCommentRepliesWrite({ postId, commendId }: RepliesWri
   //   },
   // });
 
-  const reloadComments = useQuery(RELOAD_COMMENTS, {
-    skip: true,
-    fetchPolicy: 'network-only',
-    variables: {
-      id: postId,
-    },
-  });
-
   const [comment, setComment] = useState('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +48,6 @@ export default function useCommentRepliesWrite({ postId, commendId }: RepliesWri
 
       setComment('');
       // await replies.refetch();
-      await reloadComments.refetch();
 
       const comments = document.querySelectorAll('.comment');
       if (comments.length === 0) return;

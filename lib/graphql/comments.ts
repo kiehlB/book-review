@@ -47,7 +47,7 @@ export const GET_SubComment = gql`
       deleted
       upvotes
       likedComments
-      users {
+      user {
         id
         username
       }
@@ -65,7 +65,7 @@ export const GET_SubComment = gql`
         has_replies
         replies_count
         upvotes
-        users {
+        user {
           id
           username
           profile {

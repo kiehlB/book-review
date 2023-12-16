@@ -1,6 +1,6 @@
 'use client';
 
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {

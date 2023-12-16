@@ -40,10 +40,10 @@ export default function useGetSearchPosts(id: string) {
 
   const cursor = data?.searchPosts[data?.searchPosts.length - 1]?.id;
 
-  useScrollPagination({
-    cursor,
-    onLoadMore,
-  });
+  // useScrollPagination({
+  //   cursor,
+  //   onLoadMore,
+  // });
 
   return { data, loading, isFinished };
 }

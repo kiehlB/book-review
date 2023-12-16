@@ -1,7 +1,7 @@
 'use client';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useParams } from 'next/navigation';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, startTransition, useState } from 'react';
 import {
   CreateComment,
   GET_COMMENTS_COUNT,
@@ -23,6 +23,7 @@ export type CommentRepliesProps = {
   open: boolean;
   hasChild: boolean;
   auth: any;
+  handleRefetch: any;
 };
 
 function CommentReplies({
@@ -32,13 +33,14 @@ function CommentReplies({
   open,
   hasChild,
   auth,
+  handleRefetch,
 }: CommentRepliesProps) {
   const router = useParams();
 
   const { onRemove, askRemove, onConfirmRemove, onToggleAskRemove, getCommentsCount } =
     useDeleteComment({ id, hasChild });
 
-  const replies = useSuspenseQuery(GET_SubComment, {
+  const { data, refetch } = useSuspenseQuery(GET_SubComment, {
     variables: {
       comment_id: id,
     },
@@ -47,14 +49,6 @@ function CommentReplies({
   const [writeComment] = useMutation(CreateComment, {
     onCompleted({}) {
       onToggleOpen();
-    },
-  });
-
-  const reloadComments = useQuery(RELOAD_COMMENTS, {
-    skip: true,
-    fetchPolicy: 'network-only',
-    variables: {
-      id,
     },
   });
 
@@ -82,9 +76,9 @@ function CommentReplies({
 
       setComment('');
 
-      await reloadComments.refetch();
-      await replies.refetch();
-      await getCommentsCount.refetch();
+      startTransition(() => {
+        refetch();
+      });
     } catch (e) {
       console.log(e);
     }
@@ -111,10 +105,11 @@ function CommentReplies({
 
       <div className="ml-10 mxs:ml-6">
         <CommentList
-          comments={replies?.data?.getSubComments}
+          comments={data?.getSubComments}
           isMine={isMine}
           currentId={auth}
           onRemove={onRemove}
+          handleRefetch={handleRefetch}
         />
       </div>
 

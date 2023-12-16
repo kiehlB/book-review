@@ -1,3 +1,5 @@
+'use client';
+
 import { PostGrid } from '@/components/layout/grid-layout';
 import PostLoading from '@/components/loading/post-loading';
 

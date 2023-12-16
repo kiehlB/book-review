@@ -21,11 +21,11 @@ export type PostProps = {
 };
 
 function PostPageViewWrapper({ header_url, token }: PostProps) {
-  const { getUser } = useGetUser();
+  const { getUser } = useGetUser(token);
   const auth = getUser?.whoami?.id;
   const pathSegments = header_url.split('/');
   const desiredSegment = pathSegments[pathSegments.length - 1];
-  const { singlePostData } = useGetPost(desiredSegment);
+  const { singlePostData, handleRefetch } = useGetPost(desiredSegment);
   const id = desiredSegment;
   const {} = useGetPostView(id);
 
@@ -154,13 +154,16 @@ function PostPageViewWrapper({ header_url, token }: PostProps) {
       </div>
 
       <div className="mx-auto max-w-[812.5px]">
-        <Comments
-          commentCount={singlePostData?.post?.comments_count!}
-          comments={singlePostData?.post?.comments!}
-          postId={singlePostData?.post?.id!}
-          isMine={singlePostData?.post?.user?.id == auth}
-          currentId={auth}
-        />
+        <Suspense>
+          <Comments
+            commentCount={singlePostData?.post?.comments_count!}
+            comments={singlePostData?.post?.comments!}
+            postId={singlePostData?.post?.id!}
+            isMine={singlePostData?.post?.user?.id == auth}
+            currentId={auth}
+            handleRefetch={handleRefetch}
+          />
+        </Suspense>
       </div>
       <div className="h-[40vh]"></div>
     </>

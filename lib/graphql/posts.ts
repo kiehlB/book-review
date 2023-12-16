@@ -126,6 +126,16 @@ export const GET_Post = gql`
           has_replies
           created_at
           updated_at
+          user {
+            id
+            username
+            profile {
+              id
+              bio
+              profile_name
+              thumbnail
+            }
+          }
         }
         replies_count
       }
@@ -337,30 +347,6 @@ export const Create_Post = gql`
 export const RELOAD_COMMENTS = gql`
   query ReloadComments($id: String!) {
     post(id: $id) {
-      id
-      title
-      body
-      thumbnail
-      likes
-      views
-      is_temp
-      is_private
-      comments_count
-      released_at
-      created_at
-      updated_at
-      liked
-      bookInfo {
-        bookTitle
-        bookContent
-        bookUrl
-        bookIsbn
-        bookAuthors
-      }
-      user {
-        id
-        username
-      }
       comments {
         id
         text

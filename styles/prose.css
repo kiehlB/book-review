@@ -135,9 +135,17 @@
       font-size: 2rem;
     }
     .prose .ptag{
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 375px) {
+    
+    .prose .ptag{
       font-size: 1rem;
     }
   }
+
  
   .prose ol li::marker {
     color: #ffb300;

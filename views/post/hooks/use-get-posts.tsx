@@ -8,11 +8,10 @@ import useFetchScroll from '@/hooks/use-fetch-scroll';
 import useScrollPagination from '@/hooks/use-scroll-pagination';
 
 export default function useGetPosts() {
-  const { data, fetchMore } = useSuspenseQuery<{ recentPosts: Post[] }>(GET_recentPosts, {
+  const { data, fetchMore } = useSuspenseQuery<{ recentPosts: any[] }>(GET_recentPosts, {
     variables: {
       limit: 24,
     },
-    fetchPolicy: 'cache-first',
   });
 
   const [isFinished, setIsFinished] = useState(false);
@@ -42,11 +41,12 @@ export default function useGetPosts() {
   );
 
   const cursor = data?.recentPosts[data?.recentPosts.length - 1]?.id;
-  // useFetchScroll(cursor, onLoadMore, isFinished);
-  useScrollPagination({
-    cursor,
-    onLoadMore,
-  });
+
+  // useScrollPagination({
+  //   cursor,
+  //   data,
+  //   onLoadMore,
+  // });
 
   return { data, isFinished };
 }

@@ -1,6 +1,4 @@
-import useMounted from '@/hooks/use-mounted';
 import { Remove_Post } from '@/lib/graphql/posts';
-import { useAuthStore } from '@/store/auth';
 import useBookStore from '@/store/book';
 import { useApolloClient, useMutation } from '@apollo/client';
 import Link from 'next/link';

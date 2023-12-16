@@ -47,10 +47,10 @@ export default function useGetPostsBy({ isTemp = false }: useGetPostProps) {
 
   const cursor = data?.posts[data?.posts.length - 1]?.id;
 
-  useScrollPagination({
-    cursor,
-    onLoadMore,
-  });
+  // useScrollPagination({
+  //   cursor,
+  //   onLoadMore,
+  // });
 
   return { data, loading, isFinished };
 }

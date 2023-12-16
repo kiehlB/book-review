@@ -10,10 +10,12 @@ import useProfile from './hooks/use-profile';
 import { useAuthStore } from '@/store/auth';
 import ProfileThumbnail from './profile-thumbnail';
 
-export type SettingCardProps = {};
+export type SettingCardProps = {
+  token: any;
+};
 
-function SettingCard({}: SettingCardProps) {
-  const { getUser } = useGetUser();
+function SettingCard({ token }: SettingCardProps) {
+  const { getUser } = useGetUser(token);
   const { handleSubmit } = useProfile();
   const [readyForFile, setreadyForFile] = useState('');
   const [previewSource, setPreviewSource] = useState(0);
