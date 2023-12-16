@@ -9,7 +9,7 @@ export default function MainPage() {
   return (
     <>
       <HomeTitle title="내 정보 설정" />
-      <SettingCard token={token} />;
+      <SettingCard />;
     </>
   );
 }
