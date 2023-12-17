@@ -13,21 +13,6 @@ function AuthContainer({}: AuthContainerProps) {
 
   return (
     <>
-      <Script
-        defer
-        strategy="lazyOnload"
-        src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
-
-      <Script
-        defer
-        strategy="lazyOnload"
-        src="https://developers.kakao.com/sdk/js/kakao.js"></Script>
-
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-R64H1TLKCP"
-        strategy="lazyOnload"
-      />
       <Modal visible={isClose} onClose={setClose} className="h-[46.25rem] w-[38.625rem]">
         <header className="flex justify-center py-6 text-[1.3125rem] font-semibold">
           <h1 className="text-default dark:text-dark-200">
