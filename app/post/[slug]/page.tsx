@@ -1,3 +1,4 @@
+import { Core } from '@/components/core';
 import { PageLayout } from '@/components/layout/page-layout';
 import PostViewLoading from '@/components/loading/post-view-loading';
 import { PostPageSkeleton } from '@/views/post-view/post-skeleton';
@@ -13,11 +14,14 @@ function PostPage() {
   const token = cookieStore.get('access_token');
 
   return (
-    <PageLayout token={token}>
-      <Suspense fallback={<PostPageSkeleton />}>
-        <PostPageViewWrapper header_url={header_url} />;
-      </Suspense>
-    </PageLayout>
+    <>
+      <Core />
+      <PageLayout token={token}>
+        <Suspense fallback={<PostPageSkeleton />}>
+          <PostPageViewWrapper header_url={header_url} />;
+        </Suspense>
+      </PageLayout>
+    </>
   );
 }
 

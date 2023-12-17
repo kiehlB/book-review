@@ -1,5 +1,6 @@
 import useCoreStore from '@/store/core';
 import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import { MouseEventHandler } from 'react';
 
 export type MenuToggleProps = {
@@ -17,7 +18,7 @@ export type PathProps = {
   d?: string;
   transition?: { duration: number };
   isOpen: boolean;
-  isdark: string;
+  isdark: string | undefined;
 };
 
 function Path(props: PathProps) {
@@ -45,7 +46,7 @@ function Path(props: PathProps) {
 }
 
 function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
-  const { isdark } = useCoreStore();
+  const { theme } = useTheme();
 
   return (
     <button
@@ -55,7 +56,7 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
       onClick={toggle}>
       <svg width="24" height="24" viewBox="0 0 23 23">
         <Path
-          isdark={isdark}
+          isdark={theme}
           isOpen={isOpen}
           variants={{
             closed: { d: 'M 2 2.5 L 20 2.5' },
@@ -63,7 +64,7 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
           }}
         />
         <Path
-          isdark={isdark}
+          isdark={theme}
           isOpen={isOpen}
           d="M 2 9.423 L 20 9.423"
           variants={{
@@ -73,7 +74,7 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
           transition={{ duration: 0.1 }}
         />
         <Path
-          isdark={isdark}
+          isdark={theme}
           isOpen={isOpen}
           variants={{
             closed: { d: 'M 2 16.346 L 20 16.346' },

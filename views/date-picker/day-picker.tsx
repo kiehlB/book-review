@@ -9,6 +9,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useRouter } from 'next/navigation';
 import useCoreStore from '@/store/core';
 import styled from 'styled-components';
+import { useTheme } from 'next-themes';
 
 function CustomCaption(props: CaptionProps) {
   const { goToMonth, nextMonth, previousMonth } = useNavigation();
@@ -51,7 +52,8 @@ const DateRangePicker = ({
   setSelectedByUser,
   ...otherProps
 }: DateRangePickerProps) => {
-  const { isdark, setTimestamp } = useCoreStore();
+  const { theme } = useTheme();
+  const { setTimestamp } = useCoreStore();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const router = useRouter();
@@ -135,7 +137,7 @@ const DateRangePicker = ({
                 leaveTo="opacity-0 translate-y-1">
                 <Popover.Panel className="absolute right-0 w-[300px] overflow-hidden rounded-lg shadow-lg ring-1 ring-[#000000] ring-opacity-5 dark:bg-dark-400 dark:ring-dark-300">
                   <DayWrapper
-                    $isdark={isdark}
+                    $isdark={theme!}
                     className="relative grid bg-white dark:bg-dark-400 dark:text-white lg:grid-cols-1">
                     {ranges && (
                       <div className="flex flex-col border-b dark:bg-dark-400">

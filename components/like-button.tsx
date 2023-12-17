@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { toast } from 'react-toastify';
 import usePostLike from '@/views/post/hooks/use-post-like';
 import useCoreStore from '@/store/core';
+import { useTheme } from 'next-themes';
 
 export type PostProps = {
   id: string;
@@ -14,7 +15,7 @@ export type PostProps = {
 };
 
 export default function PawButton({ id, auth }: PostProps) {
-  const { isdark } = useCoreStore();
+  const { theme } = useTheme();
   const { data, onLikeToggle } = usePostLike(id, auth);
 
   let confettiAmount = 60;
@@ -94,7 +95,7 @@ export default function PawButton({ id, auth }: PostProps) {
   return (
     <>
       <div onClick={debounced}>
-        <Paw className={clsx('paw-button')} $isLike={data?.post?.liked!} $isdark={isdark}>
+        <Paw className={clsx('paw-button')} $isLike={data?.post?.liked!} $isdark={theme!}>
           <div className="text">
             <svg>
               <use xlinkHref="#heart"></use>

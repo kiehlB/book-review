@@ -54,7 +54,7 @@ function PostCardItem({ post }: GridProps) {
   return (
     <Link
       href={`/post/${post.id}`}
-      className="border-stone-100 relative col-span-2 h-full w-full transform cursor-pointer rounded-xl border shadow-md transition duration-500 ease-in-out hover:translate-y-[-15px] hover:shadow-lg dark:border-none dark:bg-dark-400 mxl:col-span-4 mms:col-span-6 mxs:col-span-12">
+      className="border-stone-100 relative col-span-2 h-full w-full transform cursor-pointer rounded-lg border shadow-md transition duration-500 ease-in-out hover:translate-y-[-15px] hover:shadow-lg dark:border-none dark:bg-dark-400 mxl:col-span-4 mms:col-span-6 mxs:col-span-12">
       <div className="flex h-full flex-1 flex-col">
         {post?.thumbnail && (
           <RatioImage

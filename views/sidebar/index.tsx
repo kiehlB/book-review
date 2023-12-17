@@ -5,6 +5,7 @@ import { motion, useCycle } from 'framer-motion';
 import React, { SetStateAction, useEffect, useRef } from 'react';
 import { SideMenu } from './side-menu';
 import MenuToggle from '@/components/framer-menu-toggle';
+import { useTheme } from 'next-themes';
 
 export type SidebarProps = {
   SetBookClose: () => void;

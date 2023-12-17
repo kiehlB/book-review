@@ -4,11 +4,12 @@ import { useHeadingsData } from '@/hooks/use-headings-data';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { getScrollTop } from '@/lib/utils';
 import useCoreStore from '@/store/core';
+import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const PostTableOfContents = () => {
-  const { isdark } = useCoreStore();
+  const { theme } = useTheme();
   const [activeId, setActiveId] = useState('');
   const { nestedHeadings } = useHeadingsData();
 
@@ -94,7 +95,7 @@ const PostTableOfContents = () => {
       className="scrollbar-thumb-slate-600 flex max-h-[calc(100vh-128px)] flex-col overflow-x-hidden overflow-y-scroll border-l-2 text-[#868e96] scrollbar scrollbar-track-gray-100 scrollbar-w-1 dark:text-[#acacac]">
       {nestedHeadings?.map(item => (
         <Toc
-          $isdark={isdark}
+          $isdark={theme!}
           className="mt-[6px] text-sm"
           $active={activeId === item.id}
           key={item.id}

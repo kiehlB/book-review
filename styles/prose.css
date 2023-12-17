@@ -223,59 +223,41 @@
     background: none;
     font-size: 0.8rem;
   }
-
+  
   .prose .quote {
     margin: 0 auto;
     position: relative;
     padding-left: 55px;
-    margin: 72px 0;
+    margin: 75px 0;
     border-left: none;
-  
- 
-    @media (max-width: 1024px) {
-      margin: 32px 0;
+  }
+
+
+  .prose .quote ::before {
+    color: #fcd545;
+    font-size: 100px;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    line-height: 0.9;
+    content: open-quote;
+    vertical-align: top;
+
+    position: absolute;
+    left: -5px;
+
+  }
+  .prose .quote ::after {
+    visibility: hidden;
+    content: close-quote;
+  }
+
+  @media (max-width: 768px) {
+    .prose .quote{
+      margin: 25px 0;
+      font-size: 70px;
       padding-left: 40px;
     }
-  
-     
-    @media (max-width: 768px) {
-      margin: 24px 0;
-    }
-  
-    &:before {
-      color: #fcd545;
-      font-size: 100px;
-      border:none;
-      border-left: none;
-  
-       
-      @media (max-width: 1024px) {
-        font-size: 80px;
-      }
-  
-       
-      @media (max-width: 768px) {
-        font-size: 70px;
-        left: 0px;
-      }
-  
-      line-height: 0.9;
-      content: open-quote;
-      vertical-align: top;
-      position: absolute;
-      left: -5px;
-  
-       
-      @media (max-width: 768px) {
-        left: 0px;
-      }
-    }
-  
-    &:after {
-      visibility: hidden;
-      
-    }
   }
+
 
   .prose hr {
     border-top: 2px solid rgba(#0d0d0d, 0.1);

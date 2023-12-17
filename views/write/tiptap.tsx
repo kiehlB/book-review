@@ -35,6 +35,7 @@ import { UPLOAD_IMAGE_TO_CLOUDINARY } from '../../lib/graphql/posts';
 import { Post, UploadImageToCloudinaryMutation } from '../../types/apolloComponent';
 import useBookStore from '@/store/book';
 import useCoreStore from '@/store/core';
+import { useTheme } from 'next-themes';
 
 export type TapProps = {
   postId: string | null;
@@ -56,7 +57,7 @@ function Tap({ postId, posts }: TapProps) {
     isopen: state.isopen,
   }));
 
-  const { isdark } = useCoreStore();
+  const { theme } = useTheme();
 
   const [previewSource, setPreviewSource] = useState(0);
 
@@ -215,12 +216,12 @@ function Tap({ postId, posts }: TapProps) {
   return (
     <>
       <div className="sticky top-0 z-50 bg-white px-[1rem] dark:bg-dark-500 mxs:px-2">
-        <ProjectCreateContentToolbar editor={editor} isdark={isdark}>
+        <ProjectCreateContentToolbar editor={editor} isdark={theme!}>
           <ImageAdd addImage={addImage} previewSource={previewSource} />
         </ProjectCreateContentToolbar>
       </div>
 
-      <Content className="mt-2 w-full px-[1rem] mxs:px-2" isdark={isdark}>
+      <Content className="mt-2 w-full px-[1rem] mxs:px-2" $isdark={theme!}>
         <EditorContent
           editor={editor}
           className=""
@@ -236,7 +237,7 @@ function Tap({ postId, posts }: TapProps) {
 
 export default Tap;
 
-const Content = styled.div<{ isdark: string }>`
+const Content = styled.div<{ $isdark: string }>`
   iframe {
     border-radius: 4px;
     min-width: 280px;
@@ -292,7 +293,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       margin-top: 2.5rem;
       letter-spacing: -0.004em;
-      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      color: ${props => (props.$isdark == 'dark' ? '#CFCFCF' : '#212529')};
 
       ${media.custom(768)} {
         font-size: 2rem;
@@ -305,7 +306,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       margin-top: 2.5rem;
       letter-spacing: -0.004em;
-      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      color: ${props => (props.$isdark == 'dark' ? '#CFCFCF' : '#212529')};
       ${media.custom(768)} {
         font-size: 1.5rem;
       }
@@ -316,7 +317,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       margin-top: 1.5rem;
       letter-spacing: -0.004em;
-      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      color: ${props => (props.$isdark == 'dark' ? '#CFCFCF' : '#212529')};
       ${media.custom(768)} {
         font-size: 1.15rem;
       }
@@ -327,7 +328,7 @@ const Content = styled.div<{ isdark: string }>`
       margin-bottom: 1rem;
       letter-spacing: -0.004em;
       margin-top: 1.5rem;
-      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      color: ${props => (props.$isdark == 'dark' ? '#CFCFCF' : '#212529')};
       ${media.custom(768)} {
         font-size: 1rem;
       }
@@ -398,7 +399,7 @@ const Content = styled.div<{ isdark: string }>`
           list-style: none;
           margin-left: 0;
           margin-right: 0;
-          color: ${props => (props.isdark == 'dark' ? 'white' : '#212529')};
+          color: ${props => (props.$isdark == 'dark' ? 'white' : '#212529')};
           padding: 0;
           margin: 0;
         }
@@ -412,11 +413,11 @@ const Content = styled.div<{ isdark: string }>`
           list-style: none;
         }
       }
-      color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
-      background: ${props => (props.isdark == 'dark' ? '#242526' : '')};
+      color: ${props => (props.$isdark == 'dark' ? '#CFCFCF' : '#212529')};
+      background: ${props => (props.$isdark == 'dark' ? '#242526' : '')};
 
       .toc__list::before {
-        color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#212529')};
+        color: ${props => (props.$isdark == 'dark' ? '#CFCFCF' : '#212529')};
       }
     }
 
@@ -478,7 +479,7 @@ const Content = styled.div<{ isdark: string }>`
     }
     line-height: 1.7;
     letter-spacing: -0.004em;
-    color: ${props => (props.isdark == 'dark' ? '#CFCFCF' : '#232629')};
+    color: ${props => (props.$isdark == 'dark' ? '#CFCFCF' : '#232629')};
     display: block;
 
     word-break: break-all;
