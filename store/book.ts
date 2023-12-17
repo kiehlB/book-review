@@ -48,7 +48,6 @@ interface BookState {
   postSave: boolean;
   Istemporary: boolean;
   commentId: string;
-  isSearchBook: boolean;
   searchBookName: string;
   setSearchBookName: (bookname: string) => void;
   setBook: (book: BookData | null) => void;
@@ -65,7 +64,6 @@ interface BookState {
   setPostSave: (postSave: boolean) => void;
   setIstemporary: (Istemporary: boolean) => void;
   setCommentId: (commentId: string) => void;
-  setIsSearchBook: () => void;
 }
 
 export const useBookStore = create(
@@ -99,7 +97,6 @@ export const useBookStore = create(
       body: '',
       tags: [],
       publish: false,
-      isSearchBook: false,
       isPrivate: false,
       thumbnail: null,
       postId: null,
@@ -121,7 +118,6 @@ export const useBookStore = create(
       setPostId: postId => set({ postId }),
       setIsTemp: isTemp => set({ isTemp }),
       setIsOpen: () => set(state => ({ isopen: !state.isopen })),
-      setIsSearchBook: () => set(state => ({ isSearchBook: !state.isSearchBook })),
       setPostSave: postSave => set({ postSave }),
       setIstemporary: Istemporary => set({ Istemporary }),
       setCommentId: commentId => set({ commentId }),

@@ -9,8 +9,8 @@ import { IoMdClose } from 'react-icons/io';
 interface SearchBookProps {}
 
 function SearchBook({}: SearchBookProps) {
-  const { bookIsClose, setBookClose } = useModalStore();
-  const { isSearchBook, setSearchBookName, setIsSearchBook } = useBookStore();
+  const { bookIsClose, setBookClose, isSearchBook, setIsSearchBook } = useModalStore();
+  const { setSearchBookName } = useBookStore();
 
   const [isPending, startTransition] = useTransition();
   const [isDisplayed, setIsDisplayed] = useState(false);
@@ -55,7 +55,7 @@ function SearchBook({}: SearchBookProps) {
   return (
     <div
       style={containerStyle}
-      className="fixed left-0 top-0 flex  h-full w-full justify-center bg-[#000000c5] mxs:bg-gray-200">
+      className="top-0flex fixed left-0  h-full w-full justify-center bg-[#000000c5] mxs:bg-gray-200">
       <div className="relative flex h-full w-full translate-y-[-10rem] items-center justify-center">
         <div className="relative flex h-full w-[768px] max-w-[768px] items-center mxs:w-[80%]  mxx:w-[95%]">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">

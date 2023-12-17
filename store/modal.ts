@@ -11,9 +11,13 @@ interface ModalState {
   mode: string;
   setMode: (value: string) => void;
   setisSearch: () => void;
+  isSearchBook: boolean;
+  setIsSearchBook: () => void;
 }
 
 const useModalStore = create<ModalState>(set => ({
+  isSearchBook: false,
+  setIsSearchBook: () => set(state => ({ isSearchBook: !state.isSearchBook })),
   isSearch: false,
   isClose: false,
   setClose: isClose => set({ isClose }),

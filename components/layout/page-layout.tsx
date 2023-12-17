@@ -18,8 +18,7 @@ interface PageLayoutProps {
 }
 
 function PageLayout({ children, token }: PageLayoutProps) {
-  const { isClose, setClose, setMode } = useModalStore();
-  const { isSearchBook, setIsSearchBook } = useBookStore();
+  const { isClose, setClose, setMode, isSearchBook, setIsSearchBook } = useModalStore();
 
   const { getUser } = useGetUser();
 
