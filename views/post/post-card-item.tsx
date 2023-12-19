@@ -36,7 +36,7 @@ function PostCardContent({ post }: GridProps) {
         </PostBodyComponent>
       </div>
 
-      <div className="mt-6 flex justify-between p-4 leading-normal text-[#2e2e2e] dark:text-darkText">
+      <div className="mt-[1.2rem] flex justify-between p-4 leading-normal text-[#2e2e2e] dark:text-darkText">
         <div className="flex text-xs font-semibold">
           <div className="mr-2">좋아요 {post?.likes}개</div>
           <div>댓글 {post?.comments_count}개</div>

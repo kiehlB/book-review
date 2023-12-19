@@ -14,6 +14,7 @@ import Comments from '../comments/comments';
 import PawButton from '@/components/like-button';
 import { Suspense } from 'react';
 import useGetUser from '../setting/hooks/use-get-user';
+import { shortenID } from '@/lib/temporary-id';
 
 export type PostProps = {
   header_url: string;
@@ -27,7 +28,10 @@ function PostPageViewWrapper({ header_url }: PostProps) {
   const { singlePostData, handleRefetch } = useGetPost(desiredSegment);
   const id = desiredSegment;
   const {} = useGetPostView(id);
-
+  const username =
+    singlePostData?.post?.user?.profile?.profile_name ||
+    singlePostData?.post?.user?.username ||
+    shortenID(singlePostData?.post?.user?.id || '');
   return (
     <>
       <div className="mx-auto my-[3rem] line-clamp-3  h-full max-w-[72rem] px-[5rem] text-center text-[2.5rem] font-bold leading-normal text-[#212529] dark:text-[#ececec] mms:px-[3rem]  mms:text-[2rem] mxs:my-[2rem] mxs:max-w-[100%]  mxs:px-[0rem] mxs:text-[1.5rem]">
@@ -50,11 +54,7 @@ function PostPageViewWrapper({ header_url }: PostProps) {
               <ProfileIcon className="block h-[42px] w-[42px] rounded-[50%] object-cover mxs:h-[40px] mxs:w-[40px]" />
             )}
 
-            <div className="ml-2">
-              {singlePostData?.post?.user?.profile?.profile_name
-                ? singlePostData?.post?.user?.profile?.profile_name
-                : singlePostData?.post?.user?.username}
-            </div>
+            <div className="ml-2">{username}</div>
           </div>
         </div>
         <div className="mx-[0.75rem]  text-lg font-bold text-[#64748b]">·</div>

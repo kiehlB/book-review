@@ -8,8 +8,6 @@ import { PostGrid } from '@/components/layout/grid-layout';
 import useGetSearchPosts from '@/views/post/hooks/use-get-search-posts';
 import PostCard from '@/views/post/post-card';
 
-export const dynamic = 'force-dynamic';
-
 export default function MainPage() {
   const path = usePathname();
 
