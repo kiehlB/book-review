@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap'); */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 /* @font-face {
@@ -19,6 +19,16 @@
   font-display: swap;
 	src: url('../public/font/PretendardR.woff2') format('woff');
 } */
+
+.logoFont {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+}
+
+.authFont {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+}
 
 body {
   box-sizing: border-box;

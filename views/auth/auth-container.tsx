@@ -4,8 +4,7 @@ import Register from './register';
 import Login from './login';
 import Modal from '@/components/modal';
 import useModalStore from '@/store/modal';
-import Script from 'next/script';
-
+ 
 export type AuthContainerProps = {};
 
 function AuthContainer({}: AuthContainerProps) {

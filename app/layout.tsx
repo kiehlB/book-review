@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+
 import '@/styles/globals.css';
 import '@/styles/book.scss';
 import '@/styles/app.css';
@@ -12,6 +13,7 @@ import StyledComponentsRegistry from '@/lib/registry';
 import 'react-day-picker/dist/style.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { cookies } from 'next/headers';
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -45,6 +47,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+
       <body className="h-full transition duration-100 dark:bg-dark-500">
         <StyledComponentsRegistry>
           <ApolloWrapper token={token?.value}>

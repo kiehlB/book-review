@@ -3,7 +3,6 @@
 import { useHeadingsData } from '@/hooks/use-headings-data';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { getScrollTop } from '@/lib/utils';
-import useCoreStore from '@/store/core';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';

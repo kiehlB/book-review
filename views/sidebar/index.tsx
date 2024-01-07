@@ -10,7 +10,7 @@ import { useTheme } from 'next-themes';
 export type SidebarProps = {
   SetBookClose: () => void;
   BookIsClose: boolean;
-  getUser: string;
+  getUser: string | undefined;
 };
 
 const sidebar = {

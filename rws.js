@@ -1,13 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const directoriesToIgnore = ['node_modules', '.git', '.next'];
-const acceptedFileExtensions = ['.js', '.jsx', '.ts', '.tsx'];
-const defaultRootDirectory = './';
+const directoriesToIgnore = ["node_modules", ".git", ".next"];
+const acceptedFileExtensions = [".js", ".jsx", ".ts", ".tsx"];
+const defaultRootDirectory = "./";
 
 function removeWhiteSpaceFromJSX(jsxString) {
   const regex = /\s+/g;
-  return jsxString.replace(regex, ' ').trim();
+  return jsxString.replace(regex, " ").trim();
 }
 
 function shouldIgnoreDirectory(directoryName) {
@@ -17,16 +17,16 @@ function shouldIgnoreDirectory(directoryName) {
 function processDirectory(directoryPath) {
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
-      console.error('Error reading directory:', err);
+      console.error("Error reading directory:", err);
       return;
     }
 
-    files.forEach(file => {
+    files.forEach((file) => {
       const filePath = path.join(directoryPath, file);
 
       fs.stat(filePath, (err, stats) => {
         if (err) {
-          console.error('Error getting file stats:', err);
+          console.error("Error getting file stats:", err);
           return;
         }
 
@@ -35,9 +35,9 @@ function processDirectory(directoryPath) {
             processDirectory(filePath);
           }
         } else if (acceptedFileExtensions.includes(path.extname(file))) {
-          fs.readFile(filePath, 'utf8', (err, data) => {
+          fs.readFile(filePath, "utf8", (err, data) => {
             if (err) {
-              console.error('Error reading file:', err);
+              console.error("Error reading file:", err);
               return;
             }
 
@@ -46,12 +46,12 @@ function processDirectory(directoryPath) {
               (match, className) => {
                 const compactedClassName = removeWhiteSpaceFromJSX(className);
                 return `className="${compactedClassName}"`;
-              },
+              }
             );
 
-            fs.writeFile(filePath, modifiedContent, 'utf8', err => {
+            fs.writeFile(filePath, modifiedContent, "utf8", (err) => {
               if (err) {
-                console.error('Error writing file:', err);
+                console.error("Error writing file:", err);
               } else {
                 console.log(`Modified and saved: ${file}`);
               }

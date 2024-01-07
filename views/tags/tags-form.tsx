@@ -6,15 +6,13 @@ import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import transitions from '@/lib/transitions';
 import useBookStore from '@/store/book';
+import { Post } from '@/types/apolloComponent';
 
 export type TagsFormProps = {
   addTag?: (text: string) => void;
   StoreTag: string[];
   postId: string | null;
-  posts: {
-    id: string;
-    tags: { tag: { name: string } }[];
-  }[];
+  posts: Post[];
 };
 
 interface TagItemProps {
@@ -43,7 +41,11 @@ function TagsForm(props: TagsFormProps) {
 
   useEffect(() => {
     if (findPost?.length >= 1) {
-      setTags([...findPost[0]?.tags?.map(e => e?.tag?.name)]);
+      setTags([
+        ...(findPost[0]?.tags
+          ?.filter(e => e?.tag?.name !== undefined)
+          .map(e => e?.tag?.name ?? '') ?? []),
+      ] as string[]);
     }
   }, [props.postId]);
 

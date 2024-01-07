@@ -3,13 +3,11 @@
 import { CiDark, CiRead, CiUser } from 'react-icons/ci';
 import { CiLight } from 'react-icons/ci';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import React from 'react';
 import { useTheme } from 'next-themes';
 import useCoreStore from '@/store/core';
 import Sidebar from './sidebar';
-import { useRouter } from 'next/navigation';
 import { RequestCookie } from '@/components/layout/page-layout';
 import PopMenu from '@/components/popup-menu';
 import SearchInput from '@/components/input/search-input';
@@ -17,6 +15,8 @@ import { AiOutlineEdit, AiOutlineUser } from 'react-icons/ai';
 import { TfiWrite } from 'react-icons/tfi';
 import { RiBookOpenLine } from 'react-icons/ri';
 import { IoSearchOutline } from 'react-icons/io5';
+import useGetTags from './tags/hooks/use-get-tags';
+import { WhoAmIQuery } from '@/types/apolloComponent';
 
 const iconTransformOrigin = { transformOrigin: '50% 100px' };
 function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' }) {
@@ -34,7 +34,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
     <button
       onClick={handleClick}
       className={clsx(
-        'inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 border-gray-200 p-1 transition hover:border-yellow-100 focus:outline-none dark:border-dark-200 dark:hover:border-dark-300 mms:h-12',
+        'inline-flex h-14 items-center justify-center overflow-hidden rounded-full border-2 border-gray-200 p-1 transition hover:border-yellow-100 focus:outline-none mms:h-12 dark:border-dark-200 dark:hover:border-dark-300',
         {
           'w-14 mms:w-12': variant === 'icon',
           'px-8': variant === 'labelled',
@@ -56,6 +56,7 @@ function DarkModeToggle({ variant = 'icon' }: { variant?: 'icon' | 'labelled' })
     </button>
   );
 }
+
 export type HeaderProps = {
   IsClose: boolean;
   SetIsClose: (value: boolean) => void;
@@ -63,7 +64,7 @@ export type HeaderProps = {
   BookIsClose: boolean;
   SetBookClose: () => void;
   token: RequestCookie | undefined;
-  getUser: any;
+  getUser: WhoAmIQuery | undefined;
 };
 
 function Header({
@@ -72,30 +73,25 @@ function Header({
   SetIsClose,
   SetMode,
   SetBookClose,
-  token,
   getUser,
 }: HeaderProps) {
-  const [input, setInput] = useState('');
-  const router = useRouter();
+  const { data: Tags } = useGetTags({ sort: 'byName' }) as any;
+
+  const GetTags = Tags?.tags
+    ?.slice()
+    ?.sort(
+      (a: { posts_count: number }, b: { posts_count: number }) =>
+        b.posts_count - a.posts_count,
+    )
+    ?.slice(0, 6);
 
   const profile = getUser?.whoami?.profile?.thumbnail;
   const auth = getUser?.whoami?.id;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const trimmedValue = input.trim();
-
-    if (trimmedValue === '') {
-      return;
-    }
-
-    router.push(`/search/${input}`);
-  };
-
   const AuthButtons = () => (
     <>
       <div
-        className="cursor-pointer rounded-3xl pr-4 font-[Fredoka] text-sm font-semibold text-[#181A20] hover:text-[#495057] dark:text-darkText dark:hover:text-yellow-100 mxs:bg-yellow-100 mxs:px-[16px] mxs:py-[12px] dark:mxs:text-[#212529]"
+        className="cursor-pointer rounded-3xl pr-4 text-sm font-semibold text-[#181A20] hover:text-[#c99400] mxs:bg-yellow-100  mxs:px-[16px] mxs:py-[12px] dark:text-darkText dark:hover:text-[#f0b90b] dark:hover:text-yellow-100 dark:mxs:text-[#212529]"
         onClick={() => {
           SetMode('login');
           SetIsClose(!IsClose);
@@ -104,7 +100,7 @@ function Header({
       </div>
 
       <div
-        className="cursor-pointer rounded-3xl bg-yellow-100 bg-opacity-90 px-[20px] py-[12px] font-[Fredoka] text-sm font-semibold text-[#181A20]  dark:hover:brightness-90  mxs:hidden"
+        className=" cursor-pointer rounded-3xl bg-yellow-100 bg-opacity-90 px-[20px] py-[12px] text-sm font-semibold text-[#181A20] hover:text-opacity-80 mxs:hidden dark:hover:text-opacity-100 dark:hover:brightness-90"
         onClick={() => {
           SetMode('register');
           SetIsClose(!IsClose);
@@ -118,12 +114,12 @@ function Header({
     <div className="flex items-center">
       <div
         onClick={SetBookClose}
-        className="mr-4 cursor-pointer rounded-3xl border px-[20px] py-[10px] font-[Fredoka] text-sm font-semibold text-default hover:text-[#5b646d] dark:border-none dark:bg-dark-400 dark:text-[#cfcfcf] dark:hover:text-white mxs:hidden">
+        className="mr-4 cursor-pointer rounded-3xl border px-[20px] py-[10px] font-[Fredoka] text-sm font-semibold text-default hover:text-[#5b646d] mxs:hidden dark:border-none dark:bg-dark-400 dark:text-[#cfcfcf] dark:hover:text-white">
         Write
       </div>
 
       <PopMenu
-        profileThumbnail={profile}
+        profileThumbnail={profile ?? ''}
         primaryItems={[
           [
             { href: '/profile', icon: AiOutlineEdit, label: '내 정보' },
@@ -151,9 +147,8 @@ function Header({
     <header
       className={`mx-auto grid max-w-[98.5rem] grid-cols-10 items-center gap-6 py-[1rem] mxl:max-w-[75rem] mmd:flex mmd:w-full mmd:grid-cols-none`}>
       <div
-        className={`mms:col-span-none col-span-2 whitespace-nowrap text-[1.5625rem] text-default transition focus:outline-none dark:text-[#ececec] mxl:col-span-2`}>
+        className={`mms:col-span-none col-span-2 whitespace-nowrap text-[1.5625rem] text-default transition focus:outline-none mxl:col-span-2 dark:text-[#ececec]`}>
         <span className="flex items-center">
-          <div className="mr-2 md:hidden mxs:mr-1"></div>
           <div className="mr-2 md:hidden mxs:mr-1">
             <Sidebar
               BookIsClose={BookIsClose}
@@ -162,21 +157,21 @@ function Header({
             />
           </div>
 
-          <Link href="/" className={`font-Fredoka text-[28px] mxs:hidden mxs:text-2xl`}>
+          <Link href="/" className={`logoFont text-[28px] mxs:hidden mxs:text-2xl`}>
             BookReview
           </Link>
-          <Link href="/" className={`font-Fredoka text-[28px] sm:hidden mxs:text-2xl`}>
+          <Link href="/" className={`logoFont text-[28px] sm:hidden mxs:text-2xl`}>
             BR
           </Link>
         </span>
       </div>
 
-      <SearchInput input={input} setInput={setInput} handleSubmit={handleSubmit} />
+      <SearchInput GetTags={GetTags} />
 
       <div className="col-span-2 ml-auto flex items-center justify-end mxl:col-span-3">
         <button
           className={clsx(
-            'mr-6 inline-flex items-center justify-center overflow-hidden rounded-full border-gray-200 transition hover:border-yellow-100 focus:outline-none dark:border-dark-200 dark:hover:border-dark-300 md:hidden mms:h-12 mms:w-12 mxs:mr-2',
+            'mr-6 inline-flex items-center justify-center overflow-hidden rounded-full border-gray-200 transition hover:border-yellow-100 focus:outline-none md:hidden mms:h-12 mms:w-12 mxs:mr-2 dark:border-dark-200 dark:hover:border-dark-300',
           )}
           aria-label="Search">
           <div className="relative h-8 w-8">

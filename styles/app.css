@@ -110,3 +110,16 @@
       opacity: 0.5;
     }
   }
+
+  .search-input-container {
+    position: relative; 
+    
+  }
+  
+  .search-ul {
+    position: absolute;
+    top: 100%;  
+    left: 0;
+    width: 100%;  
+ 
+  }

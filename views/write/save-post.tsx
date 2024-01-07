@@ -6,7 +6,7 @@ import { Post } from '@/types/apolloComponent';
 export type TapProps = { value: string; getUser: string | null };
 
 function SavePost({ value, getUser }: TapProps) {
-  const { posts, loading, onConfirmRemove } = useCreateSavePost(getUser);
+  const { posts, onConfirmRemove } = useCreateSavePost(getUser);
   const [isCollapse, setIsCollapse] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [activePopover, setActivePopover] = useState('');
@@ -22,7 +22,7 @@ function SavePost({ value, getUser }: TapProps) {
   const onToggle = () => setIsOpen(s => !s);
 
   const isFilterData = value
-    ? posts?.filter((e: { title: string | string[] }) => e?.title?.includes(value))
+    ? posts?.filter((e: Post) => e?.title?.includes(value))
     : posts;
 
   const springProps = useSpring({
@@ -39,7 +39,7 @@ function SavePost({ value, getUser }: TapProps) {
         className="flex items-center justify-between px-4 text-base font-bold text-gray-400 dark:text-dark-100"
         onClick={() => setIsCollapse(!isCollapse)}>
         <div onClick={onToggle} className="dark:text-[#D3D3D3]">
-          임시 저장 글 ({isFilterData?.length})
+          임시 저장 글 ({isFilterData?.length ? isFilterData?.length : 0})
         </div>
         <div onClick={onToggle}>
           <svg

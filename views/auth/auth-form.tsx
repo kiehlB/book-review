@@ -2,8 +2,7 @@
 
 import { useForm } from '@/hooks/use-form';
 import { validate } from '@/lib/utils';
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
 import SocialButton from './socal-button';
 import Image from 'next/image';
 import {
@@ -17,8 +16,6 @@ import { toast } from 'react-toastify';
 import useModalStore from '@/store/modal';
 import { Google } from '@/components/icons';
 import LabelInput from '@/components/input/label-input';
-import Script from 'next/script';
-import Head from 'next/head';
 
 type LoginFunction = (options: {
   variables: LoginMutationVariables;
@@ -50,7 +47,7 @@ const authDescriptions = {
 } as const;
 
 function AuthForm({ mode, login, register, error }: Props) {
-  const { isClose, setMode } = useModalStore();
+  const { setMode } = useModalStore();
 
   const naverRef = React.useRef<HTMLDivElement>(null);
 

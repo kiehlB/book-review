@@ -10,6 +10,7 @@ import { Core } from '@/components/core';
 import { Suspense } from 'react';
 import TagLoading from '@/components/loading/tags-loading';
 import Tags from '@/views/tags/post-tags';
+import { MdRssFeed } from 'react-icons/md';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -34,9 +35,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     sub: ['/search', '/search/[query]', '/trending'],
                   },
                   {
-                    icon: <AiFillNotification />,
-                    text: '게시판',
-                    to: '/board',
+                    icon: <MdRssFeed />,
+                    text: '피드',
+                    to: '/feed',
                   },
                   {
                     icon: <BsTagFill />,

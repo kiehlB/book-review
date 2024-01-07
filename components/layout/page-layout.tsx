@@ -3,7 +3,6 @@
 import useModalStore from '@/store/modal';
 import { ToastContainer } from 'react-toastify';
 import FloatingHeader from '../floating';
-import useBookStore from '@/store/book';
 import Header from '@/views/app-bar';
 import useGetUser from '@/views/setting/hooks/use-get-user';
 

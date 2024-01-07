@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "pbuild": "set \"ANALYZE=true\" && yarn build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,6 +14,7 @@
     "@apollo/client": "^3.8.7",
     "@apollo/experimental-nextjs-app-support": "^0.5.1",
     "@headlessui/react": "^1.7.17",
+    "@next/bundle-analyzer": "^14.0.4",
     "@plaiceholder/next": "^3.0.0",
     "@react-spring/web": "^9.7.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -36,6 +38,7 @@
     "clsx": "^2.0.0",
     "cssnano": "^6.0.1",
     "date-fns": "^2.30.0",
+    "downshift": "^8.3.1",
     "framer-motion": "^10.16.5",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
@@ -74,7 +77,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
     "prettier": "^3.1.0",
-    "prettier-plugin-tailwindcss": "^0.5.7",
+    "prettier-plugin-tailwindcss": "^0.5.10",
     "typescript": "^5"
   }
 }

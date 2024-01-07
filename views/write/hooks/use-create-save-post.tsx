@@ -12,9 +12,11 @@ import {
 import {
   CreatePostMutation,
   EditPostMutation,
+  Post,
   RemovePostMutation,
 } from '../../../types/apolloComponent';
 import useBookStore, { BookData } from '@/store/book';
+import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 
 export default function useCreateSavePost(userId: string | null) {
   const { setPostId } = useBookStore(state => ({
@@ -27,7 +29,7 @@ export default function useCreateSavePost(userId: string | null) {
   const [editPost] = useMutation<EditPostMutation>(Edit_Post, {});
   const client = useApolloClient();
 
-  const { data, loading, refetch } = useQuery(GET_Posts, {
+  const { data, refetch } = useSuspenseQuery(GET_Posts, {
     variables: {
       id: userId,
       istemp: true,
@@ -35,7 +37,7 @@ export default function useCreateSavePost(userId: string | null) {
     skip: !userId,
   });
 
-  const posts = data?.posts;
+  const posts = (data as { posts: Post[] })?.posts;
 
   const ConfirmSave = async (
     id: string | null,
@@ -199,7 +201,9 @@ export default function useCreateSavePost(userId: string | null) {
           istemp: true,
         },
         data: {
-          posts: data.posts.filter((p: { id: string }) => p.id !== id),
+          posts: (data as { posts: { id: string }[] }).posts.filter(
+            (p: { id: string }) => p.id !== id,
+          ),
         },
       });
       toast.success('포스트가 삭제되었습니다.', {
@@ -218,6 +222,5 @@ export default function useCreateSavePost(userId: string | null) {
     onConfirmRemove,
     onConfirmSave,
     posts,
-    loading,
   };
 }

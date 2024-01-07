@@ -16,7 +16,7 @@ const variants = {
 export type SideMenuProps = {
   SetBookClose: () => void;
   BookIsClose: boolean;
-  getUser: string;
+  getUser: string | undefined;
   toggleOpen: () => void;
 };
 

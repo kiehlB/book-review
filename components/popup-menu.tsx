@@ -3,15 +3,11 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import Link from 'next/link';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { TfiWrite } from 'react-icons/tfi';
-import { RiBookOpenLine } from 'react-icons/ri';
-import { CiRead } from 'react-icons/ci';
 import { MdLogout } from 'react-icons/md';
 import { MdOutlineArrowDropDown } from 'react-icons/md';
 import useLogout from '@/views/auth/hooks/use-logout';
 
-const ProfileButton = ({ profileThumbnail }: { profileThumbnail: string }) => (
+const ProfileButton = ({ profileThumbnail }: { profileThumbnail: string | undefined }) => (
   <img
     className="h-[42px] w-[42px] rounded-full object-cover"
     src={

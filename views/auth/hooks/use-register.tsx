@@ -1,7 +1,6 @@
 'use client';
 
 import { useMutation } from '@apollo/client';
-import { RegisterMutation } from '@/types/apolloComponent';
 import { registerMutation, whoAmIQuery } from '@/lib/graphql/users';
 import { useAuthStore } from '@/store/auth';
 import useModalStore from '@/store/modal';

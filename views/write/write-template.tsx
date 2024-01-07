@@ -28,6 +28,8 @@ function WriteTemplate({}: TapProps) {
 
   const { posts } = useCreateSavePost(userId);
 
+  console.log(posts);
+
   return (
     <>
       <ToastContainer />
@@ -36,7 +38,7 @@ function WriteTemplate({}: TapProps) {
           <div className="flex h-[4.6875rem] items-center justify-center border-b px-4 py-4">
             <div className="item flex px-4 py-2">
               <BackLink href="/">
-                <div className="flex w-[240px] items-center justify-between pl-3 font-Fredoka text-lg text-[#334155] dark:text-[#D3D3D3] mxl:w-[200px]">
+                <div className="flex w-[240px] items-center justify-between pl-3 font-Fredoka text-lg text-[#334155] mxl:w-[200px] dark:text-[#D3D3D3]">
                   BookReview
                 </div>
               </BackLink>
